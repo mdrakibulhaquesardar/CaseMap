@@ -1,1 +1,6 @@
-// Flows will be imported for their side effects in this file.
+import { config } from 'dotenv';
+config();
+
+import '@/ai/flows/community-legal-q-and-a.ts';
+import '@/ai/flows/legal-document-summarization.ts';
+import '@/ai/flows/legal-tool-recommendation.ts';
