@@ -1,17 +1,26 @@
 import ProfileClient from "./ProfileClient";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Mail, MapPin, UserCheck } from "lucide-react";
+import { Mail, UserCheck } from "lucide-react";
+import Image from "next/image";
 
 export default function ProfilePage() {
   return (
     <div className="bg-muted/30">
         <div className="container mx-auto px-4 py-12">
             <div className="bg-card rounded-lg shadow-sm overflow-hidden mb-8">
-                <div className="h-40 bg-primary/10 relative">
+                <div className="h-40 relative">
+                     <Image 
+                        src="https://picsum.photos/1200/300"
+                        alt="Profile banner"
+                        layout="fill"
+                        objectFit="cover"
+                        data-ai-hint="abstract background"
+                     />
+                     <div className="absolute inset-0 bg-black/30" />
                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
                         <Avatar className="h-32 w-32 border-4 border-background">
-                            <AvatarImage src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Name" />
+                            <AvatarImage src="https://picsum.photos/150" alt="User Name" data-ai-hint="profile person" />
                             <AvatarFallback>UN</AvatarFallback>
                         </Avatar>
                      </div>
