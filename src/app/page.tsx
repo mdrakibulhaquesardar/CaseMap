@@ -1,42 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FeatureWithAdvantagesDemo } from "@/components/blocks/demo/FeatureWithAdvantages";
-import { FileText, Gavel, MapPin, MessagesSquare, Scale, Briefcase, Home, Shield } from "lucide-react";
+import { FileText, Gavel, MapPin, MessagesSquare, Scale, Briefcase, Home as HomeIcon, Shield } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
-const features = [
-  {
-    title: "Case Timeline Viewer",
-    description: "Visually track the progress of your case with an interactive timeline.",
-    icon: <Gavel className="w-8 h-8 text-primary" />,
-    link: "/timeline",
-  },
-  {
-    title: "AI Legal Summarizer",
-    description: "Simplify complex legal documents into easy-to-understand Bangla.",
-    icon: <FileText className="w-8 h-8 text-primary" />,
-    link: "/summarizer",
-  },
-  {
-    title: "Community Q&A",
-    description: "Ask legal questions and get answers from AI and the community.",
-    icon: <MessagesSquare className="w-8 h-8 text-primary" />,
-    link: "/faq",
-  },
-  {
-    title: "Legal Aid Finder",
-    description: "Locate nearby legal aid centers on an interactive map.",
-    icon: <MapPin className="w-8 h-8 text-primary" />,
-    link: "/legal-aid",
-  },
-];
 
 const legalTips = [
   {
     title: "Understanding Tenant Rights",
     description: "Learn about the legal protections available to tenants in Bangladesh, including rent control and eviction notices.",
-    icon: <Home className="w-8 h-8 text-primary" />,
+    icon: <HomeIcon className="w-8 h-8 text-primary" />,
     link: "/faq"
   },
   {
