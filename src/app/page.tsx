@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { FeatureWithAdvantagesDemo } from "@/components/blocks/demo/FeatureWithAdvantages";
 import { FileText, Gavel, MapPin, MessagesSquare, Scale } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -67,34 +68,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="w-full py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold font-headline">Our Services</h2>
-            <p className="mt-2 text-muted-foreground">Empowering you with the right tools and information.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature) => (
-              <Card key={feature.title} className="text-center hover:shadow-lg transition-shadow duration-300 flex flex-col">
-                <CardHeader className="items-center">
-                  <div className="bg-primary/10 p-4 rounded-full">
-                    {feature.icon}
-                  </div>
-                  <CardTitle className="mt-4">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <CardDescription>{feature.description}</CardDescription>
-                </CardContent>
-                <div className="p-6 pt-0">
-                  <Button asChild variant="link" className="text-accent">
-                    <Link href={feature.link}>Learn More &rarr;</Link>
-                  </Button>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FeatureWithAdvantagesDemo />
       
       <section className="w-full bg-card py-16 md:py-24">
         <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
