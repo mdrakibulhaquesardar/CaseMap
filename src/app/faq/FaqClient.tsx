@@ -2,22 +2,23 @@
 
 import { useState } from 'react';
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { faqData as initialFaqData } from '@/lib/dummy-data';
 import type { FaqItem } from '@/types';
-import { ThumbsUp, ThumbsDown, User, Bot, Sparkles, Send, Bookmark, Lightbulb, FileText, Gavel, MapPin } from 'lucide-react';
+import { ThumbsUp, ThumbsDown, User, Bot, Sparkles, Send, Bookmark, Lightbulb, FileText, Gavel, MapPin, MessageSquare } from 'lucide-react';
 import { askLegalQuestion } from '@/ai/flows/community-legal-q-and-a';
 import { legalToolRecommendation } from '@/ai/flows/legal-tool-recommendation';
 import { useToast } from '@/hooks/use-toast';
 import useLocalStorage from '@/hooks/useLocalStorage';
+import { Separator } from '@/components/ui/separator';
 
 export default function FaqClient() {
   const [faqs, setFaqs] = useState<FaqItem[]>(initialFaqData);
@@ -58,7 +59,6 @@ export default function FaqClient() {
         content: `**Recommended Tool: ${toolResponse.toolRecommendation}**\n\n${toolResponse.suitabilityReasoning}`
       };
       
-      // A bit of a hack to add the recommendation as a special answer
       (newFaqItem as any).recommendation = toolRecommendation;
 
       setFaqs([newFaqItem, ...faqs]);
@@ -94,21 +94,21 @@ export default function FaqClient() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <Card className="mb-8">
-        <CardContent className="p-6">
+    <div className="max-w-3xl mx-auto">
+      <Card className="mb-8 shadow-sm">
+        <CardContent className="p-4 sm:p-6">
           <h3 className="font-semibold text-lg mb-2">Ask a New Question</h3>
           <p className="text-muted-foreground text-sm mb-4">
             Can't find your answer? Ask our AI assistant.
           </p>
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <Input
               value={newQuestion}
               onChange={(e) => setNewQuestion(e.target.value)}
               placeholder="e.g., How do I file a consumer complaint?"
               disabled={isLoading}
             />
-            <Button onClick={handleAskQuestion} disabled={isLoading}>
+            <Button onClick={handleAskQuestion} disabled={isLoading} className="w-full sm:w-auto">
               {isLoading ? (
                 <Sparkles className="w-4 h-4 animate-spin mr-2" />
               ) : (
@@ -120,39 +120,37 @@ export default function FaqClient() {
         </CardContent>
       </Card>
 
-      <Accordion type="single" collapsible className="w-full">
+      <div className="space-y-6">
         {faqs.map((faq) => (
-          <AccordionItem key={faq.id} value={`item-${faq.id}`}>
-            <AccordionTrigger className="text-left hover:no-underline">
-              <div className="flex-1">
-                <h3 className="font-semibold text-base">{faq.question}</h3>
-                <div className="flex gap-2 mt-2 flex-wrap">
+          <Card key={faq.id} className="shadow-sm">
+            <CardHeader>
+              <CardTitle className="text-lg">{faq.question}</CardTitle>
+              <div className="flex gap-2 pt-2 flex-wrap">
                   {faq.tags.map((tag) => (
                     <Badge key={tag} variant="secondary">
                       {tag}
                     </Badge>
                   ))}
-                </div>
               </div>
-            </AccordionTrigger>
-            <AccordionContent className="pt-2">
+            </CardHeader>
+            <CardContent>
               {(faq as any).recommendation && (
                 <Card className="mb-4 border-accent bg-accent/10">
                   <CardContent className="p-4">
                     <div className="flex items-start gap-4">
                         {getToolIcon((faq as any).recommendation.toolRecommendation)}
                       <div>
-                        <h4 className="font-bold">Tool Recommendation: {(faq as any).recommendation.toolRecommendation}</h4>
-                        <p className="text-sm text-muted-foreground mt-1">{(faq as any).recommendation.suitabilityReasoning}</p>
+                        <h4 className="font-bold text-sm">Tool Recommendation: {(faq as any).recommendation.toolRecommendation}</h4>
+                        <p className="text-xs text-muted-foreground mt-1">{(faq as any).recommendation.suitabilityReasoning}</p>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
               )}
-              {faq.answers.map((answer) => (
-                <div key={answer.id} className="border-t py-4">
-                  <div className="flex items-start gap-3">
-                    <div className="bg-muted p-2 rounded-full">
+              <div className="space-y-4">
+                {faq.answers.map((answer) => (
+                  <div key={answer.id} className="flex items-start gap-3">
+                    <div className="bg-muted p-2 rounded-full mt-1">
                       {answer.author === 'AI Bot' ? (
                         <Bot className="w-5 h-5 text-primary" />
                       ) : (
@@ -160,33 +158,42 @@ export default function FaqClient() {
                       )}
                     </div>
                     <div className="flex-1">
-                      <p className="font-semibold text-sm">{answer.author}</p>
-                      <p className="text-muted-foreground text-xs">
-                        {new Date(answer.timestamp).toLocaleString()}
-                      </p>
-                      <p className="mt-2 text-foreground">{answer.content}</p>
-                      <div className="flex items-center gap-4 mt-3">
-                        <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground">
-                          <ThumbsUp className="w-4 h-4" /> {answer.upvotes}
+                      <div className="bg-muted rounded-lg p-3">
+                        <p className="font-semibold text-sm">{answer.author}</p>
+                        <p className="mt-1 text-foreground">{answer.content}</p>
+                      </div>
+                       <div className="flex items-center gap-2 mt-1">
+                        <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground text-xs">
+                          <ThumbsUp className="w-3 h-3" /> {answer.upvotes}
                         </Button>
-                        <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground">
-                          <ThumbsDown className="w-4 h-4" /> {answer.downvotes}
+                        <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground text-xs">
+                          <ThumbsDown className="w-3 h-3" /> {answer.downvotes}
                         </Button>
+                         <span className="text-xs text-muted-foreground">&middot;</span>
+                         <p className="text-muted-foreground text-xs">
+                          {new Date(answer.timestamp).toLocaleDateString()}
+                        </p>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-              <div className="mt-4 flex justify-end">
-                <Button variant="ghost" size="sm" onClick={() => toggleSaveFaq(faq)}>
+                ))}
+              </div>
+            </CardContent>
+            <Separator className="my-0" />
+            <CardFooter className="p-2">
+                <Button variant="ghost" size="sm" className="w-1/2" onClick={() => toggleSaveFaq(faq)}>
                   <Bookmark className={`w-4 h-4 mr-2 ${savedFaqs.some(item => item.id === faq.id) ? 'text-accent fill-accent' : ''}`} />
                   {savedFaqs.some(item => item.id === faq.id) ? 'Saved' : 'Save'}
                 </Button>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
+                <Separator orientation="vertical" className="h-6" />
+                <Button variant="ghost" size="sm" className="w-1/2">
+                    <MessageSquare className="w-4 h-4 mr-2"/>
+                    Comment
+                </Button>
+            </CardFooter>
+          </Card>
         ))}
-      </Accordion>
+      </div>
     </div>
   );
 }
