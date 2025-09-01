@@ -13,7 +13,7 @@ import {
   User,
   Info,
   Home,
-  Scale,
+  BookOpen,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
@@ -25,6 +25,7 @@ const navLinks = [
   { href: '/summarizer', label: 'Summarizer', icon: FileText },
   { href: '/faq', label: 'Q&A', icon: MessagesSquare },
   { href: '/legal-aid', label: 'Legal Aid', icon: MapPin },
+  { href: '/law-finder', label: 'Law Finder', icon: BookOpen },
   { href: '/profile', label: 'Profile', icon: User },
   { href: '/about', label: 'About', icon: Info },
 ];
