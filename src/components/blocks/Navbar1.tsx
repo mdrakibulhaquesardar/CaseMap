@@ -1,4 +1,4 @@
-import { Book, Menu, Sunset, Trees, Zap, ChevronDown } from "lucide-react";
+import { Book, ChevronDown, Menu, Sunset, Trees, Zap } from "lucide-react";
 import Link from "next/link";
 import {
   Accordion,
@@ -148,7 +148,7 @@ const Navbar1 = ({
   return (
     <header className="border-b">
       <div className="container">
-        <nav className="hidden justify-between lg:flex">
+        <nav className="hidden h-16 items-center justify-between lg:flex">
           <div className="flex items-center gap-6">
             <Link href={logo.url} className="flex items-center gap-2">
               <img src={logo.src} className="w-8" alt={logo.alt} />
@@ -162,7 +162,7 @@ const Navbar1 = ({
               </NavigationMenu>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
             <Button asChild variant="ghost" size="sm">
               <Link href={auth.login.url}>{auth.login.text}</Link>
             </Button>
@@ -172,7 +172,7 @@ const Navbar1 = ({
           </div>
         </nav>
         <div className="block lg:hidden">
-          <div className="flex items-center justify-between">
+          <div className="flex h-16 items-center justify-between">
             <Link href={logo.url} className="flex items-center gap-2">
               <img src={logo.src} className="w-8" alt={logo.alt} />
               <span className="text-lg font-semibold">{logo.title}</span>
