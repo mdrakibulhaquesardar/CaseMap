@@ -19,6 +19,16 @@ import { legalToolRecommendation } from '@/ai/flows/legal-tool-recommendation';
 import { useToast } from '@/hooks/use-toast';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { Separator } from '@/components/ui/separator';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
+
+
+const ITEMS_PER_PAGE = 5;
 
 export default function FaqClient() {
   const [faqs, setFaqs] = useState<FaqItem[]>(initialFaqData);
@@ -26,6 +36,13 @@ export default function FaqClient() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const [savedFaqs, setSavedFaqs] = useLocalStorage<FaqItem[]>('savedFaqs', []);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(faqs.length / ITEMS_PER_PAGE);
+  const currentFaqs = faqs.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   const handleAskQuestion = async () => {
     if (!newQuestion.trim()) return;
@@ -63,6 +80,7 @@ export default function FaqClient() {
 
       setFaqs([newFaqItem, ...faqs]);
       setNewQuestion('');
+      setCurrentPage(1);
     } catch (error) {
       console.error('Error fetching AI answers:', error);
       toast({
@@ -121,7 +139,7 @@ export default function FaqClient() {
       </Card>
 
       <div className="space-y-6">
-        {faqs.map((faq) => (
+        {currentFaqs.map((faq) => (
           <Card key={faq.id} className="shadow-sm">
             <CardHeader>
               <CardTitle className="text-lg">{faq.question}</CardTitle>
@@ -194,6 +212,35 @@ export default function FaqClient() {
           </Card>
         ))}
       </div>
+      <Pagination className="mt-8">
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious 
+              href="#" 
+              onClick={(e) => {
+                e.preventDefault();
+                setCurrentPage(p => Math.max(1, p - 1));
+              }}
+              className={currentPage === 1 ? "pointer-events-none opacity-50" : undefined}
+            />
+          </PaginationItem>
+           <PaginationItem>
+            <span className="p-2 text-sm">
+                Page {currentPage} of {totalPages}
+            </span>
+           </PaginationItem>
+          <PaginationItem>
+            <PaginationNext 
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setCurrentPage(p => Math.min(totalPages, p + 1));
+              }}
+               className={currentPage === totalPages ? "pointer-events-none opacity-50" : undefined}
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </div>
   );
 }
