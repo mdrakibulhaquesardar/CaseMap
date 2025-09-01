@@ -4,7 +4,6 @@ import { useState } from 'react';
 import {
   Card,
   CardContent,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -94,7 +93,7 @@ export default function FaqClient() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="w-full">
       <Card className="mb-8 shadow-sm">
         <CardContent className="p-4 sm:p-6">
           <h3 className="font-semibold text-lg mb-2">Ask a New Question</h3>
