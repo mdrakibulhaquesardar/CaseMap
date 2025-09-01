@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FeatureWithAdvantagesDemo } from "@/components/blocks/demo/FeatureWithAdvantages";
-import { FileText, Gavel, MapPin, MessagesSquare, Scale, Briefcase, Home as HomeIcon, Shield } from "lucide-react";
+import { FileText, Gavel, MapPin, MessagesSquare, Scale, Briefcase, Home as HomeIcon, Shield, MessageSquare as MessageSquareIcon, ThumbsUp } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
 
 const legalTips = [
   {
@@ -25,6 +26,30 @@ const legalTips = [
     link: "/faq"
   }
 ];
+
+const trendingQuestions = [
+    {
+        question: "ভাড়াটিয়া বাসা না ছাড়লে বা ভাড়া না দিলে করণীয় কি?",
+        answers: 2,
+        upvotes: 17,
+        tags: ["Property Law", "Tenant Rights"],
+        link: "/faq"
+    },
+    {
+        question: "ডিজিটাল নিরাপত্তা আইনে মামলা কিভাবে করব?",
+        answers: 1,
+        upvotes: 25,
+        tags: ["Cyber Crime", "Digital Security"],
+        link: "/faq"
+    },
+    {
+        question: "শ্রমিক হিসেবে আমার আইনি অধিকার কী কী?",
+        answers: 2,
+        upvotes: 26,
+        tags: ["Labor Law", "Worker Rights"],
+        link: "/faq"
+    }
+]
 
 export default function Home() {
   return (
@@ -96,6 +121,41 @@ export default function Home() {
             <Button asChild size="lg" variant="outline">
               <Link href="/faq">View All Tips</Link>
             </Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="w-full bg-muted/30 py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold font-headline">Trending Questions</h2>
+            <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+              See what others are asking and join the conversation in our community Q&A.
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto space-y-4">
+            {trendingQuestions.map((q, index) => (
+              <Link href={q.link} key={index} className="block">
+                <Card className="hover:shadow-md transition-shadow hover:border-primary/50">
+                    <CardContent className="p-4 flex items-center justify-between">
+                        <div>
+                            <h3 className="font-semibold">{q.question}</h3>
+                            <div className="flex items-center text-sm text-muted-foreground mt-2 gap-4">
+                                <div className="flex items-center gap-1.5">
+                                    <MessageSquareIcon className="w-4 h-4"/> {q.answers} Answers
+                                </div>
+                                <div className="flex items-center gap-1.5">
+                                    <ThumbsUp className="w-4 h-4" /> {q.upvotes} Upvotes
+                                </div>
+                            </div>
+                        </div>
+                        <div className="hidden sm:flex flex-wrap gap-2 justify-end max-w-xs">
+                           {q.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}
+                        </div>
+                    </CardContent>
+                </Card>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
