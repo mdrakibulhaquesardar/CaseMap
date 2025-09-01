@@ -24,6 +24,8 @@ export default function TimelineClient() {
     if (caseNumberFromQuery) {
       setCaseNumber(caseNumberFromQuery);
       handleSearch(caseNumberFromQuery);
+    } else if(savedCases.length > 0) {
+      handleSearch(savedCases[0].caseNumber)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
@@ -62,9 +64,10 @@ export default function TimelineClient() {
   const isCaseSaved = foundCase ? savedCases.some(c => c.caseNumber === foundCase.caseNumber) : false;
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="w-full">
       <Card className="mb-8">
-        <CardContent className="p-6">
+        <CardContent className="p-4 sm:p-6">
+           <h3 className="font-semibold text-lg mb-2">Search for a Case</h3>
           <div className="flex flex-col sm:flex-row gap-2">
             <div className="relative flex-grow">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -92,23 +95,23 @@ export default function TimelineClient() {
                 <CardTitle>{foundCase.title}</CardTitle>
                 <CardDescription>Case Number: {foundCase.caseNumber}</CardDescription>
               </div>
-              <Button variant="ghost" size="sm" onClick={toggleSaveCase}>
+              <Button variant="outline" size="sm" onClick={toggleSaveCase}>
                 <Bookmark className={`w-4 h-4 mr-2 ${isCaseSaved ? 'text-accent fill-accent' : ''}`} />
                 {isCaseSaved ? 'Saved' : 'Save Case'}
               </Button>
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <CaseTimelineDisplay timeline={foundCase.timeline} />
           </CardContent>
         </Card>
       ) : (
-        <Card className="text-center py-20">
+        <Card className="text-center py-20 flex flex-col items-center justify-center min-h-[400px]">
           <CardContent>
             <Info className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
             <h3 className="text-xl font-semibold">Track Your Case</h3>
-            <p className="text-muted-foreground mt-2">
-              Enter a case number above to see its timeline.
+            <p className="text-muted-foreground mt-2 max-w-sm mx-auto">
+              Enter a case number above to see its timeline, or select a saved case from the sidebar.
             </p>
           </CardContent>
         </Card>
