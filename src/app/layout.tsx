@@ -1,8 +1,8 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
-import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import { Navbar1Demo } from '@/components/blocks/demo/Navbar1';
 
 export const metadata: Metadata = {
   title: 'CaseMap Legal Companion',
@@ -22,7 +22,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased flex flex-col min-h-screen">
-        <Header />
+        <Navbar1Demo />
         <main className="flex-grow">{children}</main>
         <Footer />
         <Toaster />
