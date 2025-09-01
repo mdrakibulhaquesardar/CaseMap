@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FeatureWithAdvantagesDemo } from "@/components/blocks/demo/FeatureWithAdvantages";
-import { FileText, Gavel, MapPin, MessagesSquare, Scale } from "lucide-react";
+import { FileText, Gavel, MapPin, MessagesSquare, Scale, Briefcase, Home, Shield } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -30,6 +30,27 @@ const features = [
     icon: <MapPin className="w-8 h-8 text-primary" />,
     link: "/legal-aid",
   },
+];
+
+const legalTips = [
+  {
+    title: "Understanding Tenant Rights",
+    description: "Learn about the legal protections available to tenants in Bangladesh, including rent control and eviction notices.",
+    icon: <Home className="w-8 h-8 text-primary" />,
+    link: "/faq"
+  },
+  {
+    title: "Key Changes in Labor Law 2024",
+    description: "A brief overview of the recent amendments to the labor laws and how they affect your rights as a worker.",
+    icon: <Briefcase className="w-8 h-8 text-primary" />,
+    link: "/faq"
+  },
+  {
+    title: "How to File a Cybercrime Complaint",
+    description: "A step-by-step guide to reporting online harassment, fraud, and other digital crimes to the authorities.",
+    icon: <Shield className="w-8 h-8 text-primary" />,
+    link: "/faq"
+  }
 ];
 
 export default function Home() {
@@ -69,6 +90,42 @@ export default function Home() {
       </section>
 
       <FeatureWithAdvantagesDemo />
+
+      <section className="w-full bg-background py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold font-headline">Recent Legal Tips &amp; News</h2>
+            <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+              Stay informed with the latest updates and practical advice on common legal issues in Bangladesh.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {legalTips.map((tip, index) => (
+              <Card key={index} className="flex flex-col text-center items-center hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit mb-2">
+                    {tip.icon}
+                  </div>
+                  <CardTitle>{tip.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <p className="text-muted-foreground">{tip.description}</p>
+                </CardContent>
+                <div className="p-6 pt-0">
+                   <Button variant="link" asChild>
+                    <Link href={tip.link}>Read More</Link>
+                  </Button>
+                </div>
+              </Card>
+            ))}
+          </div>
+          <div className="text-center mt-12">
+            <Button asChild size="lg" variant="outline">
+              <Link href="/faq">View All Tips</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
       
       <section className="w-full bg-card py-16 md:py-24">
         <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
