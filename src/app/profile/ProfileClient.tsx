@@ -5,13 +5,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import type { CaseTimeline, FaqItem } from '@/types';
-import { Bookmark, Gavel, Trash2, Info } from 'lucide-react';
+import { Bookmark, Gavel, Trash2, Info, MessageSquare, ThumbsUp } from 'lucide-react';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
+import { caseTimelineData, faqData } from '@/lib/dummy-data';
 
 export default function ProfileClient() {
-  const [savedCases, setSavedCases] = useLocalStorage<CaseTimeline[]>('savedCases', []);
-  const [savedFaqs, setSavedFaqs] = useLocalStorage<FaqItem[]>('savedFaqs', []);
+  const [savedCases, setSavedCases] = useLocalStorage<CaseTimeline[]>('savedCases', Object.values(caseTimelineData));
+  const [savedFaqs, setSavedFaqs] = useLocalStorage<FaqItem[]>('savedFaqs', faqData.slice(0,2));
   const { toast } = useToast();
 
   const removeCase = (caseNumber: string) => {
@@ -26,7 +27,7 @@ export default function ProfileClient() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <Tabs defaultValue="cases">
+      <Tabs defaultValue="cases" className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="cases">
             <Gavel className="w-4 h-4 mr-2" />
@@ -37,6 +38,7 @@ export default function ProfileClient() {
             Saved Q&As ({savedFaqs.length})
           </TabsTrigger>
         </TabsList>
+
         <TabsContent value="cases">
           <Card>
             <CardHeader>
@@ -55,9 +57,9 @@ export default function ProfileClient() {
                     </div>
                     <div className="flex gap-2">
                       <Button asChild variant="outline" size="sm">
-                        <Link href={`/timeline?caseNumber=${c.caseNumber}`}>View</Link>
+                        <Link href={`/timeline?caseNumber=${c.caseNumber}`}>View Timeline</Link>
                       </Button>
-                      <Button variant="destructive" size="icon" onClick={() => removeCase(c.caseNumber)}>
+                      <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive" onClick={() => removeCase(c.caseNumber)}>
                         <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
@@ -75,6 +77,7 @@ export default function ProfileClient() {
             </CardContent>
           </Card>
         </TabsContent>
+
         <TabsContent value="faqs">
           <Card>
             <CardHeader>
@@ -86,13 +89,21 @@ export default function ProfileClient() {
             <CardContent className="space-y-4">
               {savedFaqs.length > 0 ? (
                 savedFaqs.map((faq) => (
-                   <div key={faq.id} className="flex items-center justify-between rounded-lg border p-4">
-                    <p className="font-semibold flex-1 truncate pr-4">{faq.question}</p>
-                     <div className="flex gap-2">
+                   <div key={faq.id} className="rounded-lg border p-4">
+                    <p className="font-semibold">{faq.question}</p>
+                    <div className="flex text-sm text-muted-foreground gap-4 mt-2">
+                        <div className="flex items-center gap-1">
+                            <MessageSquare className="w-4 h-4" /> {faq.answers.length} Answers
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <ThumbsUp className="w-4 h-4" /> {faq.answers.reduce((acc, a) => acc + a.upvotes, 0)} Upvotes
+                        </div>
+                    </div>
+                     <div className="flex gap-2 mt-4">
                        <Button asChild variant="outline" size="sm">
-                         <Link href="/faq">View</Link>
+                         <Link href="/faq">View Q&A</Link>
                        </Button>
-                       <Button variant="destructive" size="icon" onClick={() => removeFaq(faq.id)}>
+                       <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive" onClick={() => removeFaq(faq.id)}>
                          <Trash2 className="w-4 h-4" />
                        </Button>
                      </div>
