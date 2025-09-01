@@ -1,4 +1,4 @@
-import type { CaseTimeline, FaqItem } from "@/types";
+import type { CaseTimeline, FaqItem, LegalAidCenter } from "@/types";
 
 export const caseTimelineData: { [key: string]: CaseTimeline } = {
   "12345": {
@@ -26,13 +26,16 @@ export const caseTimelineData: { [key: string]: CaseTimeline } = {
   }
 };
 
-export const legalAidCenters = [
+export const legalAidCenters: LegalAidCenter[] = [
   {
     name: "BLAST Legal Aid Center",
     lat: 23.8103,
     lng: 90.4125,
     address: "House 123, Road 4, Gulshan, Dhaka",
     contact: "0123456789",
+    image: "https://picsum.photos/400/250?random=1",
+    services: ["Human Rights", "Family Law", "Criminal Case"],
+    division: "Dhaka",
   },
   {
     name: "BRAC Human Rights & Legal Aid Services",
@@ -40,6 +43,9 @@ export const legalAidCenters = [
     lng: 90.4,
     address: "BRAC Centre, 75 Mohakhali, Dhaka",
     contact: "0987654321",
+    image: "https://picsum.photos/400/250?random=2",
+    services: ["Labor Law", "Human Rights", "Land Dispute"],
+    division: "Dhaka",
   },
   {
     name: "Ain o Salish Kendra (ASK)",
@@ -47,20 +53,29 @@ export const legalAidCenters = [
     lng: 90.3832,
     address: "26/3, Bir Uttam Qazi Nuruzzaman Sarak, West Panthapath, Dhaka",
     contact: "01711223344",
+    image: "https://picsum.photos/400/250?random=3",
+    services: ["Family Law", "Criminal Case", "Human Rights"],
+    division: "Dhaka",
   },
   {
-    name: "Dhaka Legal Aid Office",
-    lat: 23.7279,
-    lng: 90.403,
-    address: "Chief Metropolitan Magistrate Court Building, Dhaka",
-    contact: "02-55556666",
+    name: "Chattogram Legal Aid Office",
+    lat: 22.3569,
+    lng: 91.8386,
+    address: "District Judge Court Building, Chattogram",
+    contact: "031-555666",
+    image: "https://picsum.photos/400/250?random=4",
+    services: ["Land Dispute", "Criminal Case"],
+    division: "Chattogram",
   },
   {
-    name: "Madaripur Legal Aid Association",
-    lat: 23.166,
-    lng: 90.1982,
-    address: "District Judge Court Compound, Madaripur",
+    name: "Sylhet Legal Aid Association",
+    lat: 24.8949,
+    lng: 91.8687,
+    address: "Zindabazar, Sylhet",
     contact: "01998877665",
+    image: "https://picsum.photos/400/250?random=5",
+    services: ["Family Law", "Labor Law"],
+    division: "Sylhet",
   },
 ];
 

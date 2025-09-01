@@ -6,7 +6,7 @@ export default function LegalAidPage() {
       <div className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold font-headline">Legal Aid Finder</h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
-          Find legal aid centers near you for support and consultation.
+          Find legal aid organizations across Bangladesh. Use the filters to narrow your search.
         </p>
       </div>
       <LegalAidClient />

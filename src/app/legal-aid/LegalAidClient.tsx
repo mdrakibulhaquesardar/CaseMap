@@ -5,69 +5,138 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { legalAidCenters as allCenters } from '@/lib/dummy-data';
 import type { LegalAidCenter } from '@/types';
-import { MapPin, Phone, Search } from 'lucide-react';
+import { MapPin, Phone, Search, Building, Scale } from 'lucide-react';
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+const services = ["Family Law", "Land Dispute", "Criminal Case", "Human Rights", "Labor Law"];
+const divisions = ["Dhaka", "Chattogram", "Sylhet", "Rajshahi", "Khulna", "Barishal", "Rangpur", "Mymensingh"];
 
 export default function LegalAidClient() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedService, setSelectedService] = useState('all');
+  const [selectedDivision, setSelectedDivision] = useState('all');
   
-  const filteredCenters = allCenters.filter(center =>
-    center.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    center.address.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredCenters = allCenters.filter(center => {
+    const matchesSearch = center.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          center.address.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesService = selectedService === 'all' || center.services.includes(selectedService);
+    const matchesDivision = selectedDivision === 'all' || center.division === selectedDivision;
+    
+    return matchesSearch && matchesService && matchesDivision;
+  });
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <div className="lg:col-span-1">
-        <div className="relative mb-4">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-          <Input
-            placeholder="Search by name or area..."
-            className="pl-10"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-        <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2">
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <aside className="lg:col-span-1">
+        <Card className="sticky top-20">
+            <CardHeader>
+                <CardTitle>Find Help</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+                <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                    <Input
+                        placeholder="Search by name..."
+                        className="pl-10"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label className="text-sm font-medium text-muted-foreground">Service Needed</label>
+                     <Select value={selectedService} onValueChange={setSelectedService}>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Select a service" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All Services</SelectItem>
+                            {services.map(service => (
+                                <SelectItem key={service} value={service}>{service}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div>
+                    <label className="text-sm font-medium text-muted-foreground">Division</label>
+                    <Select value={selectedDivision} onValueChange={setSelectedDivision}>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Select a division" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All Divisions</SelectItem>
+                            {divisions.map(division => (
+                                <SelectItem key={division} value={division}>{division}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+                 <Button className="w-full" onClick={() => {
+                     setSearchTerm('');
+                     setSelectedService('all');
+                     setSelectedDivision('all');
+                 }}>
+                    Reset Filters
+                </Button>
+            </CardContent>
+        </Card>
+      </aside>
+      
+      <main className="lg:col-span-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filteredCenters.map((center) => (
-            <Card key={center.name} className="hover:bg-muted/50 transition-colors">
+            <Card key={center.name} className="flex flex-col hover:shadow-lg transition-shadow">
+              <div className="relative h-40 w-full">
+                <Image
+                  src={center.image}
+                  alt={center.name}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-t-lg"
+                  data-ai-hint="building office"
+                />
+              </div>
               <CardHeader>
                 <CardTitle className="text-lg">{center.name}</CardTitle>
+                <Badge variant="secondary" className="w-fit">{center.division}</Badge>
               </CardHeader>
-              <CardContent className="text-sm">
-                <div className="flex items-start gap-2 text-muted-foreground">
+              <CardContent className="flex-grow space-y-3 text-sm">
+                <div className="flex items-start gap-3 text-muted-foreground">
                   <MapPin className="w-4 h-4 mt-1 shrink-0" />
                   <p>{center.address}</p>
                 </div>
-                <div className="flex items-center gap-2 mt-2 text-muted-foreground">
+                <div className="flex items-center gap-3 text-muted-foreground">
                   <Phone className="w-4 h-4 shrink-0" />
                   <p>{center.contact}</p>
+                </div>
+                <div className="flex items-start gap-3 text-muted-foreground">
+                   <Scale className="w-4 h-4 mt-1 shrink-0"/>
+                   <div className="flex flex-wrap gap-1">
+                     {center.services.map(service => (
+                       <Badge key={service} variant="outline" className="text-xs">{service}</Badge>
+                     ))}
+                   </div>
                 </div>
               </CardContent>
             </Card>
           ))}
-        </div>
-      </div>
-      <div className="lg:col-span-2">
-        <Card className="h-[400px] lg:h-full overflow-hidden">
-          <div className="relative w-full h-full">
-            <Image
-              src="https://picsum.photos/1200/800"
-              alt="Map of legal aid centers"
-              layout="fill"
-              objectFit="cover"
-              data-ai-hint="map city"
-            />
-            <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center p-4">
-                <MapPin className="w-16 h-16 text-white/80 mb-4" />
-                <h3 className="text-2xl font-bold text-white">Interactive Map Placeholder</h3>
-                <p className="text-white/90 mt-2 max-w-md">
-                    In a full implementation, this would be an interactive map showing the locations of legal aid centers. This requires a Google Maps API key.
-                </p>
+           {filteredCenters.length === 0 && (
+            <div className="md:col-span-2 text-center py-20 text-muted-foreground">
+                <Search className="w-12 h-12 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold">No Results Found</h3>
+                <p>Try adjusting your search or filter criteria.</p>
             </div>
-          </div>
-        </Card>
-      </div>
+           )}
+        </div>
+      </main>
     </div>
   );
 }

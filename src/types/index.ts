@@ -37,4 +37,7 @@ export type LegalAidCenter = {
   lng: number;
   address: string;
   contact: string;
+  image: string;
+  services: string[];
+  division: string;
 };
