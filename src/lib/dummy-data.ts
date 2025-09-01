@@ -69,6 +69,10 @@ export const faqData: FaqItem[] = [
     id: 1,
     question: "ভাড়াটিয়া বাসা না ছাড়লে বা ভাড়া না দিলে করণীয় কি?",
     tags: ["Property Law", "Tenant Rights"],
+    author: {
+        name: "Anisur Rahman",
+        avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704a"
+    },
     answers: [
       {
         id: 101,
@@ -95,6 +99,10 @@ export const faqData: FaqItem[] = [
     id: 2,
     question: "ডিজিটাল নিরাপত্তা আইনে মামলা কিভাবে করব?",
     tags: ["Cyber Crime", "Digital Security"],
+    author: {
+        name: "Salma Akter",
+        avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704b"
+    },
     answers: [
       {
         id: 201,
@@ -112,6 +120,10 @@ export const faqData: FaqItem[] = [
     id: 3,
     question: "শ্রমিক হিসেবে আমার আইনি অধিকার কী কী?",
     tags: ["Labor Law", "Worker Rights"],
+    author: {
+        name: "Karim Khan",
+        avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704c"
+    },
     answers: [
       {
         id: 301,

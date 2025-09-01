@@ -25,6 +25,10 @@ export type FaqItem = {
   tags: string[];
   answers: FaqAnswer[];
   timestamp: string;
+  author: {
+    name: string;
+    avatar: string;
+  };
 };
 
 export type LegalAidCenter = {

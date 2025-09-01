@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { faqData as initialFaqData } from '@/lib/dummy-data';
 import type { FaqItem } from '@/types';
-import { ThumbsUp, ThumbsDown, User, Bot, Sparkles, Send, Bookmark, Lightbulb, FileText, Gavel, MapPin, MessageSquare } from 'lucide-react';
+import { ThumbsUp, ThumbsDown, User, Bot, Sparkles, Send, Bookmark, Lightbulb, FileText, Gavel, MapPin, MessageSquare, MoreHorizontal } from 'lucide-react';
 import { askLegalQuestion } from '@/ai/flows/community-legal-q-and-a';
 import { legalToolRecommendation } from '@/ai/flows/legal-tool-recommendation';
 import { useToast } from '@/hooks/use-toast';
@@ -26,6 +26,13 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 
 const ITEMS_PER_PAGE = 5;
@@ -59,6 +66,7 @@ export default function FaqClient() {
         question: newQuestion,
         tags: ['New', 'AI Answered'],
         timestamp: new Date().toISOString(),
+        author: { name: "Current User", avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d" },
         answers: [
           {
             id: Math.random(),
@@ -142,16 +150,42 @@ export default function FaqClient() {
         {currentFaqs.map((faq) => (
           <Card key={faq.id} className="shadow-sm">
             <CardHeader>
-              <CardTitle className="text-lg">{faq.question}</CardTitle>
-              <div className="flex gap-2 pt-2 flex-wrap">
-                  {faq.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary">
-                      {tag}
-                    </Badge>
-                  ))}
-              </div>
+                <div className="flex justify-between items-start">
+                    <div className="flex items-center gap-3">
+                        <Avatar className="h-10 w-10">
+                            <AvatarImage src={faq.author.avatar} alt={faq.author.name} />
+                            <AvatarFallback>{faq.author.name.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                            <p className="font-semibold">{faq.author.name}</p>
+                            <p className="text-xs text-muted-foreground">
+                                {new Date(faq.timestamp).toLocaleDateString()}
+                            </p>
+                        </div>
+                    </div>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon">
+                                <MoreHorizontal className="w-5 h-5" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuItem>Report</DropdownMenuItem>
+                            <DropdownMenuItem>Share</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
             </CardHeader>
             <CardContent>
+                <p className="text-lg font-medium mb-4">{faq.question}</p>
+                <div className="flex gap-2 mb-4 flex-wrap">
+                    {faq.tags.map((tag) => (
+                        <Badge key={tag} variant="secondary">
+                        {tag}
+                        </Badge>
+                    ))}
+                </div>
+
               {(faq as any).recommendation && (
                 <Card className="mb-4 border-accent bg-accent/10">
                   <CardContent className="p-4">
