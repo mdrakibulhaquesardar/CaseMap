@@ -64,14 +64,14 @@ export default function FaqClient() {
       const newFaqItem: FaqItem = {
         id: faqs.length + 1,
         question: newQuestion,
-        tags: ['New', 'AI Answered'],
+        tags: ['নতুন', 'AI উত্তর'],
         timestamp: new Date().toISOString(),
-        author: { name: "Current User", avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d" },
+        author: { name: "বর্তমান ব্যবহারকারী", avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d" },
         answers: [
           {
             id: Math.random(),
             content: answerResponse.answer,
-            author: 'AI Bot',
+            author: 'AI বট',
             upvotes: 0,
             downvotes: 0,
             timestamp: new Date().toISOString(),
@@ -81,7 +81,7 @@ export default function FaqClient() {
       
       const toolRecommendation = {
         ...toolResponse,
-        content: `**Recommended Tool: ${toolResponse.toolRecommendation}**\n\n${toolResponse.suitabilityReasoning}`
+        content: `**প্রস্তাবিত টুল: ${toolResponse.toolRecommendation}**\n\n${toolResponse.suitabilityReasoning}`
       };
       
       (newFaqItem as any).recommendation = toolRecommendation;
@@ -92,8 +92,8 @@ export default function FaqClient() {
     } catch (error) {
       console.error('Error fetching AI answers:', error);
       toast({
-        title: 'Error',
-        description: 'Failed to get an answer. Please try again.',
+        title: 'ত্রুটি',
+        description: 'উত্তর পেতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।',
         variant: 'destructive',
       });
     } finally {
@@ -105,10 +105,10 @@ export default function FaqClient() {
     const isSaved = savedFaqs.some(item => item.id === faq.id);
     if (isSaved) {
       setSavedFaqs(savedFaqs.filter(item => item.id !== faq.id));
-      toast({ title: "Removed from Profile", description: "This Q&A has been removed from your saved items." });
+      toast({ title: "প্রোফাইল থেকে সরানো হয়েছে", description: "এই প্রশ্ন-উত্তর আপনার সংরক্ষিত তালিকা থেকে সরানো হয়েছে।" });
     } else {
       setSavedFaqs([...savedFaqs, faq]);
-      toast({ title: "Saved to Profile", description: "You can view this Q&A in your profile." });
+      toast({ title: "প্রোফাইলে সংরক্ষিত", description: "আপনি এই প্রশ্ন-উত্তর আপনার প্রোফাইলে দেখতে পারেন।" });
     }
   };
 
@@ -123,15 +123,15 @@ export default function FaqClient() {
     <div className="w-full">
       <Card className="mb-8 shadow-sm">
         <CardContent className="p-4 sm:p-6">
-          <h3 className="font-semibold text-lg mb-2">Ask a New Question</h3>
+          <h3 className="font-semibold text-lg mb-2">একটি নতুন প্রশ্ন করুন</h3>
           <p className="text-muted-foreground text-sm mb-4">
-            Can't find your answer? Ask our AI assistant.
+            আপনার উত্তর খুঁজে পাচ্ছেন না? আমাদের AI সহকারীকে জিজ্ঞাসা করুন।
           </p>
           <div className="flex flex-col sm:flex-row gap-2">
             <Input
               value={newQuestion}
               onChange={(e) => setNewQuestion(e.target.value)}
-              placeholder="e.g., How do I file a consumer complaint?"
+              placeholder="যেমন, আমি কীভাবে ভোক্তা অভিযোগ দায়ের করব?"
               disabled={isLoading}
             />
             <Button onClick={handleAskQuestion} disabled={isLoading} className="w-full sm:w-auto">
@@ -140,7 +140,7 @@ export default function FaqClient() {
               ) : (
                 <Send className="w-4 h-4 mr-2" />
               )}
-              Ask
+              জিজ্ঞাসা করুন
             </Button>
           </div>
         </CardContent>
@@ -170,8 +170,8 @@ export default function FaqClient() {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                            <DropdownMenuItem>Report</DropdownMenuItem>
-                            <DropdownMenuItem>Share</DropdownMenuItem>
+                            <DropdownMenuItem>রিপোর্ট করুন</DropdownMenuItem>
+                            <DropdownMenuItem>শেয়ার করুন</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
@@ -192,7 +192,7 @@ export default function FaqClient() {
                     <div className="flex items-start gap-4">
                         {getToolIcon((faq as any).recommendation.toolRecommendation)}
                       <div>
-                        <h4 className="font-bold text-sm">Tool Recommendation: {(faq as any).recommendation.toolRecommendation}</h4>
+                        <h4 className="font-bold text-sm">টুল 추천: {(faq as any).recommendation.toolRecommendation}</h4>
                         <p className="text-xs text-muted-foreground mt-1">{(faq as any).recommendation.suitabilityReasoning}</p>
                       </div>
                     </div>
@@ -203,7 +203,7 @@ export default function FaqClient() {
                 {faq.answers.map((answer) => (
                   <div key={answer.id} className="flex items-start gap-3">
                     <div className="bg-muted p-2 rounded-full mt-1">
-                      {answer.author === 'AI Bot' ? (
+                      {answer.author === 'AI বট' ? (
                         <Bot className="w-5 h-5 text-primary" />
                       ) : (
                         <User className="w-5 h-5 text-muted-foreground" />
@@ -235,12 +235,12 @@ export default function FaqClient() {
             <CardFooter className="p-2">
                 <Button variant="ghost" size="sm" className="w-1/2" onClick={() => toggleSaveFaq(faq)}>
                   <Bookmark className={`w-4 h-4 mr-2 ${savedFaqs.some(item => item.id === faq.id) ? 'text-accent fill-accent' : ''}`} />
-                  {savedFaqs.some(item => item.id === faq.id) ? 'Saved' : 'Save'}
+                  {savedFaqs.some(item => item.id === faq.id) ? 'সংরক্ষিত' : 'সংরক্ষণ করুন'}
                 </Button>
                 <Separator orientation="vertical" className="h-6" />
                 <Button variant="ghost" size="sm" className="w-1/2">
                     <MessageSquare className="w-4 h-4 mr-2"/>
-                    Comment
+                    মতামত
                 </Button>
             </CardFooter>
           </Card>
@@ -256,11 +256,13 @@ export default function FaqClient() {
                 setCurrentPage(p => Math.max(1, p - 1));
               }}
               className={currentPage === 1 ? "pointer-events-none opacity-50" : undefined}
-            />
+            >
+              পূর্ববর্তী
+            </PaginationPrevious>
           </PaginationItem>
            <PaginationItem>
             <span className="p-2 text-sm">
-                Page {currentPage} of {totalPages}
+                পেজ {currentPage} এর {totalPages}
             </span>
            </PaginationItem>
           <PaginationItem>
@@ -271,7 +273,9 @@ export default function FaqClient() {
                 setCurrentPage(p => Math.min(totalPages, p + 1));
               }}
                className={currentPage === totalPages ? "pointer-events-none opacity-50" : undefined}
-            />
+            >
+              পরবর্তী
+            </PaginationNext>
           </PaginationItem>
         </PaginationContent>
       </Pagination>

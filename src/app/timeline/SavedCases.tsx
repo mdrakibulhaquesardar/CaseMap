@@ -19,7 +19,7 @@ export default function SavedCases() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Gavel className="text-primary" />
-          Saved Cases
+          সংরক্ষিত মামলা
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -36,7 +36,7 @@ export default function SavedCases() {
                   <div>
                     <p className="font-semibold text-left">{c.title}</p>
                     <p className="text-xs text-muted-foreground text-left">
-                      Case No: {c.caseNumber}
+                      মামলা নং: {c.caseNumber}
                     </p>
                   </div>
                 </Link>
@@ -46,7 +46,7 @@ export default function SavedCases() {
         ) : (
           <div className="text-center py-6 text-sm text-muted-foreground">
             <Info className="w-6 h-6 mx-auto mb-2" />
-            <p>You haven&apos;t saved any cases yet.</p>
+            <p>আপনি এখনও কোনো মামলা সংরক্ষণ করেননি।</p>
           </div>
         )}
       </CardContent>

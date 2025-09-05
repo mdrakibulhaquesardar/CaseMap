@@ -17,8 +17,8 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-const services = ["Family Law", "Land Dispute", "Criminal Case", "Human Rights", "Labor Law"];
-const divisions = ["Dhaka", "Chattogram", "Sylhet", "Rajshahi", "Khulna", "Barishal", "Rangpur", "Mymensingh"];
+const services = ["পারিবারিক আইন", "জমি विवाद", "ফৌজداری মামলা", "মানবাধিকার", "শ্রম আইন"];
+const divisions = ["ঢাকা", "চট্টগ্রাম", "সিলেট", "রাজশাহী", "খুলনা", "বরিশাল", "রংপুর", "ময়মনসিংহ"];
 
 export default function LegalAidClient() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -39,26 +39,26 @@ export default function LegalAidClient() {
       <aside className="lg:col-span-1">
         <Card className="sticky top-20">
             <CardHeader>
-                <CardTitle>Find Help</CardTitle>
+                <CardTitle>সহায়তা খুঁজুন</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
                 <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                     <Input
-                        placeholder="Search by name..."
+                        placeholder="নাম দিয়ে খুঁজুন..."
                         className="pl-10"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
                 <div>
-                    <label className="text-sm font-medium text-muted-foreground">Service Needed</label>
+                    <label className="text-sm font-medium text-muted-foreground">প্রয়োজনীয় সেবা</label>
                      <Select value={selectedService} onValueChange={setSelectedService}>
                         <SelectTrigger>
-                            <SelectValue placeholder="Select a service" />
+                            <SelectValue placeholder="একটি সেবা নির্বাচন করুন" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">All Services</SelectItem>
+                            <SelectItem value="all">সব সেবা</SelectItem>
                             {services.map(service => (
                                 <SelectItem key={service} value={service}>{service}</SelectItem>
                             ))}
@@ -66,13 +66,13 @@ export default function LegalAidClient() {
                     </Select>
                 </div>
                 <div>
-                    <label className="text-sm font-medium text-muted-foreground">Division</label>
+                    <label className="text-sm font-medium text-muted-foreground">বিভাগ</label>
                     <Select value={selectedDivision} onValueChange={setSelectedDivision}>
                         <SelectTrigger>
-                            <SelectValue placeholder="Select a division" />
+                            <SelectValue placeholder="একটি বিভাগ নির্বাচন করুন" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">All Divisions</SelectItem>
+                            <SelectItem value="all">সব বিভাগ</SelectItem>
                             {divisions.map(division => (
                                 <SelectItem key={division} value={division}>{division}</SelectItem>
                             ))}
@@ -84,7 +84,7 @@ export default function LegalAidClient() {
                      setSelectedService('all');
                      setSelectedDivision('all');
                  }}>
-                    Reset Filters
+                    ফিল্টার রিসেট করুন
                 </Button>
             </CardContent>
         </Card>
@@ -131,8 +131,8 @@ export default function LegalAidClient() {
            {filteredCenters.length === 0 && (
             <div className="md:col-span-2 text-center py-20 text-muted-foreground">
                 <Search className="w-12 h-12 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold">No Results Found</h3>
-                <p>Try adjusting your search or filter criteria.</p>
+                <h3 className="text-xl font-semibold">কোনো ফলাফল পাওয়া যায়নি</h3>
+                <p>আপনার অনুসন্ধান বা ফিল্টার পরিবর্তন করে চেষ্টা করুন।</p>
             </div>
            )}
         </div>

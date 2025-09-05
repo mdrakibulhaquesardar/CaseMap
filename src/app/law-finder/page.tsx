@@ -5,7 +5,7 @@ import { FileText, Lightbulb, MessagesSquare, Scale } from 'lucide-react';
 import Link from 'next/link';
 
 const popularCategories = [
-  "Penal Code, 1860", "Code of Civil Procedure, 1908", "Evidence Act, 1872", "Contract Act, 1872", "Specific Relief Act, 1877", "Digital Security Act, 2018"
+  "দণ্ডবিধি, ১৮৬০", "দেওয়ানী কার্যবিধি, ১৯০৮", "সাক্ষ্য আইন, ১৮৭২", "চুক্তি আইন, ১৮৭২", "সুনির্দিষ্ট প্রতিকার আইন, ১৮৭৭", "ডিজিটাল নিরাপত্তা আইন, ২০১৮"
 ];
 
 export default function LawFinderPage() {
@@ -13,9 +13,9 @@ export default function LawFinderPage() {
     <div className="bg-muted/30">
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold font-headline">Law Section Finder</h1>
+          <h1 className="text-4xl md:text-5xl font-bold font-headline">আইনের ধারা खोजকারী</h1>
           <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
-            Search for any law section of Bangladesh by its number or name to get a detailed explanation in Bangla.
+            বাংলাদেশের যেকোনো আইনের ধারা তার নম্বর বা নাম দিয়ে অনুসন্ধান করুন এবং বাংলায় বিস্তারিত ব্যাখ্যা পান।
           </p>
         </div>
 
@@ -25,7 +25,7 @@ export default function LawFinderPage() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                           <Scale className="text-primary"/> Popular Categories
+                           <Scale className="text-primary"/> জনপ্রিয় বিভাগ
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="flex flex-wrap gap-2">
@@ -49,27 +49,27 @@ export default function LawFinderPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Lightbulb className="text-accent" />
-                    Quick Tips
+                    দ্রুত টিপস
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-muted-foreground space-y-2">
-                    <p>For best results, be specific. For example, "দন্ডবিধি ৩০২ ধারা".</p>
-                    <p>You can also search by topic, like "চুরির শাস্তি".</p>
+                    <p>সেরা ফলাফলের জন্য, সুনির্দিষ্ট হন। যেমন, "দন্ডবিধি ৩০২ ধারা"।</p>
+                    <p>আপনি বিষয় দিয়েও অনুসন্ধান করতে পারেন, যেমন "চুরির শাস্তি"।</p>
                 </CardContent>
               </Card>
                <Card>
                 <CardHeader>
-                  <CardTitle>Related Tools</CardTitle>
+                  <CardTitle>সম্পর্কিত টুলস</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
                    <Button variant="ghost" className="w-full justify-start gap-2" asChild>
                        <Link href="/summarizer">
-                        <FileText className="w-4 h-4 text-primary"/> AI Document Summarizer
+                        <FileText className="w-4 h-4 text-primary"/> AI ডকুমেন্ট সারসংক্ষেপ
                        </Link>
                    </Button>
                    <Button variant="ghost" className="w-full justify-start gap-2" asChild>
                        <Link href="/faq">
-                        <MessagesSquare className="w-4 h-4 text-primary"/> Community Q&A
+                        <MessagesSquare className="w-4 h-4 text-primary"/> কমিউনিটি প্রশ্নোত্তর
                        </Link>
                    </Button>
                 </CardContent>

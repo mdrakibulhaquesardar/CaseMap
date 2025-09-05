@@ -26,30 +26,30 @@ export default function ProfilePage() {
                      </div>
                 </div>
                 <div className="text-center pt-20 pb-8 px-6">
-                    <h1 className="text-3xl font-bold font-headline">Advocate Rakib</h1>
-                    <p className="text-muted-foreground mt-1">Dhaka, Bangladesh</p>
+                    <h1 className="text-3xl font-bold font-headline">অ্যাডভোকেট রাকিব</h1>
+                    <p className="text-muted-foreground mt-1">ঢাকা, বাংলাদেশ</p>
                     
                     <div className="mt-6 flex justify-center gap-4 flex-wrap">
                         <Button variant="outline">
-                            <UserCheck className="mr-2"/> Following
+                            <UserCheck className="mr-2"/> অনুসরণ করছেন
                         </Button>
                         <Button>
-                           <Mail className="mr-2"/> Message
+                           <Mail className="mr-2"/> বার্তা পাঠান
                         </Button>
                     </div>
 
                     <div className="mt-8 grid grid-cols-3 divide-x max-w-sm mx-auto">
                         <div className="px-2">
                             <p className="text-xl font-bold">128</p>
-                            <p className="text-sm text-muted-foreground">Answers</p>
+                            <p className="text-sm text-muted-foreground">উত্তর</p>
                         </div>
                          <div className="px-2">
                             <p className="text-xl font-bold">1.3k</p>
-                            <p className="text-sm text-muted-foreground">Upvotes</p>
+                            <p className="text-sm text-muted-foreground">আপভোট</p>
                         </div>
                          <div className="px-2">
-                            <p className="text-xl font-bold">Top 5%</p>
-                            <p className="text-sm text-muted-foreground">Rank</p>
+                            <p className="text-xl font-bold">শীর্ষ ৫%</p>
+                            <p className="text-sm text-muted-foreground">র‍্যাঙ্ক</p>
                         </div>
                     </div>
                 </div>

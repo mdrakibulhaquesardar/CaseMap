@@ -7,17 +7,17 @@ export default function AboutPage() {
     <div className="bg-background">
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold font-headline text-foreground">About CaseMap</h1>
+          <h1 className="text-4xl md:text-5xl font-bold font-headline text-foreground">CaseMap সম্পর্কে</h1>
           <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
-            Empowering citizens with accessible legal information and tools to navigate the justice system with confidence.
+            নাগরিকদের সহজে আইনি তথ্য এবং বিচার ব্যবস্থা সম্পর্কে জানতে প্রয়োজনীয় টুলস দিয়ে ক্ষমতায়ন করা।
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
           <div>
-            <h2 className="text-3xl font-bold font-headline mb-4 text-primary">Our Mission</h2>
+            <h2 className="text-3xl font-bold font-headline mb-4 text-primary">আমাদের লক্ষ্য</h2>
             <p className="text-muted-foreground leading-relaxed">
-              At CaseMap, our mission is to demystify the legal process for the general public in Bangladesh. We believe that access to justice begins with access to clear, understandable information. By leveraging technology and AI, we aim to bridge the gap between citizens and the legal system, making legal awareness a fundamental right, not a privilege.
+              CaseMap-এর লক্ষ্য হলো বাংলাদেশের সাধারণ মানুষের জন্য আইনি প্রক্রিয়াকে সহজবোধ্য করা। আমরা বিশ্বাস করি, ন্যায়বিচারের শুরু হয় সুস্পষ্ট এবং বোধগম্য তথ্য পাওয়ার মাধ্যমে। প্রযুক্তি এবং কৃত্রিম বুদ্ধিমত্তার সাহায্যে আমরা নাগরিক এবং বিচার ব্যবস্থার মধ্যেকার দূরত্ব কমিয়ে আনতে চাই, যাতে আইনি সচেতনতা বিশেষ সুবিধা না হয়ে, একটি মৌলিক অধিকারে পরিণত হয়।
             </p>
           </div>
           <div className="flex justify-center">
@@ -38,11 +38,11 @@ export default function AboutPage() {
               <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
                 <Scale className="w-8 h-8 text-primary" />
               </div>
-              <CardTitle className="mt-4">Access to Justice</CardTitle>
+              <CardTitle className="mt-4">ন্যায়বিচারের সহজলভ্যতা</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                We are committed to making legal processes transparent and accessible to everyone, regardless of their background or literacy level.
+                আমরা সকলের জন্য আইনি প্রক্রিয়াকে স্বচ্ছ এবং সহজলভ্য করতে প্রতিশ্রুতিবদ্ধ, তাদের পটভূমি বা साक्षरতার স্তর নির্বিশেষে।
               </p>
             </CardContent>
           </Card>
@@ -51,11 +51,11 @@ export default function AboutPage() {
               <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
                 <Lightbulb className="w-8 h-8 text-primary" />
               </div>
-              <CardTitle>Innovation with AI</CardTitle>
+              <CardTitle>AI দিয়ে উদ্ভাবন</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                Using cutting-edge AI like Google Gemini, we transform complex legal jargon into simple, actionable insights for our users.
+                Google Gemini-এর মতো অত্যাধুনিক AI ব্যবহার করে আমরা জটিল আইনি পরিভাষাকে সহজ এবং কার্যকর তথ্যে রূপান্তর করি।
               </p>
             </CardContent>
           </Card>
@@ -64,11 +64,11 @@ export default function AboutPage() {
               <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
                 <Users className="w-8 h-8 text-primary" />
               </div>
-              <CardTitle>Community Focus</CardTitle>
+              <CardTitle>קהילתিক কেন্দ্রিকতা</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                Our platform fosters a supportive community where users can share knowledge and seek guidance, building collective legal awareness.
+                আমাদের প্ল্যাটফর্ম একটি সহায়ক কমিউনিটি তৈরি করে যেখানে ব্যবহারকারীরা জ্ঞান ভাগ করে নিতে এবং নির্দেশনা চাইতে পারে, যা সম্মিলিত আইনি সচেতনতা তৈরি করে।
               </p>
             </CardContent>
           </Card>

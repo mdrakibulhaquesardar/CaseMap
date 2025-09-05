@@ -11,43 +11,43 @@ const demoData = {
   },
   menu: [
     {
-      title: "Home",
+      title: "হোম",
       url: "/",
     },
     {
-      title: "Timeline",
+      title: "টাইমলাইন",
       url: "/timeline",
     },
     {
-      title: "Summarizer",
+      title: "সারসংক্ষেপ",
       url: "/summarizer",
     },
     {
-      title: "Q&A",
+      title: "প্রশ্নোত্তর",
       url: "/faq",
     },
     {
-      title: "Legal Aid",
+      title: "আইনি সহায়তা",
       url: "/legal-aid",
     },
     {
-      title: "Law Finder",
+      title: "আইন खोजকারী",
       url: "/law-finder",
     },
      {
-      title: "About",
+      title: "আমাদের সম্পর্কে",
       url: "/about",
     },
   ],
   mobileExtraLinks: [
-    { name: "Profile", url: "/profile" },
-    { name: "Settings", url: "/profile/settings" },
-    { name: "Privacy", url: "#" },
-    { name: "Terms", url: "#" },
+    { name: "প্রোফাইল", url: "/profile" },
+    { name: "সেটিংস", url: "/profile/settings" },
+    { name: "গোপনীয়তা", url: "#" },
+    { name: "শর্তাবলী", url: "#" },
   ],
   auth: {
-    login: { text: "Log in", url: "#" },
-    signup: { text: "Sign up", url: "#" },
+    login: { text: "লগইন", url: "#" },
+    signup: { text: "সাইন আপ", url: "#" },
   },
 };
 

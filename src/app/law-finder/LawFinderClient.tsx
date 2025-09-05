@@ -22,8 +22,8 @@ export default function LawFinderClient() {
   const handleSearch = async () => {
     if (!query.trim()) {
       toast({
-        title: 'Input Required',
-        description: 'Please enter a law section number or name.',
+        title: 'ইনপুট প্রয়োজন',
+        description: 'অনুগ্রহ করে একটি আইন ধারা নম্বর বা নাম লিখুন।',
         variant: 'destructive',
       });
       return;
@@ -37,8 +37,8 @@ export default function LawFinderClient() {
     } catch (error) {
       console.error('Error finding law section:', error);
       toast({
-        title: 'Error',
-        description: 'Failed to find the law section. Please try again.',
+        title: 'ত্রুটি',
+        description: 'আইন ধারাটি খুঁজে পেতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।',
         variant: 'destructive',
       });
     } finally {
@@ -50,15 +50,15 @@ export default function LawFinderClient() {
     <div className="max-w-4xl mx-auto">
       <Card className="mb-8">
         <CardContent className="p-4 sm:p-6">
-          <h3 className="font-semibold text-lg mb-2">Search for a Law Section</h3>
+          <h3 className="font-semibold text-lg mb-2">আইন ধারা অনুসন্ধান করুন</h3>
           <p className="text-muted-foreground text-sm mb-4">
-            Enter a section number (e.g., "দন্ডবিধি ১৮৬০ এর ৩০২ ধারা") or a topic (e.g., "চুরির শাস্তি").
+            একটি ধারা নম্বর (যেমন, "দন্ডবিধি ১৮৬০ এর ৩০২ ধারা") বা একটি বিষয় (যেমন, "চুরির শাস্তি") লিখুন।
           </p>
           <div className="flex flex-col sm:flex-row gap-2">
             <Input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="e.g., দন্ডবিধি ৩০২"
+              placeholder="যেমন, দন্ডবিধি ৩০২"
               disabled={isLoading}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             />
@@ -68,7 +68,7 @@ export default function LawFinderClient() {
               ) : (
                 <Search className="w-4 h-4 mr-2" />
               )}
-              Search
+              অনুসন্ধান
             </Button>
           </div>
         </CardContent>
@@ -78,17 +78,17 @@ export default function LawFinderClient() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Bot className="w-6 h-6 text-primary" />
-            AI Explanation
+            AI ব্যাখ্যা
           </CardTitle>
           <CardDescription>
-            The explanation for your searched law section will appear here.
+            আপনার অনুসন্ধান করা আইন ধারার ব্যাখ্যা এখানে প্রদর্শিত হবে।
           </CardDescription>
         </CardHeader>
         <CardContent>
           {isLoading ? (
             <div className="flex flex-col items-center justify-center h-full min-h-[250px] p-4 bg-muted rounded-md">
               <Sparkles className="w-10 h-10 text-primary animate-spin" />
-              <p className="mt-4 text-muted-foreground">Our AI is searching the law books...</p>
+              <p className="mt-4 text-muted-foreground">আমাদের AI আইনের বই অনুসন্ধান করছে...</p>
             </div>
           ) : result ? (
             <div className="prose prose-lg max-w-none text-foreground p-4 bg-muted rounded-md min-h-[250px]">
@@ -98,8 +98,8 @@ export default function LawFinderClient() {
           ) : (
             <div className="flex flex-col items-center justify-center text-center h-full min-h-[250px] text-muted-foreground p-4 bg-muted/50 rounded-md">
               <BookOpen className="w-12 h-12 mb-4" />
-              <h3 className="font-semibold text-lg">Ready to Search</h3>
-              <p className="max-w-xs">Enter a law section above to see its details.</p>
+              <h3 className="font-semibold text-lg">অনুসন্ধানের জন্য প্রস্তুত</h3>
+              <p className="max-w-xs">এর বিবরণ দেখতে উপরে একটি আইন ধারা লিখুন।</p>
             </div>
           )}
         </CardContent>
