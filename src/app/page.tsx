@@ -57,7 +57,7 @@ export default function Home() {
       <section className="w-full relative">
         <div className="relative w-full h-[60vh] text-white">
           <Image
-            src="https://picsum.photos/1200/800"
+            src="https://media.istockphoto.com/id/1139699594/photo/law-concept-themis-statue-judge-hammer-and-books.jpg?s=612x612&w=0&k=20&c=VgFftTqxcgJswpCK8IQS9bpCo9aDJ_Vsgigwa0bnH-c="
             alt="আইনের পটভূমি"
             fill={true}
             style={{objectFit: "cover"}}
