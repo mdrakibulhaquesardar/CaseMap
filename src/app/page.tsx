@@ -164,7 +164,7 @@ export default function Home() {
         <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
           <div>
             <Image 
-              src="https://picsum.photos/600/400" 
+              src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsYXd8ZW58MHx8fHwxNzU3MDgwMjUxfDA&ixlib=rb-4.1.0&q=80&w=1080" 
               alt="আইনি আলোচনা" 
               width={600} 
               height={400} 
