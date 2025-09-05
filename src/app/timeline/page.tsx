@@ -2,6 +2,7 @@
 'use client';
 
 import Link from 'next/link';
+import { Suspense } from 'react';
 import TimelineClient from './TimelineClient';
 import { Button } from '@/components/ui/button';
 import {
@@ -36,7 +37,17 @@ export default function TimelinePage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <main className="lg:col-span-2">
-            <TimelineClient />
+            <Suspense fallback={
+              <Card className="text-center py-20 flex flex-col items-center justify-center min-h-[400px]">
+                <CardContent>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+                  <h3 className="text-xl font-semibold">লোড হচ্ছে...</h3>
+                  <p className="text-muted-foreground mt-2">মামলা টাইমলাইন লোড হচ্ছে</p>
+                </CardContent>
+              </Card>
+            }>
+              <TimelineClient />
+            </Suspense>
           </main>
           <aside className="lg:col-span-1">
             <div className="sticky top-20 space-y-6">
