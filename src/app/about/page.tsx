@@ -22,7 +22,7 @@ export default function AboutPage() {
           </div>
           <div className="flex justify-center">
             <Image 
-              src="https://picsum.photos/500/350" 
+              src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
               alt="Team collaborating" 
               width={500}
               height={350}
