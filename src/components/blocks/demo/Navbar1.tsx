@@ -31,7 +31,7 @@ const demoData = {
       url: "/legal-aid",
     },
     {
-      title: "আইন खोजকারী",
+      title: "আইন খোঁজকারী",
       url: "/law-finder",
     },
      {

@@ -1,8 +1,9 @@
+
+'use client';
+
 import Link from 'next/link';
 import TimelineClient from './TimelineClient';
-import SavedCases from './SavedCases';
 import { Button } from '@/components/ui/button';
-import { PlusCircle } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -10,8 +11,17 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Gavel, Info } from 'lucide-react';
+import useLocalStorage from '@/hooks/useLocalStorage';
+import type { CaseTimeline } from '@/types';
+import { caseTimelineData } from '@/lib/dummy-data';
 
 export default function TimelinePage() {
+    const [savedCases] = useLocalStorage<CaseTimeline[]>(
+    'savedCases',
+    Object.values(caseTimelineData).slice(0, 2)
+  );
+
   return (
     <div className="bg-muted/30">
       <div className="container mx-auto px-4 py-12">
@@ -30,7 +40,42 @@ export default function TimelinePage() {
           </main>
           <aside className="lg:col-span-1">
             <div className="sticky top-20 space-y-6">
-              <SavedCases />
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                        <Gavel className="text-primary" />
+                        সংরক্ষিত মামলা
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        {savedCases.length > 0 ? (
+                        <div className="space-y-2">
+                            {savedCases.map((c) => (
+                            <Button
+                                key={c.caseNumber}
+                                variant="ghost"
+                                className="w-full justify-start h-auto py-2"
+                                asChild
+                            >
+                                <Link href={`/timeline?caseNumber=${c.caseNumber}`}>
+                                <div>
+                                    <p className="font-semibold text-left">{c.title}</p>
+                                    <p className="text-xs text-muted-foreground text-left">
+                                    মামলা নং: {c.caseNumber}
+                                    </p>
+                                </div>
+                                </Link>
+                            </Button>
+                            ))}
+                        </div>
+                        ) : (
+                        <div className="text-center py-6 text-sm text-muted-foreground">
+                            <Info className="w-6 h-6 mx-auto mb-2" />
+                            <p>আপনি এখনও কোনো মামলা সংরক্ষণ করেননি।</p>
+                        </div>
+                        )}
+                    </CardContent>
+                </Card>
               <Card>
                 <CardHeader>
                   <CardTitle>আরও সাহায্য প্রয়োজন?</CardTitle>
@@ -51,3 +96,4 @@ export default function TimelinePage() {
     </div>
   );
 }
+

@@ -13,7 +13,7 @@ export default function LawFinderPage() {
     <div className="bg-muted/30">
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold font-headline">আইনের ধারা खोजকারী</h1>
+          <h1 className="text-4xl md:text-5xl font-bold font-headline">আইনের ধারা খোঁজকারী</h1>
           <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
             বাংলাদেশের যেকোনো আইনের ধারা তার নম্বর বা নাম দিয়ে অনুসন্ধান করুন এবং বাংলায় বিস্তারিত ব্যাখ্যা পান।
           </p>

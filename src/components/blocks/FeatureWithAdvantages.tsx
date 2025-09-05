@@ -56,7 +56,7 @@ function FeatureWithAdvantages() {
               <div className="flex flex-row gap-4 items-start">
                 <Check className="w-5 h-5 mt-1 text-primary shrink-0" />
                 <div className="flex flex-col gap-1">
-                  <p className="font-semibold">আইন ধারা खोजকারী</p>
+                  <p className="font-semibold">আইন ধারা খোঁজকারী</p>
                   <p className="text-muted-foreground text-sm">
                     বাংলাদেশী আইনের যেকোনো ধারা অনুসন্ধান করুন এবং বুঝুন।
                   </p>
