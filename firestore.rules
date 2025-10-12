@@ -1,0 +1,19 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Allow read access to faqs for anyone, but only allow authenticated
+    // users to create new faqs.
+    match /faqs/{faqId} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      allow update, delete: if false; // Nobody can update or delete
+    }
+
+    // Users can manage their own saved cases and faqs
+    match /users/{userId}/{document=**} {
+       allow read, write: if request.auth.uid == userId;
+    }
+  }
+}
