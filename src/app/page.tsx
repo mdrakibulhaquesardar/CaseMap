@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -6,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search, Scale, BookOpen, Sparkles, ArrowRight } from 'lucide-react';
+import { Search, Scale, BookOpen, Sparkles, ArrowRight, MessageSquare, FileText, Shield, Zap, Brain, Users } from 'lucide-react';
 
 // Glow Component
 const glowVariants = cva('absolute w-full', {
@@ -246,6 +245,192 @@ function CaseMapHero({
   );
 }
 
+
+// Features Section Component
+function FeaturesSection() {
+  const features = [
+    {
+      icon: Brain,
+      title: "AI Legal Assistant",
+      description: "Get instant answers to your legal questions powered by advanced AI technology trained on legal knowledge."
+    },
+    {
+      icon: MessageSquare,
+      title: "Interactive Chat",
+      description: "Have natural conversations about your legal concerns and receive personalized guidance."
+    },
+    {
+      icon: FileText,
+      title: "Document Analysis",
+      description: "Upload legal documents and get AI-powered insights, summaries, and explanations."
+    },
+    {
+      icon: Shield,
+      title: "Privacy First",
+      description: "Your conversations are encrypted and secure. We prioritize your privacy and confidentiality."
+    },
+    {
+      icon: Zap,
+      title: "Instant Responses",
+      description: "No waiting for appointments. Get immediate legal guidance whenever you need it, 24/7."
+    },
+    {
+      icon: Users,
+      title: "Expert Verified",
+      description: "Our AI is trained on verified legal resources and constantly updated with latest regulations."
+    }
+  ];
+
+  return (
+    <section className="relative overflow-hidden bg-background py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="mx-auto max-w-2xl text-center">
+          <Badge variant="outline" className="mb-4 border-primary/20 bg-primary/5 text-primary">
+            Features
+          </Badge>
+          <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            Everything You Need for Legal Clarity
+          </h2>
+          <p className="text-lg text-muted-foreground">
+            Powerful AI tools designed to make legal information accessible and understandable for everyone.
+          </p>
+        </div>
+
+        {/* Features Grid */}
+        <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+            return (
+              <div
+                key={index}
+                className="group relative rounded-2xl border border-border/50 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5"
+              >
+                <div className="mb-4 inline-flex rounded-xl bg-primary/10 p-3 text-primary transition-all group-hover:bg-primary group-hover:text-primary-foreground">
+                  <Icon className="h-6 w-6" />
+                </div>
+                <h3 className="mb-2 text-xl font-semibold text-foreground">
+                  {feature.title}
+                </h3>
+                <p className="text-muted-foreground">
+                  {feature.description}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// How It Works Section
+function HowItWorksSection() {
+  const steps = [
+    {
+      number: "01",
+      title: "Ask Your Question",
+      description: "Type your legal question in plain English. No legal jargon required."
+    },
+    {
+      number: "02",
+      title: "AI Analysis",
+      description: "Our AI analyzes your question and searches through legal knowledge bases."
+    },
+    {
+      number: "03",
+      title: "Get Instant Guidance",
+      description: "Receive clear, actionable legal guidance tailored to your situation."
+    }
+  ];
+
+  return (
+    <section className="relative overflow-hidden bg-gradient-to-b from-background to-primary/5 py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="mx-auto max-w-2xl text-center">
+          <Badge variant="outline" className="mb-4 border-primary/20 bg-primary/5 text-primary">
+            How It Works
+          </Badge>
+          <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            Legal Guidance in Three Simple Steps
+          </h2>
+          <p className="text-lg text-muted-foreground">
+            Getting legal help has never been easier. Our AI makes the process simple and straightforward.
+          </p>
+        </div>
+
+        {/* Steps */}
+        <div className="mt-16 grid gap-8 lg:grid-cols-3">
+          {steps.map((step, index) => (
+            <div key={index} className="relative">
+              {/* Connector Line */}
+              {index < steps.length - 1 && (
+                <div className="absolute left-1/2 top-16 hidden h-1 w-full bg-gradient-to-r from-primary/50 to-transparent lg:block" />
+              )}
+              
+              <div className="relative">
+                <div className="mb-6 flex items-center justify-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-blue-700 text-2xl font-bold text-white shadow-lg shadow-primary/20">
+                    {step.number}
+                  </div>
+                </div>
+                <h3 className="mb-3 text-center text-xl font-semibold text-foreground">
+                  {step.title}
+                </h3>
+                <p className="text-center text-muted-foreground">
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// CTA Section
+function CTASection() {
+  return (
+    <section className="relative overflow-hidden bg-background py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-blue-700 px-8 py-16 shadow-2xl sm:px-16">
+          {/* Background Decoration */}
+          <div className="absolute right-0 top-0 h-64 w-64 translate-x-20 -translate-y-20 rounded-full bg-white/10 blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-64 w-64 -translate-x-20 translate-y-20 rounded-full bg-white/10 blur-3xl" />
+          
+          <div className="relative mx-auto max-w-2xl text-center">
+            <h2 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Ready to Get Legal Clarity?
+            </h2>
+            <p className="mb-8 text-lg text-blue-100">
+              Join thousands of users who trust CaseMap for instant legal guidance. Start asking questions today.
+            </p>
+            <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+              <Button size="lg" className="bg-white text-primary hover:bg-blue-50">
+                Get Started Free
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              <Button size="lg" variant="outline" className="border-white/20 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20">
+                Learn More
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
 export default function Home() {
-    return <CaseMapHero />
+    return (
+    <>
+      <CaseMapHero />
+      <FeaturesSection />
+      <HowItWorksSection />
+      <CTASection />
+    </>
+    );
 }
