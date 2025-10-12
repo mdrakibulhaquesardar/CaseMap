@@ -1,8 +1,10 @@
+
 import FaqClient from './FaqClient';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FileText, MapPin, Trophy, Users, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const popularTags = [
   "Property Law", "Tenant Rights", "Cybercrime", "Digital Security", "Labor Law", "Worker Rights", "Family Law"
