@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import type { FaqItem, FaqAnswer } from '@/types';
-import { ThumbsUp, ThumbsDown, User, Bot, Sparkles, Send, Bookmark, Lightbulb, FileText, Gavel, MapPin, MessageSquare, MoreHorizontal } from 'lucide-react';
+import { ThumbsUp, ThumbsDown, User, Bot, Sparkles, Send, Bookmark, Lightbulb, FileText, Gavel, MapPin, MessageSquare, MoreHorizontal, ArrowBigUp, ArrowBigDown } from 'lucide-react';
 import { askLegalQuestion } from '@/ai/flows/community-legal-q-and-a';
 import { legalToolRecommendation } from '@/ai/flows/legal-tool-recommendation';
 import { useToast } from '@/hooks/use-toast';
@@ -152,7 +152,7 @@ export default function FaqClient() {
         <CardContent className="p-4 sm:p-6">
           <h3 className="font-semibold text-lg mb-2">Ask a new question</h3>
           <p className="text-muted-foreground text-sm mb-4">
-            Can't find your answer? Ask our AI assistant.
+            Have a legal doubt? Ask our community and AI assistant.
           </p>
           <div className="flex flex-col sm:flex-row gap-2">
             <Input
@@ -170,41 +170,15 @@ export default function FaqClient() {
               Ask
             </Button>
           </div>
+           {!user && <p className="text-xs text-destructive mt-2">Please log in to ask a question.</p>}
         </CardContent>
       </Card>
 
-      <div className="space-y-6">
+      <div className="space-y-4">
         {currentFaqs.map((faq) => (
-          <Card key={faq.id} id={faq.id} className="shadow-sm">
-            <CardHeader>
-                <div className="flex justify-between items-start">
-                    <div className="flex items-center gap-3">
-                        <Avatar className="h-10 w-10">
-                            <AvatarImage src={faq.author.avatar} alt={faq.author.name} />
-                            <AvatarFallback>{faq.author.name.charAt(0)}</AvatarFallback>
-                        </Avatar>
-                        <div>
-                            <p className="font-semibold">{faq.author.name}</p>
-                            <p className="text-xs text-muted-foreground">
-                                {getTimestamp(faq.timestamp)}
-                            </p>
-                        </div>
-                    </div>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon">
-                                <MoreHorizontal className="w-5 h-5" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                            <DropdownMenuItem>Report</DropdownMenuItem>
-                            <DropdownMenuItem>Share</DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </div>
-            </CardHeader>
-            <CardContent>
-                <p className="text-lg font-medium mb-4">{faq.question}</p>
+          <Card key={faq.id} id={faq.id} className="shadow-sm overflow-hidden">
+             <div className="p-4 sm:p-6">
+                <p className="text-xl font-semibold text-foreground mb-3">{faq.question}</p>
                 <div className="flex gap-2 mb-4 flex-wrap">
                     {faq.tags.map((tag) => (
                         <Badge key={tag} variant="secondary">
@@ -213,63 +187,86 @@ export default function FaqClient() {
                     ))}
                 </div>
 
-              {faq.recommendation && (
-                <Card className="mb-4 border-accent bg-accent/10">
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-4">
-                        {getToolIcon(faq.recommendation.toolRecommendation)}
-                      <div>
-                        <h4 className="font-bold text-sm">Tool Recommendation: {faq.recommendation.toolRecommendation}</h4>
-                        <p className="text-xs text-muted-foreground mt-1">{faq.recommendation.suitabilityReasoning}</p>
-                      </div>
+                <div className="flex justify-between items-end">
+                    <div className="flex items-center gap-2">
+                         <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground" onClick={() => toggleSaveFaq(faq)} disabled={!user}>
+                            <Bookmark className={`w-4 h-4 ${savedFaqs.some(item => item.originalId === faq.id) ? 'text-accent fill-accent' : ''}`} />
+                            {savedFaqs.some(item => item.originalId === faq.id) ? 'Saved' : 'Save'}
+                        </Button>
+                        <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground">
+                            Share
+                        </Button>
                     </div>
-                  </CardContent>
-                </Card>
-              )}
-              <div className="space-y-4">
+
+                    <div className="flex items-center gap-3 bg-muted/50 p-2 rounded-lg">
+                        <Avatar className="h-8 w-8">
+                            <AvatarImage src={faq.author.avatar} alt={faq.author.name} />
+                            <AvatarFallback>{faq.author.name.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                            <p className="font-semibold text-sm">{faq.author.name}</p>
+                            <p className="text-xs text-muted-foreground">
+                                asked on {getTimestamp(faq.timestamp)}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                 {faq.recommendation && (
+                    <Card className="mt-4 border-accent bg-accent/10">
+                    <CardContent className="p-4">
+                        <div className="flex items-start gap-4">
+                            {getToolIcon(faq.recommendation.toolRecommendation)}
+                        <div>
+                            <h4 className="font-bold text-sm">Tool Recommendation: {faq.recommendation.toolRecommendation}</h4>
+                            <p className="text-xs text-muted-foreground mt-1">{faq.recommendation.suitabilityReasoning}</p>
+                        </div>
+                        </div>
+                    </CardContent>
+                    </Card>
+                )}
+
+             </div>
+
+              <Separator />
+
+              <div className="bg-muted/30 p-4 sm:p-6 space-y-6">
+                <h3 className="font-bold text-lg">{faq.answers.length} Answer{faq.answers.length !== 1 && 's'}</h3>
                 {faq.answers.map((answer) => (
-                  <div key={answer.id} className="flex items-start gap-3">
-                    <div className="bg-muted p-2 rounded-full mt-1">
-                      {answer.author === 'AI Bot' ? (
-                        <Bot className="w-5 h-5 text-primary" />
-                      ) : (
-                        <User className="w-5 h-5 text-muted-foreground" />
-                      )}
+                  <div key={answer.id} className="flex items-start gap-3 sm:gap-4">
+                    <div className="flex flex-col items-center gap-1 text-muted-foreground">
+                        <Button variant="ghost" size="icon">
+                            <ArrowBigUp className="w-5 h-5"/>
+                        </Button>
+                        <span className="font-bold text-lg">{answer.upvotes - answer.downvotes}</span>
+                        <Button variant="ghost" size="icon">
+                            <ArrowBigDown className="w-5 h-5"/>
+                        </Button>
                     </div>
                     <div className="flex-1">
-                      <div className="bg-muted rounded-lg p-3">
-                        <p className="font-semibold text-sm">{answer.author}</p>
-                        <p className="mt-1 text-foreground">{answer.content}</p>
-                      </div>
-                       <div className="flex items-center gap-2 mt-1">
-                        <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground text-xs">
-                          <ThumbsUp className="w-3 h-3" /> {answer.upvotes}
-                        </Button>
-                        <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground text-xs">
-                          <ThumbsDown className="w-3 h-3" /> {answer.downvotes}
-                        </Button>
-                         <span className="text-xs text-muted-foreground">&middot;</span>
-                         <p className="text-muted-foreground text-xs">
-                          {getTimestamp(answer.timestamp)}
-                        </p>
-                      </div>
+                        <p className="text-foreground">{answer.content}</p>
+                        <div className="flex justify-end mt-4">
+                            <div className="flex items-center gap-3 bg-background p-2 rounded-lg border">
+                                <div className="bg-muted p-2 rounded-full">
+                                {answer.author === 'AI Bot' ? (
+                                    <Bot className="w-5 h-5 text-primary" />
+                                ) : (
+                                    <User className="w-5 h-5 text-muted-foreground" />
+                                )}
+                                </div>
+                                <div>
+                                    <p className="font-semibold text-sm">{answer.author}</p>
+                                    <p className="text-xs text-muted-foreground">
+                                    answered on {getTimestamp(answer.timestamp)}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                   </div>
                 ))}
               </div>
-            </CardContent>
-            <Separator className="my-0" />
-            <CardFooter className="p-2">
-                <Button variant="ghost" size="sm" className="w-1/2" onClick={() => toggleSaveFaq(faq)} disabled={!user}>
-                  <Bookmark className={`w-4 h-4 mr-2 ${savedFaqs.some(item => item.originalId === faq.id) ? 'text-accent fill-accent' : ''}`} />
-                  {savedFaqs.some(item => item.originalId === faq.id) ? 'Saved' : 'Save'}
-                </Button>
-                <Separator orientation="vertical" className="h-6" />
-                <Button variant="ghost" size="sm" className="w-1/2">
-                    <MessageSquare className="w-4 h-4 mr-2"/>
-                    Comment
-                </Button>
-            </CardFooter>
+
           </Card>
         ))}
       </div>
