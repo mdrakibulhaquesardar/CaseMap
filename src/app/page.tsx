@@ -68,7 +68,7 @@ export default function Home() {
           <div className="container mx-auto px-4 h-full flex flex-col justify-center items-center text-center relative z-20">
             <div className="max-w-3xl">
               <Scale className="w-16 h-16 text-accent mx-auto mb-4" />
-              <h1 className="text-4xl md:text-6xl font-bold font-headline tracking-tight">
+              <h1 className="text-3xl md:text-5xl font-bold font-headline tracking-tight">
                 CaseMap আইনি সহকারী
               </h1>
               <p className="mt-4 text-lg md:text-xl text-white/90">
