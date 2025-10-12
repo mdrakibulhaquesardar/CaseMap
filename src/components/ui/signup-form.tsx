@@ -2,10 +2,11 @@
 'use client';
 
 import { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect, updateProfile } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
+import { randomUserNames } from "@/lib/dummy-data";
 
 export default function SignupForm() {
     const [email, setEmail] = useState("");
@@ -17,7 +18,18 @@ export default function SignupForm() {
         e.preventDefault();
         const auth = getAuth();
         try {
-            await createUserWithEmailAndPassword(auth, email, password);
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            // Assign random name and avatar
+            const randomName = randomUserNames[Math.floor(Math.random() * randomUserNames.length)];
+            const randomAvatar = `https://i.pravatar.cc/150?u=${user.uid}`;
+
+            await updateProfile(user, {
+                displayName: randomName,
+                photoURL: randomAvatar
+            });
+            
             router.push("/");
         } catch (error: any) {
             toast({
@@ -34,6 +46,7 @@ export default function SignupForm() {
         try {
             await signInWithRedirect(auth, provider);
             // No need to router.push here, Firebase handles the redirect back.
+            // The logic in use-user.tsx will handle profile update for new Google users.
         } catch (error: any) {
             toast({
                 title: "Error signing in with Google",

@@ -78,3 +78,11 @@ export const legalAidCenters: LegalAidCenter[] = [
     division: "Sylhet",
   },
 ];
+
+
+export const randomUserNames = [
+  "Akash Chowdhury", "Bonna Ahmed", "Kamal Hasan", "Dalia Khatun",
+  "Emon Sarkar", "Farzana Yasmin", "Gazi Rahman", "Halima Bibi",
+  "Imran Khan", "Jahanara Imam", "Laila Siddiqui", "Mizanur Rahman",
+  "Nadia Islam", "Omar Faruk", "Priya Das"
+];
