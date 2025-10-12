@@ -31,6 +31,12 @@ interface MenuItem {
   items?: MenuItem[];
 }
 
+interface AuthLink {
+    text: string;
+    url: string;
+    onClick?: () => void;
+}
+
 interface Navbar1Props {
   logo?: {
     url: string;
@@ -44,14 +50,8 @@ interface Navbar1Props {
     url: string;
   }[];
   auth?: {
-    login: {
-      text: string;
-      url: string;
-    };
-    signup: {
-      text: string;
-      url: string;
-    };
+    login: AuthLink;
+    signup: AuthLink;
   };
 }
 
@@ -163,10 +163,10 @@ const Navbar1 = ({
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <Button asChild variant="ghost" size="sm">
+            <Button asChild variant="ghost" size="sm" onClick={auth.login.onClick}>
               <Link href={auth.login.url}>{auth.login.text}</Link>
             </Button>
-            <Button asChild size="sm">
+            <Button asChild size="sm" onClick={auth.signup.onClick}>
               <Link href={auth.signup.url}>{auth.signup.text}</Link>
             </Button>
           </div>
@@ -217,10 +217,10 @@ const Navbar1 = ({
                     </div>
                   </div>
                   <div className="flex flex-col gap-3">
-                    <Button asChild variant="outline">
+                    <Button asChild variant="outline" onClick={auth.login.onClick}>
                       <Link href={auth.login.url}>{auth.login.text}</Link>
                     </Button>
-                    <Button asChild>
+                    <Button asChild onClick={auth.signup.onClick}>
                       <Link href={auth.signup.url}>{auth.signup.text}</Link>
                     </Button>
                   </div>

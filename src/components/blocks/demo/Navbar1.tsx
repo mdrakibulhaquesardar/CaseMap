@@ -1,4 +1,9 @@
+"use client";
+
 import { Navbar1 } from "@/components/blocks/Navbar1";
+import { useUser } from "@/firebase/auth/use-user";
+import { getAuth, signOut } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
 const demoData = {
   logo: {
@@ -44,15 +49,36 @@ const demoData = {
     { name: "Terms", url: "#" },
   ],
   auth: {
-    login: { text: "Log in", url: "#" },
-    signup: { text: "Sign up", url: "#" },
+    login: { text: "Log in", url: "/login" },
+    signup: { text: "Sign up", url: "/signup" },
   },
 };
 
 function Navbar1Demo() {
-  return <Navbar1 {...demoData} />;
+  const { user, isLoading } = useUser();
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    const auth = getAuth();
+    await signOut(auth);
+    router.push("/");
+  };
+  
+  const authLinks = user
+    ? {
+        login: { text: "Profile", url: "/profile" },
+        signup: { text: "Sign out", url: "#", onClick: handleSignOut },
+      }
+    : {
+        login: { text: "Log in", url: "/login" },
+        signup: { text: "Sign up", url: "/signup" },
+      };
+
+  if (isLoading) {
+    return <Navbar1 {...demoData} auth={demoData.auth} />;
+  }
+
+  return <Navbar1 {...demoData} auth={authLinks} />;
 }
 
 export { Navbar1Demo };
-
-    
