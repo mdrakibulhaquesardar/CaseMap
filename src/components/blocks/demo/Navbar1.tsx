@@ -1,9 +1,50 @@
+
 "use client";
 
 import { Navbar1 } from "@/components/blocks/Navbar1";
 import { useUser } from "@/firebase/auth/use-user";
 import { getAuth, signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import { useMemo } from "react";
+
+const allMenuItems = [
+    {
+      title: "Home",
+      url: "/",
+      auth: false,
+    },
+    {
+      title: "Timeline",
+      url: "/timeline",
+      auth: true,
+    },
+    {
+      title: "Summarizer",
+      url: "/summarizer",
+      auth: true,
+    },
+    {
+      title: "Q&A",
+      url: "/faq",
+      auth: true,
+    },
+    {
+      title: "Legal Aid",
+      url: "/legal-aid",
+      auth: true,
+    },
+    {
+      title: "Law Finder",
+      url: "/law-finder",
+      auth: true,
+    },
+     {
+      title: "About Us",
+      url: "/about",
+      auth: false,
+    },
+  ];
+
 
 const demoData = {
   logo: {
@@ -12,36 +53,6 @@ const demoData = {
     alt: "CaseMap Legal Companion",
     title: "CaseMap",
   },
-  menu: [
-    {
-      title: "Home",
-      url: "/",
-    },
-    {
-      title: "Timeline",
-      url: "/timeline",
-    },
-    {
-      title: "Summarizer",
-      url: "/summarizer",
-    },
-    {
-      title: "Q&A",
-      url: "/faq",
-    },
-    {
-      title: "Legal Aid",
-      url: "/legal-aid",
-    },
-    {
-      title: "Law Finder",
-      url: "/law-finder",
-    },
-     {
-      title: "About Us",
-      url: "/about",
-    },
-  ],
   mobileExtraLinks: [
     { name: "Profile", url: "/profile" },
     { name: "Settings", url: "/profile/settings" },
@@ -74,11 +85,23 @@ function Navbar1Demo() {
         signup: { text: "Sign up", url: "/signup" },
       };
 
+  const menuItems = useMemo(() => {
+    if (isLoading) {
+        return allMenuItems.filter(item => !item.auth);
+    }
+    if (user) {
+        return allMenuItems;
+    }
+    return allMenuItems.filter(item => !item.auth);
+  }, [user, isLoading]);
+
+
   if (isLoading) {
-    return <Navbar1 {...demoData} auth={demoData.auth} />;
+    const loadingMenu = allMenuItems.filter(item => !item.auth);
+    return <Navbar1 {...demoData} menu={loadingMenu} auth={demoData.auth} />;
   }
 
-  return <Navbar1 {...demoData} auth={authLinks} />;
+  return <Navbar1 {...demoData} menu={menuItems} auth={authLinks} />;
 }
 
 export { Navbar1Demo };
