@@ -32,8 +32,7 @@ interface PricingProps {
 export function Pricing({
   plans,
   title = "Simple, Transparent Pricing",
-  description = `Choose the plan that works for you
-All plans include access to our platform, lead generation tools, and dedicated support.`,
+  description = `Choose the plan that works for you.\nAll plans include access to our platform, lead generation tools, and dedicated support.`,
 }: PricingProps) {
   const [isMonthly, setIsMonthly] = useState(true);
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -99,7 +98,7 @@ All plans include access to our platform, lead generation tools, and dedicated s
         {plans.map((plan, index) => (
           <motion.div
             key={index}
-            initial={{ y: 50, opacity: 0 }}
+            initial={isDesktop ? { y: 50, opacity: 0 } : {}}
             whileInView={
               isDesktop
                 ? {
