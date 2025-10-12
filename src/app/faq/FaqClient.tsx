@@ -280,9 +280,7 @@ export default function FaqClient() {
                 setCurrentPage(p => Math.max(1, p - 1));
               }}
               className={currentPage === 1 ? "pointer-events-none opacity-50" : undefined}
-            >
-              Previous
-            </PaginationPrevious>
+            />
           </PaginationItem>
            <PaginationItem>
             <span className="p-2 text-sm">
@@ -297,9 +295,7 @@ export default function FaqClient() {
                 setCurrentPage(p => Math.min(totalPages, p + 1));
               }}
                className={currentPage === totalPages ? "pointer-events-none opacity-50" : undefined}
-            >
-              Next
-            </PaginationNext>
+            />
           </PaginationItem>
         </PaginationContent>
       </Pagination>
