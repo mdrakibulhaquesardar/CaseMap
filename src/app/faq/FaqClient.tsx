@@ -32,7 +32,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useUser } from '@/firebase/auth/use-user';
 import { useFirestore } from '@/firebase/provider';
-import { collection, addDoc, serverTimestamp, query, orderBy, doc, setDoc, deleteDoc, getDocs, where } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, orderBy, doc, setDoc, deleteDoc, getDocs, where, writeBatch, getDoc } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
 
 const ITEMS_PER_PAGE = 5;
@@ -47,11 +47,28 @@ export default function FaqClient() {
 
   const faqsRef = query(collection(firestore, 'faqs'), orderBy('timestamp', 'desc'));
   const [faqsSnapshot] = useCollection(faqsRef);
-  const faqs = faqsSnapshot?.docs.map(doc => ({ ...doc.data(), id: doc.id } as FaqItem)) || [];
+  
+  const [faqs, setFaqs] = useState<FaqItem[]>([]);
+
+  useEffect(() => {
+    if (faqsSnapshot) {
+      const faqsData = faqsSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as FaqItem));
+      setFaqs(faqsData);
+    }
+  }, [faqsSnapshot]);
+
 
   const savedFaqsRef = user ? query(collection(firestore, 'users', user.uid, 'savedFaqs')) : null;
   const [savedFaqsSnapshot] = useCollection(savedFaqsRef);
   const savedFaqs = savedFaqsSnapshot?.docs.map(doc => ({ ...doc.data(), id: doc.id, faqId: doc.data().id } as FaqItem & {faqId: string})) || [];
+
+  const userVotesRef = user ? query(collection(firestore, 'users', user.uid, 'userVotes')) : null;
+  const [userVotesSnapshot] = useCollection(userVotesRef);
+  const userVotes = userVotesSnapshot?.docs.reduce((acc, doc) => {
+    acc[doc.id] = doc.data().vote;
+    return acc;
+  }, {} as {[key: string]: 'up' | 'down'});
+
 
   const totalPages = Math.ceil(faqs.length / ITEMS_PER_PAGE);
   const currentFaqs = faqs.slice(
@@ -132,6 +149,58 @@ export default function FaqClient() {
         toast({ title: "Saved to Profile", description: "You can view this Q&A in your profile." });
     }
   };
+
+    const handleVote = async (faqId: string, answerId: string, voteType: 'up' | 'down') => {
+        if (!user) {
+            toast({ title: "Please log in to vote.", variant: "destructive" });
+            return;
+        }
+
+        const voteId = `${faqId}_${answerId}`;
+        const userVoteRef = doc(firestore, 'users', user.uid, 'userVotes', voteId);
+        const faqRef = doc(firestore, 'faqs', faqId);
+
+        try {
+            const batch = writeBatch(firestore);
+            const currentVote = userVotes[voteId];
+
+            const faqDoc = await getDoc(faqRef);
+            if (!faqDoc.exists()) return;
+
+            const faqData = faqDoc.data() as FaqItem;
+            const answerIndex = faqData.answers.findIndex(a => a.id === answerId);
+            if (answerIndex === -1) return;
+
+            const answer = faqData.answers[answerIndex];
+            let upvotes = answer.upvotes;
+            let downvotes = answer.downvotes;
+
+            if (currentVote === voteType) { // Undoing vote
+                if (voteType === 'up') upvotes--;
+                else downvotes--;
+                batch.delete(userVoteRef);
+            } else { // New vote or changing vote
+                if (currentVote === 'up') upvotes--;
+                if (currentVote === 'down') downvotes--;
+                
+                if (voteType === 'up') upvotes++;
+                else downvotes++;
+                
+                batch.set(userVoteRef, { vote: voteType });
+            }
+
+            const newAnswers = [...faqData.answers];
+            newAnswers[answerIndex] = { ...answer, upvotes, downvotes };
+            batch.update(faqRef, { answers: newAnswers });
+
+            await batch.commit();
+
+        } catch (error) {
+            console.error("Error voting:", error);
+            toast({ title: "Error", description: "Could not register your vote.", variant: "destructive" });
+        }
+    };
+
 
   const getToolIcon = (toolName: string) => {
     if (toolName.toLowerCase().includes('summarizer')) return <FileText className="w-5 h-5 text-accent" />;
@@ -232,39 +301,43 @@ export default function FaqClient() {
 
               <div className="bg-muted/30 p-4 sm:p-6 space-y-6">
                 <h3 className="font-bold text-lg">{faq.answers.length} Answer{faq.answers.length !== 1 && 's'}</h3>
-                {faq.answers.map((answer) => (
-                  <div key={answer.id} className="flex items-start gap-3 sm:gap-4">
-                    <div className="flex flex-col items-center gap-1 text-muted-foreground">
-                        <Button variant="ghost" size="icon">
-                            <ArrowBigUp className="w-5 h-5"/>
-                        </Button>
-                        <span className="font-bold text-lg">{answer.upvotes - answer.downvotes}</span>
-                        <Button variant="ghost" size="icon">
-                            <ArrowBigDown className="w-5 h-5"/>
-                        </Button>
-                    </div>
-                    <div className="flex-1">
-                        <p className="text-foreground">{answer.content}</p>
-                        <div className="flex justify-end mt-4">
-                            <div className="flex items-center gap-3 bg-background p-2 rounded-lg border">
-                                <div className="bg-muted p-2 rounded-full">
-                                {answer.author === 'AI Bot' ? (
-                                    <Bot className="w-5 h-5 text-primary" />
-                                ) : (
-                                    <User className="w-5 h-5 text-muted-foreground" />
-                                )}
-                                </div>
-                                <div>
-                                    <p className="font-semibold text-sm">{answer.author}</p>
-                                    <p className="text-xs text-muted-foreground">
-                                    answered on {getTimestamp(answer.timestamp)}
-                                    </p>
+                {faq.answers.map((answer) => {
+                   const voteId = `${faq.id}_${answer.id}`;
+                   const userVote = userVotes?.[voteId];
+                   return(
+                      <div key={answer.id} className="flex items-start gap-3 sm:gap-4">
+                        <div className="flex flex-col items-center gap-1 text-muted-foreground">
+                            <Button variant="ghost" size="icon" onClick={() => handleVote(faq.id, answer.id, 'up')} disabled={!user}>
+                                <ArrowBigUp className={`w-5 h-5 ${userVote === 'up' ? 'text-primary fill-primary' : ''}`}/>
+                            </Button>
+                            <span className="font-bold text-lg">{answer.upvotes - answer.downvotes}</span>
+                            <Button variant="ghost" size="icon" onClick={() => handleVote(faq.id, answer.id, 'down')} disabled={!user}>
+                                <ArrowBigDown className={`w-5 h-5 ${userVote === 'down' ? 'text-destructive fill-destructive' : ''}`}/>
+                            </Button>
+                        </div>
+                        <div className="flex-1">
+                            <p className="text-foreground">{answer.content}</p>
+                            <div className="flex justify-end mt-4">
+                                <div className="flex items-center gap-3 bg-background p-2 rounded-lg border">
+                                    <div className="bg-muted p-2 rounded-full">
+                                    {answer.author === 'AI Bot' ? (
+                                        <Bot className="w-5 h-5 text-primary" />
+                                    ) : (
+                                        <User className="w-5 h-5 text-muted-foreground" />
+                                    )}
+                                    </div>
+                                    <div>
+                                        <p className="font-semibold text-sm">{answer.author}</p>
+                                        <p className="text-xs text-muted-foreground">
+                                        answered on {getTimestamp(answer.timestamp)}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                  </div>
-                ))}
+                      </div>
+                    )
+                })}
               </div>
 
           </Card>
@@ -302,3 +375,5 @@ export default function FaqClient() {
     </div>
   );
 }
+
+    
