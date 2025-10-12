@@ -273,7 +273,7 @@ const renderMenuItem = (item: MenuItem) => {
 
   return (
     <NavigationMenuItem key={item.title}>
-      <Link href={item.url} passHref>
+      <Link href={item.url} legacyBehavior passHref>
         <NavigationMenuLink className={navigationMenuTriggerStyle()}>
           {item.title}
         </NavigationMenuLink>
