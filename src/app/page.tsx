@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -366,7 +367,9 @@ function HowItWorksSection() {
             <div key={index} className="relative">
               {/* Connector Line */}
               {index < steps.length - 1 && (
-                <div className="absolute left-1/2 top-16 hidden h-1 w-full bg-gradient-to-r from-primary/50 to-transparent lg:block" />
+                <div className="absolute left-1/2 top-8 hidden h-1 w-full -translate-y-1/2 pt-16 lg:block">
+                  <div className="h-px w-full bg-gradient-to-r from-primary/50 to-transparent" />
+                </div>
               )}
               
               <div className="relative">
@@ -434,3 +437,5 @@ export default function Home() {
     </>
     );
 }
+
+    
