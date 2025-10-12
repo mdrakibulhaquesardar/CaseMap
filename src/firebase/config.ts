@@ -5,12 +5,13 @@
 // The following fields are REQUIRED and must be defined.
 // These values can be found in your Firebase project's web app settings.
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyBujhoarXCoR6nCUO8L8c31eJRqaEXNz_g",
+  authDomain: "casemap-76f82.firebaseapp.com",
+  projectId: "casemap-76f82",
+  storageBucket: "casemap-76f82.appspot.com",
+  messagingSenderId: "841055036353",
+  appId: "1:841055036353:web:1cd001156433a26acfc540",
+  measurementId: "G-2XT159JV6Y"
 };
 
 export function getFirebaseConfig() {
