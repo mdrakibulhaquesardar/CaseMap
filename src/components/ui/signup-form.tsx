@@ -11,6 +11,8 @@ import { randomUserNames } from "@/lib/dummy-data";
 export default function SignupForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [fullName, setFullName] = useState("");
+    const [username, setUsername] = useState("");
     const router = useRouter();
     const { toast } = useToast();
 
@@ -21,12 +23,10 @@ export default function SignupForm() {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            // Assign random name and avatar
-            const randomName = randomUserNames[Math.floor(Math.random() * randomUserNames.length)];
             const randomAvatar = `https://i.pravatar.cc/150?u=${user.uid}`;
 
             await updateProfile(user, {
-                displayName: randomName,
+                displayName: fullName,
                 photoURL: randomAvatar
             });
             
@@ -45,8 +45,6 @@ export default function SignupForm() {
         const provider = new GoogleAuthProvider();
         try {
             await signInWithRedirect(auth, provider);
-            // No need to router.push here, Firebase handles the redirect back.
-            // The logic in use-user.tsx will handle profile update for new Google users.
         } catch (error: any) {
             toast({
                 title: "Error signing in with Google",
@@ -62,7 +60,7 @@ export default function SignupForm() {
                 <img className="h-full w-full object-cover" src="https://picsum.photos/seed/signup/1000/1200" alt="Signup page background" data-ai-hint="library books" />
             </div>
         
-            <div className="w-full flex flex-col items-center justify-center">
+            <div className="w-full flex flex-col items-center justify-center py-8">
         
                 <form className="md:w-96 w-80 flex flex-col items-center justify-center" onSubmit={handleSignUp}>
                     <h2 className="text-4xl text-foreground font-medium">Sign up</h2>
@@ -77,8 +75,24 @@ export default function SignupForm() {
                         <p className="w-full text-nowrap text-sm text-muted-foreground">or sign up with email</p>
                         <div className="w-full h-px bg-border"></div>
                     </div>
-        
+
                     <div className="flex items-center w-full bg-transparent border border-input h-12 rounded-full overflow-hidden pl-6 gap-2">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="hsl(var(--muted-foreground))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="hsl(var(--muted-foreground))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        <input type="text" placeholder="Full Name" className="bg-transparent text-foreground placeholder-muted-foreground outline-none text-sm w-full h-full" required value={fullName} onChange={(e) => setFullName(e.target.value)} />                 
+                    </div>
+
+                     <div className="flex items-center mt-6 w-full bg-transparent border border-input h-12 rounded-full overflow-hidden pl-6 gap-2">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="hsl(var(--muted-foreground))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                           <path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="hsl(var(--muted-foreground))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        <input type="text" placeholder="Username" className="bg-transparent text-foreground placeholder-muted-foreground outline-none text-sm w-full h-full" required value={username} onChange={(e) => setUsername(e.target.value)} />                 
+                    </div>
+        
+                    <div className="flex items-center mt-6 w-full bg-transparent border border-input h-12 rounded-full overflow-hidden pl-6 gap-2">
                         <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" clipRule="evenodd" d="M0 .55.571 0H15.43l.57.55v9.9l-.571.55H.57L0 10.45zm1.143 1.138V9.9h13.714V1.69l-6.503 4.8h-.697zM13.749 1.1H2.25L8 5.356z" fill="hsl(var(--muted-foreground))"/>
                         </svg>
