@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -7,6 +6,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, Scale, BookOpen, Sparkles, ArrowRight, MessageSquare, FileText, Shield, Zap, Brain, Users } from 'lucide-react';
+import { TestimonialsSectionDemo } from '@/components/blocks/demo/TestimonialsWithMarquee';
 
 // Glow Component
 const glowVariants = cva('absolute w-full', {
@@ -393,39 +393,6 @@ function HowItWorksSection() {
   );
 }
 
-// CTA Section
-function CTASection() {
-  return (
-    <section className="relative overflow-hidden bg-background py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-blue-700 px-8 py-16 shadow-2xl sm:px-16">
-          {/* Background Decoration */}
-          <div className="absolute right-0 top-0 h-64 w-64 translate-x-20 -translate-y-20 rounded-full bg-white/10 blur-3xl" />
-          <div className="absolute bottom-0 left-0 h-64 w-64 -translate-x-20 translate-y-20 rounded-full bg-white/10 blur-3xl" />
-          
-          <div className="relative mx-auto max-w-2xl text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Ready to Get Legal Clarity?
-            </h2>
-            <p className="mb-8 text-lg text-blue-100">
-              Join thousands of users who trust CaseMap for instant legal guidance. Start asking questions today.
-            </p>
-            <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-blue-50">
-                Get Started Free
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button size="lg" variant="outline" className="border-white/20 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20">
-                Learn More
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 
 export default function Home() {
     return (
@@ -433,9 +400,7 @@ export default function Home() {
       <CaseMapHero />
       <FeaturesSection />
       <HowItWorksSection />
-      <CTASection />
+      <TestimonialsSectionDemo />
     </>
     );
 }
-
-    
