@@ -5,9 +5,11 @@ import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search, Scale, BookOpen, Sparkles, ArrowRight, MessageSquare, FileText, Shield, Zap, Brain, Users } from 'lucide-react';
-import { TestimonialsSectionDemo } from '@/components/blocks/demo/TestimonialsWithMarquee';
-import { PricingBasic } from '@/components/blocks/demo/Pricing';
+import { Search, Scale, BookOpen, Sparkles, ArrowRight, MessageSquare, FileText, Shield, Zap, Brain, Users, Blocks, CreditCard, Webhook, CodeXml, Handshake } from 'lucide-react';
+import { TestimonialsSection } from '@/components/blocks/TestimonialsWithMarquee';
+import { Pricing } from '@/components/blocks/Pricing';
+import { DottedSurface } from '@/components/ui/dotted-surface';
+import { Footer } from '@/components/blocks/Footer';
 
 // Glow Component
 const glowVariants = cva('absolute w-full', {
@@ -90,22 +92,17 @@ interface CaseMapHeroProps {
 }
 
 function CaseMapHero({
-  badge = 'AI-Powered Legal Assistance',
-  title = 'Understand Your Legal Rights with AI',
-  subtitle = 'Get instant, AI-powered legal guidance tailored to your situation. Ask questions, understand complex legal concepts, and navigate your legal journey with confidence.',
-  placeholder = 'Ask a legal question... (e.g., What are my rights as a tenant?)',
+  badge = "AI-Powered Legal Assistance",
+  title = "Understand Your Legal Rights with AI",
+  subtitle = "Get instant, AI-powered legal guidance tailored to your situation. Ask questions, understand complex legal concepts, and navigate your legal journey with confidence.",
+  placeholder = "Ask a legal question... (e.g., What are my rights as a tenant?)",
 }: CaseMapHeroProps) {
-  const [query, setQuery] = React.useState('');
+  const [query, setQuery] = React.useState("");
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-gradient-to-b from-background via-background to-primary/5">
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 left-1/4 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
-        <div className="absolute right-1/4 top-20 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
-        <Glow variant="top" className="opacity-40" />
-      </div>
-
+      <DottedSurface className="absolute inset-0" />
+      
       {/* Decorative Icons */}
       <div className="absolute left-[10%] top-[20%] hidden animate-pulse opacity-20 lg:block">
         <Scale className="h-16 w-16 text-primary" />
@@ -368,9 +365,7 @@ function HowItWorksSection() {
             <div key={index} className="relative">
               {/* Connector Line */}
               {index < steps.length - 1 && (
-                <div className="absolute left-1/2 top-8 hidden h-1 w-full -translate-y-1/2 pt-16 lg:block">
-                  <div className="h-px w-full bg-gradient-to-r from-primary/50 to-transparent" />
-                </div>
+                <div className="absolute left-1/2 top-8 hidden h-px w-full bg-gradient-to-r from-primary/50 to-transparent lg:block pt-16" />
               )}
               
               <div className="relative">
@@ -394,6 +389,90 @@ function HowItWorksSection() {
   );
 }
 
+const testimonials = [
+  {
+    author: {
+      name: "Anisur Rahman",
+      handle: "@anis_advocate",
+      avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704a",
+    },
+    text: "CaseMap has been a game-changer for tracking my cases. The timeline view is incredibly intuitive and keeps me updated.",
+    href: "#",
+  },
+  {
+    author: {
+      name: "Salma Akhtar",
+      handle: "@salma_legal",
+      avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704b",
+    },
+    text: "The AI document summarizer saved me hours of reading. It breaks down complex legal jargon into simple, understandable Bangla.",
+    href: "#",
+  },
+  {
+    author: {
+      name: "Karim Khan",
+      handle: "@karim_k",
+      avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704c",
+    },
+    text: "As a student, the Community Q&A is an invaluable resource. I get answers from both AI and experienced professionals.",
+  },
+];
+
+const demoPlans = [
+  {
+    name: "Free",
+    price: "0",
+    yearlyPrice: "0",
+    period: "per month",
+    features: [
+      "AI Document Summarizer (3/day)",
+      "Community Q&A Access",
+      "Case Timeline Viewer (1 case)",
+      "Legal Aid Center Finder",
+    ],
+    description: "Perfect for individuals starting their legal journey.",
+    buttonText: "Start for Free",
+    href: "/signup",
+    isPopular: false,
+  },
+  {
+    name: "Pro",
+    price: "15",
+    yearlyPrice: "12",
+    period: "per month",
+    features: [
+        "Unlimited AI Summaries",
+        "Priority in Community Q&A",
+        "Unlimited Case Timelines",
+        "Advanced Law Section Search",
+        "Save Cases & Questions",
+        "Email Support",
+    ],
+    description: "Ideal for law students and professionals.",
+    buttonText: "Upgrade to Pro",
+    href: "/signup",
+    isPopular: true,
+  },
+  {
+    name: "Enterprise",
+    price: "50",
+    yearlyPrice: "40",
+    period: "per user/month",
+    features: [
+      "Everything in Pro",
+      "Team Collaboration Tools",
+      "Dedicated Account Manager",
+      "Custom Integrations",
+      "API Access",
+      "24/7 Priority Support",
+    ],
+    description: "For law firms and large organizations.",
+    buttonText: "Contact Sales",
+    href: "/contact",
+    isPopular: false,
+  },
+];
+
 
 export default function Home() {
     return (
@@ -401,8 +480,96 @@ export default function Home() {
       <CaseMapHero />
       <FeaturesSection />
       <HowItWorksSection />
-      <TestimonialsSectionDemo />
-      <PricingBasic />
+      <TestimonialsSection
+        title="What our users are saying"
+        description="Join thousands of citizens and legal professionals who are simplifying their legal journey with CaseMap."
+        testimonials={testimonials}
+      />
+      <Pricing 
+        plans={demoPlans}
+        title="Simple, Transparent Pricing"
+        description={`Choose the plan that works for you.
+All plans include access to our powerful AI tools and dedicated support.`}
+      />
+       <Footer
+        className="mt-20"
+        brand={{
+          name: "CaseMap",
+          description: "Your AI-powered legal companion for clarity and confidence.",
+        }}
+        socialLinks={[
+          {
+            name: "Twitter",
+            href: "#",
+          },
+          {
+            name: "Github",
+            href: "#",
+          },
+          {
+            name: "Discord",
+            href: "#",
+          },
+        ]}
+        columns={[
+          {
+            title: "Tools",
+            links: [
+              {
+                name: "Timeline",
+                Icon: Blocks,
+                href: "/timeline",
+              },
+              {
+                name: "Summarizer",
+                Icon: FileText,
+                href: "/summarizer",
+              },
+              {
+                name: "Legal Aid",
+                Icon: Users,
+                href: "/legal-aid",
+              },
+              {
+                name: "Law Finder",
+                Icon: BookOpen,
+                href: "/law-finder",
+              },
+            ],
+          },
+          {
+            title: "Community",
+            links: [
+              {
+                name: "Q&A Forum",
+                Icon: MessageSquare,
+                href: "/faq",
+              },
+              {
+                name: "Top Contributors",
+                Icon: Zap,
+                href: "/faq",
+              },
+            ],
+          },
+          {
+            title: "Legal",
+            links: [
+              {
+                name: "Privacy Policy",
+                Icon: Scale,
+                href: "#",
+              },
+              {
+                name: "Terms of Service",
+                Icon: Handshake,
+                href: "#",
+              },
+            ],
+          },
+        ]}
+        copyright="CaseMap Inc. © 2024"
+      />
     </>
     );
 }
