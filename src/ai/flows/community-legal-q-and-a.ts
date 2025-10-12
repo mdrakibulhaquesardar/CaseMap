@@ -28,7 +28,7 @@ const prompt = ai.definePrompt({
   name: 'askLegalQuestionPrompt',
   input: {schema: AskLegalQuestionInputSchema},
   output: {schema: AskLegalQuestionOutputSchema},
-  prompt: `You are a helpful AI assistant specialized in providing legal information in Bangla.
+  prompt: `You are a helpful AI assistant specialized in providing legal information.
 
   Please answer the following legal question in a clear and concise manner:
 
@@ -47,3 +47,5 @@ const askLegalQuestionFlow = ai.defineFlow(
     return output!;
   }
 );
+
+    

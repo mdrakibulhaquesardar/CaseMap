@@ -6,8 +6,8 @@ import { Navbar1Demo } from '@/components/blocks/demo/Navbar1';
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'CaseMap আইনি সহকারী',
-  description: 'AI-চালিত আইনি সচেতনতা এবং মামলা ট্র্যাকিং প্ল্যাটফর্ম',
+  title: 'CaseMap Legal Assistant',
+  description: 'AI-powered legal awareness and case tracking platform',
 };
 
 export default function RootLayout({
@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="bn" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -117,3 +117,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+    

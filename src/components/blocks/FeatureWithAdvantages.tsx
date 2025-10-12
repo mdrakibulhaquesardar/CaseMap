@@ -6,13 +6,13 @@ function FeatureWithAdvantages() {
     <div className="w-full py-20 lg:py-24 bg-muted/30">
       <div className="container mx-auto">
         <div className="flex flex-col items-center text-center">
-          <Badge>আমাদের সেবা</Badge>
+          <Badge>Our Services</Badge>
           <div className="flex gap-2 flex-col mt-4">
             <h2 className="text-3xl md:text-5xl tracking-tighter font-bold font-headline">
-              সবার জন্য আইনি টুলস
+              Legal Tools for Everyone
             </h2>
             <p className="text-lg max-w-xl lg:max-w-2xl leading-relaxed tracking-tight text-muted-foreground">
-              আমরা শক্তিশালী, সহজে ব্যবহারযোগ্য একটি টুলস স্যুট সরবরাহ করি যা আইনি ব্যবস্থাকে সকল নাগরিকের জন্য আরও সহজলভ্য এবং বোধগম্য করার জন্য ডিজাইন করা হয়েছে।
+              We provide a suite of powerful, easy-to-use tools designed to make the legal system more accessible and understandable for all citizens.
             </p>
           </div>
           <div className="flex pt-12 flex-col w-full">
@@ -20,54 +20,54 @@ function FeatureWithAdvantages() {
               <div className="flex flex-row gap-4 items-start">
                 <Check className="w-5 h-5 mt-1 text-primary shrink-0" />
                 <div className="flex flex-col gap-1">
-                  <p className="font-semibold">AI-চালিত সারসংক্ষেপ</p>
+                  <p className="font-semibold">AI-Powered Summarization</p>
                   <p className="text-muted-foreground text-sm">
-                    জটিল আইনি পরিভাষা সহজ, स्पष्ट বাংলায় অনুবাদ করুন।
+                    Translate complex legal jargon into simple, clear English.
                   </p>
                 </div>
               </div>
               <div className="flex flex-row gap-4 items-start">
                 <Check className="w-5 h-5 mt-1 text-primary shrink-0" />
                 <div className="flex flex-col gap-1">
-                  <p className="font-semibold">ইন্টারেক্টিভ মামলার টাইমলাইন</p>
+                  <p className="font-semibold">Interactive Case Timelines</p>
                   <p className="text-muted-foreground text-sm">
-                    ফাইলিং থেকে রায় পর্যন্ত আপনার মামলার অগ্রগতি দৃশ্যত ট্র্যাক করুন।
+                    Visually track the progress of your case from filing to judgment.
                   </p>
                 </div>
               </div>
               <div className="flex flex-row gap-4 items-start">
                 <Check className="w-5 h-5 mt-1 text-primary shrink-0" />
                 <div className="flex flex-col gap-1">
-                  <p className="font-semibold">কমিউনিটি প্রশ্নোত্তর ফোরাম</p>
+                  <p className="font-semibold">Community Q&A Forum</p>
                   <p className="text-muted-foreground text-sm">
-                    আমাদের AI এবং কমিউনিটি থেকে আপনার আইনি প্রশ্নের উত্তর পান।
+                    Get answers to your legal questions from our AI and community.
                   </p>
                 </div>
               </div>
               <div className="flex flex-row gap-4 items-start">
                 <Check className="w-5 h-5 mt-1 text-primary shrink-0" />
                 <div className="flex flex-col gap-1">
-                  <p className="font-semibold">আইনি সহায়তা কেন্দ্র ম্যাপ</p>
+                  <p className="font-semibold">Legal Aid Center Map</p>
                   <p className="text-muted-foreground text-sm">
-                    আপনার কাছাকাছি আইনি সহায়তা প্রদানকারীদের সহজে খুঁজুন এবং সংযোগ করুন।
+                    Easily find and connect with legal aid providers near you.
                   </p>
                 </div>
               </div>
               <div className="flex flex-row gap-4 items-start">
                 <Check className="w-5 h-5 mt-1 text-primary shrink-0" />
                 <div className="flex flex-col gap-1">
-                  <p className="font-semibold">আইন ধারা খোঁজকারী</p>
+                  <p className="font-semibold">Law Section Finder</p>
                   <p className="text-muted-foreground text-sm">
-                    বাংলাদেশী আইনের যেকোনো ধারা অনুসন্ধান করুন এবং বুঝুন।
+                    Search and understand any section of Bangladeshi law.
                   </p>
                 </div>
               </div>
               <div className="flex flex-row gap-4 items-start">
                 <Check className="w-5 h-5 mt-1 text-primary shrink-0" />
                 <div className="flex flex-col gap-1">
-                  <p className="font-semibold">ব্যক্তিগত প্রোফাইল</p>
+                  <p className="font-semibold">Personalized Profile</p>
                   <p className="text-muted-foreground text-sm">
-                    ভবিষ্যতে দ্রুত অ্যাক্সেসের জন্য গুরুত্বপূর্ণ মামলা এবং প্রশ্নোত্তর সংরক্ষণ করুন।
+                    Save important cases and Q&As for quick access in the future.
                   </p>
                 </div>
               </div>
@@ -80,3 +80,5 @@ function FeatureWithAdvantages() {
 }
 
 export { FeatureWithAdvantages };
+
+    

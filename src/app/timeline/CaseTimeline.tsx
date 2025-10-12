@@ -8,31 +8,22 @@ interface CaseTimelineProps {
 }
 
 const statusConfig = {
-  সম্পন্ন: {
+  Completed: {
     icon: CheckCircle2,
     color: 'bg-green-500',
     badgeClass: 'bg-green-500/10 text-green-700 border-green-500/20',
   },
-  আসন্ন: {
+  Upcoming: {
     icon: Clock,
     color: 'bg-blue-500',
     badgeClass: 'bg-blue-500/10 text-blue-700 border-blue-500/20',
   },
-  বিচারাধীন: {
+  Pending: {
     icon: Hourglass,
     color: 'bg-yellow-500',
     badgeClass: 'bg-yellow-500/10 text-yellow-700 border-yellow-500/20',
   },
 };
-
-const translatedStatus = (status: 'Completed' | 'Upcoming' | 'Pending'): keyof typeof statusConfig => {
-    switch (status) {
-        case 'Completed': return 'সম্পন্ন';
-        case 'Upcoming': return 'আসন্ন';
-        case 'Pending': return 'বিচারাধীন';
-    }
-}
-
 
 export default function CaseTimelineDisplay({ timeline }: CaseTimelineProps) {
   return (
@@ -41,8 +32,7 @@ export default function CaseTimelineDisplay({ timeline }: CaseTimelineProps) {
       
       <div className="space-y-8">
         {timeline.map((item, index) => {
-          const statusKey = translatedStatus(item.status);
-          const config = statusConfig[statusKey];
+          const config = statusConfig[item.status];
           const Icon = config.icon;
           return (
             <div key={index} className="relative flex items-start">
@@ -54,10 +44,10 @@ export default function CaseTimelineDisplay({ timeline }: CaseTimelineProps) {
                 </div>
               </div>
               <div className="flex-1 ml-12">
-                 <p className="text-sm font-medium text-muted-foreground">{new Date(item.date).toLocaleDateString('bn-BD')}</p>
+                 <p className="text-sm font-medium text-muted-foreground">{new Date(item.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                  <div className="flex items-center gap-4 mt-1">
                     <h4 className="font-semibold text-foreground">{item.step}</h4>
-                    <Badge variant="outline" className={cn(config.badgeClass)}>{statusKey}</Badge>
+                    <Badge variant="outline" className={cn(config.badgeClass)}>{item.status}</Badge>
                  </div>
               </div>
             </div>
@@ -67,3 +57,5 @@ export default function CaseTimelineDisplay({ timeline }: CaseTimelineProps) {
     </div>
   );
 }
+
+    

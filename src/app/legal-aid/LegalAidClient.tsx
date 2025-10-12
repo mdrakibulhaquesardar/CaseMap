@@ -17,8 +17,8 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-const services = ["পারিবারিক আইন", "জমি विवाद", "ফৌজداری মামলা", "মানবাধিকার", "শ্রম আইন"];
-const divisions = ["ঢাকা", "চট্টগ্রাম", "সিলেট", "রাজশাহী", "খুলনা", "বরিশাল", "রংপুর", "ময়মনসিংহ"];
+const services = ["Family Law", "Land Disputes", "Criminal Law", "Human Rights", "Labor Law"];
+const divisions = ["Dhaka", "Chittagong", "Sylhet", "Rajshahi", "Khulna", "Barisal", "Rangpur", "Mymensingh"];
 
 export default function LegalAidClient() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -39,26 +39,26 @@ export default function LegalAidClient() {
       <aside className="lg:col-span-1">
         <Card className="sticky top-20">
             <CardHeader>
-                <CardTitle>সহায়তা খুঁজুন</CardTitle>
+                <CardTitle>Find Help</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
                 <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                     <Input
-                        placeholder="নাম দিয়ে খুঁজুন..."
+                        placeholder="Search by name..."
                         className="pl-10"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
                 <div>
-                    <label className="text-sm font-medium text-muted-foreground">প্রয়োজনীয় সেবা</label>
+                    <label className="text-sm font-medium text-muted-foreground">Required Service</label>
                      <Select value={selectedService} onValueChange={setSelectedService}>
                         <SelectTrigger>
-                            <SelectValue placeholder="একটি সেবা নির্বাচন করুন" />
+                            <SelectValue placeholder="Select a service" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">সব সেবা</SelectItem>
+                            <SelectItem value="all">All Services</SelectItem>
                             {services.map(service => (
                                 <SelectItem key={service} value={service}>{service}</SelectItem>
                             ))}
@@ -66,13 +66,13 @@ export default function LegalAidClient() {
                     </Select>
                 </div>
                 <div>
-                    <label className="text-sm font-medium text-muted-foreground">বিভাগ</label>
+                    <label className="text-sm font-medium text-muted-foreground">Division</label>
                     <Select value={selectedDivision} onValueChange={setSelectedDivision}>
                         <SelectTrigger>
-                            <SelectValue placeholder="একটি বিভাগ নির্বাচন করুন" />
+                            <SelectValue placeholder="Select a division" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">সব বিভাগ</SelectItem>
+                            <SelectItem value="all">All Divisions</SelectItem>
                             {divisions.map(division => (
                                 <SelectItem key={division} value={division}>{division}</SelectItem>
                             ))}
@@ -84,7 +84,7 @@ export default function LegalAidClient() {
                      setSelectedService('all');
                      setSelectedDivision('all');
                  }}>
-                    ফিল্টার রিসেট করুন
+                    Reset Filters
                 </Button>
             </CardContent>
         </Card>
@@ -131,8 +131,8 @@ export default function LegalAidClient() {
            {filteredCenters.length === 0 && (
             <div className="md:col-span-2 text-center py-20 text-muted-foreground">
                 <Search className="w-12 h-12 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold">কোনো ফলাফল পাওয়া যায়নি</h3>
-                <p>আপনার অনুসন্ধান বা ফিল্টার পরিবর্তন করে চেষ্টা করুন।</p>
+                <h3 className="text-xl font-semibold">No results found</h3>
+                <p>Try adjusting your search or filters.</p>
             </div>
            )}
         </div>
@@ -140,3 +140,5 @@ export default function LegalAidClient() {
     </div>
   );
 }
+
+    

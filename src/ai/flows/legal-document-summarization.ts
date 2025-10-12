@@ -1,7 +1,7 @@
 'use server';
 
 /**
- * @fileOverview Summarizes legal documents into simplified Bangla.
+ * @fileOverview Summarizes legal documents into simplified English.
  *
  * - summarizeLegalDocument - A function that summarizes legal documents.
  * - SummarizeLegalDocumentInput - The input type for the summarizeLegalDocument function.
@@ -17,7 +17,7 @@ const SummarizeLegalDocumentInputSchema = z.object({
 export type SummarizeLegalDocumentInput = z.infer<typeof SummarizeLegalDocumentInputSchema>;
 
 const SummarizeLegalDocumentOutputSchema = z.object({
-  summary: z.string().describe('The simplified Bangla summary of the legal document.'),
+  summary: z.string().describe('The simplified English summary of the legal document.'),
 });
 export type SummarizeLegalDocumentOutput = z.infer<typeof SummarizeLegalDocumentOutputSchema>;
 
@@ -29,7 +29,7 @@ const prompt = ai.definePrompt({
   name: 'summarizeLegalDocumentPrompt',
   input: {schema: SummarizeLegalDocumentInputSchema},
   output: {schema: SummarizeLegalDocumentOutputSchema},
-  prompt: `You are an AI assistant specializing in legal document summarization for Bangla-speaking citizens with limited legal knowledge. Summarize the following legal document in simple, easy-to-understand Bangla.\n\nDocument: {{{documentText}}}`,
+  prompt: `You are an AI assistant specializing in legal document summarization for citizens with limited legal knowledge. Summarize the following legal document in simple, easy-to-understand English.\n\nDocument: {{{documentText}}}`,
 });
 
 const summarizeLegalDocumentFlow = ai.defineFlow(
@@ -43,3 +43,5 @@ const summarizeLegalDocumentFlow = ai.defineFlow(
     return output!;
   }
 );
+
+    

@@ -1,5 +1,3 @@
-import { Book, Sunset, Trees, Zap } from "lucide-react";
-
 import { Navbar1 } from "@/components/blocks/Navbar1";
 
 const demoData = {
@@ -11,43 +9,43 @@ const demoData = {
   },
   menu: [
     {
-      title: "হোম",
+      title: "Home",
       url: "/",
     },
     {
-      title: "টাইমলাইন",
+      title: "Timeline",
       url: "/timeline",
     },
     {
-      title: "সারসংক্ষেপ",
+      title: "Summarizer",
       url: "/summarizer",
     },
     {
-      title: "প্রশ্নোত্তর",
+      title: "Q&A",
       url: "/faq",
     },
     {
-      title: "আইনি সহায়তা",
+      title: "Legal Aid",
       url: "/legal-aid",
     },
     {
-      title: "আইন খোঁজকারী",
+      title: "Law Finder",
       url: "/law-finder",
     },
      {
-      title: "আমাদের সম্পর্কে",
+      title: "About Us",
       url: "/about",
     },
   ],
   mobileExtraLinks: [
-    { name: "প্রোফাইল", url: "/profile" },
-    { name: "সেটিংস", url: "/profile/settings" },
-    { name: "গোপনীয়তা", url: "#" },
-    { name: "শর্তাবলী", url: "#" },
+    { name: "Profile", url: "/profile" },
+    { name: "Settings", url: "/profile/settings" },
+    { name: "Privacy", url: "#" },
+    { name: "Terms", url: "#" },
   ],
   auth: {
-    login: { text: "লগইন", url: "#" },
-    signup: { text: "সাইন আপ", url: "#" },
+    login: { text: "Log in", url: "#" },
+    signup: { text: "Sign up", url: "#" },
   },
 };
 
@@ -56,3 +54,5 @@ function Navbar1Demo() {
 }
 
 export { Navbar1Demo };
+
+    

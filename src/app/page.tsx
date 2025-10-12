@@ -403,7 +403,7 @@ const testimonials = [
       handle: "@salma_legal",
       avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704b",
     },
-    text: "The AI document summarizer saved me hours of reading. It breaks down complex legal jargon into simple, understandable Bangla.",
+    text: "The AI document summarizer saved me hours of reading. It breaks down complex legal jargon into simple, understandable language.",
     href: "#",
   },
   {
@@ -492,3 +492,5 @@ All plans include access to our powerful AI tools and dedicated support.`}
     </>
     );
 }
+
+    

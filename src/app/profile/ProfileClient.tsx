@@ -17,12 +17,12 @@ export default function ProfileClient() {
 
   const removeCase = (caseNumber: string) => {
     setSavedCases(savedCases.filter(c => c.caseNumber !== caseNumber));
-    toast({ title: "মামলা সফলভাবে মুছে ফেলা হয়েছে।"});
+    toast({ title: "Case successfully removed."});
   };
 
   const removeFaq = (id: number) => {
     setSavedFaqs(savedFaqs.filter(faq => faq.id !== id));
-    toast({ title: "প্রশ্নোত্তর সফলভাবে মুছে ফেলা হয়েছে।"});
+    toast({ title: "Q&A successfully removed."});
   };
 
   return (
@@ -31,20 +31,20 @@ export default function ProfileClient() {
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="cases">
             <Gavel className="w-4 h-4 mr-2" />
-            সংরক্ষিত মামলা ({savedCases.length})
+            Saved Cases ({savedCases.length})
           </TabsTrigger>
           <TabsTrigger value="faqs">
             <Bookmark className="w-4 h-4 mr-2" />
-            সংরক্ষিত প্রশ্নোত্তর ({savedFaqs.length})
+            Saved Q&As ({savedFaqs.length})
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="cases">
           <Card>
             <CardHeader>
-              <CardTitle>সংরক্ষিত মামলা</CardTitle>
+              <CardTitle>Saved Cases</CardTitle>
               <CardDescription>
-                দ্রুত অ্যাক্সেসের জন্য আপনি যে মামলার টাইমলাইনগুলি সংরক্ষণ করেছেন সেগুলি এখানে রয়েছে।
+                These are the case timelines you have saved for quick access.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -53,11 +53,11 @@ export default function ProfileClient() {
                   <div key={c.caseNumber} className="flex items-center justify-between rounded-lg border p-4">
                     <div>
                       <p className="font-semibold">{c.title}</p>
-                      <p className="text-sm text-muted-foreground">মামলা নং: {c.caseNumber}</p>
+                      <p className="text-sm text-muted-foreground">Case No: {c.caseNumber}</p>
                     </div>
                     <div className="flex gap-2">
                       <Button asChild variant="outline" size="sm">
-                        <Link href={`/timeline?caseNumber=${c.caseNumber}`}>টাইমলাইন দেখুন</Link>
+                        <Link href={`/timeline?caseNumber=${c.caseNumber}`}>View Timeline</Link>
                       </Button>
                       <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive" onClick={() => removeCase(c.caseNumber)}>
                         <Trash2 className="w-4 h-4" />
@@ -68,9 +68,9 @@ export default function ProfileClient() {
               ) : (
                 <div className="text-center py-10 text-muted-foreground">
                   <Info className="w-8 h-8 mx-auto mb-2" />
-                  <p>আপনি এখনও কোনো মামলা সংরক্ষণ করেননি।</p>
+                  <p>You haven't saved any cases yet.</p>
                   <Button asChild variant="link" className="mt-2">
-                    <Link href="/timeline">একটি মামলা ট্র্যাক করুন</Link>
+                    <Link href="/timeline">Track a case</Link>
                   </Button>
                 </div>
               )}
@@ -81,9 +81,9 @@ export default function ProfileClient() {
         <TabsContent value="faqs">
           <Card>
             <CardHeader>
-              <CardTitle>সংরক্ষিত প্রশ্নোত্তর</CardTitle>
+              <CardTitle>Saved Q&As</CardTitle>
               <CardDescription>
-                আপনি যে প্রশ্ন এবং উত্তরগুলি বুকমার্ক করেছেন সেগুলি এখানে রয়েছে৷
+                Here are the questions and answers you've bookmarked.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -93,15 +93,15 @@ export default function ProfileClient() {
                     <p className="font-semibold">{faq.question}</p>
                     <div className="flex text-sm text-muted-foreground gap-4 mt-2">
                         <div className="flex items-center gap-1">
-                            <MessageSquare className="w-4 h-4" /> {faq.answers.length} উত্তর
+                            <MessageSquare className="w-4 h-4" /> {faq.answers.length} Answers
                         </div>
                         <div className="flex items-center gap-1">
-                            <ThumbsUp className="w-4 h-4" /> {faq.answers.reduce((acc, a) => acc + a.upvotes, 0)} আপভোট
+                            <ThumbsUp className="w-4 h-4" /> {faq.answers.reduce((acc, a) => acc + a.upvotes, 0)} Upvotes
                         </div>
                     </div>
                      <div className="flex gap-2 mt-4">
                        <Button asChild variant="outline" size="sm">
-                         <Link href="/faq">প্রশ্নোত্তর দেখুন</Link>
+                         <Link href="/faq">View Q&A</Link>
                        </Button>
                        <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive" onClick={() => removeFaq(faq.id)}>
                          <Trash2 className="w-4 h-4" />
@@ -112,9 +112,9 @@ export default function ProfileClient() {
               ) : (
                  <div className="text-center py-10 text-muted-foreground">
                   <Info className="w-8 h-8 mx-auto mb-2" />
-                  <p>আপনি এখনও কোনো প্রশ্নোত্তর সংরক্ষণ করেননি।</p>
+                  <p>You haven't saved any Q&As yet.</p>
                    <Button asChild variant="link" className="mt-2">
-                     <Link href="/faq">একটি প্রশ্ন জিজ্ঞাসা করুন</Link>
+                     <Link href="/faq">Ask a question</Link>
                    </Button>
                  </div>
               )}
@@ -125,3 +125,5 @@ export default function ProfileClient() {
     </div>
   );
 }
+
+    

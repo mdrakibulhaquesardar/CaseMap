@@ -17,7 +17,7 @@ export type FindLawSectionInput = z.infer<typeof FindLawSectionInputSchema>;
 
 const FindLawSectionOutputSchema = z.object({
   sectionTitle: z.string().describe('The title of the law section found.'),
-  sectionDetails: z.string().describe('The detailed explanation of the law section in Bangla.'),
+  sectionDetails: z.string().describe('The detailed explanation of the law section in English.'),
 });
 export type FindLawSectionOutput = z.infer<typeof FindLawSectionOutputSchema>;
 
@@ -29,7 +29,7 @@ const prompt = ai.definePrompt({
   name: 'findLawSectionPrompt',
   input: {schema: FindLawSectionInputSchema},
   output: {schema: FindLawSectionOutputSchema},
-  prompt: `You are an expert on the laws of Bangladesh. The user wants to know about a specific law section. Based on their query, find the relevant law section and provide its title and a detailed explanation in simple, easy-to-understand Bangla.
+  prompt: `You are an expert on the laws of Bangladesh. The user wants to know about a specific law section. Based on their query, find the relevant law section and provide its title and a detailed explanation in simple, easy-to-understand English.
 
 User Query: {{{query}}}
 `,
@@ -46,3 +46,5 @@ const findLawSectionFlow = ai.defineFlow(
     return output!;
   }
 );
+
+    

@@ -28,10 +28,10 @@ export default function TimelinePage() {
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold font-headline">
-            মামলার টাইমলাইন ভিউয়ার
+            Case Timeline Viewer
           </h1>
           <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
-            আপনার মামলার নম্বর লিখে এর perjalanan এবং বর্তমান অবস্থা একটি దృశ్యమాన प्रतिनिधित्त्व দেখুন।
+            Enter your case number to see a visual representation of its journey and current status.
           </p>
         </div>
 
@@ -41,8 +41,8 @@ export default function TimelinePage() {
               <Card className="text-center py-20 flex flex-col items-center justify-center min-h-[400px]">
                 <CardContent>
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
-                  <h3 className="text-xl font-semibold">লোড হচ্ছে...</h3>
-                  <p className="text-muted-foreground mt-2">মামলা টাইমলাইন লোড হচ্ছে</p>
+                  <h3 className="text-xl font-semibold">Loading...</h3>
+                  <p className="text-muted-foreground mt-2">Loading case timeline</p>
                 </CardContent>
               </Card>
             }>
@@ -55,7 +55,7 @@ export default function TimelinePage() {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                         <Gavel className="text-primary" />
-                        সংরক্ষিত মামলা
+                        Saved Cases
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -72,7 +72,7 @@ export default function TimelinePage() {
                                 <div>
                                     <p className="font-semibold text-left">{c.title}</p>
                                     <p className="text-xs text-muted-foreground text-left">
-                                    মামলা নং: {c.caseNumber}
+                                    Case No: {c.caseNumber}
                                     </p>
                                 </div>
                                 </Link>
@@ -82,21 +82,21 @@ export default function TimelinePage() {
                         ) : (
                         <div className="text-center py-6 text-sm text-muted-foreground">
                             <Info className="w-6 h-6 mx-auto mb-2" />
-                            <p>আপনি এখনও কোনো মামলা সংরক্ষণ করেননি।</p>
+                            <p>You have not saved any cases yet.</p>
                         </div>
                         )}
                     </CardContent>
                 </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle>আরও সাহায্য প্রয়োজন?</CardTitle>
+                  <CardTitle>Need more help?</CardTitle>
                   <CardDescription>
-                    আপনার আইনি যাত্রায় সাহায্য করার জন্য অন্যান্য সরঞ্জামগুলি অন্বেষণ করুন।
+                    Explore other tools to help you on your legal journey.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Button className="w-full" asChild>
-                    <Link href="/faq">একটি কমিউনিটি প্রশ্ন জিজ্ঞাসা করুন</Link>
+                    <Link href="/faq">Ask a Community Question</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -108,3 +108,4 @@ export default function TimelinePage() {
   );
 }
 
+    
