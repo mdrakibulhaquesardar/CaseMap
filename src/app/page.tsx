@@ -5,6 +5,7 @@ import { FileText, Gavel, MapPin, MessagesSquare, Scale, Briefcase, Home as Home
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { DottedSurface } from "@/components/ui/dotted-surface";
 
 const legalTips = [
   {
@@ -55,23 +56,15 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center">
       <section className="w-full relative">
-        <div className="relative w-full h-[60vh] text-white">
-          <Image
-            src="https://media.istockphoto.com/id/1139699594/photo/law-concept-themis-statue-judge-hammer-and-books.jpg?s=612x612&w=0&k=20&c=VgFftTqxcgJswpCK8IQS9bpCo9aDJ_Vsgigwa0bnH-c="
-            alt="আইনের পটভূমি"
-            fill={true}
-            style={{objectFit: "cover"}}
-            className="z-0"
-            data-ai-hint="law books library"
-          />
-          <div className="absolute inset-0 bg-black/60 z-10" />
+        <DottedSurface className="size-full" />
+        <div className="relative w-full h-[60vh] text-foreground">
           <div className="container mx-auto px-4 h-full flex flex-col justify-center items-center text-center relative z-20">
             <div className="max-w-3xl">
               <Scale className="w-16 h-16 text-accent mx-auto mb-4" />
               <h1 className="text-3xl md:text-5xl font-bold font-headline tracking-tight">
                 CaseMap আইনি সহকারী
               </h1>
-              <p className="mt-4 text-lg md:text-xl text-white/90">
+              <p className="mt-4 text-lg md:text-xl text-muted-foreground">
                 আপনার আইনি পথচলার বিশ্বস্ত সহযোগী। মামলার সর্বশেষ তথ্য, আইনি পরামর্শ এবং সহায়তা এখন হাতের মুঠোয়।
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">

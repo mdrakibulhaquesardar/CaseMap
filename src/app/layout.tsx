@@ -3,6 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import Footer from '@/components/layout/Footer';
 import { Navbar1Demo } from '@/components/blocks/demo/Navbar1';
+import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
   title: 'CaseMap আইনি সহকারী',
@@ -23,10 +24,17 @@ export default function RootLayout({
         <link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet" />
       </head>
       <body className="font-body antialiased flex flex-col min-h-screen">
-        <Navbar1Demo />
-        <main className="flex-grow">{children}</main>
-        <Footer />
-        <Toaster />
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+        >
+            <Navbar1Demo />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+            <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
