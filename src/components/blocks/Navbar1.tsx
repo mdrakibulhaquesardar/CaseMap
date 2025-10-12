@@ -273,11 +273,9 @@ const renderMenuItem = (item: MenuItem) => {
 
   return (
     <NavigationMenuItem key={item.title}>
-      <Link href={item.url} passHref asChild>
-        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-          {item.title}
-        </NavigationMenuLink>
-      </Link>
+      <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+        <Link href={item.url}>{item.title}</Link>
+      </NavigationMenuLink>
     </NavigationMenuItem>
   );
 };
