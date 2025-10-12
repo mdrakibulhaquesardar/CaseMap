@@ -1,10 +1,12 @@
-import type {Metadata} from 'next';
+
+import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import { Footer } from '@/components/blocks/Footer';
 import { Navbar1Demo } from '@/components/blocks/demo/Navbar1';
 import { ThemeProvider } from '@/components/theme-provider';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
+import RootLayoutContent from './RootLayoutContent';
 
 export const metadata: Metadata = {
   title: 'CaseMap Legal Assistant',
@@ -32,88 +34,10 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
           >
-              <Navbar1Demo />
-              <main className="flex-grow">{children}</main>
-              <Footer
-          className="mt-20"
-          brand={{
-            name: "CaseMap",
-            description: "Your AI-powered legal companion for clarity and confidence.",
-          }}
-          socialLinks={[
-            {
-              name: "Twitter",
-              href: "#",
-            },
-            {
-              name: "Github",
-              href: "#",
-            },
-            {
-              name: "Discord",
-              href: "#",
-            },
-          ]}
-          columns={[
-            {
-              title: "Tools",
-              links: [
-                {
-                  name: "Timeline",
-                  iconName: "Blocks",
-                  href: "/timeline",
-                },
-                {
-                  name: "Summarizer",
-                  iconName: "FileText",
-                  href: "/summarizer",
-                },
-                {
-                  name: "Legal Aid",
-                  iconName: "Users",
-                  href: "/legal-aid",
-                },
-                {
-                  name: "Law Finder",
-                  iconName: "BookOpen",
-                  href: "/law-finder",
-                },
-              ],
-            },
-            {
-              title: "Community",
-              links: [
-                {
-                  name: "Q&A Forum",
-                  iconName: "MessageSquare",
-                  href: "/faq",
-                },
-                {
-                  name: "Top Contributors",
-                  iconName: "Zap",
-                  href: "/faq",
-                },
-              ],
-            },
-            {
-              title: "Legal",
-              links: [
-                {
-                  name: "Privacy Policy",
-                  iconName: "Scale",
-                  href: "#",
-                },
-                {
-                  name: "Terms of Service",
-                  iconName: "Handshake",
-                  href: "#",
-                },
-              ],
-            },
-          ]}
-          copyright="CaseMap Inc. © 2024"
-        />
-              <Toaster />
+            <RootLayoutContent>
+              {children}
+            </RootLayoutContent>
+            <Toaster />
           </ThemeProvider>
         </FirebaseClientProvider>
       </body>
