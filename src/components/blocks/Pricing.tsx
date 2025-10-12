@@ -140,7 +140,7 @@ All plans include access to our platform, lead generation tools, and dedicated s
               </p>
               <div className="mt-4 flex items-baseline justify-center gap-x-2">
                 <span className="text-5xl font-bold tracking-tight text-foreground">
-                  ${isMonthly ? plan.price : plan.yearlyPrice}
+                  ৳{isMonthly ? plan.price : plan.yearlyPrice}
                 </span>
                 {plan.price !== "0" && (
                   <span className="text-sm font-semibold leading-6 tracking-wide text-muted-foreground">
