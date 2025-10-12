@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, Scale, BookOpen, Sparkles, ArrowRight, MessageSquare, FileText, Shield, Zap, Brain, Users } from 'lucide-react';
 import { TestimonialsSectionDemo } from '@/components/blocks/demo/TestimonialsWithMarquee';
+import { PricingBasic } from '@/components/blocks/demo/Pricing';
 
 // Glow Component
 const glowVariants = cva('absolute w-full', {
@@ -401,6 +402,7 @@ export default function Home() {
       <FeaturesSection />
       <HowItWorksSection />
       <TestimonialsSectionDemo />
+      <PricingBasic />
     </>
     );
 }
