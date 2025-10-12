@@ -5,11 +5,10 @@ import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search, Scale, BookOpen, Sparkles, ArrowRight, MessageSquare, FileText, Shield, Zap, Brain, Users, Blocks, CreditCard, Webhook, CodeXml, Handshake } from 'lucide-react';
+import { Search, Scale, BookOpen, Sparkles, ArrowRight, MessageSquare, FileText, Shield, Zap, Brain, Users } from 'lucide-react';
 import { TestimonialsSection } from '@/components/blocks/TestimonialsWithMarquee';
 import { Pricing } from '@/components/blocks/Pricing';
-import { DottedSurface } from '@/components/ui/dotted-surface';
-import { Footer } from '@/components/blocks/Footer';
+
 
 // Glow Component
 const glowVariants = cva('absolute w-full', {
@@ -101,7 +100,6 @@ function CaseMapHero({
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-gradient-to-b from-background via-background to-primary/5">
-      <DottedSurface className="absolute inset-0" />
       
       {/* Decorative Icons */}
       <div className="absolute left-[10%] top-[20%] hidden animate-pulse opacity-20 lg:block">
@@ -490,85 +488,6 @@ export default function Home() {
         title="Simple, Transparent Pricing"
         description={`Choose the plan that works for you.
 All plans include access to our powerful AI tools and dedicated support.`}
-      />
-       <Footer
-        className="mt-20"
-        brand={{
-          name: "CaseMap",
-          description: "Your AI-powered legal companion for clarity and confidence.",
-        }}
-        socialLinks={[
-          {
-            name: "Twitter",
-            href: "#",
-          },
-          {
-            name: "Github",
-            href: "#",
-          },
-          {
-            name: "Discord",
-            href: "#",
-          },
-        ]}
-        columns={[
-          {
-            title: "Tools",
-            links: [
-              {
-                name: "Timeline",
-                Icon: Blocks,
-                href: "/timeline",
-              },
-              {
-                name: "Summarizer",
-                Icon: FileText,
-                href: "/summarizer",
-              },
-              {
-                name: "Legal Aid",
-                Icon: Users,
-                href: "/legal-aid",
-              },
-              {
-                name: "Law Finder",
-                Icon: BookOpen,
-                href: "/law-finder",
-              },
-            ],
-          },
-          {
-            title: "Community",
-            links: [
-              {
-                name: "Q&A Forum",
-                Icon: MessageSquare,
-                href: "/faq",
-              },
-              {
-                name: "Top Contributors",
-                Icon: Zap,
-                href: "/faq",
-              },
-            ],
-          },
-          {
-            title: "Legal",
-            links: [
-              {
-                name: "Privacy Policy",
-                Icon: Scale,
-                href: "#",
-              },
-              {
-                name: "Terms of Service",
-                Icon: Handshake,
-                href: "#",
-              },
-            ],
-          },
-        ]}
-        copyright="CaseMap Inc. © 2024"
       />
     </>
     );

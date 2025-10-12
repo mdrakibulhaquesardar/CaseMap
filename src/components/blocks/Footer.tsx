@@ -2,7 +2,30 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { LucideIcon } from "lucide-react";
+import {
+  LucideIcon,
+  Blocks,
+  FileText,
+  Users,
+  BookOpen,
+  MessageSquare,
+  Zap,
+  Scale,
+  Handshake,
+} from "lucide-react";
+
+// Define a map for icons
+const iconMap: { [key: string]: LucideIcon } = {
+  Blocks,
+  FileText,
+  Users,
+  BookOpen,
+  MessageSquare,
+  Zap,
+  Scale,
+  Handshake,
+};
+
 
 interface SocialLink {
   name: string;
@@ -11,7 +34,7 @@ interface SocialLink {
 
 interface FooterLink {
   name: string;
-  Icon: LucideIcon | React.FC<React.SVGProps<SVGSVGElement>>;
+  iconName: keyof typeof iconMap;
   href?: string;
 }
 
@@ -70,17 +93,20 @@ export const Footer = React.forwardRef<HTMLDivElement, FooterProps>(
                 <div key={title} className="last:mt-12 md:last:mt-0">
                   <h3 className="text-sm font-semibold">{title}</h3>
                   <ul className="mt-4 space-y-2.5">
-                    {links.map(({ name, Icon, href }) => (
-                      <li key={name}>
-                        <a
-                          href={href || "#"}
-                          className="text-sm transition-all text-foreground/60 hover:text-foreground/90 group"
-                        >
-                          <Icon className="inline stroke-2 h-4 mr-1.5 transition-all stroke-foreground/60 group-hover:stroke-foreground/90" />
-                          {name}
-                        </a>
-                      </li>
-                    ))}
+                    {links.map(({ name, iconName, href }) => {
+                       const Icon = iconMap[iconName];
+                       return (
+                        <li key={name}>
+                          <a
+                            href={href || "#"}
+                            className="text-sm transition-all text-foreground/60 hover:text-foreground/90 group"
+                          >
+                           {Icon && <Icon className="inline stroke-2 h-4 mr-1.5 transition-all stroke-foreground/60 group-hover:stroke-foreground/90" />}
+                            {name}
+                          </a>
+                        </li>
+                       )
+                    })}
                   </ul>
                 </div>
               ))}
