@@ -36,7 +36,7 @@ const allMenuItems = [
     {
       title: "Law Finder",
       url: "/law-finder",
-      auth: true,
+      auth: false,
     },
      {
       title: "About Us",
