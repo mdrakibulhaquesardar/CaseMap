@@ -1,3 +1,4 @@
+
 import { Book, ChevronDown, Menu, Sunset, Trees, Zap } from "lucide-react";
 import Link from "next/link";
 import {
@@ -14,6 +15,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import {
   Sheet,
@@ -271,11 +273,11 @@ const renderMenuItem = (item: MenuItem) => {
 
   return (
     <NavigationMenuItem key={item.title}>
-        <Link href={item.url} legacyBehavior passHref>
-            <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
-                {item.title}
-            </NavigationMenuLink>
-        </Link>
+      <Link href={item.url} passHref>
+        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+          {item.title}
+        </NavigationMenuLink>
+      </Link>
     </NavigationMenuItem>
   );
 };
