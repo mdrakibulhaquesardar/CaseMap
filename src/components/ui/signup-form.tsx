@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
@@ -32,8 +32,8 @@ export default function SignupForm() {
         const auth = getAuth();
         const provider = new GoogleAuthProvider();
         try {
-            await signInWithPopup(auth, provider);
-            router.push("/");
+            await signInWithRedirect(auth, provider);
+            // No need to router.push here, Firebase handles the redirect back.
         } catch (error: any) {
             toast({
                 title: "Error signing in with Google",
