@@ -1,23 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { faqData as initialFaqData } from '@/lib/dummy-data';
-import type { FaqItem } from '@/types';
+import type { FaqItem, FaqAnswer } from '@/types';
 import { ThumbsUp, ThumbsDown, User, Bot, Sparkles, Send, Bookmark, Lightbulb, FileText, Gavel, MapPin, MessageSquare, MoreHorizontal } from 'lucide-react';
 import { askLegalQuestion } from '@/ai/flows/community-legal-q-and-a';
 import { legalToolRecommendation } from '@/ai/flows/legal-tool-recommendation';
 import { useToast } from '@/hooks/use-toast';
-import useLocalStorage from '@/hooks/useLocalStorage';
 import { Separator } from '@/components/ui/separator';
 import {
   Pagination,
@@ -33,17 +30,28 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-
+import { useUser } from '@/firebase/auth/use-user';
+import { useFirestore } from '@/firebase/provider';
+import { collection, addDoc, serverTimestamp, query, orderBy, doc, setDoc, deleteDoc, getDocs, where } from 'firebase/firestore';
+import { useCollection } from 'react-firebase-hooks/firestore';
 
 const ITEMS_PER_PAGE = 5;
 
 export default function FaqClient() {
-  const [faqs, setFaqs] = useState<FaqItem[]>(initialFaqData);
   const [newQuestion, setNewQuestion] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const [savedFaqs, setSavedFaqs] = useLocalStorage<FaqItem[]>('savedFaqs', []);
   const [currentPage, setCurrentPage] = useState(1);
+  const { user } = useUser();
+  const firestore = useFirestore();
+
+  const faqsRef = query(collection(firestore, 'faqs'), orderBy('timestamp', 'desc'));
+  const [faqsSnapshot] = useCollection(faqsRef);
+  const faqs = faqsSnapshot?.docs.map(doc => ({ ...doc.data(), id: doc.id } as FaqItem)) || [];
+
+  const savedFaqsRef = user ? query(collection(firestore, 'users', user.uid, 'savedFaqs')) : null;
+  const [savedFaqsSnapshot] = useCollection(savedFaqsRef);
+  const savedFaqs = savedFaqsSnapshot?.docs.map(doc => ({ ...doc.data(), id: doc.id, faqId: doc.data().id } as FaqItem & {faqId: string})) || [];
 
   const totalPages = Math.ceil(faqs.length / ITEMS_PER_PAGE);
   const currentFaqs = faqs.slice(
@@ -52,7 +60,7 @@ export default function FaqClient() {
   );
 
   const handleAskQuestion = async () => {
-    if (!newQuestion.trim()) return;
+    if (!newQuestion.trim() || !user) return;
 
     setIsLoading(true);
     try {
@@ -61,15 +69,14 @@ export default function FaqClient() {
         legalToolRecommendation({ legalQuestion: newQuestion }),
       ]);
       
-      const newFaqItem: FaqItem = {
-        id: faqs.length + 1,
+      const newFaqItem: Omit<FaqItem, 'id'> = {
         question: newQuestion,
         tags: ['New', 'AI Answer'],
-        timestamp: new Date().toISOString(),
-        author: { name: "Current User", avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d" },
+        timestamp: serverTimestamp(),
+        author: { name: user.displayName || "Current User", avatar: user.photoURL || `https://i.pravatar.cc/150?u=${user.uid}` },
         answers: [
           {
-            id: Math.random(),
+            id: Math.random().toString(),
             content: answerResponse.answer,
             author: 'AI Bot',
             upvotes: 0,
@@ -77,16 +84,14 @@ export default function FaqClient() {
             timestamp: new Date().toISOString(),
           },
         ],
+        recommendation: {
+          ...toolResponse,
+          content: `**Recommended Tool: ${toolResponse.toolRecommendation}**\n\n${toolResponse.suitabilityReasoning}`
+        }
       };
-      
-      const toolRecommendation = {
-        ...toolResponse,
-        content: `**Recommended Tool: ${toolResponse.toolRecommendation}**\n\n${toolResponse.suitabilityReasoning}`
-      };
-      
-      (newFaqItem as any).recommendation = toolRecommendation;
 
-      setFaqs([newFaqItem, ...faqs]);
+      await addDoc(collection(firestore, 'faqs'), newFaqItem);
+      
       setNewQuestion('');
       setCurrentPage(1);
     } catch (error) {
@@ -101,14 +106,30 @@ export default function FaqClient() {
     }
   };
 
-  const toggleSaveFaq = (faq: FaqItem) => {
-    const isSaved = savedFaqs.some(item => item.id === faq.id);
-    if (isSaved) {
-      setSavedFaqs(savedFaqs.filter(item => item.id !== faq.id));
-      toast({ title: "Removed from Profile", description: "This Q&A has been removed from your saved list." });
+  const toggleSaveFaq = async (faq: FaqItem) => {
+    if (!user) {
+        toast({ title: "Please log in to save questions.", variant: "destructive" });
+        return;
+    }
+    const savedFaqsCollection = collection(firestore, 'users', user.uid, 'savedFaqs');
+    const q = query(savedFaqsCollection, where("id", "==", faq.id));
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+        const docToDelete = querySnapshot.docs[0];
+        await deleteDoc(doc(firestore, 'users', user.uid, 'savedFaqs', docToDelete.id));
+        toast({ title: "Removed from Profile", description: "This Q&A has been removed from your saved list." });
     } else {
-      setSavedFaqs([...savedFaqs, faq]);
-      toast({ title: "Saved to Profile", description: "You can view this Q&A in your profile." });
+        const faqToSave = { ...faq };
+        // Firestore doesn't like `undefined` values.
+        if (faqToSave.id) {
+          await addDoc(collection(firestore, 'users', user.uid, 'savedFaqs'), {
+            ...faqToSave,
+            originalId: faq.id
+          });
+        }
+        
+        toast({ title: "Saved to Profile", description: "You can view this Q&A in your profile." });
     }
   };
 
@@ -117,6 +138,12 @@ export default function FaqClient() {
     if (toolName.toLowerCase().includes('timeline')) return <Gavel className="w-5 h-5 text-accent" />;
     if (toolName.toLowerCase().includes('finder')) return <MapPin className="w-5 h-5 text-accent" />;
     return <Lightbulb className="w-5 h-5 text-accent" />;
+  }
+  
+  const getTimestamp = (timestamp: any) => {
+    if (!timestamp) return 'Just now';
+    if (timestamp.toDate) return timestamp.toDate().toLocaleDateString();
+    return new Date(timestamp).toLocaleDateString();
   }
 
   return (
@@ -132,9 +159,9 @@ export default function FaqClient() {
               value={newQuestion}
               onChange={(e) => setNewQuestion(e.target.value)}
               placeholder="e.g., How do I file a consumer complaint?"
-              disabled={isLoading}
+              disabled={isLoading || !user}
             />
-            <Button onClick={handleAskQuestion} disabled={isLoading} className="w-full sm:w-auto">
+            <Button onClick={handleAskQuestion} disabled={isLoading || !user} className="w-full sm:w-auto">
               {isLoading ? (
                 <Sparkles className="w-4 h-4 animate-spin mr-2" />
               ) : (
@@ -148,7 +175,7 @@ export default function FaqClient() {
 
       <div className="space-y-6">
         {currentFaqs.map((faq) => (
-          <Card key={faq.id} className="shadow-sm">
+          <Card key={faq.id} id={faq.id} className="shadow-sm">
             <CardHeader>
                 <div className="flex justify-between items-start">
                     <div className="flex items-center gap-3">
@@ -159,7 +186,7 @@ export default function FaqClient() {
                         <div>
                             <p className="font-semibold">{faq.author.name}</p>
                             <p className="text-xs text-muted-foreground">
-                                {new Date(faq.timestamp).toLocaleDateString()}
+                                {getTimestamp(faq.timestamp)}
                             </p>
                         </div>
                     </div>
@@ -186,14 +213,14 @@ export default function FaqClient() {
                     ))}
                 </div>
 
-              {(faq as any).recommendation && (
+              {faq.recommendation && (
                 <Card className="mb-4 border-accent bg-accent/10">
                   <CardContent className="p-4">
                     <div className="flex items-start gap-4">
-                        {getToolIcon((faq as any).recommendation.toolRecommendation)}
+                        {getToolIcon(faq.recommendation.toolRecommendation)}
                       <div>
-                        <h4 className="font-bold text-sm">Tool Recommendation: {(faq as any).recommendation.toolRecommendation}</h4>
-                        <p className="text-xs text-muted-foreground mt-1">{(faq as any).recommendation.suitabilityReasoning}</p>
+                        <h4 className="font-bold text-sm">Tool Recommendation: {faq.recommendation.toolRecommendation}</h4>
+                        <p className="text-xs text-muted-foreground mt-1">{faq.recommendation.suitabilityReasoning}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -223,7 +250,7 @@ export default function FaqClient() {
                         </Button>
                          <span className="text-xs text-muted-foreground">&middot;</span>
                          <p className="text-muted-foreground text-xs">
-                          {new Date(answer.timestamp).toLocaleDateString()}
+                          {getTimestamp(answer.timestamp)}
                         </p>
                       </div>
                     </div>
@@ -233,9 +260,9 @@ export default function FaqClient() {
             </CardContent>
             <Separator className="my-0" />
             <CardFooter className="p-2">
-                <Button variant="ghost" size="sm" className="w-1/2" onClick={() => toggleSaveFaq(faq)}>
-                  <Bookmark className={`w-4 h-4 mr-2 ${savedFaqs.some(item => item.id === faq.id) ? 'text-accent fill-accent' : ''}`} />
-                  {savedFaqs.some(item => item.id === faq.id) ? 'Saved' : 'Save'}
+                <Button variant="ghost" size="sm" className="w-1/2" onClick={() => toggleSaveFaq(faq)} disabled={!user}>
+                  <Bookmark className={`w-4 h-4 mr-2 ${savedFaqs.some(item => item.originalId === faq.id) ? 'text-accent fill-accent' : ''}`} />
+                  {savedFaqs.some(item => item.originalId === faq.id) ? 'Saved' : 'Save'}
                 </Button>
                 <Separator orientation="vertical" className="h-6" />
                 <Button variant="ghost" size="sm" className="w-1/2">
@@ -282,5 +309,3 @@ export default function FaqClient() {
     </div>
   );
 }
-
-    

@@ -1,3 +1,5 @@
+import { FieldValue } from "firebase/firestore";
+
 export type CaseTimelineStep = {
   step: string;
   date: string;
@@ -5,13 +7,14 @@ export type CaseTimelineStep = {
 };
 
 export type CaseTimeline = {
+  id?: string;
   caseNumber: string;
   title: string;
   timeline: CaseTimelineStep[];
 };
 
 export type FaqAnswer = {
-  id: number;
+  id: string;
   content: string;
   author: string;
   upvotes: number;
@@ -20,15 +23,21 @@ export type FaqAnswer = {
 };
 
 export type FaqItem = {
-  id: number;
+  id: string;
   question: string;
   tags: string[];
   answers: FaqAnswer[];
-  timestamp: string;
+  timestamp: FieldValue | string;
   author: {
     name: string;
     avatar: string;
   };
+  recommendation?: {
+      toolRecommendation: string;
+      suitabilityReasoning: string;
+      content: string;
+  };
+  originalId?: string;
 };
 
 export type LegalAidCenter = {

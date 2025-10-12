@@ -3,25 +3,39 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import useLocalStorage from '@/hooks/useLocalStorage';
-import type { CaseTimeline, FaqItem } from '@/types';
 import { Bookmark, Gavel, Trash2, Info, MessageSquare, ThumbsUp } from 'lucide-react';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
-import { caseTimelineData, faqData } from '@/lib/dummy-data';
+import { useUser } from '@/firebase/auth/use-user';
+import { useFirestore } from '@/firebase/provider';
+import { useCollection } from 'react-firebase-hooks/firestore';
+import { collection, doc, deleteDoc, query } from 'firebase/firestore';
+import type { CaseTimeline, FaqItem } from '@/types';
+
 
 export default function ProfileClient() {
-  const [savedCases, setSavedCases] = useLocalStorage<CaseTimeline[]>('savedCases', Object.values(caseTimelineData));
-  const [savedFaqs, setSavedFaqs] = useLocalStorage<FaqItem[]>('savedFaqs', faqData.slice(0,2));
+  const { user } = useUser();
+  const firestore = useFirestore();
   const { toast } = useToast();
 
-  const removeCase = (caseNumber: string) => {
-    setSavedCases(savedCases.filter(c => c.caseNumber !== caseNumber));
+  const savedCasesRef = user ? query(collection(firestore, 'users', user.uid, 'savedCases')) : null;
+  const [savedCasesSnapshot] = useCollection(savedCasesRef);
+  const savedCases = savedCasesSnapshot?.docs.map(doc => ({ ...doc.data(), id: doc.id } as CaseTimeline)) || [];
+
+  const savedFaqsRef = user ? query(collection(firestore, 'users', user.uid, 'savedFaqs')) : null;
+  const [savedFaqsSnapshot] = useCollection(savedFaqsRef);
+  const savedFaqs = savedFaqsSnapshot?.docs.map(doc => ({ ...doc.data(), id: doc.id } as FaqItem)) || [];
+
+
+  const removeCase = async (caseId: string) => {
+    if (!user) return;
+    await deleteDoc(doc(firestore, 'users', user.uid, 'savedCases', caseId));
     toast({ title: "Case successfully removed."});
   };
 
-  const removeFaq = (id: number) => {
-    setSavedFaqs(savedFaqs.filter(faq => faq.id !== id));
+  const removeFaq = async (faqId: string) => {
+    if (!user) return;
+    await deleteDoc(doc(firestore, 'users', user.uid, 'savedFaqs', faqId));
     toast({ title: "Q&A successfully removed."});
   };
 
@@ -59,7 +73,7 @@ export default function ProfileClient() {
                       <Button asChild variant="outline" size="sm">
                         <Link href={`/timeline?caseNumber=${c.caseNumber}`}>View Timeline</Link>
                       </Button>
-                      <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive" onClick={() => removeCase(c.caseNumber)}>
+                      <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive" onClick={() => removeCase(c.id!)}>
                         <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
@@ -101,9 +115,9 @@ export default function ProfileClient() {
                     </div>
                      <div className="flex gap-2 mt-4">
                        <Button asChild variant="outline" size="sm">
-                         <Link href="/faq">View Q&A</Link>
+                         <Link href={`/faq#${faq.id}`}>View Q&A</Link>
                        </Button>
-                       <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive" onClick={() => removeFaq(faq.id)}>
+                       <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive" onClick={() => removeFaq(faq.id!)}>
                          <Trash2 className="w-4 h-4" />
                        </Button>
                      </div>
@@ -125,5 +139,3 @@ export default function ProfileClient() {
     </div>
   );
 }
-
-    

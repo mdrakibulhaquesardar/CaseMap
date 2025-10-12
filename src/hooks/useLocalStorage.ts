@@ -3,21 +3,8 @@
 import { useState, useEffect, useCallback } from 'react';
 
 function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T | ((val: T) => T)) => void] {
-  const readValue = useCallback((): T => {
-    if (typeof window === 'undefined') {
-      return initialValue;
-    }
-
-    try {
-      const item = window.localStorage.getItem(key);
-      return item ? (JSON.parse(item) as T) : initialValue;
-    } catch (error) {
-      console.warn(`Error reading localStorage key “${key}”:`, error);
-      return initialValue;
-    }
-  }, [initialValue, key]);
-
-  const [storedValue, setStoredValue] = useState<T>(readValue);
+  // Pass initialValue to useState so it's used on the initial render
+  const [storedValue, setStoredValue] = useState<T>(initialValue);
 
   const setValue = (value: T | ((val: T) => T)) => {
     try {
@@ -32,9 +19,17 @@ function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T | ((val
   };
   
   useEffect(() => {
-    setStoredValue(readValue());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (typeof window === 'undefined') {
+      return;
+    }
+    try {
+      const item = window.localStorage.getItem(key);
+      setStoredValue(item ? (JSON.parse(item) as T) : initialValue);
+    } catch (error) {
+      console.warn(`Error reading localStorage key “${key}”:`, error);
+      setStoredValue(initialValue);
+    }
+  }, [key, initialValue]);
 
   return [storedValue, setValue];
 }

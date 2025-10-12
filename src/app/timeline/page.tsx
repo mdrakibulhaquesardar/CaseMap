@@ -13,15 +13,19 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Gavel, Info } from 'lucide-react';
-import useLocalStorage from '@/hooks/useLocalStorage';
 import type { CaseTimeline } from '@/types';
-import { caseTimelineData } from '@/lib/dummy-data';
+import { useUser } from '@/firebase/auth/use-user';
+import { useFirestore } from '@/firebase/provider';
+import { collection, query } from 'firebase/firestore';
+import { useCollection } from 'react-firebase-hooks/firestore';
 
 export default function TimelinePage() {
-    const [savedCases] = useLocalStorage<CaseTimeline[]>(
-    'savedCases',
-    Object.values(caseTimelineData).slice(0, 2)
-  );
+  const { user } = useUser();
+  const firestore = useFirestore();
+
+  const savedCasesRef = user ? query(collection(firestore, 'users', user.uid, 'savedCases')) : null;
+  const [savedCasesSnapshot] = useCollection(savedCasesRef);
+  const savedCases = savedCasesSnapshot?.docs.map(doc => ({ ...doc.data(), id: doc.id } as CaseTimeline)) || [];
 
   return (
     <div className="bg-muted/30">
@@ -107,5 +111,3 @@ export default function TimelinePage() {
     </div>
   );
 }
-
-    

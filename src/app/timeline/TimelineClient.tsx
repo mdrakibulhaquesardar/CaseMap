@@ -10,14 +10,22 @@ import CaseTimelineDisplay from './CaseTimeline';
 import { caseTimelineData } from '@/lib/dummy-data';
 import type { CaseTimeline } from '@/types';
 import { useToast } from '@/hooks/use-toast';
-import useLocalStorage from '@/hooks/useLocalStorage';
+import { useUser } from '@/firebase/auth/use-user';
+import { useFirestore } from '@/firebase/provider';
+import { collection, addDoc, doc, setDoc, deleteDoc, query, where, getDocs } from 'firebase/firestore';
+import { useCollection } from 'react-firebase-hooks/firestore';
 
 export default function TimelineClient() {
   const searchParams = useSearchParams();
   const [caseNumber, setCaseNumber] = useState('');
   const [foundCase, setFoundCase] = useState<CaseTimeline | null>(null);
   const { toast } = useToast();
-  const [savedCases, setSavedCases] = useLocalStorage<CaseTimeline[]>('savedCases', []);
+  const { user } = useUser();
+  const firestore = useFirestore();
+
+  const savedCasesRef = user ? query(collection(firestore, 'users', user.uid, 'savedCases')) : null;
+  const [savedCasesSnapshot] = useCollection(savedCasesRef);
+  const savedCases = savedCasesSnapshot?.docs.map(doc => ({ ...doc.data(), id: doc.id } as CaseTimeline)) || [];
 
   useEffect(() => {
     const caseNumberFromQuery = searchParams.get('caseNumber');
@@ -28,7 +36,7 @@ export default function TimelineClient() {
       handleSearch(savedCases[0].caseNumber)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
+  }, [searchParams, savedCasesSnapshot]);
 
   const handleSearch = (cn: string) => {
     const result = caseTimelineData[cn];
@@ -49,14 +57,24 @@ export default function TimelineClient() {
     handleSearch(caseNumber);
   };
 
-  const toggleSaveCase = () => {
-    if (!foundCase) return;
-    const isSaved = savedCases.some(c => c.caseNumber === foundCase.caseNumber);
-    if (isSaved) {
-      setSavedCases(savedCases.filter(c => c.caseNumber !== foundCase.caseNumber));
+  const toggleSaveCase = async () => {
+    if (!foundCase || !user) {
+      toast({ title: "Please log in to save cases.", variant: "destructive" });
+      return;
+    }
+
+    const savedCasesCollection = collection(firestore, 'users', user.uid, 'savedCases');
+    const q = query(savedCasesCollection, where("caseNumber", "==", foundCase.caseNumber));
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      // Case is already saved, so remove it
+      const docToDelete = querySnapshot.docs[0];
+      await deleteDoc(doc(firestore, 'users', user.uid, 'savedCases', docToDelete.id));
       toast({ title: "Removed from Profile", description: "This case has been removed from your saved list." });
     } else {
-      setSavedCases([...savedCases, foundCase]);
+      // Case is not saved, so add it
+      await addDoc(savedCasesCollection, foundCase);
       toast({ title: "Saved to Profile", description: "You can view this case in your profile." });
     }
   };
@@ -95,7 +113,7 @@ export default function TimelineClient() {
                 <CardTitle>{foundCase.title}</CardTitle>
                 <CardDescription>Case Number: {foundCase.caseNumber}</CardDescription>
               </div>
-              <Button variant="outline" size="sm" onClick={toggleSaveCase}>
+              <Button variant="outline" size="sm" onClick={toggleSaveCase} disabled={!user}>
                 <Bookmark className={`w-4 h-4 mr-2 ${isCaseSaved ? 'text-accent fill-accent' : ''}`} />
                 {isCaseSaved ? 'Saved' : 'Save'}
               </Button>
@@ -119,5 +137,3 @@ export default function TimelineClient() {
     </div>
   );
 }
-
-    
