@@ -95,7 +95,7 @@ export function Pricing({
         </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-4 justify-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center">
         {plans.map((plan, index) => (
           <motion.div
             key={index}
