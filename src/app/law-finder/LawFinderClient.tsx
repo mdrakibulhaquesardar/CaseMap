@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Sparkles, Search, Loader2, BookOpen, Bot, FileCheck2, MessageSquareQuestion, Scale } from 'lucide-react';
+import { Sparkles, Search, Loader2, BookOpen, Bot, FileCheck2, MessageSquare, Scale } from 'lucide-react';
 import Link from 'next/link';
 
 interface LawSectionResult {
@@ -108,7 +108,7 @@ export default function LawFinderClient({
                         <p className='text-sm text-muted-foreground'>বাস্তব উদাহরণ দেখুন যা এই আইনটিকে বুঝতে সাহায্য করবে।</p>
                     </div>
                      <div className='p-4 bg-muted/50 rounded-lg'>
-                        <MessageSquareQuestion className='mx-auto h-8 w-8 text-primary mb-2'/>
+                        <MessageSquare className='mx-auto h-8 w-8 text-primary mb-2'/>
                         <h4 className='font-semibold'>প্রশ্ন করুন</h4>
                         <p className='text-sm text-muted-foreground'>এই আইন সম্পর্কে আরও প্রশ্ন থাকলে কমিউনিটিতে জিজ্ঞাসা করুন।</p>
                         <Button asChild variant="link" size="sm" className='mt-1'>
