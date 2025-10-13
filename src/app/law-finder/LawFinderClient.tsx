@@ -1,12 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/hooks/use-toast';
-import { findLawSection } from '@/ai/flows/law-section-finder';
-import { Sparkles, Search, Loader2, BookOpen, Bot } from 'lucide-react';
+import { Sparkles, Search, Loader2, BookOpen, Bot, FileCheck2, MessageSquareQuestion, Scale } from 'lucide-react';
+import Link from 'next/link';
 
 interface LawSectionResult {
   sectionTitle: string;
@@ -19,7 +17,12 @@ interface LawFinderClientProps {
   result: LawSectionResult | null;
   isLoading: boolean;
   handleSearch: () => void;
+  onCategoryClick: (category: string) => void;
 }
+
+const popularCategories = [
+  "দণ্ডবিধি, ১৮৬০", "দেওয়ানী কার্যবিধি, ১৯০৮", "সাক্ষ্য আইন, ১৮৭২", "চুক্তি আইন, ১৮৭২", "সুনির্দিষ্ট প্রতিকার আইন, ১৮৭৭", "ডিজিটাল নিরাপত্তা আইন, ২০১৮"
+];
 
 export default function LawFinderClient({
     query,
@@ -27,10 +30,11 @@ export default function LawFinderClient({
     result,
     isLoading,
     handleSearch,
+    onCategoryClick,
 }: LawFinderClientProps) {
   return (
-    <div className="max-w-4xl mx-auto">
-      <Card className="mb-8">
+    <div className="space-y-8">
+      <Card>
         <CardContent className="p-4 sm:p-6">
           <h3 className="font-semibold text-lg mb-2">আইনের ধারা খুঁজুন</h3>
           <p className="text-muted-foreground text-sm mb-4">
@@ -53,6 +57,16 @@ export default function LawFinderClient({
               অনুসন্ধান
             </Button>
           </div>
+           <div className="mt-4">
+              <p className="text-sm font-medium text-muted-foreground mb-2">অথবা জনপ্রিয় আইন থেকে বেছে নিন:</p>
+              <div className="flex flex-wrap gap-2">
+                  {popularCategories.map(tag => (
+                      <Button key={tag} variant="outline" size="sm" onClick={() => onCategoryClick(tag)}>
+                          {tag}
+                      </Button>
+                  ))}
+              </div>
+          </div>
         </CardContent>
       </Card>
 
@@ -73,9 +87,36 @@ export default function LawFinderClient({
               <p className="mt-4 text-muted-foreground">AI আপনার জন্য আইনের বই ঘাঁটছে...</p>
             </div>
           ) : result ? (
-            <div className="prose prose-lg max-w-none text-foreground p-4 bg-muted rounded-md min-h-[250px]">
-              <h3 className="font-bold">{result.sectionTitle}</h3>
-              <p>{result.sectionDetails}</p>
+            <div className="space-y-6">
+              <div className="prose prose-lg max-w-none text-foreground p-6 bg-muted rounded-md min-h-[250px] border">
+                <h3 className="font-bold text-xl mb-4">{result.sectionTitle}</h3>
+                <p className="text-base leading-relaxed">{result.sectionDetails}</p>
+              </div>
+              <Card className="bg-background">
+                <CardHeader>
+                  <CardTitle className='text-lg'>সম্পর্কিত বিষয় ও পরবর্তী ধাপ</CardTitle>
+                </CardHeader>
+                <CardContent className='grid grid-cols-1 md:grid-cols-3 gap-4 text-center'>
+                    <div className='p-4 bg-muted/50 rounded-lg'>
+                        <FileCheck2 className='mx-auto h-8 w-8 text-primary mb-2'/>
+                        <h4 className='font-semibold'>প্রাসঙ্গিক ধারা</h4>
+                        <p className='text-sm text-muted-foreground'>এই আইনের অন্যান্য গুরুত্বপূর্ণ ধারাগুলো সম্পর্কে জানুন।</p>
+                    </div>
+                     <div className='p-4 bg-muted/50 rounded-lg'>
+                        <Scale className='mx-auto h-8 w-8 text-primary mb-2'/>
+                        <h4 className='font-semibold'>উদাহরণ</h4>
+                        <p className='text-sm text-muted-foreground'>বাস্তব উদাহরণ দেখুন যা এই আইনটিকে বুঝতে সাহায্য করবে।</p>
+                    </div>
+                     <div className='p-4 bg-muted/50 rounded-lg'>
+                        <MessageSquareQuestion className='mx-auto h-8 w-8 text-primary mb-2'/>
+                        <h4 className='font-semibold'>প্রশ্ন করুন</h4>
+                        <p className='text-sm text-muted-foreground'>এই আইন সম্পর্কে আরও প্রশ্ন থাকলে কমিউনিটিতে জিজ্ঞাসা করুন।</p>
+                        <Button asChild variant="link" size="sm" className='mt-1'>
+                          <Link href={`/faq?q=${encodeURIComponent(query)}`}>এখানে ক্লিক করুন</Link>
+                        </Button>
+                    </div>
+                </CardContent>
+              </Card>
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center text-center h-full min-h-[250px] text-muted-foreground p-4 bg-muted/50 rounded-md">

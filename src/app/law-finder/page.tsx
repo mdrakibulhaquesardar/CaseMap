@@ -62,41 +62,23 @@ export default function LawFinderPage() {
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold font-headline">আইন অনুসন্ধান</h1>
           <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
-            বাংলাদেশের যেকোনো আইনের ধারা বা বিষয় লিখে সার্চ করুন এবং সহজ ইংরেজিতে তার বিস্তারিত ব্যাখ্যা পান।
+            বাংলাদেশের যেকোনো আইনের ধারা বা বিষয় লিখে সার্চ করুন এবং সহজ বাংলায় তার বিস্তারিত ব্যাখ্যা পান।
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          <aside className="hidden lg:block lg:col-span-1">
-             <div className="sticky top-20 space-y-6">
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                           <Scale className="text-primary"/> জনপ্রিয় আইন
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex flex-wrap gap-2">
-                        {popularCategories.map(tag => (
-                            <Button key={tag} variant="outline" size="sm" onClick={() => onCategoryClick(tag)}>
-                                {tag}
-                            </Button>
-                        ))}
-                    </CardContent>
-                </Card>
-            </div>
-          </aside>
-          
-          <main className="lg:col-span-2">
+          <main className="lg:col-span-3">
             <LawFinderClient 
               query={query}
               setQuery={setQuery}
               result={result}
               isLoading={isLoading}
               handleSearch={() => handleSearch()}
+              onCategoryClick={onCategoryClick}
             />
           </main>
 
-          <aside className="hidden lg:block lg:col-span-1">
+          <aside className="lg:col-span-1">
             <div className="sticky top-20 space-y-6">
               <Card>
                 <CardHeader>
