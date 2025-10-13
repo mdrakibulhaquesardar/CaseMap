@@ -14,13 +14,13 @@ export default function SummarizerClient() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   
-  const sampleText = "This agreement is made and entered into on this day, by and between the party of the first part, hereinafter referred to as the 'Lessor', and the party of the second part, hereinafter referred to as the 'Lessee'. The Lessor hereby agrees to lease the premises located at the address specified herein, under the terms and conditions set forth. The Lessee, in consideration of the lease, covenants to pay the monthly rent in a timely manner and to maintain the premises in good order and condition, reasonable wear and tear excepted. The term of this lease shall be for a period of twelve (12) months, commencing on the start date and ending on the termination date, unless renewed or terminated sooner pursuant to the provisions of this agreement. Any failure by the Lessee to comply with the terms of this lease shall be deemed a breach of contract and may result in the termination of this agreement and subsequent eviction proceedings as permitted by law.";
+  const sampleText = "এই চুক্তিটি প্রথম পক্ষের, অতঃপর 'লিজদাতা' হিসাবে উল্লেখিত, এবং দ্বিতীয় পক্ষের, অতঃপর 'লিজগ্রহীতা' হিসাবে উল্লেখিত, এর মধ্যে এই দিনে সম্পাদিত এবং স্বাক্ষরিত হয়েছে। লিজদাতা এতদ্বারা এখানে উল্লেখিত ঠিকানায় অবস্থিত প্রাঙ্গণটি, এখানে নির্ধারিত শর্তাবলী অনুসারে ইজারা দিতে সম্মত হয়েছেন। লিজগ্রহীতা, এই ইজারার বিবেচনার জন্য, সময়মত মাসিক ভাড়া পরিশোধ করতে এবং প্রাঙ্গণটি ভাল অবস্থায় এবং অবস্থায় বজায় রাখতে প্রতিশ্রুতিবদ্ধ, যুক্তিসঙ্গত পরিধান এবং টিয়ার ব্যতীত। এই ইজারার মেয়াদ বারো (১২) মাসের জন্য হবে, যা শুরুর তারিখে শুরু হবে এবং সমাপ্তির তারিখে শেষ হবে, যদি না এই চুক্তির বিধান অনুসারে পুনর্নবীকরণ বা তাড়াতাড়ি সমাপ্ত হয়। লিজগ্রহীতার দ্বারা এই ইজারার শর্তাবলী মেনে চলতে কোনো ব্যর্থতা চুক্তির লঙ্ঘন হিসাবে গণ্য হবে এবং এর ফলে এই চুক্তিটি বাতিল হতে পারে এবং আইন দ্বারা অনুমোদিত উচ্ছেদ কার্যক্রম হতে পারে।";
 
   const handleSummarize = async () => {
     if (!documentText.trim()) {
       toast({
-        title: 'Input Required',
-        description: 'Please paste some legal text to summarize.',
+        title: 'ইনপুট প্রয়োজন',
+        description: 'সারাংশ করার জন্য কিছু আইনি টেক্সট পেস্ট করুন।',
         variant: 'destructive',
       });
       return;
@@ -34,8 +34,8 @@ export default function SummarizerClient() {
     } catch (error) {
       console.error('Error summarizing document:', error);
       toast({
-        title: 'Error',
-        description: 'Failed to summarize the document. Please try again.',
+        title: 'ত্রুটি',
+        description: 'নথিটি সারাংশ করতে ব্যর্থ হয়েছে। আবার চেষ্টা করুন.',
         variant: 'destructive',
       });
     } finally {
@@ -49,15 +49,15 @@ export default function SummarizerClient() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <FileText className="w-6 h-6 text-primary" />
-            Original Document
+            মূল নথি
           </CardTitle>
           <CardDescription>
-            Paste your legal document below.
+            আপনার আইনি নথি নিচে পেস্ট করুন।
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Textarea
-            placeholder="Paste the text of your legal document here..."
+            placeholder="আপনার আইনি নথির পাঠ্য এখানে পেস্ট করুন..."
             className="min-h-[350px] text-base"
             value={documentText}
             onChange={(e) => setDocumentText(e.target.value)}
@@ -66,18 +66,18 @@ export default function SummarizerClient() {
           <div className="flex flex-col sm:flex-row justify-between items-center mt-4 gap-2">
              <Button variant="outline" onClick={() => setDocumentText(sampleText)} disabled={isLoading}>
               <Clipboard className="w-4 h-4 mr-2" />
-              Use Sample Text
+              নমুনা টেক্সট ব্যবহার করুন
             </Button>
             <Button onClick={handleSummarize} disabled={isLoading} className="w-full sm:w-auto">
               {isLoading ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                  Summarizing...
+                  সারাংশ করা হচ্ছে...
                 </>
               ) : (
                 <>
                   <Sparkles className="w-4 h-4 mr-2" />
-                  Summarize in English
+                  ইংরেজিতে সারাংশ করুন
                 </>
               )}
             </Button>
@@ -88,18 +88,18 @@ export default function SummarizerClient() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-primary">
             <Bot className="w-6 h-6" />
-            AI-Powered Simplified Summary
+            এআই-চালিত সরলীকৃত সারাংশ
           </CardTitle>
            <CardDescription>
-            The simplified summary of your document will appear below.
+            আপনার নথির সরলীকৃত সারাংশ নীচে প্রদর্শিত হবে।
           </CardDescription>
         </CardHeader>
         <CardContent>
           {isLoading ? (
             <div className="flex flex-col items-center justify-center h-full min-h-[350px] p-4 bg-muted rounded-md">
               <Sparkles className="w-10 h-10 text-primary animate-spin" />
-              <p className="mt-4 text-muted-foreground">Our AI is analyzing your document...</p>
-              <p className="text-sm text-muted-foreground">This may take a few moments.</p>
+              <p className="mt-4 text-muted-foreground">আমাদের এআই আপনার নথি বিশ্লেষণ করছে...</p>
+              <p className="text-sm text-muted-foreground">এতে কয়েক মুহূর্ত সময় লাগতে পারে।</p>
             </div>
           ) : summary ? (
             <div className="prose prose-lg max-w-none text-foreground p-4 bg-muted rounded-md min-h-[350px]">
@@ -108,8 +108,8 @@ export default function SummarizerClient() {
           ) : (
             <div className="flex flex-col items-center justify-center text-center h-full min-h-[350px] text-muted-foreground p-4 bg-muted/50 rounded-md">
                <Languages className="w-12 h-12 mb-4" />
-               <h3 className="font-semibold text-lg">Waiting for document</h3>
-               <p className="max-w-xs">Your simplified summary in English will be generated here once you provide a document.</p>
+               <h3 className="font-semibold text-lg">নথির জন্য অপেক্ষা করা হচ্ছে</h3>
+               <p className="max-w-xs">আপনি একটি নথি প্রদান করার পরে আপনার সরলীকৃত সারাংশ এখানে তৈরি হবে।</p>
             </div>
           )}
         </CardContent>

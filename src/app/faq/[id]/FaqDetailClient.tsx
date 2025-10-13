@@ -48,7 +48,7 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
         const answerToAdd: FaqAnswer = {
             id: Math.random().toString(),
             content: newAnswer,
-            authorName: user.displayName || 'Anonymous',
+            authorName: user.displayName || 'নামবিহীন',
             authorAvatar: user.photoURL || `https://i.pravatar.cc/150?u=${user.uid}`,
             upvotes: 0,
             downvotes: 0,
@@ -63,8 +63,8 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
     } catch (error) {
       console.error('Error adding answer:', error);
       toast({
-        title: 'Error',
-        description: 'Failed to add your answer. Please try again.',
+        title: 'ত্রুটি',
+        description: 'আপনার উত্তর যোগ করতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।',
         variant: 'destructive',
       });
     } finally {
@@ -74,7 +74,7 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
   
   const handleVote = async (answerId: string, voteType: 'up' | 'down') => {
     if (!user || !faq) {
-        toast({ title: "Please log in to vote.", variant: "destructive" });
+        toast({ title: "ভোট দিতে লগইন করুন।", variant: "destructive" });
         return;
     }
 
@@ -114,27 +114,27 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
 
     } catch (error) {
         console.error("Error voting:", error);
-        toast({ title: "Error", description: "Could not register your vote.", variant: "destructive" });
+        toast({ title: "ত্রুটি", description: "আপনার ভোট নিবন্ধন করা যায়নি।", variant: "destructive" });
     }
   };
 
   const getTimestamp = (timestamp: any) => {
-    if (!timestamp) return 'Just now';
-    if (timestamp.toDate) return timestamp.toDate().toLocaleDateString();
-    return new Date(timestamp).toLocaleDateString();
+    if (!timestamp) return 'এইমাত্র';
+    if (timestamp.toDate) return timestamp.toDate().toLocaleDateString('bn-BD');
+    return new Date(timestamp).toLocaleDateString('bn-BD');
   }
   
   if (faqLoading) {
-      return <div>Loading...</div>
+      return <div>লোড হচ্ছে...</div>
   }
 
   if (!faq) {
-      return <div>Question not found.</div>
+      return <div>প্রশ্নটি পাওয়া যায়নি।</div>
   }
 
   return (
     <div className="max-w-4xl mx-auto">
-        <Link href="/faq" className="text-primary hover:underline mb-4 inline-block"> &larr; Back to all questions</Link>
+        <Link href="/faq" className="text-primary hover:underline mb-4 inline-block"> &larr; সব প্রশ্নে ফিরে যান</Link>
       <Card className="shadow-sm overflow-hidden">
          <div className="p-4 sm:p-6">
             <h1 className="text-2xl font-bold text-foreground mb-3">{faq.question}</h1>
@@ -155,7 +155,7 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
                     <div>
                         <p className="font-semibold text-sm">{faq.author.name}</p>
                         <p className="text-xs text-muted-foreground">
-                            asked on {getTimestamp(faq.timestamp)}
+                            জিজ্ঞাসা করেছেন {getTimestamp(faq.timestamp)}
                         </p>
                     </div>
                 </div>
@@ -165,7 +165,7 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
           <Separator />
 
           <div className="bg-muted/30 p-4 sm:p-6 space-y-6">
-            <h3 className="font-bold text-xl">{faq.answers.length} Answer{faq.answers.length !== 1 && 's'}</h3>
+            <h3 className="font-bold text-xl">{faq.answers.length} উত্তর</h3>
             {faq.answers.sort((a,b) => (b.upvotes - b.downvotes) - (a.upvotes - a.downvotes)).map((answer) => {
                 const voteId = `${faqId}_${answer.id}`;
                 const userVote = userVotes?.[voteId];
@@ -185,19 +185,19 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
                         <div className="flex justify-end mt-4">
                             <div className="flex items-center gap-3 bg-background p-2 rounded-lg border">
                                 <div className="bg-muted p-2 rounded-full">
-                                {answer.authorName === 'AI Bot' ? (
+                                {answer.authorName === 'এআই বট' ? (
                                     <Bot className="w-5 h-5 text-primary" />
                                 ) : (
                                     <Avatar className="h-6 w-6">
                                         <AvatarImage src={answer.authorAvatar} alt={answer.authorName} />
-                                        <AvatarFallback>{(answer.authorName || 'A').charAt(0)}</AvatarFallback>
+                                        <AvatarFallback>{(answer.authorName || 'অ').charAt(0)}</AvatarFallback>
                                     </Avatar>
                                 )}
                                 </div>
                                 <div>
-                                    <p className="font-semibold text-sm">{answer.authorName || 'Anonymous'}</p>
+                                    <p className="font-semibold text-sm">{answer.authorName || 'নামবিহীন'}</p>
                                     <p className="text-xs text-muted-foreground">
-                                    answered on {getTimestamp(answer.timestamp)}
+                                    উত্তর দিয়েছেন {getTimestamp(answer.timestamp)}
                                     </p>
                                 </div>
                             </div>
@@ -211,13 +211,13 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
       
       <Card className="mt-8">
         <CardHeader>
-            <h3 className="font-bold text-xl">Your Answer</h3>
+            <h3 className="font-bold text-xl">আপনার উত্তর</h3>
         </CardHeader>
         <CardContent>
              <Textarea
                 value={newAnswer}
                 onChange={(e) => setNewAnswer(e.target.value)}
-                placeholder="Share your knowledge and help the community..."
+                placeholder="আপনার জ্ঞান শেয়ার করুন এবং কমিউনিটিকে সাহায্য করুন..."
                 className="min-h-[150px]"
                 disabled={isLoading || !user}
             />
@@ -228,10 +228,10 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
                   ) : (
                     <Send className="w-4 h-4 mr-2" />
                   )}
-                  Post Your Answer
+                  আপনার উত্তর পোস্ট করুন
                 </Button>
             </div>
-             {!user && <p className="text-xs text-destructive mt-2 text-right">Please log in to post an answer.</p>}
+             {!user && <p className="text-xs text-destructive mt-2 text-right">একটি উত্তর পোস্ট করতে লগইন করুন।</p>}
         </CardContent>
       </Card>
     </div>

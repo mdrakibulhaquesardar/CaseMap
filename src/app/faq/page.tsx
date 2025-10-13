@@ -7,13 +7,13 @@ import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const popularTags = [
-  "Property Law", "Tenant Rights", "Cybercrime", "Digital Security", "Labor Law", "Worker Rights", "Family Law"
+  "সম্পত্তি আইন", "ভাড়াটিয়া অধিকার", "সাইবার ক্রাইম", "ডিজিটাল নিরাপত্তা", "শ্রম আইন", "শ্রমিক অধিকার", "পারিবারিক আইন"
 ];
 
 const topContributors = [
-    { name: "Advocate Rakib", points: 1250, avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d" },
-    { name: "Legal Eagle", points: 980, avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704e" },
-    { name: "Justice Seeker", points: 750, avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704f" },
+    { name: "অ্যাডভোকেট রাকিব", points: 1250, avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d" },
+    { name: "লিগ্যাল ঈগল", points: 980, avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704e" },
+    { name: "ন্যায়বিচার seeker", points: 750, avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704f" },
 ]
 
 function FaqPage() {
@@ -22,15 +22,15 @@ function FaqPage() {
       <div className="container mx-auto px-4 py-12">
         <div className="flex justify-between items-center mb-8">
             <div>
-                <h1 className="text-4xl font-bold font-headline">Community Q&A</h1>
+                <h1 className="text-4xl font-bold font-headline">কমিউনিটি প্রশ্নোত্তর</h1>
                 <p className="mt-2 text-muted-foreground">
-                    Ask your legal questions and get answers from our AI assistant and the community.
+                    আপনার আইনি প্রশ্ন জিজ্ঞাসা করুন এবং আমাদের এআই সহকারী এবং কমিউনিটির কাছ থেকে উত্তর পান।
                 </p>
             </div>
             <Button size="lg" asChild>
                 <Link href="#ask">
                     <HelpCircle className="w-5 h-5 mr-2" />
-                    Ask Question
+                    প্রশ্ন করুন
                 </Link>
             </Button>
         </div>
@@ -43,7 +43,7 @@ function FaqPage() {
             <div className="sticky top-20 space-y-6">
                 <Card>
                     <CardHeader>
-                        <CardTitle className="text-base">Popular Topics</CardTitle>
+                        <CardTitle className="text-base">জনপ্রিয় বিষয়</CardTitle>
                     </CardHeader>
                     <CardContent className="flex flex-wrap gap-2">
                         {popularTags.map(tag => (
@@ -57,7 +57,7 @@ function FaqPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base">
                     <Trophy className="text-accent" />
-                    Top Contributors
+                    শীর্ষ অবদানকারী
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -69,7 +69,7 @@ function FaqPage() {
                        </Avatar>
                        <div>
                          <p className="font-semibold text-sm">{contributor.name}</p>
-                         <p className="text-xs text-muted-foreground">{contributor.points} points</p>
+                         <p className="text-xs text-muted-foreground">{contributor.points} পয়েন্ট</p>
                        </div>
                      </div>
                   ))}
@@ -77,17 +77,17 @@ function FaqPage() {
               </Card>
                <Card>
                 <CardHeader>
-                  <CardTitle className="text-base">Related Resources</CardTitle>
+                  <CardTitle className="text-base">সম্পর্কিত সম্পদ</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-1">
                    <Button variant="ghost" className="w-full justify-start gap-2 text-sm" asChild>
                        <Link href="/summarizer">
-                        <FileText className="w-4 h-4 text-primary"/> AI Document Summarizer
+                        <FileText className="w-4 h-4 text-primary"/> এআই ডকুমেন্ট সারাংশকারী
                        </Link>
                    </Button>
                    <Button variant="ghost" className="w-full justify-start gap-2 text-sm" asChild>
                        <Link href="/legal-aid">
-                        <MapPin className="w-4 h-4 text-primary"/> Legal Aid Centers
+                        <MapPin className="w-4 h-4 text-primary"/> আইনি সহায়তা কেন্দ্র
                        </Link>
                    </Button>
                 </CardContent>

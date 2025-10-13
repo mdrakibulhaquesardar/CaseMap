@@ -13,8 +13,8 @@ export default {
         container: "1280px",
       },
       fontFamily: {
-        body: ['SolaimanLipi', 'Inter', 'sans-serif'],
-        headline: ['SolaimanLipi', 'Inter', 'sans-serif'],
+        body: ['var(--font-body)'],
+        headline: ['var(--font-headline)'],
         code: ['monospace'],
       },
       colors: {

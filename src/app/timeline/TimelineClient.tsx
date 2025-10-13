@@ -46,8 +46,8 @@ export default function TimelineClient() {
     } else {
       setFoundCase(null);
       toast({
-        title: 'Case not found',
-        description: 'Please check the case number and try again. For demo, use 12345 or 67890.',
+        title: 'মামলা পাওয়া যায়নি',
+        description: 'অনুগ্রহ করে মামলার নম্বরটি পরীক্ষা করে আবার চেষ্টা করুন। ডেমোর জন্য, 12345 বা 67890 ব্যবহার করুন।',
         variant: 'destructive',
       });
     }
@@ -60,7 +60,7 @@ export default function TimelineClient() {
 
   const toggleSaveCase = async () => {
     if (!foundCase || !user) {
-      toast({ title: "Please log in to save cases.", variant: "destructive" });
+      toast({ title: "মামলা সংরক্ষণ করতে লগইন করুন।", variant: "destructive" });
       return;
     }
 
@@ -72,11 +72,11 @@ export default function TimelineClient() {
       // Case is already saved, so remove it
       const docToDelete = querySnapshot.docs[0];
       await deleteDoc(doc(firestore, 'users', user.uid, 'savedCases', docToDelete.id));
-      toast({ title: "Removed from Profile", description: "This case has been removed from your saved list." });
+      toast({ title: "প্রোফাইল থেকে সরানো হয়েছে", description: "এই মামলাটি আপনার সংরক্ষিত তালিকা থেকে সরানো হয়েছে।" });
     } else {
       // Case is not saved, so add it
       await addDoc(savedCasesCollection, foundCase);
-      toast({ title: "Saved to Profile", description: "You can view this case in your profile." });
+      toast({ title: "প্রোফাইলে সংরক্ষিত হয়েছে", description: "আপনি আপনার প্রোফাইলে এই মামলাটি দেখতে পারেন।" });
     }
   };
 
@@ -88,12 +88,12 @@ export default function TimelineClient() {
     <div className="w-full">
       <Card className="mb-8">
         <CardContent className="p-4 sm:p-6">
-           <h3 className="font-semibold text-lg mb-2">Search Case</h3>
+           <h3 className="font-semibold text-lg mb-2">মামলা খুঁজুন</h3>
           <div className="flex flex-col sm:flex-row gap-2">
             <div className="relative flex-grow">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
-                placeholder="Enter your case number (e.g., 12345)"
+                placeholder="আপনার মামলার নম্বর লিখুন (যেমন, 12345)"
                 className="pl-10"
                 value={caseNumber}
                 onChange={(e) => setCaseNumber(e.target.value)}
@@ -102,7 +102,7 @@ export default function TimelineClient() {
             </div>
             <Button onClick={onSearchClick} className="w-full sm:w-auto">
               <Search className="w-4 h-4 mr-2" />
-              Find Case
+              মামলা খুঁজুন
             </Button>
           </div>
         </CardContent>
@@ -115,19 +115,19 @@ export default function TimelineClient() {
               <div className="flex justify-between items-start">
                 <div>
                   <CardTitle className="text-2xl font-bold">{foundCase.title}</CardTitle>
-                  <CardDescription>Case Number: {foundCase.caseNumber}</CardDescription>
+                  <CardDescription>মামলা নম্বর: {foundCase.caseNumber}</CardDescription>
                 </div>
                 <Button variant="outline" size="sm" onClick={toggleSaveCase} disabled={!user}>
                   <Bookmark className={`w-4 h-4 mr-2 ${isCaseSaved ? 'text-accent fill-accent' : ''}`} />
-                  {isCaseSaved ? 'Saved' : 'Save'}
+                  {isCaseSaved ? 'সংরক্ষিত' : 'সংরক্ষণ করুন'}
                 </Button>
               </div>
             </CardHeader>
             <CardContent>
                 <div className='mb-6'>
                     <div className='flex justify-between items-center mb-2'>
-                        <span className='text-sm font-medium text-muted-foreground'>Case Progress</span>
-                        <span className='text-sm font-bold text-primary'>{Math.round(progress)}% Complete</span>
+                        <span className='text-sm font-medium text-muted-foreground'>মামলার অগ্রগতি</span>
+                        <span className='text-sm font-bold text-primary'>{Math.round(progress)}% সম্পন্ন</span>
                     </div>
                     <Progress value={progress} className="h-2" />
                 </div>
@@ -135,28 +135,28 @@ export default function TimelineClient() {
                     <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
                         <Gavel className="w-5 h-5 text-primary"/>
                         <div>
-                            <p className="text-muted-foreground">Case Type</p>
+                            <p className="text-muted-foreground">মামলার ধরন</p>
                             <p className="font-semibold">{foundCase.details.caseType}</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
                         <Calendar className="w-5 h-5 text-primary"/>
                         <div>
-                            <p className="text-muted-foreground">Filing Date</p>
+                            <p className="text-muted-foreground">ফাইলিং তারিখ</p>
                             <p className="font-semibold">{foundCase.details.filingDate}</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
                         <Scale className="w-5 h-5 text-primary"/>
                         <div>
-                            <p className="text-muted-foreground">Court</p>
+                            <p className="text-muted-foreground">আদালত</p>
                             <p className="font-semibold">{foundCase.details.court}</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
                         <Users className="w-5 h-5 text-primary"/>
                         <div>
-                            <p className="text-muted-foreground">Status</p>
+                            <p className="text-muted-foreground">অবস্থা</p>
                             <p className="font-semibold">{foundCase.details.status}</p>
                         </div>
                     </div>
@@ -165,8 +165,8 @@ export default function TimelineClient() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Case Journey</CardTitle>
-              <CardDescription>A step-by-step overview of the case proceedings.</CardDescription>
+              <CardTitle>মামলার যাত্রা</CardTitle>
+              <CardDescription>মামলার কার্যক্রমের একটি ধাপে ধাপে अवलोकन।</CardDescription>
             </CardHeader>
             <CardContent className="p-6">
               <CaseTimelineDisplay timeline={foundCase.timeline} />
@@ -177,11 +177,11 @@ export default function TimelineClient() {
         <Card className="text-center py-20 flex flex-col items-center justify-center min-h-[400px]">
           <CardContent>
             <FolderOpen className="w-16 h-16 mx-auto text-muted-foreground/50 mb-4" />
-            <h3 className="text-xl font-semibold">Track your case</h3>
+            <h3 className="text-xl font-semibold">আপনার মামলা ট্র্যাক করুন</h3>
             <p className="text-muted-foreground mt-2 max-w-sm mx-auto">
-              Enter a case number above to see its timeline, or select a saved case from the sidebar.
+              এর টাইমলাইন দেখতে উপরে একটি মামলার নম্বর লিখুন, অথবা সাইডবার থেকে একটি সংরক্ষিত মামলা নির্বাচন করুন।
             </p>
-             <p className="text-xs text-muted-foreground mt-4">For demonstration, try case number <kbd className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">12345</kbd> or <kbd className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">67890</kbd>.</p>
+             <p className="text-xs text-muted-foreground mt-4">প্রদর্শনের জন্য, মামলার নম্বর চেষ্টা করুন <kbd className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">12345</kbd> অথবা <kbd className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">67890</kbd>।</p>
           </CardContent>
         </Card>
       )}

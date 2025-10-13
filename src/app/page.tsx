@@ -92,10 +92,10 @@ interface CaseMapHeroProps {
 }
 
 function CaseMapHero({
-  badge = "AI-Powered Legal Assistance",
-  title = "Understand Your Legal Rights with AI",
-  subtitle = "Get instant, AI-powered legal guidance tailored to your situation. Ask questions, understand complex legal concepts, and navigate your legal journey with confidence.",
-  placeholder = "Ask a legal question... (e.g., What are my rights as a tenant?)",
+  badge = "এআই-চালিত আইনি সহায়তা",
+  title = "এআই দিয়ে আপনার আইনি অধিকার বুঝুন",
+  subtitle = "আপনার পরিস্থিতি অনুযায়ী তাৎক্ষণিক, এআই-চালিত আইনি নির্দেশিকা পান। প্রশ্ন জিজ্ঞাসা করুন, জটিল আইনি ধারণা বুঝুন এবং আত্মবিশ্বাসের সাথে আপনার আইনি যাত্রা নেভিগেট করুন।",
+  placeholder = "একটি আইনি প্রশ্ন জিজ্ঞাসা করুন... (যেমন, ভাড়াটিয়া হিসাবে আমার অধিকার কী?)",
 }: CaseMapHeroProps) {
   const [query, setQuery] = React.useState("");
 
@@ -152,7 +152,7 @@ function CaseMapHero({
                   size="lg"
                   className="bg-primary text-primary-foreground hover:bg-primary/90"
                 >
-                  Ask AI
+                  এআই-কে জিজ্ঞাসা করুন
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
@@ -163,37 +163,37 @@ function CaseMapHero({
           <div className="animate-fade-in flex flex-wrap items-center justify-center gap-3 opacity-0 delay-500">
             <div className="flex items-center gap-2 rounded-full border border-border/50 bg-background/50 px-4 py-2 text-sm backdrop-blur-sm">
               <Scale className="h-4 w-4 text-primary" />
-              <span className="text-muted-foreground">Legal Analysis</span>
+              <span className="text-muted-foreground">আইনি বিশ্লেষণ</span>
             </div>
             <div className="flex items-center gap-2 rounded-full border border-border/50 bg-background/50 px-4 py-2 text-sm backdrop-blur-sm">
               <BookOpen className="h-4 w-4 text-primary" />
-              <span className="text-muted-foreground">Case Research</span>
+              <span className="text-muted-foreground">মামলা গবেষণা</span>
             </div>
             <div className="flex items-center gap-2 rounded-full border border-border/50 bg-background/50 px-4 py-2 text-sm backdrop-blur-sm">
               <Sparkles className="h-4 w-4 text-primary" />
-              <span className="text-muted-foreground">AI-Powered</span>
+              <span className="text-muted-foreground">এআই-চালিত</span>
             </div>
           </div>
 
           {/* Trust Indicators */}
           <div className="animate-fade-in flex flex-col items-center gap-4 pt-8 opacity-0 delay-700">
             <p className="text-sm text-muted-foreground">
-              Trusted by thousands of users seeking legal clarity
+              আইনি স্বচ্ছতা পেতে হাজার হাজার ব্যবহারকারীর দ্বারা বিশ্বস্ত
             </p>
             <div className="flex items-center gap-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">10k+</div>
-                <div className="text-xs text-muted-foreground">Questions Answered</div>
+                <div className="text-2xl font-bold text-foreground">১০k+</div>
+                <div className="text-xs text-muted-foreground">প্রশ্নের উত্তর</div>
               </div>
               <div className="h-8 w-px bg-border" />
               <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">95%</div>
-                <div className="text-xs text-muted-foreground">Satisfaction Rate</div>
+                <div className="text-2xl font-bold text-foreground">৯৫%</div>
+                <div className="text-xs text-muted-foreground">সন্তুষ্টির হার</div>
               </div>
               <div className="h-8 w-px bg-border" />
               <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">24/7</div>
-                <div className="text-xs text-muted-foreground">AI Availability</div>
+                <div className="text-2xl font-bold text-foreground">২৪/৭</div>
+                <div className="text-xs text-muted-foreground">এআই প্রাপ্যতা</div>
               </div>
             </div>
           </div>
@@ -249,33 +249,33 @@ function FeaturesSection() {
   const features = [
     {
       icon: Brain,
-      title: "AI Legal Assistant",
-      description: "Get instant answers to your legal questions powered by advanced AI technology trained on legal knowledge."
+      title: "এআই আইনি সহকারী",
+      description: "আইনি জ্ঞানে প্রশিক্ষিত উন্নত এআই প্রযুক্তি দ্বারা আপনার আইনি প্রশ্নের তাৎক্ষণিক উত্তর পান।"
     },
     {
       icon: MessageSquare,
-      title: "Interactive Chat",
-      description: "Have natural conversations about your legal concerns and receive personalized guidance."
+      title: "ইন্টারেক্টিভ চ্যাট",
+      description: "আপনার আইনি উদ্বেগ সম্পর্কে স্বাভাবিক কথোপকথন করুন এবং ব্যক্তিগতকৃত নির্দেশিকা গ্রহণ করুন।"
     },
     {
       icon: FileText,
-      title: "Document Analysis",
-      description: "Upload legal documents and get AI-powered insights, summaries, and explanations."
+      title: "নথি বিশ্লেষণ",
+      description: "আইনি নথি আপলোড করুন এবং এআই-চালিত অন্তর্দৃষ্টি, সারাংশ এবং ব্যাখ্যা পান।"
     },
     {
       icon: Shield,
-      title: "Privacy First",
-      description: "Your conversations are encrypted and secure. We prioritize your privacy and confidentiality."
+      title: "গোপনীয়তা প্রথম",
+      description: "আপনার কথোপকথন এনক্রিপ্ট করা এবং সুরক্ষিত। আমরা আপনার গোপনীয়তাকে অগ্রাধিকার দিই।"
     },
     {
       icon: Zap,
-      title: "Instant Responses",
-      description: "No waiting for appointments. Get immediate legal guidance whenever you need it, 24/7."
+      title: "তাৎক্ষণিক প্রতিক্রিয়া",
+      description: "অ্যাপয়েন্টমেন্টের জন্য অপেক্ষা করার দরকার নেই। যখনই আপনার প্রয়োজন, ২৪/৭ তাত্ক্ষণিক আইনি নির্দেশিকা পান।"
     },
     {
       icon: Users,
-      title: "Expert Verified",
-      description: "Our AI is trained on verified legal resources and constantly updated with latest regulations."
+      title: "বিশেষজ্ঞ দ্বারা যাচাইকৃত",
+      description: "আমাদের এআই যাচাইকৃত আইনি সংস্থার উপর প্রশিক্ষিত এবং সর্বশেষ প্রবিধানের সাথে ক্রমাগত আপডেট করা হয়।"
     }
   ];
 
@@ -285,13 +285,13 @@ function FeaturesSection() {
         {/* Section Header */}
         <div className="mx-auto max-w-2xl text-center">
           <Badge variant="outline" className="mb-4 border-primary/20 bg-primary/5 text-primary">
-            Features
+            বৈশিষ্ট্য
           </Badge>
           <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Everything You Need for Legal Clarity
+            আইনি স্বচ্ছতার জন্য আপনার প্রয়োজনীয় সবকিছু
           </h2>
           <p className="text-lg text-muted-foreground">
-            Powerful AI tools designed to make legal information accessible and understandable for everyone.
+            সকলের জন্য আইনি তথ্য সহজলভ্য এবং বোধগম্য করার জন্য ডিজাইন করা শক্তিশালী এআই সরঞ্জাম।
           </p>
         </div>
 
@@ -326,19 +326,19 @@ function FeaturesSection() {
 function HowItWorksSection() {
   const steps = [
     {
-      number: "01",
-      title: "Ask Your Question",
-      description: "Type your legal question in plain English. No legal jargon required."
+      number: "০১",
+      title: "আপনার প্রশ্ন জিজ্ঞাসা করুন",
+      description: "আপনার আইনি প্রশ্ন সহজ বাংলায় টাইপ করুন। কোন আইনি পরিভাষার প্রয়োজন নেই।"
     },
     {
-      number: "02",
-      title: "AI Analysis",
-      description: "Our AI analyzes your question and searches through legal knowledge bases."
+      number: "০২",
+      title: "এআই বিশ্লেষণ",
+      description: "আমাদের এআই আপনার প্রশ্ন বিশ্লেষণ করে এবং আইনি জ্ঞান ভান্ডার অনুসন্ধান করে।"
     },
     {
-      number: "03",
-      title: "Get Instant Guidance",
-      description: "Receive clear, actionable legal guidance tailored to your situation."
+      number: "০৩",
+      title: "তাৎক্ষণিক নির্দেশিকা পান",
+      description: "আপনার পরিস্থিতি অনুযায়ী স্পষ্ট, কার্যকরী আইনি নির্দেশিকা গ্রহণ করুন।"
     }
   ];
 
@@ -348,13 +348,13 @@ function HowItWorksSection() {
         {/* Section Header */}
         <div className="mx-auto max-w-2xl text-center">
           <Badge variant="outline" className="mb-4 border-primary/20 bg-primary/5 text-primary">
-            How It Works
+            কিভাবে কাজ করে
           </Badge>
           <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Legal Guidance in Three Simple Steps
+            তিনটি সহজ ধাপে আইনি নির্দেশিকা
           </h2>
           <p className="text-lg text-muted-foreground">
-            Getting legal help has never been easier. Our AI makes the process simple and straightforward.
+            আইনি সাহায্য পাওয়া কখনও এত সহজ ছিল না। আমাদের এআই প্রক্রিয়াটিকে সহজ এবং সরল করে তোলে।
           </p>
         </div>
 
@@ -391,29 +391,29 @@ function HowItWorksSection() {
 const testimonials = [
   {
     author: {
-      name: "Anisur Rahman",
+      name: "অ্যাডভোকেট আনিসুর রহমান",
       handle: "@anis_advocate",
       avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704a",
     },
-    text: "CaseMap has been a game-changer for tracking my cases. The timeline view is incredibly intuitive and keeps me updated.",
+    text: "CaseMap আমার মামলা ট্র্যাক করার জন্য একটি গেম-চেঞ্জার হয়েছে। টাইমলাইন ভিউ অবিশ্বাস্যভাবে স্বজ্ঞাত এবং আমাকে আপডেট রাখে।",
     href: "#",
   },
   {
     author: {
-      name: "Salma Akhtar",
+      name: "সালমা আক্তার",
       handle: "@salma_legal",
       avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704b",
     },
-    text: "The AI document summarizer saved me hours of reading. It breaks down complex legal jargon into simple, understandable language.",
+    text: "এআই ডকুমেন্ট সারাংশকারী আমার পড়ার সময় বাঁচিয়েছে। এটি জটিল আইনি পরিভাষাকে সহজ, বোধগম্য ভাষায় ভেঙে দেয়।",
     href: "#",
   },
   {
     author: {
-      name: "Karim Khan",
+      name: "করিম খান",
       handle: "@karim_k",
       avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704c",
     },
-    text: "As a student, the Community Q&A is an invaluable resource. I get answers from both AI and experienced professionals.",
+    text: "একজন ছাত্র হিসাবে, কমিউনিটি প্রশ্নোত্তর একটি অমূল্য সম্পদ। আমি এআই এবং অভিজ্ঞ পেশাদার উভয়ের কাছ থেকে উত্তর পাই।",
   },
 ];
 
@@ -425,8 +425,8 @@ export default function Home() {
       <FeaturesSection />
       <HowItWorksSection />
       <TestimonialsSection
-        title="What our users are saying"
-        description="Join thousands of citizens and legal professionals who are simplifying their legal journey with CaseMap."
+        title="আমাদের ব্যবহারকারীরা যা বলছেন"
+        description="হাজার হাজার নাগরিক এবং আইনি পেশাদারদের সাথে যোগ দিন যারা CaseMap দিয়ে তাদের আইনি যাত্রা সহজ করছেন।"
         testimonials={testimonials}
       />
       <PricingWithComparison />

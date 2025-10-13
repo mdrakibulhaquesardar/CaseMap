@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function ProfilePage() {
     const { user, isLoading } = useUser();
 
-    const displayName = user?.displayName || "New User";
+    const displayName = user?.displayName || "নতুন ব্যবহারকারী";
     const avatarSrc = user?.photoURL || `https://i.pravatar.cc/150?u=${user?.uid || 'default'}`;
     const avatarFallback = displayName.charAt(0).toUpperCase();
 
@@ -48,29 +48,29 @@ export default function ProfilePage() {
                     ) : (
                         <h1 className="text-3xl font-bold font-headline">{displayName}</h1>
                     )}
-                    <p className="text-muted-foreground mt-1">Dhaka, Bangladesh</p>
+                    <p className="text-muted-foreground mt-1">ঢাকা, বাংলাদেশ</p>
                     
                     <div className="mt-6 flex justify-center gap-4 flex-wrap">
                         <Button variant="outline">
-                            <Edit className="mr-2 h-4 w-4"/> Edit Profile
+                            <Edit className="mr-2 h-4 w-4"/> প্রোফাইল সম্পাদনা করুন
                         </Button>
                         <Button>
-                           <Mail className="mr-2"/> Message
+                           <Mail className="mr-2"/> বার্তা
                         </Button>
                     </div>
 
                     <div className="mt-8 grid grid-cols-3 divide-x max-w-sm mx-auto">
                         <div className="px-2">
-                            <p className="text-xl font-bold">128</p>
-                            <p className="text-sm text-muted-foreground">Answers</p>
+                            <p className="text-xl font-bold">১২৮</p>
+                            <p className="text-sm text-muted-foreground">উত্তর</p>
                         </div>
                          <div className="px-2">
-                            <p className="text-xl font-bold">1.3k</p>
-                            <p className="text-sm text-muted-foreground">Upvotes</p>
+                            <p className="text-xl font-bold">১.৩k</p>
+                            <p className="text-sm text-muted-foreground">আপভোট</p>
                         </div>
                          <div className="px-2">
-                            <p className="text-xl font-bold">Top 5%</p>
-                            <p className="text-sm text-muted-foreground">Rank</p>
+                            <p className="text-xl font-bold">শীর্ষ ৫%</p>
+                            <p className="text-sm text-muted-foreground">র‍্যাঙ্ক</p>
                         </div>
                     </div>
                 </div>

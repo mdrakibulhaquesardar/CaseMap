@@ -88,14 +88,14 @@ export default function FaqClient() {
       
       const newFaqItem: Omit<FaqItem, 'id'> = {
         question: newQuestion,
-        tags: ['New', 'AI Answer'],
+        tags: ['নতুন', 'এআই উত্তর'],
         timestamp: serverTimestamp(),
-        author: { name: user.displayName || "Current User", avatar: user.photoURL || `https://i.pravatar.cc/150?u=${user.uid}` },
+        author: { name: user.displayName || "বর্তমান ব্যবহারকারী", avatar: user.photoURL || `https://i.pravatar.cc/150?u=${user.uid}` },
         answers: [
           {
             id: Math.random().toString(),
             content: answerResponse.answer,
-            authorName: 'AI Bot',
+            authorName: 'এআই বট',
             authorAvatar: '',
             upvotes: 0,
             downvotes: 0,
@@ -104,7 +104,7 @@ export default function FaqClient() {
         ],
         recommendation: {
           ...toolResponse,
-          content: `**Recommended Tool: ${toolResponse.toolRecommendation}**\n\n${toolResponse.suitabilityReasoning}`
+          content: `**প্রস্তাবিত টুল: ${toolResponse.toolRecommendation}**\n\n${toolResponse.suitabilityReasoning}`
         }
       };
 
@@ -115,8 +115,8 @@ export default function FaqClient() {
     } catch (error) {
       console.error('Error fetching AI answers:', error);
       toast({
-        title: 'Error',
-        description: 'Failed to get an answer. Please try again.',
+        title: 'ত্রুটি',
+        description: 'একটি উত্তর পেতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।',
         variant: 'destructive',
       });
     } finally {
@@ -126,7 +126,7 @@ export default function FaqClient() {
 
   const toggleSaveFaq = async (faq: FaqItem) => {
     if (!user) {
-        toast({ title: "Please log in to save questions.", variant: "destructive" });
+        toast({ title: "প্রশ্ন সংরক্ষণ করতে লগইন করুন।", variant: "destructive" });
         return;
     }
     const savedFaqsCollection = collection(firestore, 'users', user.uid, 'savedFaqs');
@@ -136,7 +136,7 @@ export default function FaqClient() {
     if (!querySnapshot.empty) {
         const docToDelete = querySnapshot.docs[0];
         await deleteDoc(doc(firestore, 'users', user.uid, 'savedFaqs', docToDelete.id));
-        toast({ title: "Removed from Profile", description: "This Q&A has been removed from your saved list." });
+        toast({ title: "প্রোফাইল থেকে সরানো হয়েছে", description: "এই প্রশ্নোত্তরটি আপনার সংরক্ষিত তালিকা থেকে সরানো হয়েছে।" });
     } else {
         const faqToSave = { ...faq };
         // Firestore doesn't like `undefined` values.
@@ -147,13 +147,13 @@ export default function FaqClient() {
           });
         }
         
-        toast({ title: "Saved to Profile", description: "You can view this Q&A in your profile." });
+        toast({ title: "প্রোফাইলে সংরক্ষিত হয়েছে", description: "আপনি আপনার প্রোফাইলে এই প্রশ্নোত্তর দেখতে পারেন।" });
     }
   };
 
     const handleVote = async (faqId: string, answerId: string, voteType: 'up' | 'down') => {
         if (!user) {
-            toast({ title: "Please log in to vote.", variant: "destructive" });
+            toast({ title: "ভোট দিতে লগইন করুন।", variant: "destructive" });
             return;
         }
 
@@ -198,7 +198,7 @@ export default function FaqClient() {
 
         } catch (error) {
             console.error("Error voting:", error);
-            toast({ title: "Error", description: "Could not register your vote.", variant: "destructive" });
+            toast({ title: "ত্রুটি", description: "আপনার ভোট নিবন্ধন করা যায়নি।", variant: "destructive" });
         }
     };
 
@@ -211,24 +211,24 @@ export default function FaqClient() {
   }
   
   const getTimestamp = (timestamp: any) => {
-    if (!timestamp) return 'Just now';
-    if (timestamp.toDate) return timestamp.toDate().toLocaleDateString();
-    return new Date(timestamp).toLocaleDateString();
+    if (!timestamp) return 'এইমাত্র';
+    if (timestamp.toDate) return timestamp.toDate().toLocaleDateString('bn-BD');
+    return new Date(timestamp).toLocaleDateString('bn-BD');
   }
 
   return (
     <div className="w-full">
       <Card className="mb-8 shadow-sm">
         <CardContent className="p-4 sm:p-6">
-          <h3 className="font-semibold text-lg mb-2">Ask a new question</h3>
+          <h3 className="font-semibold text-lg mb-2">একটি নতুন প্রশ্ন করুন</h3>
           <p className="text-muted-foreground text-sm mb-4">
-            Have a legal doubt? Ask our community and AI assistant.
+            আপনার কি কোন আইনি সন্দেহ আছে? আমাদের কমিউনিটি এবং এআই সহকারীকে জিজ্ঞাসা করুন।
           </p>
           <div className="flex flex-col sm:flex-row gap-2">
             <Input
               value={newQuestion}
               onChange={(e) => setNewQuestion(e.target.value)}
-              placeholder="e.g., How do I file a consumer complaint?"
+              placeholder="যেমন, আমি কীভাবে একটি ভোক্তা অভিযোগ দায়ের করব?"
               disabled={isLoading || !user}
             />
             <Button onClick={handleAskQuestion} disabled={isLoading || !user} className="w-full sm:w-auto">
@@ -237,10 +237,10 @@ export default function FaqClient() {
               ) : (
                 <Send className="w-4 h-4 mr-2" />
               )}
-              Ask
+              জিজ্ঞাসা করুন
             </Button>
           </div>
-           {!user && <p className="text-xs text-destructive mt-2">Please log in to ask a question.</p>}
+           {!user && <p className="text-xs text-destructive mt-2">প্রশ্ন জিজ্ঞাসা করতে লগইন করুন।</p>}
         </CardContent>
       </Card>
 
@@ -261,10 +261,10 @@ export default function FaqClient() {
                     <div className="flex items-center gap-2">
                          <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground" onClick={() => toggleSaveFaq(faq)} disabled={!user}>
                             <Bookmark className={`w-4 h-4 ${savedFaqs.some(item => item.originalId === faq.id) ? 'text-accent fill-accent' : ''}`} />
-                            {savedFaqs.some(item => item.originalId === faq.id) ? 'Saved' : 'Save'}
+                            {savedFaqs.some(item => item.originalId === faq.id) ? 'সংরক্ষিত' : 'সংরক্ষণ'}
                         </Button>
                         <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground">
-                            Share
+                            শেয়ার করুন
                         </Button>
                     </div>
 
@@ -276,7 +276,7 @@ export default function FaqClient() {
                         <div>
                             <p className="font-semibold text-sm">{faq.author.name}</p>
                             <p className="text-xs text-muted-foreground">
-                                asked on {getTimestamp(faq.timestamp)}
+                                জিজ্ঞাসা করেছেন {getTimestamp(faq.timestamp)}
                             </p>
                         </div>
                     </div>
@@ -288,7 +288,7 @@ export default function FaqClient() {
                         <div className="flex items-start gap-4">
                             {getToolIcon(faq.recommendation.toolRecommendation)}
                         <div>
-                            <h4 className="font-bold text-sm">Tool Recommendation: {faq.recommendation.toolRecommendation}</h4>
+                            <h4 className="font-bold text-sm">টুল সুপারিশ: {faq.recommendation.toolRecommendation}</h4>
                             <p className="text-xs text-muted-foreground mt-1">{faq.recommendation.suitabilityReasoning}</p>
                         </div>
                         </div>
@@ -301,7 +301,7 @@ export default function FaqClient() {
               <Separator />
 
               <div className="bg-muted/30 p-4 sm:p-6 space-y-6">
-                <h3 className="font-bold text-lg">{faq.answers.length} Answer{faq.answers.length !== 1 && 's'}</h3>
+                <h3 className="font-bold text-lg">{faq.answers.length} উত্তর</h3>
                 {faq.answers.map((answer) => {
                    const voteId = `${faq.id}_${answer.id}`;
                    const userVote = userVotes?.[voteId];
@@ -321,7 +321,7 @@ export default function FaqClient() {
                             <div className="flex justify-end mt-4">
                                 <div className="flex items-center gap-3 bg-background p-2 rounded-lg border">
                                     <div className="bg-muted p-2 rounded-full">
-                                    {answer.authorName === 'AI Bot' ? (
+                                    {answer.authorName === 'এআই বট' ? (
                                         <Bot className="w-5 h-5 text-primary" />
                                     ) : (
                                         <Avatar className="h-6 w-6">
@@ -331,9 +331,9 @@ export default function FaqClient() {
                                     )}
                                     </div>
                                     <div>
-                                        <p className="font-semibold text-sm">{answer.authorName || 'Anonymous'}</p>
+                                        <p className="font-semibold text-sm">{answer.authorName || 'নামবিহীন'}</p>
                                         <p className="text-xs text-muted-foreground">
-                                        answered on {getTimestamp(answer.timestamp)}
+                                        উত্তর দিয়েছেন {getTimestamp(answer.timestamp)}
                                         </p>
                                     </div>
                                 </div>
@@ -361,7 +361,7 @@ export default function FaqClient() {
           </PaginationItem>
            <PaginationItem>
             <span className="p-2 text-sm">
-                Page {currentPage} of {totalPages}
+                পেজ {currentPage} এর {totalPages}
             </span>
            </PaginationItem>
           <PaginationItem>

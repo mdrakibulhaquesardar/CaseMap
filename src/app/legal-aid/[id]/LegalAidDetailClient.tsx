@@ -22,7 +22,7 @@ export default function LegalAidDetailClient({ centerId }: { centerId: string })
         <Button asChild variant="ghost" className="mb-6">
             <Link href="/legal-aid">
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to all centers
+                সব কেন্দ্রে ফিরে যান
             </Link>
         </Button>
 
@@ -44,9 +44,9 @@ export default function LegalAidDetailClient({ centerId }: { centerId: string })
         <CardContent className="p-6 grid md:grid-cols-3 gap-8">
             <div className="md:col-span-2 space-y-6">
                 <div>
-                    <h2 className="text-xl font-semibold mb-3">About the Center</h2>
+                    <h2 className="text-xl font-semibold mb-3">কেন্দ্র সম্পর্কে</h2>
                     <p className="text-muted-foreground">
-                        {center.name} is a leading organization providing essential legal support to underserved communities in the {center.division} division. With a dedicated team of legal professionals, we are committed to ensuring access to justice for all. (This is a dummy description).
+                        {center.name} {center.division} বিভাগের সুবিধাবঞ্চিত সম্প্রদায়কে প্রয়োজনীয় আইনি সহায়তা প্রদানের জন্য একটি শীর্ষস্থানীয় সংস্থা। আইনি পেশাদারদের একটি নিবেদিত দলের সাথে, আমরা সকলের জন্য ন্যায়বিচার প্রাপ্তি নিশ্চিত করতে প্রতিশ্রুতিবদ্ধ। (এটি একটি ডামি বিবরণ)।
                     </p>
                 </div>
                 
@@ -55,7 +55,7 @@ export default function LegalAidDetailClient({ centerId }: { centerId: string })
                 <div>
                     <h3 className="text-lg font-semibold mb-4 flex items-center">
                         <Scale className="w-5 h-5 mr-2 text-primary"/>
-                        Services Offered
+                        প্রদত্ত সেবা
                     </h3>
                     <div className="flex flex-wrap gap-2">
                         {center.services.map(service => (
@@ -68,7 +68,7 @@ export default function LegalAidDetailClient({ centerId }: { centerId: string })
             <div className="space-y-6">
                 <Card>
                     <CardHeader>
-                        <CardTitle className="text-lg">Contact Information</CardTitle>
+                        <CardTitle className="text-lg">যোগাযোগের তথ্য</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4 text-sm">
                         <div className="flex items-start gap-3">
@@ -83,11 +83,11 @@ export default function LegalAidDetailClient({ centerId }: { centerId: string })
                 </Card>
                 <Card>
                     <CardHeader>
-                        <CardTitle className="text-lg">Location</CardTitle>
+                        <CardTitle className="text-lg">অবস্থান</CardTitle>
                     </CardHeader>
                     <CardContent>
                          <div className="aspect-video bg-muted rounded-md flex items-center justify-center">
-                            <p className="text-sm text-muted-foreground">Map Placeholder</p>
+                            <p className="text-sm text-muted-foreground">মানচিত্রের স্থানধারক</p>
                          </div>
                     </CardContent>
                 </Card>

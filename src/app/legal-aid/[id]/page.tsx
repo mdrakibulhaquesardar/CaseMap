@@ -10,7 +10,7 @@ export default function LegalAidDetailPage({ params }: { params: { id: string } 
         <Suspense fallback={
             <div className="flex justify-center items-center h-96">
                 <Loader2 className="w-8 h-8 animate-spin text-primary" />
-                <p className="ml-4 text-muted-foreground">Loading Center Details...</p>
+                <p className="ml-4 text-muted-foreground">কেন্দ্রের বিবরণ লোড হচ্ছে...</p>
             </div>
         }>
             <LegalAidDetailClient centerId={params.id} />

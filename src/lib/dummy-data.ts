@@ -3,98 +3,98 @@ import type { CaseTimeline, FaqItem, LegalAidCenter } from "@/types";
 export const caseTimelineData: { [key: string]: CaseTimeline } = {
   "12345": {
     caseNumber: "12345",
-    title: "Labor Dispute - Bengal Factories",
+    title: "শ্রম বিরোধ - বেঙ্গল ফ্যাক্টরি",
     details: {
-        caseType: "Labor Law",
+        caseType: "শ্রম আইন",
         filingDate: "2025-08-01",
-        court: "Dhaka Labor Court",
-        status: "In Progress"
+        court: "ঢাকা শ্রম আদালত",
+        status: "চলমান"
     },
     timeline: [
-      { step: "Case Filed", date: "2025-08-01", status: "Completed", details: "Initial case filed by the employee union regarding unpaid wages." },
-      { step: "Hearing 1: Admittance", date: "2025-08-10", status: "Completed", details: "First hearing to admit the case and issue notices to the respondent.", documentLink: "#" },
-      { step: "Document Submission", date: "2025-08-25", status: "Completed", details: "Both parties submitted their primary evidence and documentation." },
-      { step: "Hearing 2: Cross-examination", date: "2025-09-05", status: "Upcoming", details: "Scheduled for cross-examination of the primary witnesses." },
-      { step: "Final Arguments", date: "2025-09-15", status: "Upcoming", details: "Final arguments to be presented by both legal teams." },
-      { step: "Judgment", date: "2025-09-20", status: "Pending", details: "The court's final verdict is awaited." },
+      { step: "মামলা দায়ের", date: "2025-08-01", status: "Completed", details: "অবৈতনিক মজুরির বিষয়ে কর্মচারী ইউনিয়ন কর্তৃক প্রাথমিক মামলা দায়ের করা হয়েছে।" },
+      { step: "শুনানি ১: স্বীকৃতি", date: "2025-08-10", status: "Completed", details: "মামলা গ্রহণ এবং প্রতিপক্ষকে নোটিশ জারির জন্য প্রথম শুনানি।", documentLink: "#" },
+      { step: "নথি জমা", date: "2025-08-25", status: "Completed", details: "উভয় পক্ষ তাদের প্রাথমিক প্রমাণ এবং ডকুমেন্টেশন জমা দিয়েছে।" },
+      { step: "শুনানি ২: জেরা", date: "2025-09-05", status: "Upcoming", details: "প্রাথমিক সাক্ষীদের জেরার জন্য নির্ধারিত।" },
+      { step: "চূড়ান্ত যুক্তি", date: "2025-09-15", status: "Upcoming", details: "উভয় আইন দলের দ্বারা চূড়ান্ত যুক্তি উপস্থাপন করা হবে।" },
+      { step: "রায়", date: "2025-09-20", status: "Pending", details: "আদালতের চূড়ান্ত রায় মুলতবি রয়েছে।" },
     ],
   },
   "67890": {
     caseNumber: "67890",
-    title: "Property Inheritance Claim",
+    title: "সম্পত্তি উত্তরাধিকার দাবি",
      details: {
-        caseType: "Family Law",
+        caseType: "পারিবারিক আইন",
         filingDate: "2025-07-15",
-        court: "Sylhet Family Court",
-        status: "In Progress"
+        court: "সিলেট পারিবারিক আদালত",
+        status: "চলমান"
     },
     timeline: [
-        { step: "Application Filed", date: "2025-07-15", status: "Completed", details: "Claim filed for rightful inheritance of ancestral property." },
-        { step: "Notice Issued to Respondents", date: "2025-07-22", status: "Completed", details: "Official notices have been sent to all involved parties." },
-        { step: "First Hearing", date: "2025-08-05", status: "Upcoming", details: "Initial hearing to establish the grounds of the claim." },
-        { step: "Mediation Session", date: "2025-08-20", status: "Pending", details: "A court-ordered mediation session to attempt a settlement." },
-        { step: "Final Hearing", date: "2025-09-10", status: "Pending", details: "Scheduled for the final hearing if mediation is unsuccessful." },
+        { step: "আবেদন দায়ের", date: "2025-07-15", status: "Completed", details: "পূর্বপুরুষের সম্পত্তির সঠিক উত্তরাধিকারের জন্য দাবি দায়ের করা হয়েছে।" },
+        { step: "প্রতিপক্ষকে নোটিশ জারি", date: "2025-07-22", status: "Completed", details: "সকল জড়িত পক্ষকে সরকারি নোটিশ পাঠানো হয়েছে।" },
+        { step: "প্রথম শুনানি", date: "2025-08-05", status: "Upcoming", details: "দাবির ভিত্তি প্রতিষ্ঠার জন্য প্রাথমিক শুনানি।" },
+        { step: "মধ্যস্থতা অধিবেশন", date: "2025-08-20", status: "Pending", details: "নিষ্পত্তির চেষ্টার জন্য আদালত-আদেশিত মধ্যস্থতা অধিবেশন।" },
+        { step: "চূড়ান্ত শুনানি", date: "2025-09-10", status: "Pending", details: "মধ্যস্থতা ব্যর্থ হলে চূড়ান্ত শুনানির জন্য নির্ধারিত।" },
     ]
   }
 };
 
 export const legalAidCenters: LegalAidCenter[] = [
   {
-    name: "BLAST Legal Aid Center",
+    name: "ব্লাস্ট আইনি সহায়তা কেন্দ্র",
     lat: 23.8103,
     lng: 90.4125,
-    address: "House 123, Road 4, Gulshan, Dhaka",
-    contact: "0123456789",
+    address: "বাড়ি ১২৩, রোড ৪, গুলশান, ঢাকা",
+    contact: "০১২৩৪৫৬৭৮৯",
     image: "https://picsum.photos/400/250?random=1",
-    services: ["Human Rights", "Family Law", "Criminal Law"],
-    division: "Dhaka",
+    services: ["মানবাধিকার", "পারিবারিক আইন", "ফৌজদারি আইন"],
+    division: "ঢাকা",
   },
   {
-    name: "BRAC Human Rights & Legal Aid Services",
+    name: "ব্র্যাক মানবাধিকার ও আইনি সহায়তা পরিষেবা",
     lat: 23.78,
     lng: 90.4,
-    address: "BRAC Centre, 75 Mohakhali, Dhaka",
-    contact: "0987654321",
+    address: "ব্র্যাক সেন্টার, ৭৫ মহাখালী, ঢাকা",
+    contact: "০৯৮৭৬৫৪৩২১",
     image: "https://picsum.photos/400/250?random=2",
-    services: ["Labor Law", "Human Rights", "Land Disputes"],
-    division: "Dhaka",
+    services: ["শ্রম আইন", "মানবাধিকার", "ভূমি বিরোধ"],
+    division: "ঢাকা",
   },
   {
-    name: "Ain o Salish Kendra (ASK)",
+    name: "আইন ও সালিশ কেন্দ্র (আসক)",
     lat: 23.7538,
     lng: 90.3832,
-    address: "26/3, Bir Uttam Kazi Nuruzzaman Road, West Panthapath, Dhaka",
-    contact: "01711223344",
+    address: "২৬/৩, বীর উত্তম কাজী নুরুজ্জামান রোড, পশ্চিম পান্থপথ, ঢাকা",
+    contact: "০১৭১১২৩৪৪৩৪৪",
     image: "https://picsum.photos/400/250?random=3",
-    services: ["Family Law", "Criminal Law", "Human Rights"],
-    division: "Dhaka",
+    services: ["পারিবারিক আইন", "ফৌজদারি আইন", "মানবাধিকার"],
+    division: "ঢাকা",
   },
   {
-    name: "Chittagong Legal Aid Office",
+    name: "চট্টগ্রাম আইনি সহায়তা অফিস",
     lat: 22.3569,
     lng: 91.8386,
-    address: "District Judge Court Building, Chittagong",
-    contact: "031-555666",
+    address: "জেলা জজ কোর্ট বিল্ডিং, চট্টগ্রাম",
+    contact: "০৩১-৫৫৫৬৬৬",
     image: "https://picsum.photos/400/250?random=4",
-    services: ["Land Disputes", "Criminal Law"],
-    division: "Chittagong",
+    services: ["ভূমি বিরোধ", "ফৌজদারি আইন"],
+    division: "চট্টগ্রাম",
   },
   {
-    name: "Sylhet Legal Aid Association",
+    name: "সিলেট আইনি সহায়তা সমিতি",
     lat: 24.8949,
     lng: 91.8687,
-    address: "Zindabazar, Sylhet",
-    contact: "01998877665",
+    address: "জিন্দাবাজার, সিলেট",
+    contact: "০১৯৯৮৮৭৭৬৬৫",
     image: "https://picsum.photos/400/250?random=5",
-    services: ["Family Law", "Labor Law"],
-    division: "Sylhet",
+    services: ["পারিবারিক আইন", "শ্রম আইন"],
+    division: "সিলেট",
   },
 ];
 
 
 export const randomUserNames = [
-  "Akash Chowdhury", "Bonna Ahmed", "Kamal Hasan", "Dalia Khatun",
-  "Emon Sarkar", "Farzana Yasmin", "Gazi Rahman", "Halima Bibi",
-  "Imran Khan", "Jahanara Imam", "Laila Siddiqui", "Mizanur Rahman",
-  "Nadia Islam", "Omar Faruk", "Priya Das"
+  "আকাশ চৌধুরী", "বন্যা আহমেদ", "কামাল হাসান", "ডালিয়া খাতুন",
+  "ইমন সরকার", "ফারজানা ইয়াসমিন", "গাজী রহমান", "হালিমা বিবি",
+  "ইমরান খান", "জাহানারা ইমাম", "লায়লা সিদ্দিকা", "মিজানুর রহমান",
+  "নাদিয়া ইসলাম", "ওমর ফারুক", "প্রিয়া দাস"
 ];

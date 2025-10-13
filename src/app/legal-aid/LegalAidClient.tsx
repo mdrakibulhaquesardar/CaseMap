@@ -13,8 +13,8 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 
-const services = ["Family Law", "Land Disputes", "Criminal Law", "Human Rights", "Labor Law"];
-const divisions = ["Dhaka", "Chittagong", "Sylhet", "Rajshahi", "Khulna", "Barisal", "Rangpur", "Mymensingh"];
+const services = ["পারিবারিক আইন", "ভূমি বিরোধ", "ফৌজদারি আইন", "মানবাধিকার", "শ্রম আইন"];
+const divisions = ["ঢাকা", "চট্টগ্রাম", "সিলেট", "রাজশাহী", "খুলনা", "বরিশাল", "রংপুর", "ময়মনসিংহ"];
 
 export default function LegalAidClient() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -53,16 +53,16 @@ export default function LegalAidClient() {
       <aside className="lg:col-span-1">
         <Card className="sticky top-20">
             <CardHeader>
-                <CardTitle>Filter Your Search</CardTitle>
+                <CardTitle>আপনার অনুসন্ধান ফিল্টার করুন</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
                 <div className="space-y-2">
-                    <Label htmlFor='search-term'>Search by Name</Label>
+                    <Label htmlFor='search-term'>নাম দিয়ে অনুসন্ধান করুন</Label>
                     <div className="relative">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                         <Input
                             id="search-term"
-                            placeholder="e.g., BLAST"
+                            placeholder="যেমন, ব্লাস্ট"
                             className="pl-10"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
@@ -74,8 +74,8 @@ export default function LegalAidClient() {
 
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <h3 className="font-semibold">Services</h3>
-                     <Button variant="link" size="sm" onClick={resetFilters} className="p-0 h-auto">Reset</Button>
+                    <h3 className="font-semibold">সেবা</h3>
+                     <Button variant="link" size="sm" onClick={resetFilters} className="p-0 h-auto">রিসেট</Button>
                   </div>
                    <div className="space-y-2">
                     {services.map(service => (
@@ -90,7 +90,7 @@ export default function LegalAidClient() {
                 <Separator />
 
                 <div className="space-y-2">
-                    <h3 className="font-semibold">Division</h3>
+                    <h3 className="font-semibold">বিভাগ</h3>
                     <div className="space-y-2">
                      {divisions.map(division => (
                         <div key={division} className="flex items-center space-x-2">
@@ -107,7 +107,7 @@ export default function LegalAidClient() {
       
       <main className="lg:col-span-3">
          <div className="mb-4">
-            <p className="text-muted-foreground">{filteredCenters.length} results found</p>
+            <p className="text-muted-foreground">{filteredCenters.length} টি ফলাফল পাওয়া গেছে</p>
         </div>
         <div className="space-y-6">
           {filteredCenters.map((center) => (
@@ -146,7 +146,7 @@ export default function LegalAidClient() {
                 </CardContent>
                 <div className="p-6 pt-0 mt-auto">
                     <Button asChild className='w-full md:w-auto'>
-                      <Link href={`/legal-aid/${center.name.toLowerCase().replace(/\s+/g, '-')}`}>View Details</Link>
+                      <Link href={`/legal-aid/${center.name.toLowerCase().replace(/\s+/g, '-')}`}>বিস্তারিত দেখুন</Link>
                     </Button>
                 </div>
               </div>
@@ -156,8 +156,8 @@ export default function LegalAidClient() {
             <Card>
                 <CardContent className="text-center py-20 text-muted-foreground">
                     <Search className="w-12 h-12 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold">No results found</h3>
-                    <p>Try adjusting your search or filters.</p>
+                    <h3 className="text-xl font-semibold">কোনো ফলাফল পাওয়া যায়নি</h3>
+                    <p>আপনার অনুসন্ধান বা ফিল্টার সামঞ্জস্য করার চেষ্টা করুন।</p>
                 </CardContent>
             </Card>
            )}

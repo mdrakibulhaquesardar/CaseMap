@@ -25,6 +25,12 @@ const statusConfig = {
   },
 };
 
+const statusTranslations: { [key: string]: string } = {
+    Completed: 'সম্পন্ন',
+    Upcoming: 'আসন্ন',
+    Pending: 'বিচারাধীন'
+}
+
 export default function CaseTimelineDisplay({ timeline }: CaseTimelineProps) {
   return (
     <div className="relative pl-6">
@@ -45,8 +51,8 @@ export default function CaseTimelineDisplay({ timeline }: CaseTimelineProps) {
               </div>
               <div className="flex-1 pl-12 pt-2">
                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-medium text-muted-foreground">{new Date(item.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                    <Badge variant="outline" className={cn('text-xs', config.badgeClass)}>{item.status}</Badge>
+                    <p className="text-sm font-medium text-muted-foreground">{new Date(item.date).toLocaleDateString('bn-BD', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                    <Badge variant="outline" className={cn('text-xs', config.badgeClass)}>{statusTranslations[item.status]}</Badge>
                  </div>
                  <div className="mt-1">
                     <h4 className="font-semibold text-foreground text-lg">{item.step}</h4>
@@ -55,7 +61,7 @@ export default function CaseTimelineDisplay({ timeline }: CaseTimelineProps) {
                  {item.documentLink && (
                     <a href={item.documentLink} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
                         <FileText className="h-4 w-4" />
-                        View Document
+                        নথি দেখুন
                     </a>
                  )}
               </div>

@@ -21,80 +21,80 @@ export default function RootLayoutContent({
                 className="mt-20"
                 brand={{
                   name: "CaseMap",
-                  description: "Your AI-powered legal companion for clarity and confidence.",
+                  description: "আপনার এআই-চালিত আইনি সঙ্গী, স্বচ্ছতা এবং আত্মবিশ্বাসের জন্য।",
                 }}
                 socialLinks={[
                   {
-                    name: "Twitter",
+                    name: "টুইটার",
                     href: "#",
                   },
                   {
-                    name: "Github",
+                    name: "গিটহাব",
                     href: "#",
                   },
                   {
-                    name: "Discord",
+                    name: "ডিসকর্ড",
                     href: "#",
                   },
                 ]}
                 columns={[
                   {
-                    title: "Tools",
+                    title: "সরঞ্জাম",
                     links: [
                       {
-                        name: "Timeline",
+                        name: "টাইমলাইন",
                         iconName: "Blocks",
                         href: "/timeline",
                       },
                       {
-                        name: "Summarizer",
+                        name: "সারাংশকারী",
                         iconName: "FileText",
                         href: "/summarizer",
                       },
                       {
-                        name: "Legal Aid",
+                        name: "আইনি সহায়তা",
                         iconName: "Users",
                         href: "/legal-aid",
                       },
                       {
-                        name: "Law Finder",
+                        name: "আইন ফাইন্ডার",
                         iconName: "BookOpen",
                         href: "/law-finder",
                       },
                     ],
                   },
                   {
-                    title: "Community",
+                    title: "কমিউনিটি",
                     links: [
                       {
-                        name: "Q&A Forum",
+                        name: "প্রশ্নোত্তর ফোরাম",
                         iconName: "MessageSquare",
                         href: "/faq",
                       },
                       {
-                        name: "Top Contributors",
+                        name: "শীর্ষ অবদানকারী",
                         iconName: "Zap",
                         href: "/faq",
                       },
                     ],
                   },
                   {
-                    title: "Legal",
+                    title: "আইনি",
                     links: [
                       {
-                        name: "Privacy Policy",
+                        name: "গোপনীয়তা নীতি",
                         iconName: "Scale",
                         href: "#",
                       },
                       {
-                        name: "Terms of Service",
+                        name: "পরিষেবার শর্তাবলী",
                         iconName: "Handshake",
                         href: "#",
                       },
                     ],
                   },
                 ]}
-                copyright="CaseMap Inc. © 2024"
+                copyright="CaseMap Inc. © ২০২৪"
               />}
         </>
     )

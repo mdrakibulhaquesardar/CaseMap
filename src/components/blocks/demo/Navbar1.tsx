@@ -9,37 +9,37 @@ import { useMemo } from "react";
 
 const allMenuItems = [
     {
-      title: "Home",
+      title: "হোম",
       url: "/",
       auth: false,
     },
     {
-      title: "Timeline",
+      title: "টাইমলাইন",
       url: "/timeline",
       auth: true,
     },
     {
-      title: "Summarizer",
+      title: "সারাংশ",
       url: "/summarizer",
       auth: true,
     },
     {
-      title: "Q&A",
+      title: "প্রশ্নোত্তর",
       url: "/faq",
       auth: true,
     },
     {
-      title: "Legal Aid",
+      title: "আইনি সহায়তা",
       url: "/legal-aid",
       auth: true,
     },
     {
-      title: "Law Finder",
+      title: "আইন ফাইন্ডার",
       url: "/law-finder",
       auth: false,
     },
      {
-      title: "About Us",
+      title: "আমাদের সম্পর্কে",
       url: "/about",
       auth: false,
     },
@@ -54,14 +54,14 @@ const demoData = {
     title: "CaseMap",
   },
   mobileExtraLinks: [
-    { name: "Profile", url: "/profile" },
-    { name: "Settings", url: "/profile/settings" },
-    { name: "Privacy", url: "#" },
-    { name: "Terms", url: "#" },
+    { name: "প্রোফাইল", url: "/profile" },
+    { name: "সেটিংস", url: "/profile/settings" },
+    { name: "গোপনীয়তা", url: "#" },
+    { name: "শর্তাবলী", url: "#" },
   ],
   auth: {
-    login: { text: "Log in", url: "/login" },
-    signup: { text: "Sign up", url: "/signup" },
+    login: { text: "লগ ইন", url: "/login" },
+    signup: { text: "সাইন আপ", url: "/signup" },
   },
 };
 
@@ -77,12 +77,12 @@ function Navbar1Demo() {
   
   const authLinks = user
     ? {
-        login: { text: "Profile", url: "/profile" },
-        signup: { text: "Sign out", url: "#", onClick: handleSignOut },
+        login: { text: "প্রোফাইল", url: "/profile" },
+        signup: { text: "সাইন আউট", url: "#", onClick: handleSignOut },
       }
     : {
-        login: { text: "Log in", url: "/login" },
-        signup: { text: "Sign up", url: "/signup" },
+        login: { text: "লগ ইন", url: "/login" },
+        signup: { text: "সাইন আপ", url: "/signup" },
       };
 
   const menuItems = useMemo(() => {

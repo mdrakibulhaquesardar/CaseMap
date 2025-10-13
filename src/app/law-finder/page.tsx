@@ -10,7 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import { findLawSection } from '@/ai/flows/law-section-finder';
 
 const popularCategories = [
-  "Penal Code, 1860", "Code of Civil Procedure, 1908", "Evidence Act, 1872", "Contract Act, 1872", "Specific Relief Act, 1877", "Digital Security Act, 2018"
+  "দণ্ডবিধি, ১৮৬০", "দেওয়ানী কার্যবিধি, ১৯০৮", "সাক্ষ্য আইন, ১৮৭২", "চুক্তি আইন, ১৮৭২", "সুনির্দিষ্ট প্রতিকার আইন, ১৮৭৭", "ডিজিটাল নিরাপত্তা আইন, ২০১৮"
 ];
 
 interface LawSectionResult {
@@ -27,8 +27,8 @@ export default function LawFinderPage() {
   const handleSearch = async (searchQuery = query) => {
     if (!searchQuery.trim()) {
       toast({
-        title: 'Input Required',
-        description: 'Please enter a law section number or name.',
+        title: 'ইনপুট প্রয়োজন',
+        description: 'অনুগ্রহ করে একটি আইন বিভাগ নম্বর বা নাম লিখুন।',
         variant: 'destructive',
       });
       return;
@@ -42,8 +42,8 @@ export default function LawFinderPage() {
     } catch (error) {
       console.error('Error finding law section:', error);
       toast({
-        title: 'Error',
-        description: 'Failed to find the law section. Please try again.',
+        title: 'ত্রুটি',
+        description: 'আইন বিভাগটি খুঁজে পেতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।',
         variant: 'destructive',
       });
     } finally {
@@ -60,9 +60,9 @@ export default function LawFinderPage() {
     <div className="bg-muted/30">
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold font-headline">Law Section Finder</h1>
+          <h1 className="text-4xl md:text-5xl font-bold font-headline">আইন বিভাগ ফাইন্ডার</h1>
           <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
-            Search for any law section of Bangladesh by its number or topic and get a detailed explanation in English.
+            বাংলাদেশের যেকোনো আইন বিভাগের নম্বর বা বিষয় দ্বারা অনুসন্ধান করুন এবং ইংরেজিতে একটি বিস্তারিত ব্যাখ্যা পান।
           </p>
         </div>
 
@@ -72,7 +72,7 @@ export default function LawFinderPage() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                           <Scale className="text-primary"/> Popular Categories
+                           <Scale className="text-primary"/> জনপ্রিয় বিভাগ
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="flex flex-wrap gap-2">
@@ -102,27 +102,27 @@ export default function LawFinderPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Lightbulb className="text-accent" />
-                    Quick Tips
+                    দ্রুত টিপস
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-muted-foreground space-y-2">
-                    <p>For best results, be specific. e.g., "Section 302 of the Penal Code".</p>
-                    <p>You can also search by topic, like "punishment for theft".</p>
+                    <p>সেরা ফলাফলের জন্য, নির্দিষ্ট হন। যেমন, "দণ্ডবিধির ৩০২ ধারা"।</p>
+                    <p>আপনি বিষয় দ্বারাও অনুসন্ধান করতে পারেন, যেমন "চুরির শাস্তি"।</p>
                 </CardContent>
               </Card>
                <Card>
                 <CardHeader>
-                  <CardTitle>Related Tools</CardTitle>
+                  <CardTitle>সম্পর্কিত সরঞ্জাম</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
                    <Button variant="ghost" className="w-full justify-start gap-2" asChild>
                        <Link href="/summarizer">
-                        <FileText className="w-4 h-4 text-primary"/> AI Document Summarizer
+                        <FileText className="w-4 h-4 text-primary"/> এআই ডকুমেন্ট সারাংশকারী
                        </Link>
                    </Button>
                    <Button variant="ghost" className="w-full justify-start gap-2" asChild>
                        <Link href="/faq">
-                        <MessagesSquare className="w-4 h-4 text-primary"/> Community Q&A
+                        <MessagesSquare className="w-4 h-4 text-primary"/> কমিউনিটি প্রশ্নোত্তর
                        </Link>
                    </Button>
                 </CardContent>
