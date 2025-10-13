@@ -61,10 +61,10 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
 
       setNewAnswer('');
     } catch (error) {
-      console.error('Error adding answer:', error);
+      console.error('উত্তর যোগ করতে সমস্যা হয়েছে:', error);
       toast({
         title: 'ত্রুটি',
-        description: 'আপনার উত্তর যোগ করতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।',
+        description: 'আপনার উত্তর যোগ করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।',
         variant: 'destructive',
       });
     } finally {
@@ -113,8 +113,8 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
         await batch.commit();
 
     } catch (error) {
-        console.error("Error voting:", error);
-        toast({ title: "ত্রুটি", description: "আপনার ভোট নিবন্ধন করা যায়নি।", variant: "destructive" });
+        console.error("ভোট দিতে সমস্যা হয়েছে:", error);
+        toast({ title: "ত্রুটি", description: "আপনার ভোট গ্রহণ করা যায়নি।", variant: "destructive" });
     }
   };
 
@@ -129,12 +129,12 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
   }
 
   if (!faq) {
-      return <div>প্রশ্নটি পাওয়া যায়নি।</div>
+      return <div>প্রশ্নটি পাওয়া যায়নি।</div>
   }
 
   return (
     <div className="max-w-4xl mx-auto">
-        <Link href="/faq" className="text-primary hover:underline mb-4 inline-block"> &larr; সব প্রশ্নে ফিরে যান</Link>
+        <Link href="/faq" className="text-primary hover:underline mb-4 inline-block"> &larr; সকল প্রশ্নে ফিরে যান</Link>
       <Card className="shadow-sm overflow-hidden">
          <div className="p-4 sm:p-6">
             <h1 className="text-2xl font-bold text-foreground mb-3">{faq.question}</h1>
@@ -165,7 +165,7 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
           <Separator />
 
           <div className="bg-muted/30 p-4 sm:p-6 space-y-6">
-            <h3 className="font-bold text-xl">{faq.answers.length} উত্তর</h3>
+            <h3 className="font-bold text-xl">{faq.answers.length} টি উত্তর</h3>
             {faq.answers.sort((a,b) => (b.upvotes - b.downvotes) - (a.upvotes - a.downvotes)).map((answer) => {
                 const voteId = `${faqId}_${answer.id}`;
                 const userVote = userVotes?.[voteId];
@@ -185,7 +185,7 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
                         <div className="flex justify-end mt-4">
                             <div className="flex items-center gap-3 bg-background p-2 rounded-lg border">
                                 <div className="bg-muted p-2 rounded-full">
-                                {answer.authorName === 'এআই বট' ? (
+                                {answer.authorName === 'AI বট' ? (
                                     <Bot className="w-5 h-5 text-primary" />
                                 ) : (
                                     <Avatar className="h-6 w-6">
@@ -211,13 +211,13 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
       
       <Card className="mt-8">
         <CardHeader>
-            <h3 className="font-bold text-xl">আপনার উত্তর</h3>
+            <h3 className="font-bold text-xl">আপনার উত্তর দিন</h3>
         </CardHeader>
         <CardContent>
              <Textarea
                 value={newAnswer}
                 onChange={(e) => setNewAnswer(e.target.value)}
-                placeholder="আপনার জ্ঞান শেয়ার করুন এবং কমিউনিটিকে সাহায্য করুন..."
+                placeholder="আপনার জ্ঞান শেয়ার করে কমিউনিটিকে সাহায্য করুন..."
                 className="min-h-[150px]"
                 disabled={isLoading || !user}
             />
@@ -228,10 +228,10 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
                   ) : (
                     <Send className="w-4 h-4 mr-2" />
                   )}
-                  আপনার উত্তর পোস্ট করুন
+                  উত্তর পোস্ট করুন
                 </Button>
             </div>
-             {!user && <p className="text-xs text-destructive mt-2 text-right">একটি উত্তর পোস্ট করতে লগইন করুন।</p>}
+             {!user && <p className="text-xs text-destructive mt-2 text-right">উত্তর পোস্ট করতে লগইন করুন।</p>}
         </CardContent>
       </Card>
     </div>

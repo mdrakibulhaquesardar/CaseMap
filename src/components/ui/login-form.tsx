@@ -21,8 +21,8 @@ export default function LoginForm() {
             router.push("/");
         } catch (error: any) {
             toast({
-                title: "সাইন ইন করতে ত্রুটি",
-                description: error.message,
+                title: "সাইন ইন করতে সমস্যা",
+                description: "আপনার ইমেল বা পাসওয়ার্ড সঠিক নয়।",
                 variant: "destructive",
             });
         }
@@ -36,7 +36,7 @@ export default function LoginForm() {
             // No need to router.push here, Firebase handles the redirect back.
         } catch (error: any) {
             toast({
-                title: "Google দিয়ে সাইন ইন করতে ত্রুটি",
+                title: "Google দিয়ে সাইন ইন করতে সমস্যা",
                 description: error.message,
                 variant: "destructive",
             });
@@ -53,7 +53,7 @@ export default function LoginForm() {
         
                 <form className="md:w-96 w-80 flex flex-col items-center justify-center" onSubmit={handleSignIn}>
                     <h2 className="text-4xl text-foreground font-medium">সাইন ইন</h2>
-                    <p className="text-sm text-muted-foreground mt-3">স্বাগতম! চালিয়ে যেতে সাইন ইন করুন</p>
+                    <p className="text-sm text-muted-foreground mt-3">স্বাগতম! চালিয়ে যেতে সাইন ইন করুন</p>
         
                     <button type="button" onClick={handleGoogleSignIn} className="w-full mt-8 bg-secondary flex items-center justify-center h-12 rounded-full">
                         <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/login/googleLogo.svg" alt="googleLogo" />
@@ -61,7 +61,7 @@ export default function LoginForm() {
         
                     <div className="flex items-center gap-4 w-full my-5">
                         <div className="w-full h-px bg-border"></div>
-                        <p className="w-full text-nowrap text-sm text-muted-foreground">অথবা ইমেল দিয়ে সাইন ইন করুন</p>
+                        <p className="w-full text-nowrap text-sm text-muted-foreground">অথবা ইমেল দিয়ে সাইন ইন করুন</p>
                         <div className="w-full h-px bg-border"></div>
                     </div>
         
@@ -69,7 +69,7 @@ export default function LoginForm() {
                         <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" clipRule="evenodd" d="M0 .55.571 0H15.43l.57.55v9.9l-.571.55H.57L0 10.45zm1.143 1.138V9.9h13.714V1.69l-6.503 4.8h-.697zM13.749 1.1H2.25L8 5.356z" fill="hsl(var(--muted-foreground))"/>
                         </svg>
-                        <input type="email" placeholder="ইমেল আইডি" className="bg-transparent text-foreground placeholder-muted-foreground outline-none text-sm w-full h-full" required value={email} onChange={(e) => setEmail(e.target.value)} />                 
+                        <input type="email" placeholder="ইমেল" className="bg-transparent text-foreground placeholder-muted-foreground outline-none text-sm w-full h-full" required value={email} onChange={(e) => setEmail(e.target.value)} />                 
                     </div>
         
                     <div className="flex items-center mt-6 w-full bg-transparent border border-input h-12 rounded-full overflow-hidden pl-6 gap-2">
@@ -82,15 +82,15 @@ export default function LoginForm() {
                     <div className="w-full flex items-center justify-between mt-8 text-muted-foreground">
                         <div className="flex items-center gap-2">
                             <input className="h-4 w-4 rounded-sm border-primary" type="checkbox" id="checkbox" />
-                            <label className="text-sm" htmlFor="checkbox">আমাকে মনে রাখুন</label>
+                            <label className="text-sm" htmlFor="checkbox">মনে রাখুন</label>
                         </div>
                         <a className="text-sm underline" href="#">পাসওয়ার্ড ভুলে গেছেন?</a>
                     </div>
         
                     <button type="submit" className="mt-8 w-full h-11 rounded-full text-primary-foreground bg-primary hover:opacity-90 transition-opacity">
-                        লগইন
+                        লগ ইন
                     </button>
-                    <p className="text-muted-foreground text-sm mt-4">অ্যাকাউন্ট নেই? <Link className="text-primary hover:underline" href="/signup">সাইন আপ</Link></p>
+                    <p className="text-muted-foreground text-sm mt-4">অ্যাকাউন্ট নেই? <Link className="text-primary hover:underline" href="/signup">সাইন আপ করুন</Link></p>
                 </form>
             </div>
         </div>

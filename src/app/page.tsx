@@ -93,10 +93,10 @@ interface CaseMapHeroProps {
 }
 
 function CaseMapHero({
-  badge = "এআই-চালিত আইনি সহায়তা",
-  title = "এআই দিয়ে আপনার আইনি অধিকার বুঝুন",
-  subtitle = "আপনার পরিস্থিতি অনুযায়ী তাৎক্ষণিক, এআই-চালিত আইনি নির্দেশিকা পান। প্রশ্ন জিজ্ঞাসা করুন, জটিল আইনি ধারণা বুঝুন এবং আত্মবিশ্বাসের সাথে আপনার আইনি যাত্রা নেভিগেট করুন।",
-  placeholder = "একটি আইনি প্রশ্ন জিজ্ঞাসা করুন... (যেমন, ভাড়াটিয়া হিসাবে আমার অধিকার কী?)",
+  badge = "AI-চালিত আইনি সহায়তা",
+  title = "AI এর সাহায্যে জানুন আপনার আইনি অধিকার",
+  subtitle = "আপনার পরিস্থিতি অনুযায়ী AI-এর মাধ্যমে তাৎক্ষণিক আইনি নির্দেশনা পান। প্রশ্ন করুন, জটিল আইনি বিষয় বুঝুন এবং আত্মবিশ্বাসের সাথে আপনার আইনি যাত্রা শুরু করুন।",
+  placeholder = "আপনার আইনি প্রশ্নটি লিখুন... (যেমন, একজন ভাড়াটিয়া হিসেবে আমার কী কী অধিকার আছে?)",
 }: CaseMapHeroProps) {
   const [query, setQuery] = React.useState("");
   const router = useRouter();
@@ -163,7 +163,7 @@ function CaseMapHero({
                   className="bg-primary text-primary-foreground hover:bg-primary/90"
                   onClick={handleSearch}
                 >
-                  এআই-কে জিজ্ঞাসা করুন
+                  AI-কে জিজ্ঞাসা করুন
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
@@ -182,14 +182,14 @@ function CaseMapHero({
             </div>
             <div className="flex items-center gap-2 rounded-full border border-border/50 bg-background/50 px-4 py-2 text-sm backdrop-blur-sm">
               <Sparkles className="h-4 w-4 text-primary" />
-              <span className="text-muted-foreground">এআই-চালিত</span>
+              <span className="text-muted-foreground">AI-চালিত</span>
             </div>
           </div>
 
           {/* Trust Indicators */}
           <div className="animate-fade-in flex flex-col items-center gap-4 pt-8 opacity-0 delay-700">
             <p className="text-sm text-muted-foreground">
-              আইনি স্বচ্ছতা পেতে হাজার হাজার ব্যবহারকারীর দ্বারা বিশ্বস্ত
+              আইনি স্বচ্ছতার জন্য হাজারো ব্যবহারকারীর বিশ্বস্ত প্ল্যাটফর্ম
             </p>
             <div className="flex items-center gap-6">
               <div className="text-center">
@@ -204,7 +204,7 @@ function CaseMapHero({
               <div className="h-8 w-px bg-border" />
               <div className="text-center">
                 <div className="text-2xl font-bold text-foreground">২৪/৭</div>
-                <div className="text-xs text-muted-foreground">এআই প্রাপ্যতা</div>
+                <div className="text-xs text-muted-foreground">AI সহায়তা</div>
               </div>
             </div>
           </div>
@@ -260,33 +260,33 @@ function FeaturesSection() {
   const features = [
     {
       icon: Brain,
-      title: "এআই আইনি সহকারী",
-      description: "আইনি জ্ঞানে প্রশিক্ষিত উন্নত এআই প্রযুক্তি দ্বারা আপনার আইনি প্রশ্নের তাৎক্ষণিক উত্তর পান।"
+      title: "AI আইনি সহকারী",
+      description: "আইনি জ্ঞানে প্রশিক্ষিত উন্নত AI দ্বারা আপনার আইনি প্রশ্নের তাৎক্ষণিক উত্তর পান।"
     },
     {
       icon: MessageSquare,
       title: "ইন্টারেক্টিভ চ্যাট",
-      description: "আপনার আইনি উদ্বেগ সম্পর্কে স্বাভাবিক কথোপকথন করুন এবং ব্যক্তিগতকৃত নির্দেশিকা গ্রহণ করুন।"
+      description: "আপনার আইনি সমস্যা নিয়ে স্বাভাবিক কথোপকথন করুন এবং ব্যক্তিগতকৃত নির্দেশনা গ্রহণ করুন।"
     },
     {
       icon: FileText,
       title: "নথি বিশ্লেষণ",
-      description: "আইনি নথি আপলোড করুন এবং এআই-চালিত অন্তর্দৃষ্টি, সারাংশ এবং ব্যাখ্যা পান।"
+      description: "আইনি নথি আপলোড করে AI-চালিত সারসংক্ষেপ এবং ব্যাখ্যা পান।"
     },
     {
       icon: Shield,
       title: "গোপনীয়তা প্রথম",
-      description: "আপনার কথোপকথন এনক্রিপ্ট করা এবং সুরক্ষিত। আমরা আপনার গোপনীয়তাকে অগ্রাধিকার দিই।"
+      description: "আপনার সকল কথোপকথন এনক্রিপ্টেড ও সুরক্ষিত। আমরা আপনার গোপনীয়তাকে সর্বোচ্চ গুরুত্ব দিই।"
     },
     {
       icon: Zap,
       title: "তাৎক্ষণিক প্রতিক্রিয়া",
-      description: "অ্যাপয়েন্টমেন্টের জন্য অপেক্ষা করার দরকার নেই। যখনই আপনার প্রয়োজন, ২৪/৭ তাত্ক্ষণিক আইনি নির্দেশিকা পান।"
+      description: "অ্যাপয়েন্টমেন্টের জন্য অপেক্ষা করার প্রয়োজন নেই। যখনই প্রয়োজন, ২৪/৭ আইনি নির্দেশনা পান।"
     },
     {
       icon: Users,
       title: "বিশেষজ্ঞ দ্বারা যাচাইকৃত",
-      description: "আমাদের এআই যাচাইকৃত আইনি সংস্থার উপর প্রশিক্ষিত এবং সর্বশেষ প্রবিধানের সাথে ক্রমাগত আপডেট করা হয়।"
+      description: "আমাদের AI যাচাইকৃত আইনি তথ্যের উপর প্রশিক্ষিত এবং সর্বশেষ আইনের সাথে আপডেট থাকে।"
     }
   ];
 
@@ -299,10 +299,10 @@ function FeaturesSection() {
             বৈশিষ্ট্য
           </Badge>
           <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            আইনি স্বচ্ছতার জন্য আপনার প্রয়োজনীয় সবকিছু
+            আইনি স্বচ্ছতার জন্য আপনার প্রয়োজনীয় সবকিছু
           </h2>
           <p className="text-lg text-muted-foreground">
-            সকলের জন্য আইনি তথ্য সহজলভ্য এবং বোধগম্য করার জন্য ডিজাইন করা শক্তিশালী এআই সরঞ্জাম।
+            সকলের জন্য আইনি তথ্য সহজলভ্য ও বোধগম্য করার জন্য ডিজাইন করা শক্তিশালী AI টুলস।
           </p>
         </div>
 
@@ -338,18 +338,18 @@ function HowItWorksSection() {
   const steps = [
     {
       number: "০১",
-      title: "আপনার প্রশ্ন জিজ্ঞাসা করুন",
-      description: "আপনার আইনি প্রশ্ন সহজ বাংলায় টাইপ করুন। কোন আইনি পরিভাষার প্রয়োজন নেই।"
+      title: "আপনার প্রশ্নটি করুন",
+      description: "আপনার আইনি জিজ্ঞাসা সহজ বাংলায় টাইপ করুন। কোনো আইনি পরিভাষা ব্যবহারের প্রয়োজন নেই।"
     },
     {
       number: "০২",
-      title: "এআই বিশ্লেষণ",
-      description: "আমাদের এআই আপনার প্রশ্ন বিশ্লেষণ করে এবং আইনি জ্ঞান ভান্ডার অনুসন্ধান করে।"
+      title: "AI বিশ্লেষণ",
+      description: "আমাদের AI আপনার প্রশ্ন বিশ্লেষণ করে এবং विशाल আইনি জ্ঞান ভান্ডার থেকে উত্তর খুঁজে বের করে।"
     },
     {
       number: "০৩",
-      title: "তাৎক্ষণিক নির্দেশিকা পান",
-      description: "আপনার পরিস্থিতি অনুযায়ী স্পষ্ট, কার্যকরী আইনি নির্দেশিকা গ্রহণ করুন।"
+      title: "তাৎক্ষণিক নির্দেশনা",
+      description: "আপনার পরিস্থিতি অনুযায়ী স্পষ্ট, কার্যকরী ও সহজবোধ্য আইনি নির্দেশনা গ্রহণ করুন।"
     }
   ];
 
@@ -362,10 +362,10 @@ function HowItWorksSection() {
             কিভাবে কাজ করে
           </Badge>
           <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            তিনটি সহজ ধাপে আইনি নির্দেশিকা
+            তিনটি সহজ ধাপে আইনি নির্দেশনা
           </h2>
           <p className="text-lg text-muted-foreground">
-            আইনি সাহায্য পাওয়া কখনও এত সহজ ছিল না। আমাদের এআই প্রক্রিয়াটিকে সহজ এবং সরল করে তোলে।
+            আইনি সহায়তা পাওয়া এখন আগের চেয়ে অনেক সহজ। আমাদের AI প্রক্রিয়াটিকে আপনার জন্য সরল করে তুলেছে।
           </p>
         </div>
 
@@ -406,7 +406,7 @@ const testimonials = [
       handle: "@anis_advocate",
       avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704a",
     },
-    text: "CaseMap আমার মামলা ট্র্যাক করার জন্য একটি গেম-চেঞ্জার হয়েছে। টাইমলাইন ভিউ অবিশ্বাস্যভাবে স্বজ্ঞাত এবং আমাকে আপডেট রাখে।",
+    text: "CaseMap আমার মামলা পরিচালনার 방식 পাল্টে দিয়েছে। টাইমলাইন ফিচারটি অসাধারণ এবং আমাকে সবসময় আপ-টু-ডেট রাখে।",
     href: "#",
   },
   {
@@ -415,7 +415,7 @@ const testimonials = [
       handle: "@salma_legal",
       avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704b",
     },
-    text: "এআই ডকুমেন্ট সারাংশকারী আমার পড়ার সময় বাঁচিয়েছে। এটি জটিল আইনি পরিভাষাকে সহজ, বোধগম্য ভাষায় ভেঙে দেয়।",
+    text: "AI ডকুমেন্ট সারসংক্ষেপ আমার ঘণ্টার পর ঘণ্টা সময় বাঁচিয়ে দিয়েছে। এটি জটিল আইনি ভাষাকে সহজবোধ্য বাংলায় ভেঙে দেয়।",
     href: "#",
   },
   {
@@ -424,7 +424,7 @@ const testimonials = [
       handle: "@karim_k",
       avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704c",
     },
-    text: "একজন ছাত্র হিসাবে, কমিউনিটি প্রশ্নোত্তর একটি অমূল্য সম্পদ। আমি এআই এবং অভিজ্ঞ পেশাদার উভয়ের কাছ থেকে উত্তর পাই।",
+    text: "একজন আইনের ছাত্র হিসেবে, কমিউনিটি প্রশ্নোত্তর আমার জন্য একটি অমূল্য সম্পদ। আমি এখানে AI এবং অভিজ্ঞ পেশাদারদের কাছ থেকে উত্তর পাই।",
   },
 ];
 
@@ -437,7 +437,7 @@ export default function Home() {
       <HowItWorksSection />
       <TestimonialsSection
         title="আমাদের ব্যবহারকারীরা যা বলছেন"
-        description="হাজার হাজার নাগরিক এবং আইনি পেশাদারদের সাথে যোগ দিন যারা CaseMap দিয়ে তাদের আইনি যাত্রা সহজ করছেন।"
+        description="হাজারো নাগরিক ও আইন পেশাজীবীদের সাথে যোগ দিন, যারা CaseMap ব্যবহার করে তাদের আইনি যাত্রাকে সহজ করে তুলছেন।"
         testimonials={testimonials}
       />
       <PricingWithComparison />

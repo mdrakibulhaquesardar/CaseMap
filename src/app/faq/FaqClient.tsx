@@ -98,14 +98,14 @@ export default function FaqClient() {
       
       const newFaqItem: Omit<FaqItem, 'id'> = {
         question: newQuestion,
-        tags: ['নতুন', 'এআই উত্তর'],
+        tags: ['নতুন প্রশ্ন', 'AI উত্তর'],
         timestamp: serverTimestamp(),
-        author: { name: user.displayName || "বর্তমান ব্যবহারকারী", avatar: user.photoURL || `https://i.pravatar.cc/150?u=${user.uid}` },
+        author: { name: user.displayName || "ব্যবহারকারী", avatar: user.photoURL || `https://i.pravatar.cc/150?u=${user.uid}` },
         answers: [
           {
             id: Math.random().toString(),
             content: answerResponse.answer,
-            authorName: 'এআই বট',
+            authorName: 'AI বট',
             authorAvatar: '',
             upvotes: 0,
             downvotes: 0,
@@ -123,10 +123,10 @@ export default function FaqClient() {
       setNewQuestion('');
       setCurrentPage(1);
     } catch (error) {
-      console.error('Error fetching AI answers:', error);
+      console.error('AI উত্তর আনতে সমস্যা হয়েছে:', error);
       toast({
         title: 'ত্রুটি',
-        description: 'একটি উত্তর পেতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।',
+        description: 'উত্তর পাওয়া যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।',
         variant: 'destructive',
       });
     } finally {
@@ -146,7 +146,7 @@ export default function FaqClient() {
     if (!querySnapshot.empty) {
         const docToDelete = querySnapshot.docs[0];
         await deleteDoc(doc(firestore, 'users', user.uid, 'savedFaqs', docToDelete.id));
-        toast({ title: "প্রোফাইল থেকে সরানো হয়েছে", description: "এই প্রশ্নোত্তরটি আপনার সংরক্ষিত তালিকা থেকে সরানো হয়েছে।" });
+        toast({ title: "সংরক্ষণ থেকে সরানো হয়েছে", description: "প্রশ্নোত্তরটি আপনার তালিকা থেকে সরানো হয়েছে।" });
     } else {
         const faqToSave = { ...faq };
         // Firestore doesn't like `undefined` values.
@@ -157,7 +157,7 @@ export default function FaqClient() {
           });
         }
         
-        toast({ title: "প্রোফাইলে সংরক্ষিত হয়েছে", description: "আপনি আপনার প্রোফাইলে এই প্রশ্নোত্তর দেখতে পারেন।" });
+        toast({ title: "সংরক্ষিত হয়েছে", description: "আপনি আপনার প্রোফাইলে এই প্রশ্নোত্তর দেখতে পারেন।" });
     }
   };
 
@@ -207,8 +207,8 @@ export default function FaqClient() {
             await batch.commit();
 
         } catch (error) {
-            console.error("Error voting:", error);
-            toast({ title: "ত্রুটি", description: "আপনার ভোট নিবন্ধন করা যায়নি।", variant: "destructive" });
+            console.error("ভোট দিতে সমস্যা হয়েছে:", error);
+            toast({ title: "ত্রুটি", description: "আপনার ভোট গ্রহণ করা যায়নি।", variant: "destructive" });
         }
     };
 
@@ -230,15 +230,15 @@ export default function FaqClient() {
     <div className="w-full">
       <Card className="mb-8 shadow-sm" id="ask">
         <CardContent className="p-4 sm:p-6">
-          <h3 className="font-semibold text-lg mb-2">একটি নতুন প্রশ্ন করুন</h3>
+          <h3 className="font-semibold text-lg mb-2">আপনার প্রশ্নটি করুন</h3>
           <p className="text-muted-foreground text-sm mb-4">
-            আপনার কি কোন আইনি সন্দেহ আছে? আমাদের কমিউনিটি এবং এআই সহকারীকে জিজ্ঞাসা করুন।
+            কোনো আইনি জিজ্ঞাসা আছে? আমাদের কমিউনিটি এবং AI সহকারীর কাছে জানতে চান।
           </p>
           <div className="flex flex-col sm:flex-row gap-2">
             <Input
               value={newQuestion}
               onChange={(e) => setNewQuestion(e.target.value)}
-              placeholder="যেমন, আমি কীভাবে একটি ভোক্তা অভিযোগ দায়ের করব?"
+              placeholder="উদাহরণ: একজন ভাড়াটিয়া হিসেবে আমার কী কী অধিকার আছে?"
               disabled={isLoading || !user}
             />
             <Button onClick={handleAskQuestion} disabled={isLoading || !user} className="w-full sm:w-auto">
@@ -247,10 +247,10 @@ export default function FaqClient() {
               ) : (
                 <Send className="w-4 h-4 mr-2" />
               )}
-              জিজ্ঞাসা করুন
+              প্রশ্ন পাঠান
             </Button>
           </div>
-           {!user && <p className="text-xs text-destructive mt-2">প্রশ্ন জিজ্ঞাসা করতে লগইন করুন।</p>}
+           {!user && <p className="text-xs text-destructive mt-2">প্রশ্ন করতে অনুগ্রহ করে লগইন করুন।</p>}
         </CardContent>
       </Card>
 
@@ -271,10 +271,10 @@ export default function FaqClient() {
                     <div className="flex items-center gap-2">
                          <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground" onClick={() => toggleSaveFaq(faq)} disabled={!user}>
                             <Bookmark className={`w-4 h-4 ${savedFaqs.some(item => item.originalId === faq.id) ? 'text-accent fill-accent' : ''}`} />
-                            {savedFaqs.some(item => item.originalId === faq.id) ? 'সংরক্ষিত' : 'সংরক্ষণ'}
+                            {savedFaqs.some(item => item.originalId === faq.id) ? 'সংরক্ষিত' : 'সংরক্ষণ করুন'}
                         </Button>
                         <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground">
-                            শেয়ার করুন
+                            শেয়ার
                         </Button>
                     </div>
 
@@ -298,7 +298,7 @@ export default function FaqClient() {
                         <div className="flex items-start gap-4">
                             {getToolIcon(faq.recommendation.toolRecommendation)}
                         <div>
-                            <h4 className="font-bold text-sm">টুল সুপারিশ: {faq.recommendation.toolRecommendation}</h4>
+                            <h4 className="font-bold text-sm">প্রস্তাবিত টুল: {faq.recommendation.toolRecommendation}</h4>
                             <p className="text-xs text-muted-foreground mt-1">{faq.recommendation.suitabilityReasoning}</p>
                         </div>
                         </div>
@@ -311,7 +311,7 @@ export default function FaqClient() {
               <Separator />
 
               <div className="bg-muted/30 p-4 sm:p-6 space-y-6">
-                <h3 className="font-bold text-lg">{faq.answers.length} উত্তর</h3>
+                <h3 className="font-bold text-lg">{faq.answers.length} টি উত্তর</h3>
                 {faq.answers.map((answer) => {
                    const voteId = `${faq.id}_${answer.id}`;
                    const userVote = userVotes?.[voteId];
@@ -331,7 +331,7 @@ export default function FaqClient() {
                             <div className="flex justify-end mt-4">
                                 <div className="flex items-center gap-3 bg-background p-2 rounded-lg border">
                                     <div className="bg-muted p-2 rounded-full">
-                                    {answer.authorName === 'এআই বট' ? (
+                                    {answer.authorName === 'AI বট' ? (
                                         <Bot className="w-5 h-5 text-primary" />
                                     ) : (
                                         <Avatar className="h-6 w-6">
@@ -371,7 +371,7 @@ export default function FaqClient() {
           </PaginationItem>
            <PaginationItem>
             <span className="p-2 text-sm">
-                পেজ {currentPage} এর {totalPages}
+                পৃষ্ঠা {currentPage} / {totalPages}
             </span>
            </PaginationItem>
           <PaginationItem>
@@ -389,5 +389,3 @@ export default function FaqClient() {
     </div>
   );
 }
-
-    

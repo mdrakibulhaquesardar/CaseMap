@@ -19,8 +19,8 @@ export default function SummarizerClient() {
   const handleSummarize = async () => {
     if (!documentText.trim()) {
       toast({
-        title: 'ইনপুট প্রয়োজন',
-        description: 'সারাংশ করার জন্য কিছু আইনি টেক্সট পেস্ট করুন।',
+        title: 'ইনপুট প্রয়োজন',
+        description: 'অনুগ্রহ করে সারসংক্ষেপ করার জন্য কিছু আইনি লেখা দিন।',
         variant: 'destructive',
       });
       return;
@@ -32,10 +32,10 @@ export default function SummarizerClient() {
       const result = await summarizeLegalDocument({ documentText });
       setSummary(result.summary);
     } catch (error) {
-      console.error('Error summarizing document:', error);
+      console.error('নথি সারসংক্ষেপ করতে সমস্যা হয়েছে:', error);
       toast({
         title: 'ত্রুটি',
-        description: 'নথিটি সারাংশ করতে ব্যর্থ হয়েছে। আবার চেষ্টা করুন.',
+        description: 'নথিটি সারসংক্ষেপ করা যায়নি। আবার চেষ্টা করুন।',
         variant: 'destructive',
       });
     } finally {
@@ -52,12 +52,12 @@ export default function SummarizerClient() {
             মূল নথি
           </CardTitle>
           <CardDescription>
-            আপনার আইনি নথি নিচে পেস্ট করুন।
+            আপনার আইনি নথিটি নিচে পেস্ট করুন।
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Textarea
-            placeholder="আপনার আইনি নথির পাঠ্য এখানে পেস্ট করুন..."
+            placeholder="আপনার আইনি নথির লেখা এখানে পেস্ট করুন..."
             className="min-h-[350px] text-base"
             value={documentText}
             onChange={(e) => setDocumentText(e.target.value)}
@@ -66,18 +66,18 @@ export default function SummarizerClient() {
           <div className="flex flex-col sm:flex-row justify-between items-center mt-4 gap-2">
              <Button variant="outline" onClick={() => setDocumentText(sampleText)} disabled={isLoading}>
               <Clipboard className="w-4 h-4 mr-2" />
-              নমুনা টেক্সট ব্যবহার করুন
+              নমুনা ব্যবহার করুন
             </Button>
             <Button onClick={handleSummarize} disabled={isLoading} className="w-full sm:w-auto">
               {isLoading ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                  সারাংশ করা হচ্ছে...
+                  সারসংক্ষেপ করা হচ্ছে...
                 </>
               ) : (
                 <>
                   <Sparkles className="w-4 h-4 mr-2" />
-                  ইংরেজিতে সারাংশ করুন
+                  ইংরেজিতে সারসংক্ষেপ করুন
                 </>
               )}
             </Button>
@@ -88,18 +88,18 @@ export default function SummarizerClient() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-primary">
             <Bot className="w-6 h-6" />
-            এআই-চালিত সরলীকৃত সারাংশ
+            AI-এর তৈরি সহজ সারসংক্ষেপ
           </CardTitle>
            <CardDescription>
-            আপনার নথির সরলীকৃত সারাংশ নীচে প্রদর্শিত হবে।
+            আপনার নথির সহজ সারসংক্ষেপ নিচে দেখানো হবে।
           </CardDescription>
         </CardHeader>
         <CardContent>
           {isLoading ? (
             <div className="flex flex-col items-center justify-center h-full min-h-[350px] p-4 bg-muted rounded-md">
               <Sparkles className="w-10 h-10 text-primary animate-spin" />
-              <p className="mt-4 text-muted-foreground">আমাদের এআই আপনার নথি বিশ্লেষণ করছে...</p>
-              <p className="text-sm text-muted-foreground">এতে কয়েক মুহূর্ত সময় লাগতে পারে।</p>
+              <p className="mt-4 text-muted-foreground">AI আপনার নথি বিশ্লেষণ করছে...</p>
+              <p className="text-sm text-muted-foreground">এতে কয়েক মুহূর্ত সময় লাগতে পারে।</p>
             </div>
           ) : summary ? (
             <div className="prose prose-lg max-w-none text-foreground p-4 bg-muted rounded-md min-h-[350px]">
@@ -109,7 +109,7 @@ export default function SummarizerClient() {
             <div className="flex flex-col items-center justify-center text-center h-full min-h-[350px] text-muted-foreground p-4 bg-muted/50 rounded-md">
                <Languages className="w-12 h-12 mb-4" />
                <h3 className="font-semibold text-lg">নথির জন্য অপেক্ষা করা হচ্ছে</h3>
-               <p className="max-w-xs">আপনি একটি নথি প্রদান করার পরে আপনার সরলীকৃত সারাংশ এখানে তৈরি হবে।</p>
+               <p className="max-w-xs">আপনি একটি নথি দিলেই তার সহজ সারসংক্ষেপ এখানে তৈরি হবে।</p>
             </div>
           )}
         </CardContent>

@@ -32,9 +32,9 @@ export default function LawFinderClient({
     <div className="max-w-4xl mx-auto">
       <Card className="mb-8">
         <CardContent className="p-4 sm:p-6">
-          <h3 className="font-semibold text-lg mb-2">আইন বিভাগ অনুসন্ধান করুন</h3>
+          <h3 className="font-semibold text-lg mb-2">আইনের ধারা খুঁজুন</h3>
           <p className="text-muted-foreground text-sm mb-4">
-            একটি বিভাগের নম্বর লিখুন (যেমন, "দণ্ডবিধি ১৮৬০ এর ৩০২ ধারা") বা একটি বিষয় (যেমন, "চুরির শাস্তি")।
+            একটি ধারার নম্বর (যেমন, "দণ্ডবিধি ১৮৬০-এর ৩০২ ধারা") বা বিষয় (যেমন, "চুরির শাস্তি") লিখুন।
           </p>
           <div className="flex flex-col sm:flex-row gap-2">
             <Input
@@ -60,17 +60,17 @@ export default function LawFinderClient({
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Bot className="w-6 h-6 text-primary" />
-            এআই ব্যাখ্যা
+            AI ব্যাখ্যা
           </CardTitle>
           <CardDescription>
-            আপনার অনুসন্ধান করা আইন বিভাগের ব্যাখ্যা এখানে প্রদর্শিত হবে।
+            আপনার খোঁজা আইনের ধারার ব্যাখ্যা নিচে দেখানো হবে।
           </CardDescription>
         </CardHeader>
         <CardContent>
           {isLoading ? (
             <div className="flex flex-col items-center justify-center h-full min-h-[250px] p-4 bg-muted rounded-md">
               <Sparkles className="w-10 h-10 text-primary animate-spin" />
-              <p className="mt-4 text-muted-foreground">আমাদের এআই আইনের বই অনুসন্ধান করছে...</p>
+              <p className="mt-4 text-muted-foreground">AI আপনার জন্য আইনের বই ঘাঁটছে...</p>
             </div>
           ) : result ? (
             <div className="prose prose-lg max-w-none text-foreground p-4 bg-muted rounded-md min-h-[250px]">
@@ -81,7 +81,7 @@ export default function LawFinderClient({
             <div className="flex flex-col items-center justify-center text-center h-full min-h-[250px] text-muted-foreground p-4 bg-muted/50 rounded-md">
               <BookOpen className="w-12 h-12 mb-4" />
               <h3 className="font-semibold text-lg">অনুসন্ধানের জন্য প্রস্তুত</h3>
-              <p className="max-w-xs">এর বিবরণ দেখতে উপরে একটি আইন বিভাগ লিখুন।</p>
+              <p className="max-w-xs">কোনো আইনের ধারার বিবরণ দেখতে উপরে সার্চ করুন।</p>
             </div>
           )}
         </CardContent>

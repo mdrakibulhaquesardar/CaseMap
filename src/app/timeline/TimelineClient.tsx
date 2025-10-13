@@ -46,8 +46,8 @@ export default function TimelineClient() {
     } else {
       setFoundCase(null);
       toast({
-        title: 'মামলা পাওয়া যায়নি',
-        description: 'অনুগ্রহ করে মামলার নম্বরটি পরীক্ষা করে আবার চেষ্টা করুন। ডেমোর জন্য, 12345 বা 67890 ব্যবহার করুন।',
+        title: 'মামলা পাওয়া যায়নি',
+        description: 'অনুগ্রহ করে মামলার নম্বরটি মিলিয়ে আবার চেষ্টা করুন। ডেমোর জন্য 12345 বা 67890 ব্যবহার করুন।',
         variant: 'destructive',
       });
     }
@@ -72,11 +72,11 @@ export default function TimelineClient() {
       // Case is already saved, so remove it
       const docToDelete = querySnapshot.docs[0];
       await deleteDoc(doc(firestore, 'users', user.uid, 'savedCases', docToDelete.id));
-      toast({ title: "প্রোফাইল থেকে সরানো হয়েছে", description: "এই মামলাটি আপনার সংরক্ষিত তালিকা থেকে সরানো হয়েছে।" });
+      toast({ title: "সংরক্ষণ থেকে সরানো হয়েছে", description: "এই মামলাটি আপনার তালিকা থেকে সরানো হয়েছে।" });
     } else {
       // Case is not saved, so add it
       await addDoc(savedCasesCollection, foundCase);
-      toast({ title: "প্রোফাইলে সংরক্ষিত হয়েছে", description: "আপনি আপনার প্রোফাইলে এই মামলাটি দেখতে পারেন।" });
+      toast({ title: "সংরক্ষিত হয়েছে", description: "আপনি আপনার প্রোফাইলে এই মামলাটি দেখতে পারেন।" });
     }
   };
 
@@ -93,7 +93,7 @@ export default function TimelineClient() {
             <div className="relative flex-grow">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
-                placeholder="আপনার মামলার নম্বর লিখুন (যেমন, 12345)"
+                placeholder="আপনার মামলার নম্বর দিন (যেমন, 12345)"
                 className="pl-10"
                 value={caseNumber}
                 onChange={(e) => setCaseNumber(e.target.value)}
@@ -142,7 +142,7 @@ export default function TimelineClient() {
                     <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
                         <Calendar className="w-5 h-5 text-primary"/>
                         <div>
-                            <p className="text-muted-foreground">ফাইলিং তারিখ</p>
+                            <p className="text-muted-foreground">দাখিলের তারিখ</p>
                             <p className="font-semibold">{foundCase.details.filingDate}</p>
                         </div>
                     </div>
@@ -165,7 +165,7 @@ export default function TimelineClient() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>মামলার যাত্রা</CardTitle>
+              <CardTitle>মামলার গতিপথ</CardTitle>
               <CardDescription>মামলার কার্যক্রমের একটি ধাপে ধাপে अवलोकन।</CardDescription>
             </CardHeader>
             <CardContent className="p-6">
@@ -179,9 +179,9 @@ export default function TimelineClient() {
             <FolderOpen className="w-16 h-16 mx-auto text-muted-foreground/50 mb-4" />
             <h3 className="text-xl font-semibold">আপনার মামলা ট্র্যাক করুন</h3>
             <p className="text-muted-foreground mt-2 max-w-sm mx-auto">
-              এর টাইমলাইন দেখতে উপরে একটি মামলার নম্বর লিখুন, অথবা সাইডবার থেকে একটি সংরক্ষিত মামলা নির্বাচন করুন।
+              মামলার টাইমলাইন দেখতে উপরে একটি মামলার নম্বর লিখুন, অথবা সাইডবার থেকে একটি সংরক্ষিত মামলা বেছে নিন।
             </p>
-             <p className="text-xs text-muted-foreground mt-4">প্রদর্শনের জন্য, মামলার নম্বর চেষ্টা করুন <kbd className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">12345</kbd> অথবা <kbd className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">67890</kbd>।</p>
+             <p className="text-xs text-muted-foreground mt-4">ডেমোর জন্য, মামলার নম্বর <kbd className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">12345</kbd> বা <kbd className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">67890</kbd> চেষ্টা করুন।</p>
           </CardContent>
         </Card>
       )}

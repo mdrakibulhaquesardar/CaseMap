@@ -52,10 +52,10 @@ export default function ProfilePage() {
                     
                     <div className="mt-6 flex justify-center gap-4 flex-wrap">
                         <Button variant="outline">
-                            <Edit className="mr-2 h-4 w-4"/> প্রোফাইল সম্পাদনা করুন
+                            <Edit className="mr-2 h-4 w-4"/> প্রোফাইল সম্পাদনা
                         </Button>
                         <Button>
-                           <Mail className="mr-2"/> বার্তা
+                           <Mail className="mr-2"/> বার্তা পাঠান
                         </Button>
                     </div>
 
@@ -69,7 +69,7 @@ export default function ProfilePage() {
                             <p className="text-sm text-muted-foreground">আপভোট</p>
                         </div>
                          <div className="px-2">
-                            <p className="text-xl font-bold">শীর্ষ ৫%</p>
+                            <p className="text-xl font-bold">সেরা ৫%</p>
                             <p className="text-sm text-muted-foreground">র‍্যাঙ্ক</p>
                         </div>
                     </div>

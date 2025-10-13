@@ -32,10 +32,10 @@ export default function TimelinePage() {
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold font-headline">
-            মামলার টাইমলাইন ভিউয়ার
+            মামলার টাইমলাইন
           </h1>
           <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
-            আপনার মামলার নম্বর লিখুন এবং এর বর্তমান অবস্থা ও অগ্রগতি একটি টাইমলাইনের মাধ্যমে দেখুন।
+            আপনার মামলার নম্বর দিয়ে অনুসন্ধান করে এর বর্তমান অবস্থা এবং অগ্রগতি একটি টাইমলাইনে দেখুন।
           </p>
         </div>
 
@@ -84,9 +84,9 @@ export default function TimelinePage() {
                 </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle>আরও সাহায্য প্রয়োজন?</CardTitle>
+                  <CardTitle>আরও সাহায্য প্রয়োজন?</CardTitle>
                   <CardDescription>
-                    আপনার আইনি যাত্রায় সাহায্য করার জন্য অন্যান্য সরঞ্জামগুলো অন্বেষণ করুন।
+                    আপনার আইনি যাত্রায় সাহায্য করার জন্য আমাদের অন্যান্য টুলসগুলো দেখুন।
                   </CardDescription>
                 </CardHeader>
                 <CardContent>

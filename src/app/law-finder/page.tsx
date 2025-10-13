@@ -27,8 +27,8 @@ export default function LawFinderPage() {
   const handleSearch = async (searchQuery = query) => {
     if (!searchQuery.trim()) {
       toast({
-        title: 'ইনপুট প্রয়োজন',
-        description: 'অনুগ্রহ করে একটি আইন বিভাগ নম্বর বা নাম লিখুন।',
+        title: 'ইনপুট প্রয়োজন',
+        description: 'অনুগ্রহ করে আইনের কোনো ধারা বা বিষয় লিখুন।',
         variant: 'destructive',
       });
       return;
@@ -40,10 +40,10 @@ export default function LawFinderPage() {
       const response = await findLawSection({ query: searchQuery });
       setResult(response);
     } catch (error) {
-      console.error('Error finding law section:', error);
+      console.error('আইনের ধারা খুঁজতে সমস্যা হয়েছে:', error);
       toast({
         title: 'ত্রুটি',
-        description: 'আইন বিভাগটি খুঁজে পেতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।',
+        description: 'আইনের ধারাটি খুঁজে পাওয়া যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।',
         variant: 'destructive',
       });
     } finally {
@@ -60,9 +60,9 @@ export default function LawFinderPage() {
     <div className="bg-muted/30">
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold font-headline">আইন বিভাগ ফাইন্ডার</h1>
+          <h1 className="text-4xl md:text-5xl font-bold font-headline">আইন অনুসন্ধান</h1>
           <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
-            বাংলাদেশের যেকোনো আইন বিভাগের নম্বর বা বিষয় দ্বারা অনুসন্ধান করুন এবং ইংরেজিতে একটি বিস্তারিত ব্যাখ্যা পান।
+            বাংলাদেশের যেকোনো আইনের ধারা বা বিষয় লিখে সার্চ করুন এবং সহজ ইংরেজিতে তার বিস্তারিত ব্যাখ্যা পান।
           </p>
         </div>
 
@@ -72,7 +72,7 @@ export default function LawFinderPage() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                           <Scale className="text-primary"/> জনপ্রিয় বিভাগ
+                           <Scale className="text-primary"/> জনপ্রিয় আইন
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="flex flex-wrap gap-2">
@@ -102,22 +102,22 @@ export default function LawFinderPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Lightbulb className="text-accent" />
-                    দ্রুত টিপস
+                    দ্রুত পরামর্শ
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-muted-foreground space-y-2">
-                    <p>সেরা ফলাফলের জন্য, নির্দিষ্ট হন। যেমন, "দণ্ডবিধির ৩০২ ধারা"।</p>
-                    <p>আপনি বিষয় দ্বারাও অনুসন্ধান করতে পারেন, যেমন "চুরির শাস্তি"।</p>
+                    <p>সেরা ফলাফলের জন্য নির্দিষ্ট হন। যেমন, "দণ্ডবিধির ৩০২ ধারা"।</p>
+                    <p>আপনি বিষয় দিয়েও খুঁজতে পারেন, যেমন "চুরির শাস্তি"।</p>
                 </CardContent>
               </Card>
                <Card>
                 <CardHeader>
-                  <CardTitle>সম্পর্কিত সরঞ্জাম</CardTitle>
+                  <CardTitle>অন্যান্য টুলস</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
                    <Button variant="ghost" className="w-full justify-start gap-2" asChild>
                        <Link href="/summarizer">
-                        <FileText className="w-4 h-4 text-primary"/> এআই ডকুমেন্ট সারাংশকারী
+                        <FileText className="w-4 h-4 text-primary"/> AI নথি সারসংক্ষেপ
                        </Link>
                    </Button>
                    <Button variant="ghost" className="w-full justify-start gap-2" asChild>

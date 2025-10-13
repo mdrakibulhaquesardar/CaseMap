@@ -30,13 +30,13 @@ export default function ProfileClient() {
   const removeCase = async (caseId: string) => {
     if (!user) return;
     await deleteDoc(doc(firestore, 'users', user.uid, 'savedCases', caseId));
-    toast({ title: "মামলা সফলভাবে সরানো হয়েছে।"});
+    toast({ title: "মামলাটি সফলভাবে সরানো হয়েছে।"});
   };
 
   const removeFaq = async (faqId: string) => {
     if (!user) return;
     await deleteDoc(doc(firestore, 'users', user.uid, 'savedFaqs', faqId));
-    toast({ title: "প্রশ্নোত্তর সফলভাবে সরানো হয়েছে।"});
+    toast({ title: "প্রশ্নোত্তরটি সফলভাবে সরানো হয়েছে।"});
   };
 
   return (
@@ -58,7 +58,7 @@ export default function ProfileClient() {
             <CardHeader>
               <CardTitle>সংরক্ষিত মামলা</CardTitle>
               <CardDescription>
-                দ্রুত অ্যাক্সেসের জন্য আপনি যে মামলার টাইমলাইনগুলো সংরক্ষণ করেছেন সেগুলো এখানে রয়েছে।
+                আপনার সংরক্ষিত মামলার টাইমলাইনগুলো এখানে দেখুন।
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -84,7 +84,7 @@ export default function ProfileClient() {
                   <Info className="w-8 h-8 mx-auto mb-2" />
                   <p>আপনি এখনো কোনো মামলা সংরক্ষণ করেননি।</p>
                   <Button asChild variant="link" className="mt-2">
-                    <Link href="/timeline">একটি মামলা ট্র্যাক করুন</Link>
+                    <Link href="/timeline">একটি মামলা ट्रैक করুন</Link>
                   </Button>
                 </div>
               )}
@@ -97,7 +97,7 @@ export default function ProfileClient() {
             <CardHeader>
               <CardTitle>সংরক্ষিত প্রশ্নোত্তর</CardTitle>
               <CardDescription>
-                এখানে আপনি যে প্রশ্ন এবং উত্তরগুলো বুকমার্ক করেছেন সেগুলো রয়েছে।
+                আপনার বুকমার্ক করা প্রশ্ন এবং উত্তরগুলো এখানে দেখুন।
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -107,10 +107,10 @@ export default function ProfileClient() {
                     <p className="font-semibold">{faq.question}</p>
                     <div className="flex text-sm text-muted-foreground gap-4 mt-2">
                         <div className="flex items-center gap-1">
-                            <MessageSquare className="w-4 h-4" /> {faq.answers.length} উত্তর
+                            <MessageSquare className="w-4 h-4" /> {faq.answers.length} টি উত্তর
                         </div>
                         <div className="flex items-center gap-1">
-                            <ThumbsUp className="w-4 h-4" /> {faq.answers.reduce((acc, a) => acc + a.upvotes, 0)} আপভোট
+                            <ThumbsUp className="w-4 h-4" /> {faq.answers.reduce((acc, a) => acc + a.upvotes, 0)} টি আপভোট
                         </div>
                     </div>
                      <div className="flex gap-2 mt-4">

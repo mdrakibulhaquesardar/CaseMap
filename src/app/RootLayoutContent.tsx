@@ -21,7 +21,7 @@ export default function RootLayoutContent({
                 className="mt-20"
                 brand={{
                   name: "CaseMap",
-                  description: "আপনার এআই-চালিত আইনি সঙ্গী, স্বচ্ছতা এবং আত্মবিশ্বাসের জন্য।",
+                  description: "আপনার AI-চালিত আইনি সঙ্গী, স্বচ্ছতা ও আত্মবিশ্বাসের পথে।",
                 }}
                 socialLinks={[
                   {
@@ -39,25 +39,25 @@ export default function RootLayoutContent({
                 ]}
                 columns={[
                   {
-                    title: "সরঞ্জাম",
+                    title: "টুলস",
                     links: [
                       {
-                        name: "টাইমলাইন",
+                        name: "মামলার টাইমলাইন",
                         iconName: "Blocks",
                         href: "/timeline",
                       },
                       {
-                        name: "সারাংশকারী",
+                        name: "নথি সারসংক্ষেপ",
                         iconName: "FileText",
                         href: "/summarizer",
                       },
                       {
-                        name: "আইনি সহায়তা",
+                        name: "আইনি সহায়তা",
                         iconName: "Users",
                         href: "/legal-aid",
                       },
                       {
-                        name: "আইন ফাইন্ডার",
+                        name: "আইন অনুসন্ধান",
                         iconName: "BookOpen",
                         href: "/law-finder",
                       },
@@ -67,34 +67,34 @@ export default function RootLayoutContent({
                     title: "কমিউনিটি",
                     links: [
                       {
-                        name: "প্রশ্নোত্তর ফোরাম",
+                        name: "প্রশ্নোত্তর",
                         iconName: "MessageSquare",
                         href: "/faq",
                       },
                       {
-                        name: "শীর্ষ অবদানকারী",
+                        name: "সেরা অবদানকারী",
                         iconName: "Zap",
                         href: "/faq",
                       },
                     ],
                   },
                   {
-                    title: "আইনি",
+                    title: "নীতিমালা",
                     links: [
                       {
-                        name: "গোপনীয়তা নীতি",
+                        name: "গোপনীয়তা নীতি",
                         iconName: "Scale",
                         href: "#",
                       },
                       {
-                        name: "পরিষেবার শর্তাবলী",
+                        name: "ব্যবহারের শর্তাবলী",
                         iconName: "Handshake",
                         href: "#",
                       },
                     ],
                   },
                 ]}
-                copyright="CaseMap Inc. © ২০২৪"
+                copyright="CaseMap Inc. © ২০২৪ সর্বসত্ত্ব সংরক্ষিত"
               />}
         </>
     )

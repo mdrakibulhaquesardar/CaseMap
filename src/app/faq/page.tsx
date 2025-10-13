@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const popularTags = [
-  "সম্পত্তি আইন", "ভাড়াটিয়া অধিকার", "সাইবার ক্রাইম", "ডিজিটাল নিরাপত্তা", "শ্রম আইন", "শ্রমিক অধিকার", "পারিবারিক আইন"
+  "সম্পত্তি আইন", "ভাড়াটিয়া অধিকার", "সাইবার ক্রাইম", "ডিজিটাল নিরাপত্তা", "শ্রম আইন", "শ্রমিক অধিকার", "পারিবারিক আইন"
 ];
 
 const topContributors = [
@@ -24,7 +24,7 @@ function FaqPage() {
             <div>
                 <h1 className="text-4xl font-bold font-headline">কমিউনিটি প্রশ্নোত্তর</h1>
                 <p className="mt-2 text-muted-foreground">
-                    আপনার আইনি প্রশ্ন জিজ্ঞাসা করুন এবং আমাদের এআই সহকারী এবং কমিউনিটির কাছ থেকে উত্তর পান।
+                    আপনার আইনি প্রশ্ন করুন এবং আমাদের AI ও কমিউনিটির কাছ থেকে উত্তর পান।
                 </p>
             </div>
             <Button size="lg" asChild>
@@ -43,7 +43,7 @@ function FaqPage() {
             <div className="sticky top-20 space-y-6">
                 <Card>
                     <CardHeader>
-                        <CardTitle className="text-base">জনপ্রিয় বিষয়</CardTitle>
+                        <CardTitle className="text-base">আলোচিত বিষয়</CardTitle>
                     </CardHeader>
                     <CardContent className="flex flex-wrap gap-2">
                         {popularTags.map(tag => (
@@ -57,7 +57,7 @@ function FaqPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base">
                     <Trophy className="text-accent" />
-                    শীর্ষ অবদানকারী
+                    সেরা অবদানকারী
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -69,7 +69,7 @@ function FaqPage() {
                        </Avatar>
                        <div>
                          <p className="font-semibold text-sm">{contributor.name}</p>
-                         <p className="text-xs text-muted-foreground">{contributor.points} পয়েন্ট</p>
+                         <p className="text-xs text-muted-foreground">{contributor.points} পয়েন্ট</p>
                        </div>
                      </div>
                   ))}
@@ -77,17 +77,17 @@ function FaqPage() {
               </Card>
                <Card>
                 <CardHeader>
-                  <CardTitle className="text-base">সম্পর্কিত সম্পদ</CardTitle>
+                  <CardTitle className="text-base">অন্যান্য টুলস</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-1">
                    <Button variant="ghost" className="w-full justify-start gap-2 text-sm" asChild>
                        <Link href="/summarizer">
-                        <FileText className="w-4 h-4 text-primary"/> এআই ডকুমেন্ট সারাংশকারী
+                        <FileText className="w-4 h-4 text-primary"/> AI ডকুমেন্ট সারসংক্ষেপ
                        </Link>
                    </Button>
                    <Button variant="ghost" className="w-full justify-start gap-2 text-sm" asChild>
                        <Link href="/legal-aid">
-                        <MapPin className="w-4 h-4 text-primary"/> আইনি সহায়তা কেন্দ্র
+                        <MapPin className="w-4 h-4 text-primary"/> আইনি সহায়তা কেন্দ্র
                        </Link>
                    </Button>
                 </CardContent>

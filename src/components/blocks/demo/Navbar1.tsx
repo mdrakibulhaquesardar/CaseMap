@@ -19,7 +19,7 @@ const allMenuItems = [
       auth: true,
     },
     {
-      title: "সারাংশ",
+      title: "সারসংক্ষেপ",
       url: "/summarizer",
       auth: true,
     },
@@ -34,7 +34,7 @@ const allMenuItems = [
       auth: true,
     },
     {
-      title: "আইন ফাইন্ডার",
+      title: "আইন অনুসন্ধান",
       url: "/law-finder",
       auth: false,
     },
