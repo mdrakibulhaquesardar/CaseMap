@@ -483,14 +483,11 @@ export default function Home() {
         description="Join thousands of citizens and legal professionals who are simplifying their legal journey with CaseMap."
         testimonials={testimonials}
       />
-      {/* <Pricing 
+      <Pricing 
         plans={demoPlans}
         title="Simple, Transparent Pricing"
-        description={`Choose the plan that works for you.
-All plans include access to our powerful AI tools and dedicated support.`}
-      /> */}
+        description={`Choose the plan that works for you.\nAll plans include access to our powerful AI tools and dedicated support.`}
+      />
     </>
     );
 }
-
-    
