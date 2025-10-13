@@ -1,6 +1,8 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import {
   Card,
   CardContent,
@@ -38,6 +40,7 @@ import Link from 'next/link';
 const ITEMS_PER_PAGE = 5;
 
 export default function FaqClient() {
+  const searchParams = useSearchParams();
   const [newQuestion, setNewQuestion] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -49,6 +52,13 @@ export default function FaqClient() {
   const [faqsSnapshot] = useCollection(faqsRef);
   
   const [faqs, setFaqs] = useState<FaqItem[]>([]);
+  
+  useEffect(() => {
+    const queryQuestion = searchParams.get('q');
+    if (queryQuestion) {
+      setNewQuestion(decodeURIComponent(queryQuestion));
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (faqsSnapshot) {
@@ -218,7 +228,7 @@ export default function FaqClient() {
 
   return (
     <div className="w-full">
-      <Card className="mb-8 shadow-sm">
+      <Card className="mb-8 shadow-sm" id="ask">
         <CardContent className="p-4 sm:p-6">
           <h3 className="font-semibold text-lg mb-2">একটি নতুন প্রশ্ন করুন</h3>
           <p className="text-muted-foreground text-sm mb-4">
@@ -271,7 +281,7 @@ export default function FaqClient() {
                     <div className="flex items-center gap-3 bg-muted/50 p-2 rounded-lg">
                         <Avatar className="h-8 w-8">
                             <AvatarImage src={faq.author.avatar} alt={faq.author.name} />
-                            <AvatarFallback>{faq.author.name.charAt(0)}</AvatarFallback>
+                            <AvatarFallback>{(faq.author.name || 'A').charAt(0)}</AvatarFallback>
                         </Avatar>
                         <div>
                             <p className="font-semibold text-sm">{faq.author.name}</p>
@@ -326,7 +336,7 @@ export default function FaqClient() {
                                     ) : (
                                         <Avatar className="h-6 w-6">
                                             <AvatarImage src={answer.authorAvatar} alt={answer.authorName} />
-                                            <AvatarFallback>{(answer.authorName || "A").charAt(0)}</AvatarFallback>
+                                            <AvatarFallback>{(answer.authorName || 'অ').charAt(0)}</AvatarFallback>
                                         </Avatar>
                                     )}
                                     </div>
@@ -379,3 +389,5 @@ export default function FaqClient() {
     </div>
   );
 }
+
+    

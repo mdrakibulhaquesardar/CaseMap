@@ -2,6 +2,7 @@
 'use client';
 
 import * as React from 'react';
+import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Button } from '@/components/ui/button';
@@ -98,6 +99,14 @@ function CaseMapHero({
   placeholder = "একটি আইনি প্রশ্ন জিজ্ঞাসা করুন... (যেমন, ভাড়াটিয়া হিসাবে আমার অধিকার কী?)",
 }: CaseMapHeroProps) {
   const [query, setQuery] = React.useState("");
+  const router = useRouter();
+
+  const handleSearch = () => {
+    if (query.trim()) {
+      router.push(`/faq?q=${encodeURIComponent(query)}`);
+    }
+  };
+
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-gradient-to-b from-background via-background to-primary/5">
@@ -146,11 +155,13 @@ function CaseMapHero({
                   placeholder={placeholder}
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                   className="flex-1 border-0 bg-transparent text-base shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
                 />
                 <Button
                   size="lg"
                   className="bg-primary text-primary-foreground hover:bg-primary/90"
+                  onClick={handleSearch}
                 >
                   এআই-কে জিজ্ঞাসা করুন
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -433,3 +444,5 @@ export default function Home() {
     </>
     );
 }
+
+    
