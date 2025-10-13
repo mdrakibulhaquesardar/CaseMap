@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
+import Link from 'next/link';
 
 const services = ["Family Law", "Land Disputes", "Criminal Law", "Human Rights", "Labor Law"];
 const divisions = ["Dhaka", "Chittagong", "Sylhet", "Rajshahi", "Khulna", "Barisal", "Rangpur", "Mymensingh"];
@@ -144,7 +145,9 @@ export default function LegalAidClient() {
                     </div>
                 </CardContent>
                 <div className="p-6 pt-0 mt-auto">
-                    <Button className='w-full md:w-auto'>View Details</Button>
+                    <Button asChild className='w-full md:w-auto'>
+                      <Link href={`/legal-aid/${center.name.toLowerCase().replace(/\s+/g, '-')}`}>View Details</Link>
+                    </Button>
                 </div>
               </div>
             </Card>
