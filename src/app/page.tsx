@@ -135,7 +135,7 @@ function CaseMapHero({
           </Badge>
 
           {/* Title */}
-          <h1 className="animate-fade-in max-w-4xl bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text text-5xl font-bold leading-tight tracking-tight text-transparent opacity-0 delay-100 sm:text-6xl md:text-7xl">
+          <h1 className="animate-fade-in my-4 max-w-4xl bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text text-5xl font-bold leading-tight tracking-tight text-transparent opacity-0 delay-100 sm:text-6xl md:text-7xl">
             {title}
           </h1>
 
@@ -444,5 +444,3 @@ export default function Home() {
     </>
     );
 }
-
-    
