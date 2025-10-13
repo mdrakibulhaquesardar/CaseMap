@@ -1,14 +1,61 @@
+'use client';
+
+import { useState } from 'react';
 import LawFinderClient from './LawFinderClient';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FileText, Lightbulb, MessagesSquare, Scale } from 'lucide-react';
 import Link from 'next/link';
+import { useToast } from '@/hooks/use-toast';
+import { findLawSection } from '@/ai/flows/law-section-finder';
 
 const popularCategories = [
   "Penal Code, 1860", "Code of Civil Procedure, 1908", "Evidence Act, 1872", "Contract Act, 1872", "Specific Relief Act, 1877", "Digital Security Act, 2018"
 ];
 
+interface LawSectionResult {
+  sectionTitle: string;
+  sectionDetails: string;
+}
+
 export default function LawFinderPage() {
+  const [query, setQuery] = useState('');
+  const [result, setResult] = useState<LawSectionResult | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+
+  const handleSearch = async (searchQuery = query) => {
+    if (!searchQuery.trim()) {
+      toast({
+        title: 'Input Required',
+        description: 'Please enter a law section number or name.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    setResult(null);
+    try {
+      const response = await findLawSection({ query: searchQuery });
+      setResult(response);
+    } catch (error) {
+      console.error('Error finding law section:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to find the law section. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+  const onCategoryClick = (category: string) => {
+    setQuery(category);
+    handleSearch(category);
+  }
+
   return (
     <div className="bg-muted/30">
       <div className="container mx-auto px-4 py-12">
@@ -30,8 +77,8 @@ export default function LawFinderPage() {
                     </CardHeader>
                     <CardContent className="flex flex-wrap gap-2">
                         {popularCategories.map(tag => (
-                            <Button key={tag} variant="outline" size="sm" asChild>
-                                <Link href="#">{tag}</Link>
+                            <Button key={tag} variant="outline" size="sm" onClick={() => onCategoryClick(tag)}>
+                                {tag}
                             </Button>
                         ))}
                     </CardContent>
@@ -40,7 +87,13 @@ export default function LawFinderPage() {
           </aside>
           
           <main className="lg:col-span-2">
-            <LawFinderClient />
+            <LawFinderClient 
+              query={query}
+              setQuery={setQuery}
+              result={result}
+              isLoading={isLoading}
+              handleSearch={() => handleSearch()}
+            />
           </main>
 
           <aside className="hidden lg:block lg:col-span-1">
@@ -81,5 +134,3 @@ export default function LawFinderPage() {
     </div>
   );
 }
-
-    

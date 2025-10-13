@@ -13,39 +13,21 @@ interface LawSectionResult {
   sectionDetails: string;
 }
 
-export default function LawFinderClient() {
-  const [query, setQuery] = useState('');
-  const [result, setResult] = useState<LawSectionResult | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
+interface LawFinderClientProps {
+  query: string;
+  setQuery: (query: string) => void;
+  result: LawSectionResult | null;
+  isLoading: boolean;
+  handleSearch: () => void;
+}
 
-  const handleSearch = async () => {
-    if (!query.trim()) {
-      toast({
-        title: 'Input Required',
-        description: 'Please enter a law section number or name.',
-        variant: 'destructive',
-      });
-      return;
-    }
-
-    setIsLoading(true);
-    setResult(null);
-    try {
-      const response = await findLawSection({ query });
-      setResult(response);
-    } catch (error) {
-      console.error('Error finding law section:', error);
-      toast({
-        title: 'Error',
-        description: 'Failed to find the law section. Please try again.',
-        variant: 'destructive',
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
+export default function LawFinderClient({
+    query,
+    setQuery,
+    result,
+    isLoading,
+    handleSearch,
+}: LawFinderClientProps) {
   return (
     <div className="max-w-4xl mx-auto">
       <Card className="mb-8">
@@ -107,5 +89,3 @@ export default function LawFinderClient() {
     </div>
   );
 }
-
-    
