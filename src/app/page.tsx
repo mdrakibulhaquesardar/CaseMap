@@ -115,7 +115,7 @@ function CaseMapHero({
 
       {/* Main Content */}
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-28 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center justify-center space-y-8 pt-12 text-center sm:pt-20">
+        <div className="flex flex-col items-center justify-center space-y-8 pt-20 text-center sm:pt-20">
           {/* Badge */}
           <Badge
             variant="outline"
