@@ -326,12 +326,12 @@ export default function FaqClient() {
                                     ) : (
                                         <Avatar className="h-6 w-6">
                                             <AvatarImage src={answer.authorAvatar} alt={answer.authorName} />
-                                            <AvatarFallback>{answer.authorName.charAt(0)}</AvatarFallback>
+                                            <AvatarFallback>{(answer.authorName || "A").charAt(0)}</AvatarFallback>
                                         </Avatar>
                                     )}
                                     </div>
                                     <div>
-                                        <p className="font-semibold text-sm">{answer.authorName}</p>
+                                        <p className="font-semibold text-sm">{answer.authorName || 'Anonymous'}</p>
                                         <p className="text-xs text-muted-foreground">
                                         answered on {getTimestamp(answer.timestamp)}
                                         </p>

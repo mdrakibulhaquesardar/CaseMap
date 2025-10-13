@@ -150,7 +150,7 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
                 <div className="flex items-center gap-3 bg-muted/50 p-2 rounded-lg">
                     <Avatar className="h-8 w-8">
                         <AvatarImage src={faq.author.avatar} alt={faq.author.name} />
-                        <AvatarFallback>{faq.author.name.charAt(0)}</AvatarFallback>
+                        <AvatarFallback>{(faq.author.name || 'A').charAt(0)}</AvatarFallback>
                     </Avatar>
                     <div>
                         <p className="font-semibold text-sm">{faq.author.name}</p>
@@ -190,12 +190,12 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
                                 ) : (
                                     <Avatar className="h-6 w-6">
                                         <AvatarImage src={answer.authorAvatar} alt={answer.authorName} />
-                                        <AvatarFallback>{answer.authorName.charAt(0)}</AvatarFallback>
+                                        <AvatarFallback>{(answer.authorName || 'A').charAt(0)}</AvatarFallback>
                                     </Avatar>
                                 )}
                                 </div>
                                 <div>
-                                    <p className="font-semibold text-sm">{answer.authorName}</p>
+                                    <p className="font-semibold text-sm">{answer.authorName || 'Anonymous'}</p>
                                     <p className="text-xs text-muted-foreground">
                                     answered on {getTimestamp(answer.timestamp)}
                                     </p>
