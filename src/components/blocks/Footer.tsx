@@ -71,21 +71,19 @@ export const Footer = React.forwardRef<HTMLDivElement, FooterProps>(
                 {brand.description}
               </p>
 
-              <p className="text-sm font-light text-foreground/55 mt-3.5">
-                {socialLinks.map((link, index) => (
-                  <React.Fragment key={link.name}>
-                    <a
-                      className="hover:text-foreground/90"
-                      target="_blank"
-                      href={link.href}
-                      rel="noopener noreferrer"
-                    >
-                      {link.name}
-                    </a>
-                    {index < socialLinks.length - 1 && " • "}
-                  </React.Fragment>
+              <div className="flex items-center gap-4 mt-4">
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    className="text-sm font-light text-foreground/60 hover:text-foreground/90"
+                    target="_blank"
+                    href={link.href}
+                    rel="noopener noreferrer"
+                  >
+                    {link.name}
+                  </a>
                 ))}
-              </p>
+              </div>
             </div>
 
             <div className="grid grid-cols-2 mt-16 md:grid-cols-3 lg:col-span-8 lg:justify-items-end lg:mt-0">
