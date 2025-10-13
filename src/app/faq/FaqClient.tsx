@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import {
   Card,
   CardContent,
-  CardFooter,
   CardHeader,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -32,8 +31,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useUser } from '@/firebase/auth/use-user';
 import { useFirestore } from '@/firebase/provider';
-import { collection, addDoc, serverTimestamp, query, orderBy, doc, setDoc, deleteDoc, getDocs, where, writeBatch, getDoc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, orderBy, doc, setDoc, deleteDoc, getDocs, where, writeBatch, getDoc, arrayUnion, updateDoc } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import Link from 'next/link';
 
 const ITEMS_PER_PAGE = 5;
 
@@ -95,7 +95,8 @@ export default function FaqClient() {
           {
             id: Math.random().toString(),
             content: answerResponse.answer,
-            author: 'AI Bot',
+            authorName: 'AI Bot',
+            authorAvatar: '',
             upvotes: 0,
             downvotes: 0,
             timestamp: new Date().toISOString(),
@@ -247,7 +248,7 @@ export default function FaqClient() {
         {currentFaqs.map((faq) => (
           <Card key={faq.id} id={faq.id} className="shadow-sm overflow-hidden">
              <div className="p-4 sm:p-6">
-                <p className="text-xl font-semibold text-foreground mb-3">{faq.question}</p>
+                <Link href={`/faq/${faq.id}`} className="text-xl font-semibold text-foreground mb-3 hover:text-primary transition-colors">{faq.question}</Link>
                 <div className="flex gap-2 mb-4 flex-wrap">
                     {faq.tags.map((tag) => (
                         <Badge key={tag} variant="secondary">
@@ -320,14 +321,17 @@ export default function FaqClient() {
                             <div className="flex justify-end mt-4">
                                 <div className="flex items-center gap-3 bg-background p-2 rounded-lg border">
                                     <div className="bg-muted p-2 rounded-full">
-                                    {answer.author === 'AI Bot' ? (
+                                    {answer.authorName === 'AI Bot' ? (
                                         <Bot className="w-5 h-5 text-primary" />
                                     ) : (
-                                        <User className="w-5 h-5 text-muted-foreground" />
+                                        <Avatar className="h-6 w-6">
+                                            <AvatarImage src={answer.authorAvatar} alt={answer.authorName} />
+                                            <AvatarFallback>{answer.authorName.charAt(0)}</AvatarFallback>
+                                        </Avatar>
                                     )}
                                     </div>
                                     <div>
-                                        <p className="font-semibold text-sm">{answer.author}</p>
+                                        <p className="font-semibold text-sm">{answer.authorName}</p>
                                         <p className="text-xs text-muted-foreground">
                                         answered on {getTimestamp(answer.timestamp)}
                                         </p>
@@ -375,5 +379,3 @@ export default function FaqClient() {
     </div>
   );
 }
-
-    

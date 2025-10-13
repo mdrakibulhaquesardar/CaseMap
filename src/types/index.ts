@@ -24,7 +24,8 @@ export type CaseTimeline = {
 export type FaqAnswer = {
   id: string;
   content: string;
-  author: string;
+  authorName: string;
+  authorAvatar: string;
   upvotes: number;
   downvotes: number;
   timestamp: string;
