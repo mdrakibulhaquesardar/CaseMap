@@ -4,12 +4,20 @@ export type CaseTimelineStep = {
   step: string;
   date: string;
   status: 'Completed' | 'Upcoming' | 'Pending';
+  details?: string;
+  documentLink?: string;
 };
 
 export type CaseTimeline = {
   id?: string;
   caseNumber: string;
   title: string;
+  details: {
+    caseType: string;
+    filingDate: string;
+    court: string;
+    status: string;
+  },
   timeline: CaseTimelineStep[];
 };
 

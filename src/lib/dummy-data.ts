@@ -4,24 +4,36 @@ export const caseTimelineData: { [key: string]: CaseTimeline } = {
   "12345": {
     caseNumber: "12345",
     title: "Labor Dispute - Bengal Factories",
+    details: {
+        caseType: "Labor Law",
+        filingDate: "2025-08-01",
+        court: "Dhaka Labor Court",
+        status: "In Progress"
+    },
     timeline: [
-      { step: "Case Filed", date: "2025-08-01", status: "Completed" },
-      { step: "Hearing 1", date: "2025-08-10", status: "Completed" },
-      { step: "Document Submission", date: "2025-08-25", status: "Completed" },
-      { step: "Hearing 2", date: "2025-09-05", status: "Upcoming" },
-      { step: "Final Arguments", date: "2025-09-15", status: "Upcoming" },
-      { step: "Judgment", date: "2025-09-20", status: "Pending" },
+      { step: "Case Filed", date: "2025-08-01", status: "Completed", details: "Initial case filed by the employee union regarding unpaid wages." },
+      { step: "Hearing 1: Admittance", date: "2025-08-10", status: "Completed", details: "First hearing to admit the case and issue notices to the respondent.", documentLink: "#" },
+      { step: "Document Submission", date: "2025-08-25", status: "Completed", details: "Both parties submitted their primary evidence and documentation." },
+      { step: "Hearing 2: Cross-examination", date: "2025-09-05", status: "Upcoming", details: "Scheduled for cross-examination of the primary witnesses." },
+      { step: "Final Arguments", date: "2025-09-15", status: "Upcoming", details: "Final arguments to be presented by both legal teams." },
+      { step: "Judgment", date: "2025-09-20", status: "Pending", details: "The court's final verdict is awaited." },
     ],
   },
   "67890": {
     caseNumber: "67890",
     title: "Property Inheritance Claim",
+     details: {
+        caseType: "Family Law",
+        filingDate: "2025-07-15",
+        court: "Sylhet Family Court",
+        status: "In Progress"
+    },
     timeline: [
-        { step: "Application Filed", date: "2025-07-15", status: "Completed" },
-        { step: "Notice Issued", date: "2025-07-22", status: "Completed" },
-        { step: "First Hearing", date: "2025-08-05", status: "Upcoming" },
-        { step: "Mediation", date: "2025-08-20", status: "Pending" },
-        { step: "Final Hearing", date: "2025-09-10", status: "Pending" },
+        { step: "Application Filed", date: "2025-07-15", status: "Completed", details: "Claim filed for rightful inheritance of ancestral property." },
+        { step: "Notice Issued to Respondents", date: "2025-07-22", status: "Completed", details: "Official notices have been sent to all involved parties." },
+        { step: "First Hearing", date: "2025-08-05", status: "Upcoming", details: "Initial hearing to establish the grounds of the claim." },
+        { step: "Mediation Session", date: "2025-08-20", status: "Pending", details: "A court-ordered mediation session to attempt a settlement." },
+        { step: "Final Hearing", date: "2025-09-10", status: "Pending", details: "Scheduled for the final hearing if mediation is unsuccessful." },
     ]
   }
 };
