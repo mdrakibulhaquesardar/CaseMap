@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FileText, MapPin, Trophy, Users, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Suspense } from 'react';
 
 const popularTags = [
   "সম্পত্তি আইন", "ভাড়াটিয়া অধিকার", "সাইবার ক্রাইম", "ডিজিটাল নিরাপত্তা", "শ্রম আইন", "শ্রমিক অধিকার", "পারিবারিক আইন"
@@ -36,7 +37,9 @@ function FaqPage() {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <main className="lg:col-span-3">
-            <FaqClient />
+            <Suspense fallback={<div className="text-center py-8">লোড হচ্ছে...</div>}>
+              <FaqClient />
+            </Suspense>
           </main>
 
           <aside className="hidden lg:block lg:col-span-1">
