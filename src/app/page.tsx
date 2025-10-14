@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Search, Scale, BookOpen, Sparkles, ArrowRight, MessageSquare, FileText, Shield, Zap, Brain, Users } from 'lucide-react';
 import { TestimonialsSection } from '@/components/blocks/TestimonialsWithMarquee';
 import { PricingWithComparison } from '@/components/blocks/PricingWithComparison';
+import { DicedHeroSection } from '@/components/ui/diced-hero-section';
 
 
 // Glow Component
@@ -428,12 +429,58 @@ const testimonials = [
   },
 ];
 
+function DicedHeroSectionDemo() {
+  return (
+    <DicedHeroSection
+      topText="আমাদের সেবা"
+      mainText="আইনি ক্ষমতায়ন"
+      subMainText="জটিল আইনি প্রক্রিয়াকে সহজ করে আমরা আপনার হাতে ক্ষমতা তুলে দিচ্ছি। আমাদের টুলস ব্যবহার করে আইনি তথ্য খুঁজুন, নথি বিশ্লেষণ করুন এবং আপনার অধিকার সম্পর্কে জানুন।"
+      buttonText="আরও জানুন"
+      slides={[
+        {
+          title: "আদালতের রায়",
+          image: "https://images.unsplash.com/photo-1589829545856-d10dEA592426?q=80&w=1920&auto=format&fit=crop",
+        },
+        {
+          title: "আইনের বই",
+          image: "https://images.unsplash.com/photo-1589998059171-988d887df646?q=80&w=1920&auto=format&fit=crop",
+        },
+        {
+          title: "আলোচনা",
+          image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1920&auto=format&fit=crop",
+        },
+        {
+          title: "নথি পর্যালোচনা",
+          image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1920&auto=format&fit=crop",
+        },
+      ]}
+      onMainButtonClick={() => console.log("Main button clicked")}
+      topTextStyle={{ color: "var(--diced-hero-section-top-text)" }}
+      mainTextStyle={{
+        fontSize: "4.5rem",
+        gradient: "linear-gradient(45deg, var(--diced-hero-section-main-gradient-from), var(--diced-hero-section-main-gradient-to))",
+      }}
+      subMainTextStyle={{ color: "var(--diced-hero-section-sub-text)" }}
+      buttonStyle={{
+        backgroundColor: "var(--diced-hero-section-button-bg)",
+        color: "var(--diced-hero-section-button-fg)",
+        borderRadius: "2rem",
+        hoverColor: "var(--diced-hero-section-button-hover-bg)",
+        hoverForeground: "var(--diced-hero-section-button-hover-fg)",
+      }}
+      separatorColor="var(--diced-hero-section-separator)"
+      fontFamily="var(--font-body)"
+    />
+  );
+}
+
 
 export default function Home() {
     return (
     <>
       <CaseMapHero />
       <FeaturesSection />
+      <DicedHeroSectionDemo />
       <HowItWorksSection />
       <TestimonialsSection
         title="আমাদের ব্যবহারকারীরা যা বলছেন"

@@ -31,6 +31,17 @@ body {
     --input: 220 13% 91%;
     --ring: 221 83% 53%;
     --radius: 0.5rem;
+
+    --diced-hero-section-top-text: #2c3e50;
+    --diced-hero-section-main-gradient-from: #16a085;
+    --diced-hero-section-main-gradient-to: #2980b9;
+    --diced-hero-section-main-gradient-foreground: #16a085;
+    --diced-hero-section-separator: #005baa;
+    --diced-hero-section-sub-text: #34495e;
+    --diced-hero-section-button-bg: #27ae60;
+    --diced-hero-section-button-fg: #ffffff;
+    --diced-hero-section-button-hover-bg: #2ecc71;
+    --diced-hero-section-button-hover-fg: #fff;
   }
 
   .dark {
@@ -53,6 +64,17 @@ body {
     --border: 215 27.9% 16.9%;
     --input: 215 27.9% 16.9%;
     --ring: 221 83% 63%;
+    
+    --diced-hero-section-top-text: #f7f7ff;
+    --diced-hero-section-main-gradient-from: #9F4EFF;
+    --diced-hero-section-main-gradient-to: #00A6FB;
+    --diced-hero-section-main-gradient-foreground: #9F4EFF;
+    --diced-hero-section-separator: #086CA2;
+    --diced-hero-section-sub-text: #f7f7ff;
+    --diced-hero-section-button-bg: #00A6FB;
+    --diced-hero-section-button-fg: #0A0A0A;
+    --diced-hero-section-button-hover-bg: #9F4EFF;
+    --diced-hero-section-button-hover-fg: #FFFFFF;
   }
 }
 
