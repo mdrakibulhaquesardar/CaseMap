@@ -469,7 +469,7 @@ function DicedHeroSectionDemo() {
         hoverForeground: "var(--diced-hero-section-button-hover-fg)",
       }}
       separatorColor="var(--diced-hero-section-separator)"
-      fontFamily="var(--font-body)"
+      fontFamily="var(--font-headline)"
     />
   );
 }
