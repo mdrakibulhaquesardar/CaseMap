@@ -436,7 +436,7 @@ const features= [
     title: "AI আইনি সহকারী",
     description:
       "CaseMap-এর AI সহকারীরা নির্দিষ্ট ডোমেইনে প্রশিক্ষিত, যা আপনাকে প্রযুক্তি, কোডিং এবং একাডেমিক বিষয়ে গাইড করে।",
-    image: "https://images.unsplash.com/photo-1593349480503-685d34212a57?q=80&w=600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=600&auto=format&fit=crop",
   },
   {
     id: 2,
