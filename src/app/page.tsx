@@ -7,10 +7,10 @@ import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search, Scale, BookOpen, Sparkles, ArrowRight, MessageSquare, FileText, Shield, Zap, Brain, Users } from 'lucide-react';
+import { Search, Scale, BookOpen, Sparkles, ArrowRight, MessageSquare, FileText, Shield, Zap, Brain, Users, BrainCog } from 'lucide-react';
 import { TestimonialsSection } from '@/components/blocks/TestimonialsWithMarquee';
 import { PricingWithComparison } from '@/components/blocks/PricingWithComparison';
-import { DicedHeroSection } from '@/components/ui/diced-hero-section';
+import { Features } from '@/components/ui/features';
 
 
 // Glow Component
@@ -429,47 +429,40 @@ const testimonials = [
   },
 ];
 
-function DicedHeroSectionDemo() {
+const features= [
+  {
+    id: 1,
+    icon: BrainCog,
+    title: "AI আইনি সহকারী",
+    description:
+      "CaseMap-এর AI সহকারীরা নির্দিষ্ট ডোমেইনে প্রশিক্ষিত, যা আপনাকে প্রযুক্তি, কোডিং এবং একাডেমিক বিষয়ে গাইড করে।",
+    image: "https://images.unsplash.com/photo-1593349480503-685d34212a57?q=80&w=600&auto=format&fit=crop",
+  },
+  {
+    id: 2,
+    icon: MessageSquare,
+    title: "কমিউনিটি প্রশ্নোত্তর",
+    description:
+      "বিশেষজ্ঞদের কাছ থেকে তাৎক্ষণিক এবং নির্ভুল সাহায্য পান—সেটা কোডিং হোক বা কঠিন ধারণা বোঝা। তারা তাদের দক্ষতার উপর প্রশিক্ষিত।",
+    image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=600&auto=format&fit=crop",
+  },
+  {
+    id: 3,
+    icon: FileText,
+    title: "AI নথি বিশ্লেষণ",
+    description:
+      "জটিল আইনি নথি আপলোড করে মুহূর্তের মধ্যে তার সহজবোধ্য সারসংক্ষেপ এবং ব্যাখ্যা পান।",
+    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=600&auto=format&fit=crop",
+  },
+];
+
+function FeaturesDemo() {
   return (
-    <DicedHeroSection
-      topText="আমাদের সেবা"
-      mainText="আইনি ক্ষমতায়ন"
-      subMainText="জটিল আইনি প্রক্রিয়াকে সহজ করে আমরা আপনার হাতে ক্ষমতা তুলে দিচ্ছি। আমাদের টুলস ব্যবহার করে আইনি তথ্য খুঁজুন, নথি বিশ্লেষণ করুন এবং আপনার অধিকার সম্পর্কে জানুন।"
-      buttonText="আরও জানুন"
-      slides={[
-        {
-          title: "আদালতের রায়",
-          image: "https://images.unsplash.com/photo-1589829545856-d10dEA592426?q=80&w=1920&auto=format&fit=crop",
-        },
-        {
-          title: "আইনের বই",
-          image: "https://images.unsplash.com/photo-1589998059171-988d887df646?q=80&w=1920&auto=format&fit=crop",
-        },
-        {
-          title: "আলোচনা",
-          image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1920&auto=format&fit=crop",
-        },
-        {
-          title: "নথি পর্যালোচনা",
-          image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1920&auto=format&fit=crop",
-        },
-      ]}
-      onMainButtonClick={() => console.log("Main button clicked")}
-      topTextStyle={{ color: "var(--diced-hero-section-top-text)" }}
-      mainTextStyle={{
-        fontSize: "4.5rem",
-        gradient: "linear-gradient(45deg, var(--diced-hero-section-main-gradient-from), var(--diced-hero-section-main-gradient-to))",
-      }}
-      subMainTextStyle={{ color: "var(--diced-hero-section-sub-text)" }}
-      buttonStyle={{
-        backgroundColor: "var(--diced-hero-section-button-bg)",
-        color: "var(--diced-hero-section-button-fg)",
-        borderRadius: "2rem",
-        hoverColor: "var(--diced-hero-section-button-hover-bg)",
-        hoverForeground: "var(--diced-hero-section-button-hover-fg)",
-      }}
-      separatorColor="var(--diced-hero-section-separator)"
-      fontFamily="var(--font-headline)"
+    <Features
+      primaryColor="sky-500"
+      progressGradientLight="bg-gradient-to-r from-sky-400 to-sky-500"
+      progressGradientDark="bg-gradient-to-r from-sky-300 to-sky-400"
+      features={features}
     />
   );
 }
@@ -480,7 +473,7 @@ export default function Home() {
     <>
       <CaseMapHero />
       <FeaturesSection />
-      <DicedHeroSectionDemo />
+      <FeaturesDemo />
       <HowItWorksSection />
       <TestimonialsSection
         title="আমাদের ব্যবহারকারীরা যা বলছেন"
