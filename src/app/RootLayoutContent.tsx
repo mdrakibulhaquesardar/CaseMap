@@ -17,7 +17,7 @@ export default function RootLayoutContent({
     return (
         <>
             {showLayout && <Navbar1Demo />}
-            <main className="flex-grow">{children}</main>
+            <main className={`flex-grow ${pathname === '/chatbot' ? 'h-screen' : ''}`}>{children}</main>
             {showLayout && <Footer
                 className="mt-20"
                 brand={{
