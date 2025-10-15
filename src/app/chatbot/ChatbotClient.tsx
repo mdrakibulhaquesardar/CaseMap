@@ -157,7 +157,7 @@ export default function ChatbotClient({
             <div className="absolute top-1/4 right-1/3 w-64 h-64 bg-primary/10 rounded-full mix-blend-normal filter blur-[96px] animate-pulse delay-1000" />
         </div>
 
-        <div className="flex-1 w-full max-w-4xl mx-auto flex flex-col justify-end">
+        <div className="flex-1 w-full max-w-4xl mx-auto flex flex-col justify-end overflow-hidden">
              <ScrollArea className="flex-1 w-full" ref={scrollAreaRef}>
                  <div className="p-4 space-y-6">
                     {messages.map((msg, index) => (

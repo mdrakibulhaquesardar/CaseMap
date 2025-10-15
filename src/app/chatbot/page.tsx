@@ -191,8 +191,8 @@ export default function ChatbotPage() {
           <CardTitle className="text-lg">সাম্প্রতিক কথোপকথন</CardTitle>
         </SidebarHeader>
         <div className="p-2 border-b">
-             <Button variant="outline" onClick={handleNewChat} className="w-full h-9">
-                <MessageSquarePlus className="w-4 h-4 mr-2" />
+             <Button variant="outline" onClick={handleNewChat} className="w-full h-9 gap-2 justify-start px-3">
+                <MessageSquarePlus className="w-4 h-4" />
                 নতুন চ্যাট
             </Button>
         </div>
@@ -243,18 +243,17 @@ export default function ChatbotPage() {
   return (
     <SidebarProvider>
         <div className="h-screen w-full flex bg-background relative">
-             <Sidebar side="left" collapsible="icon" className="hidden md:flex">
+             <Sidebar side="left" collapsible="icon" className="hidden md:flex bg-card border-r">
                 <SidebarContent>
                   <SidebarContentComponent />
                 </SidebarContent>
             </Sidebar>
-
-            <div className="flex-1 flex flex-col h-screen">
-                 <div className="absolute top-4 left-4 z-20 md:hidden">
-                    <SidebarTrigger className="text-white">
-                        <PanelLeft />
-                    </SidebarTrigger>
-                </div>
+            <div className="absolute top-4 left-4 z-20 md:hidden">
+                <SidebarTrigger className="text-white">
+                    <PanelLeft />
+                </SidebarTrigger>
+            </div>
+            <div className="flex-1 flex flex-col h-screen overflow-hidden">
                 <ChatbotClient 
                     messages={activeMessages}
                     isLoading={isLoading}
