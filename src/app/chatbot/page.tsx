@@ -211,7 +211,7 @@ export default function ChatbotPage() {
                                   onClick={() => setActiveChatId(chat.id)}
                                   className={cn(
                                       "w-full justify-start h-auto py-2 px-3 text-left group",
-                                      activeChatId === chat.id && "bg-accent text-accent-foreground"
+                                      activeChatId === chat.id && "bg-primary/10 text-primary font-semibold"
                                   )}
                               >
                                   <MessageSquare className="w-4 h-4 mr-2 shrink-0" />
