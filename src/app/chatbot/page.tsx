@@ -128,7 +128,7 @@ export default function ChatbotPage() {
         messages: [GREETING_MESSAGE],
         createdAt: new Date().toISOString(),
     };
-    setChatHistory(prev => [...prev, newChat]);
+    setChatHistory(prev => [newChat, ...prev]);
     setActiveChatId(newChatId);
   }
 
@@ -142,7 +142,7 @@ export default function ChatbotPage() {
             return [{ id: newChatId, messages: [GREETING_MESSAGE], createdAt: new Date().toISOString() }];
         }
         if (activeChatId === chatId) {
-            setActiveChatId(newHistory[newHistory.length - 1].id);
+            setActiveChatId(newHistory[0].id);
         }
         return newHistory;
     });
@@ -163,7 +163,7 @@ export default function ChatbotPage() {
 
     const now = new Date();
     
-    chatHistory.slice().reverse().forEach(chat => {
+    chatHistory.forEach(chat => {
       const chatDate = parseISO(chat.createdAt);
       if (isToday(chatDate)) {
         groups.today.push(chat);
@@ -189,10 +189,13 @@ export default function ChatbotPage() {
     <div className="flex flex-col h-full bg-card text-card-foreground">
         <SidebarHeader className='flex justify-between items-center p-4 border-b'>
           <CardTitle className="text-lg">সাম্প্রতিক কথোপকথন</CardTitle>
-          <Button variant="ghost" size="icon" onClick={handleNewChat} className="text-foreground">
-            <MessageSquarePlus className="w-5 h-5" />
-          </Button>
         </SidebarHeader>
+        <div className="p-2 border-b">
+             <Button variant="outline" onClick={handleNewChat} className="w-full h-9">
+                <MessageSquarePlus className="w-4 h-4 mr-2" />
+                নতুন চ্যাট
+            </Button>
+        </div>
         <SidebarGroup className="flex-1 overflow-hidden p-0">
           <ScrollArea className="h-full">
              <Accordion type="multiple" defaultValue={['today', 'yesterday']} className="w-full p-2">
@@ -216,11 +219,11 @@ export default function ChatbotPage() {
                               >
                                   <MessageSquare className="w-4 h-4 mr-2 shrink-0" />
                                   <span className="truncate flex-1">{getChatTitle(chat)}</span>
-                                  <div className="flex items-center">
-                                    <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100" onClick={(e) => handleDeleteChat(e, chat.id)}>
+                                  <div className="flex items-center ml-2">
+                                    <Button variant="ghost" size="icon" className="h-7 w-7 opacity-0 group-hover:opacity-100" onClick={(e) => handleDeleteChat(e, chat.id)}>
                                         <Trash2 className="w-4 h-4 text-muted-foreground"/>
                                     </Button>
-                                    <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100">
+                                    <Button variant="ghost" size="icon" className="h-7 w-7 opacity-0 group-hover:opacity-100">
                                         <MoreHorizontal className="w-4 h-4 text-muted-foreground" />
                                     </Button>
                                   </div>
@@ -240,14 +243,14 @@ export default function ChatbotPage() {
   return (
     <SidebarProvider>
         <div className="h-screen w-full flex bg-background relative">
-             <Sidebar side="left" collapsible="icon">
+             <Sidebar side="left" collapsible="icon" className="hidden md:flex">
                 <SidebarContent>
                   <SidebarContentComponent />
                 </SidebarContent>
             </Sidebar>
 
             <div className="flex-1 flex flex-col h-screen">
-                 <div className="absolute top-4 left-4 z-20">
+                 <div className="absolute top-4 left-4 z-20 md:hidden">
                     <SidebarTrigger className="text-white">
                         <PanelLeft />
                     </SidebarTrigger>
@@ -259,6 +262,13 @@ export default function ChatbotPage() {
                     setInput={setInput}
                     handleSend={handleSend}
                 />
+            </div>
+             <div className="md:hidden">
+                 <Sidebar side="left" collapsible="icon">
+                    <SidebarContent>
+                      <SidebarContentComponent />
+                    </SidebarContent>
+                </Sidebar>
             </div>
         </div>
     </SidebarProvider>
