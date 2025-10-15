@@ -13,7 +13,8 @@ import {
   MessageSquare,
   Users,
   Info,
-  Bot
+  Bot,
+  Library
 } from "lucide-react";
 import { useLoginPrompt } from "@/components/ui/login-prompt";
 
@@ -73,6 +74,12 @@ const menuItems = [
           icon: <MessageSquare className="size-5 shrink-0" />,
           url: "/faq",
           isProtected: true,
+        },
+        {
+          title: "নলেজ লাইব্রেরি",
+          description: "আইনি নথি, বই ও রিসোর্স ব্রাউজ করুন।",
+          icon: <Library className="size-5 shrink-0" />,
+          url: "/library",
         },
       ],
     },

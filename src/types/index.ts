@@ -1,3 +1,4 @@
+
 import { FieldValue } from "firebase/firestore";
 
 export type CaseTimelineStep = {
@@ -58,4 +59,13 @@ export type LegalAidCenter = {
   image: string;
   services: string[];
   division: string;
+};
+
+export type LibraryDocument = {
+  slug: string;
+  title: string;
+  category: 'Constitution' | 'Law & Acts' | 'Legal Awareness' | 'Books / Publications' | 'Rights & Guidelines';
+  published: string;
+  filePath: string;
+  thumbnail?: string;
 };

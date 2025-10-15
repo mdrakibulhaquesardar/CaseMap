@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -13,6 +14,7 @@ import {
   Scale,
   Handshake,
   Bot,
+  Library,
 } from "lucide-react";
 
 // Define a map for icons
@@ -26,6 +28,7 @@ const iconMap: { [key: string]: LucideIcon } = {
   Scale,
   Handshake,
   Bot,
+  Library,
 };
 
 

@@ -13,12 +13,12 @@ export default function RootLayoutContent({
     children: React.ReactNode;
 }>) {
     const pathname = usePathname();
-    const showLayout = !['/login', '/signup', '/chatbot'].includes(pathname);
+    const showLayout = !['/login', '/signup', '/chatbot'].includes(pathname) && !pathname.startsWith('/library/');
 
     return (
         <>
             {showLayout && <Navbar1Demo />}
-            <main className={`flex-grow ${pathname === '/chatbot' ? 'h-screen' : ''}`}>{children}</main>
+            <main className={`flex-grow ${pathname === '/chatbot' || pathname.startsWith('/library/') ? 'h-screen' : ''}`}>{children}</main>
             {showLayout && <Footer
                 className="mt-20"
                 brand={{
@@ -77,6 +77,11 @@ export default function RootLayoutContent({
                         name: "প্রশ্নোত্তর",
                         iconName: "MessageSquare",
                         href: "/faq",
+                      },
+                      {
+                        name: "নলেজ লাইব্রেরি",
+                        iconName: "Library",
+                        href: "/library",
                       },
                       {
                         name: "সেরা অবদানকারী",

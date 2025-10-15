@@ -1,0 +1,77 @@
+
+import { LibraryDocument } from '@/types';
+
+export const libraryDocuments: LibraryDocument[] = [
+  {
+    slug: 'constitution-of-bangladesh-en',
+    title: 'The Constitution of the People’s Republic of Bangladesh (English)',
+    category: 'Constitution',
+    published: '2022-12-16',
+    filePath: '/library/constitution-en.pdf',
+    thumbnail: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=600',
+  },
+  {
+    slug: 'constitution-of-bangladesh-bn',
+    title: 'গণপ্রজাতন্ত্রী বাংলাদেশের সংবিধান (বাংলা)',
+    category: 'Constitution',
+    published: '2022-12-16',
+    filePath: '/library/constitution-bn.pdf',
+    thumbnail: 'https://images.unsplash.com/photo-1550399105-c4db5fb85c18?q=80&w=600',
+  },
+  {
+    slug: 'digital-security-act-2018',
+    title: 'Digital Security Act, 2018 (English)',
+    category: 'Law & Acts',
+    published: '2018-10-08',
+    filePath: '/library/digital-security-act-2018.pdf',
+    thumbnail: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=600',
+  },
+  {
+    slug: 'cyber-security-act-2023',
+    title: 'Cyber Security Act, 2023 (Bangla)',
+    category: 'Law & Acts',
+    published: '2023-09-18',
+    filePath: '/library/cyber-security-act-2023.pdf',
+    thumbnail: 'https://images.unsplash.com/photo-1614064548237-02f0d767078c?q=80&w=600',
+  },
+  {
+    slug: 'online-safety-guide',
+    title: 'আপনার অনলাইন সুরক্ষা নিশ্চিত করার উপায়',
+    category: 'Legal Awareness',
+    published: '2024-01-15',
+    filePath: '/library/online-safety-guide-bn.pdf',
+    thumbnail: 'https://images.unsplash.com/photo-1526374965328-5f61d4dc18c5?q=80&w=600',
+  },
+  {
+    slug: 'land-law-basics',
+    title: 'ভূমি আইনের প্রাথমিক ধারণা',
+    category: 'Books / Publications',
+    published: '2023-05-20',
+    filePath: '/library/land-law-basics.pdf',
+    thumbnail: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=600',
+  },
+  {
+    slug: 'consumer-rights-guide',
+    title: 'ভোক্তা হিসেবে আপনার অধিকার',
+    category: 'Rights & Guidelines',
+    published: '2023-03-15',
+    filePath: '/library/consumer-rights-guide.pdf',
+    thumbnail: 'https://images.unsplash.com/photo-1560520031-3a4dc2e27b87?q=80&w=600',
+  },
+  {
+    slug: 'human-rights-in-bangladesh',
+    title: 'মানবাধিকার পরিস্থিতি: বাংলাদেশ',
+    category: 'Books / Publications',
+    published: '2024-03-01',
+    filePath: '/library/human-rights-bangladesh.pdf',
+    thumbnail: 'https://images.unsplash.com/photo-1504754524776-8f4f37790774?q=80&w=600',
+  },
+  {
+    slug: 'the-penal-code-1860',
+    title: 'The Penal Code, 1860',
+    category: 'Law & Acts',
+    published: '2022-01-01',
+    filePath: '/library/penal-code-1860.pdf',
+    thumbnail: 'https://images.unsplash.com/photo-1589998059171-988d887df646?q=80&w=600',
+  },
+];
