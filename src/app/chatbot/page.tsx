@@ -12,7 +12,7 @@ import {
   SidebarGroup,
 } from '@/components/ui/sidebar';
 import { CardTitle } from '@/components/ui/card';
-import { PanelLeft, MessageSquare, MessageSquarePlus, Trash2, MoreHorizontal } from 'lucide-react';
+import { PanelLeft, MessageSquare, MessageSquarePlus, Trash2, MoreHorizontal, Info } from 'lucide-react';
 import { lawChat } from '@/ai/flows/law-chatbot';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { Button } from '@/components/ui/button';
@@ -25,7 +25,17 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
+} from "@/components/ui/accordion";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+
 
 interface Message {
   role: 'user' | 'model';
@@ -50,6 +60,11 @@ export default function ChatbotPage() {
   const [activeChatId, setActiveChatId] = useLocalStorage<string | null>('law-activeChatId', null);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showBetaWarning, setShowBetaWarning] = useState(false);
+
+  useEffect(() => {
+    setShowBetaWarning(true);
+  }, []);
 
   useEffect(() => {
     if (chatHistory.length === 0) {
@@ -59,6 +74,7 @@ export default function ChatbotPage() {
     } else if (!activeChatId || !chatHistory.find(c => c.id === activeChatId)) {
       setActiveChatId(chatHistory[chatHistory.length - 1].id);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const activeMessages = useMemo(() => {
@@ -73,18 +89,18 @@ export default function ChatbotPage() {
     const userMessage: Message = { role: 'user', content: currentMessage, timestamp: new Date().toISOString() };
     
     setInput('');
-    setIsLoading(true);
 
-    const updatedChatHistory = chatHistory.map(chat => 
+    const updatedChatHistoryWithUserMessage = chatHistory.map(chat => 
       chat.id === activeChatId 
       ? { ...chat, messages: [...chat.messages, userMessage] }
       : chat
     );
-    setChatHistory(updatedChatHistory);
+    setChatHistory(updatedChatHistoryWithUserMessage);
+    setIsLoading(true);
 
     try {
-      const activeChat = updatedChatHistory.find(chat => chat.id === activeChatId);
-      const apiHistory = activeChat ? activeChat.messages.filter(m => m.content !== GREETING_MESSAGE.content).map(({role, content}) => ({role, content})) : [];
+      const activeChat = updatedChatHistoryWithUserMessage.find(chat => chat.id === activeChatId);
+      const apiHistory = activeChat ? activeChat.messages.slice(0, -1).filter(m => m.content !== GREETING_MESSAGE.content).map(({role, content}) => ({role, content})) : [];
       
       const result = await lawChat({
         history: apiHistory,
@@ -94,11 +110,14 @@ export default function ChatbotPage() {
       const modelMessage: Message = { role: 'model', content: result.response, timestamp: new Date().toISOString() };
       
       setChatHistory(prev => 
-        prev.map(chat => 
-          chat.id === activeChatId
-          ? { ...chat, messages: [...chat.messages, modelMessage] }
-          : chat
-        )
+        prev.map(chat => {
+          if (chat.id === activeChatId) {
+            // This is the correct way to update the history after getting AI response.
+            const existingMessages = updatedChatHistoryWithUserMessage.find(c => c.id === activeChatId)?.messages || [];
+            return { ...chat, messages: [...existingMessages, modelMessage] };
+          }
+          return chat;
+        })
       );
 
     } catch (error) {
@@ -269,6 +288,27 @@ export default function ChatbotPage() {
                 </Sidebar>
             </div>
         </div>
+
+        <AlertDialog open={showBetaWarning} onOpenChange={setShowBetaWarning}>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <div className="flex justify-center">
+                        <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                            <Info className="h-6 w-6 text-primary" />
+                        </div>
+                    </div>
+                    <AlertDialogTitle className="text-center">সিস্টেমটি বেটা ভার্সনে রয়েছে</AlertDialogTitle>
+                    <AlertDialogDescription className="text-center">
+                        এই AI সিস্টেমটি বর্তমানে পরীক্ষামূলক পর্যায়ে এবং ডেভেলপের অধীনে রয়েছে। প্রদত্ত তথ্যের যথার্থতা সবসময় সঠিক নাও হতে পারে। অনুগ্রহ করে যেকোনো আইনি পরামর্শের জন্য একজন আইনজীবীর সাথে যোগাযোগ করুন।
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogAction onClick={() => setShowBetaWarning(false)} className="w-full">
+                        আমি বুঝতে পেরেছি
+                    </AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
     </SidebarProvider>
   );
 }
