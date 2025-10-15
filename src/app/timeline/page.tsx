@@ -12,27 +12,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Gavel, Info, MessageSquare, Loader2, PanelLeft } from 'lucide-react';
+import { Gavel, Info, MessageSquare, Loader2 } from 'lucide-react';
 import type { CaseTimeline } from '@/types';
 import { useUser } from '@/firebase/auth/use-user';
 import { useFirestore } from '@/firebase/provider';
 import { collection, query } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { 
-  SidebarProvider, 
-  Sidebar, 
-  SidebarTrigger, 
-  SidebarContent, 
-  SidebarHeader,
-  SidebarGroup,
-  SidebarInset
-} from '@/components/ui/sidebar';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
 
 
 export default function TimelinePage() {
@@ -44,55 +29,18 @@ export default function TimelinePage() {
   const savedCases = savedCasesSnapshot?.docs.map(doc => ({ ...doc.data(), id: doc.id } as CaseTimeline)) || [];
 
   return (
-    <SidebarProvider>
     <div className="bg-muted/30">
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-12">
-           <div className="flex justify-center items-center gap-4">
-            <SidebarTrigger className="lg:hidden">
-              <PanelLeft />
-            </SidebarTrigger>
             <h1 className="text-4xl md:text-5xl font-bold font-headline">
               মামলার টাইমলাইন
             </h1>
-          </div>
           <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
             আপনার মামলার নম্বর দিয়ে অনুসন্ধান করে এর বর্তমান অবস্থা এবং অগ্রগতি একটি টাইমলাইনে দেখুন।
           </p>
         </div>
         
-        <div className="flex gap-8">
-            <Sidebar side="left" className="hidden lg:flex">
-              <SidebarContent>
-                <SidebarHeader>
-                  <CardTitle>সাধারণ জিজ্ঞাসা</CardTitle>
-                </SidebarHeader>
-                <SidebarGroup>
-                   <Accordion type="single" collapsible className="w-full">
-                      <AccordionItem value="item-1">
-                        <AccordionTrigger>টাইমলাইন কীভাবে কাজ করে?</AccordionTrigger>
-                        <AccordionContent>
-                          আপনার মামলার নম্বর দিয়ে অনুসন্ধান করলে, আমরা আমাদের ডেটাবেস থেকে মামলার প্রতিটি ধাপের তথ্য টাইমলাইন আকারে দেখাই।
-                        </AccordionContent>
-                      </AccordionItem>
-                      <AccordionItem value="item-2">
-                        <AccordionTrigger>আমার মামলা খুঁজে পাচ্ছি না কেন?</AccordionTrigger>
-                        <AccordionContent>
-                          আপনার দেওয়া মামলার নম্বরটি সঠিক কিনা তা যাচাই করুন। এটি একটি ডেমো সংস্করণ, তাই শুধুমাত্র কিছু নমুনা মামলার তথ্য এখানে পাওয়া যাবে।
-                        </AccordionContent>
-                      </AccordionItem>
-                      <AccordionItem value="item-3">
-                        <AccordionTrigger>আমি কীভাবে মামলা সংরক্ষণ করব?</AccordionTrigger>
-                        <AccordionContent>
-                          মামলা খুঁজে পাওয়ার পর, "সংরক্ষণ করুন" বাটনে ক্লিক করে আপনি আপনার প্রোফাইলে মামলাটি যোগ করতে পারেন। এর জন্য আপনাকে লগইন করতে হবে।
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
-                </SidebarGroup>
-              </SidebarContent>
-            </Sidebar>
-
-          <div className="flex-1 grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <main className="lg:col-span-3">
               <Suspense fallback={
                 <Card className="text-center py-20 flex flex-col items-center justify-center min-h-[400px]">
@@ -166,10 +114,8 @@ export default function TimelinePage() {
                 </Card>
               </div>
             </aside>
-          </div>
         </div>
       </div>
     </div>
-    </SidebarProvider>
   );
 }
