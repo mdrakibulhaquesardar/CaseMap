@@ -12,6 +12,7 @@ import {
   Zap,
   Scale,
   Handshake,
+  Bot,
 } from "lucide-react";
 
 // Define a map for icons
@@ -24,6 +25,7 @@ const iconMap: { [key: string]: LucideIcon } = {
   Zap,
   Scale,
   Handshake,
+  Bot,
 };
 
 

@@ -12,7 +12,8 @@ import {
   Gavel,
   MessageSquare,
   Users,
-  Info
+  Info,
+  Bot
 } from "lucide-react";
 
 
@@ -40,6 +41,12 @@ const loggedInMenu = [
       title: "টুলস",
       url: "#",
       items: [
+        {
+          title: "AI আইনি চ্যাট",
+          description: "AI এর সাথে কথা বলে আইনি তথ্য জানুন।",
+          icon: <Bot className="size-5 shrink-0" />,
+          url: "/chatbot",
+        },
         {
           title: "মামলার টাইমলাইন",
           description: "আপনার মামলার অগ্রগতি ট্র্যাক করুন।",

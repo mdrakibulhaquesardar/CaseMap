@@ -12,7 +12,7 @@ export default function RootLayoutContent({
     children: React.ReactNode;
 }>) {
     const pathname = usePathname();
-    const showLayout = !['/login', '/signup'].includes(pathname);
+    const showLayout = !['/login', '/signup', '/chatbot'].includes(pathname);
 
     return (
         <>
@@ -42,6 +42,11 @@ export default function RootLayoutContent({
                   {
                     title: "টুলস",
                     links: [
+                      {
+                        name: "AI আইনি চ্যাট",
+                        iconName: "Bot",
+                        href: "/chatbot",
+                      },
                       {
                         name: "মামলার টাইমলাইন",
                         iconName: "Blocks",
