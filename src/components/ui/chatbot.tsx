@@ -25,12 +25,21 @@ export function Chatbot() {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  const toggleChatbot = () => {
+    setIsOpen(prev => {
+        if (!prev) { // If opening
+             audioRef.current?.play().catch(error => console.error("Audio play failed:", error));
+        }
+        return !prev;
+    });
+  }
+
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       setMessages([
         {
           role: 'model',
-          content: 'নমস্কার! আমি আপনার আইনি সহকারী। আমি আপনাকে কীভাবে সাহায্য করতে পারি?',
+          content: 'আস-সালামু আলাইকুম! আমি আপনার আইনি সহকারী। আমি আপনাকে কীভাবে সাহায্য করতে পারি?',
         },
       ]);
     }
@@ -41,7 +50,7 @@ export function Chatbot() {
     if (!hasOpenedBefore) {
       const timer = setTimeout(() => {
         setIsOpen(true);
-        audioRef.current?.play().catch(error => console.error("Audio autoplay failed:", error));
+        audioRef.current?.play().catch(error => console.error("Audio autoplay failed and was caught:", error));
         sessionStorage.setItem('chatbot-auto-opened', 'true');
       }, 2000);
 
@@ -97,7 +106,7 @@ export function Chatbot() {
       <audio ref={audioRef} src="/notification.mp3" preload="auto" />
       <div className="fixed bottom-6 right-6 z-50">
         <Button
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={toggleChatbot}
           size="icon"
           className="rounded-full w-16 h-16 bg-primary hover:bg-primary/90 shadow-lg"
         >
