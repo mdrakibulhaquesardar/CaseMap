@@ -102,7 +102,7 @@ interface ChatbotClientProps {
 }
 
 export default function ChatbotClient({
-    messages,
+    messages = [],
     isLoading,
     input,
     setInput,
