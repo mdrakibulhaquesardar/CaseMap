@@ -64,6 +64,7 @@ export type LegalAidCenter = {
 export type LibraryDocument = {
   slug: string;
   title: string;
+  author: string;
   category: 'Constitution' | 'Law & Acts' | 'Legal Awareness' | 'Books / Publications' | 'Rights & Guidelines';
   published: string;
   filePath: string;

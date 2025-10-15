@@ -18,7 +18,7 @@ export default function PdfViewPage({ params }: { params: { slug: string } }) {
 
   return (
       <Suspense fallback={
-          <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-background/50 backdrop-blur-sm flex items-center justify-center z-50">
               <Loader2 className="w-10 h-10 animate-spin text-primary" />
           </div>
       }>
