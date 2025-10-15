@@ -75,7 +75,6 @@ export default function ChatbotPage() {
     setInput('');
     setIsLoading(true);
 
-    // Update state with user message first
     const updatedChatHistory = chatHistory.map(chat => 
       chat.id === activeChatId 
       ? { ...chat, messages: [...chat.messages, userMessage] }
@@ -84,7 +83,6 @@ export default function ChatbotPage() {
     setChatHistory(updatedChatHistory);
 
     try {
-      // Find the active chat from the *updated* history
       const activeChat = updatedChatHistory.find(chat => chat.id === activeChatId);
       const apiHistory = activeChat ? activeChat.messages.filter(m => m.content !== GREETING_MESSAGE.content).map(({role, content}) => ({role, content})) : [];
       
@@ -95,7 +93,6 @@ export default function ChatbotPage() {
 
       const modelMessage: Message = { role: 'model', content: result.response, timestamp: new Date().toISOString() };
       
-      // Update state with model's response
       setChatHistory(prev => 
         prev.map(chat => 
           chat.id === activeChatId
@@ -111,7 +108,7 @@ export default function ChatbotPage() {
         content: 'দুঃখিত, একটি সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।',
         timestamp: new Date().toISOString()
       };
-      setChatHistory(prev => 
+       setChatHistory(prev => 
         prev.map(chat => 
           chat.id === activeChatId
           ? { ...chat, messages: [...chat.messages, errorMessage] }
@@ -245,16 +242,16 @@ export default function ChatbotPage() {
   return (
     <SidebarProvider>
         <div className="h-screen w-full flex bg-background relative">
-             <Sidebar side="left" collapsible="icon" className="hidden md:flex bg-card border-r">
-                <SidebarContent>
-                  <SidebarContentComponent />
-                </SidebarContent>
-            </Sidebar>
             <div className="absolute top-4 left-4 z-20 md:hidden">
                 <SidebarTrigger className="text-white">
                     <PanelLeft />
                 </SidebarTrigger>
             </div>
+            <Sidebar side="left" collapsible="icon" className="hidden md:flex bg-card border-r w-[320px]">
+                <SidebarContent>
+                  <SidebarContentComponent />
+                </SidebarContent>
+            </Sidebar>
             <div className="flex-1 flex flex-col h-screen overflow-hidden">
                 <ChatbotClient 
                     messages={activeMessages}
@@ -264,7 +261,7 @@ export default function ChatbotPage() {
                     handleSend={handleSend}
                 />
             </div>
-             <div className="md:hidden">
+            <div className="md:hidden">
                  <Sidebar side="left" collapsible="icon">
                     <SidebarContent>
                       <SidebarContentComponent />
@@ -275,3 +272,5 @@ export default function ChatbotPage() {
     </SidebarProvider>
   );
 }
+
+    
