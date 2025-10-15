@@ -4,6 +4,7 @@
 import { usePathname } from 'next/navigation';
 import { Footer } from '@/components/blocks/Footer';
 import { Navbar1Demo } from '@/components/blocks/demo/Navbar1';
+import { Chatbot } from '@/components/ui/chatbot';
 
 export default function RootLayoutContent({
     children,
@@ -96,6 +97,7 @@ export default function RootLayoutContent({
                 ]}
                 copyright="CaseMap Inc. © ২০২৪ সর্বসত্ত্ব সংরক্ষিত"
               />}
+            {showLayout && <Chatbot />}
         </>
     )
 }
