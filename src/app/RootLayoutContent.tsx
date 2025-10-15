@@ -6,6 +6,7 @@ import { Footer } from '@/components/blocks/Footer';
 import { Navbar1Demo } from '@/components/blocks/demo/Navbar1';
 import { Chatbot } from '@/components/ui/chatbot';
 import LoginPrompt from '@/components/ui/login-prompt';
+import { Info } from 'lucide-react';
 
 export default function RootLayoutContent({
     children,
@@ -14,11 +15,19 @@ export default function RootLayoutContent({
 }>) {
     const pathname = usePathname();
     const showLayout = !['/login', '/signup'].includes(pathname);
-    const isFullScreenPage = ['/chatbot', '/library/[slug]', '/phonebook'].some(p => pathname.includes(p.replace('/[slug]', '')));
+    const isFullScreenPage = ['/chatbot', '/library/[slug]'].some(p => pathname.includes(p.replace('/[slug]', '')));
 
 
     return (
         <>
+            {showLayout && (
+                <div className="bg-yellow-100 dark:bg-yellow-900/50 border-b border-yellow-200 dark:border-yellow-800/50 text-yellow-900 dark:text-yellow-200 p-2 text-center text-sm flex items-center justify-center gap-2">
+                    <Info className="w-4 h-4" />
+                    <p>
+                    <strong>বেটা ভার্সন:</strong> এই সিস্টেমটি পরীক্ষামূলক পর্যায়ে রয়েছে। অনুগ্রহ করে প্রতিটি উত্তর যাচাই করে নিন।
+                    </p>
+                </div>
+            )}
             {showLayout && !pathname.startsWith('/library/') && <Navbar1Demo />}
             <main className={`flex-grow ${isFullScreenPage ? 'h-screen' : ''}`}>{children}</main>
             {showLayout && !pathname.startsWith('/library/') && <Footer
