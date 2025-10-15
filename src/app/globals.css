@@ -23,14 +23,21 @@ body {
     --secondary-foreground: 220.9 39.3% 11%;
     --muted: 220 14.3% 95.9%;
     --muted-foreground: 220 8.9% 46.1%;
-    --accent: 220 14.3% 95.9%; /* Using secondary as accent */
-    --accent-foreground: 220.9 39.3% 11%;
+    --accent: 34 91% 60%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 220 13% 91%;
     --input: 220 13% 91%;
     --ring: 221 83% 53%;
     --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 224 71.4% 4.1%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-accent: 220 14.3% 95.9%;
+    --sidebar-accent-foreground: 220.9 39.3% 11%;
+    --sidebar-ring: 221 83% 53%;
 
     --diced-hero-section-top-text: #2c3e50;
     --diced-hero-section-main-gradient-from: #16a085;
@@ -57,13 +64,20 @@ body {
     --secondary-foreground: 210 20% 98%;
     --muted: 215 27.9% 16.9%;
     --muted-foreground: 217.9 10.6% 64.9%;
-    --accent: 215 27.9% 16.9%; /* Using secondary as accent */
-    --accent-foreground: 210 20% 98%;
+    --accent: 34 91% 60%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 215 27.9% 16.9%;
     --input: 215 27.9% 16.9%;
     --ring: 221 83% 63%;
+
+    --sidebar-background: 224 71.4% 4.1%;
+    --sidebar-foreground: 210 20% 98%;
+    --sidebar-border: 215 27.9% 16.9%;
+    --sidebar-accent: 215 27.9% 16.9%;
+    --sidebar-accent-foreground: 210 20% 98%;
+    --sidebar-ring: 221 83% 63%;
     
     --diced-hero-section-top-text: #f7f7ff;
     --diced-hero-section-main-gradient-from: #9F4EFF;
@@ -99,4 +113,11 @@ body {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+}
+
+.lab-bg::before {
+  overflow: hidden;
+  max-width: 100vw;
+  max-height: 100vh;
+  box-sizing: border-box;
 }
