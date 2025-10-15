@@ -13,13 +13,15 @@ export default function RootLayoutContent({
     children: React.ReactNode;
 }>) {
     const pathname = usePathname();
-    const showLayout = !['/login', '/signup', '/chatbot'].includes(pathname) && !pathname.startsWith('/library/');
+    const showLayout = !['/login', '/signup'].includes(pathname);
+    const isFullScreenPage = ['/chatbot', '/library/[slug]', '/phonebook'].some(p => pathname.includes(p.replace('/[slug]', '')));
+
 
     return (
         <>
-            {showLayout && <Navbar1Demo />}
-            <main className={`flex-grow ${pathname === '/chatbot' || pathname.startsWith('/library/') || pathname === '/phonebook' ? 'h-screen' : ''}`}>{children}</main>
-            {showLayout && <Footer
+            {showLayout && !pathname.startsWith('/library/') && <Navbar1Demo />}
+            <main className={`flex-grow ${isFullScreenPage ? 'h-screen' : ''}`}>{children}</main>
+            {showLayout && !pathname.startsWith('/library/') && <Footer
                 className="mt-20"
                 brand={{
                   name: "CaseMap",
@@ -113,7 +115,7 @@ export default function RootLayoutContent({
                 ]}
                 copyright="CaseMap Inc. © ২০২৪ সর্বসত্ত্ব সংরক্ষিত"
               />}
-            {showLayout && <Chatbot />}
+            {showLayout && !pathname.startsWith('/library/') && <Chatbot />}
             <LoginPrompt />
         </>
     )

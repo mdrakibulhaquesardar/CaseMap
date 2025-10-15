@@ -4,13 +4,12 @@
 import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Phone, Copy, Search, Shield, Ambulance, Scale, Building, Hospital, Lightbulb, Train, Star, User } from 'lucide-react';
+import { Phone, Copy, Search, Shield, Ambulance, Scale, Building, Hospital, Lightbulb, Train, Star } from 'lucide-react';
 import { PhonebookContact } from '@/types';
 import { phonebookContacts as allContacts } from '@/lib/phonebook-data';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { useToast } from '@/hooks/use-toast';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const iconMap: { [key: string]: React.ElementType } = {
@@ -53,13 +52,11 @@ export default function PhonebookClient() {
   const groupedContacts = useMemo(() => {
     const groups: { [key: string]: PhonebookContact[] } = {};
     
-    // Add favorites to their own group first
     const favoriteContacts = filteredContacts.filter(c => favorites.includes(c.id));
     if (favoriteContacts.length > 0) {
       groups['⭐ পছন্দের তালিকা'] = favoriteContacts;
     }
 
-    // Add other contacts
     filteredContacts.forEach(contact => {
       if (!favorites.includes(contact.id)) {
         if (!groups[contact.category]) {
@@ -73,7 +70,7 @@ export default function PhonebookClient() {
   }, [filteredContacts, favorites]);
 
   return (
-    <div className="bg-background text-foreground min-h-screen">
+    <div className="bg-background text-foreground h-full overflow-y-auto">
       <div className="container mx-auto px-4 py-8">
         <header className="text-center mb-12">
           <h1 className="text-4xl font-bold font-headline">বাংলাদেশ ফোনবুক 📞</h1>
@@ -121,18 +118,18 @@ export default function PhonebookClient() {
                            </Avatar>
                            <div>
                                 <p className="font-semibold text-foreground">{contact.name}</p>
-                                <Badge variant="outline" className="mt-1 text-xs">{contact.category}</Badge>
+                                <p className="text-sm text-muted-foreground">{contact.number}</p>
                            </div>
                         </div>
-                        <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="flex items-center gap-1">
                             <Button variant="ghost" size="icon" onClick={() => toggleFavorite(contact.id)}>
-                                <Star className={`w-5 h-5 transition-colors ${isFavorite ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground'}`}/>
+                                <Star className={`w-5 h-5 transition-colors ${isFavorite ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground opacity-0 group-hover:opacity-100'}`}/>
                             </Button>
-                            <Button variant="ghost" size="icon" onClick={() => handleCopy(contact.number)}>
+                            <Button variant="ghost" size="icon" className="opacity-0 group-hover:opacity-100" onClick={() => handleCopy(contact.number)}>
                                 <Copy className="w-5 h-5 text-muted-foreground"/>
                             </Button>
                              <a href={`tel:${contact.number}`}>
-                                <Button variant="ghost" size="icon">
+                                <Button variant="ghost" size="icon" className="opacity-0 group-hover:opacity-100">
                                     <Phone className="w-5 h-5 text-muted-foreground"/>
                                 </Button>
                             </a>
