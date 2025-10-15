@@ -15,6 +15,7 @@ import {
   Handshake,
   Bot,
   Library,
+  Phone,
 } from "lucide-react";
 
 // Define a map for icons
@@ -29,6 +30,7 @@ const iconMap: { [key: string]: LucideIcon } = {
   Handshake,
   Bot,
   Library,
+  Phone,
 };
 
 

@@ -18,7 +18,7 @@ export default function RootLayoutContent({
     return (
         <>
             {showLayout && <Navbar1Demo />}
-            <main className={`flex-grow ${pathname === '/chatbot' || pathname.startsWith('/library/') ? 'h-screen' : ''}`}>{children}</main>
+            <main className={`flex-grow ${pathname === '/chatbot' || pathname.startsWith('/library/') || pathname === '/phonebook' ? 'h-screen' : ''}`}>{children}</main>
             {showLayout && <Footer
                 className="mt-20"
                 brand={{
@@ -82,6 +82,11 @@ export default function RootLayoutContent({
                         name: "নলেজ লাইব্রেরি",
                         iconName: "Library",
                         href: "/library",
+                      },
+                       {
+                        name: "ফোনবুক",
+                        iconName: "Phone",
+                        href: "/phonebook",
                       },
                       {
                         name: "সেরা অবদানকারী",

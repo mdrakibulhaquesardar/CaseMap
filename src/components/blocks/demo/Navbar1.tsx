@@ -14,7 +14,8 @@ import {
   Users,
   Info,
   Bot,
-  Library
+  Library,
+  Phone,
 } from "lucide-react";
 import { useLoginPrompt } from "@/components/ui/login-prompt";
 
@@ -80,6 +81,12 @@ const menuItems = [
           description: "আইনি নথি, বই ও রিসোর্স ব্রাউজ করুন।",
           icon: <Library className="size-5 shrink-0" />,
           url: "/library",
+        },
+        {
+            title: "ফোনবুক",
+            description: "জরুরি ও সরকারি পরিষেবার নম্বর খুঁজুন।",
+            icon: <Phone className="size-5 shrink-0" />,
+            url: "/phonebook",
         },
       ],
     },

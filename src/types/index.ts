@@ -70,3 +70,10 @@ export type LibraryDocument = {
   filePath: string;
   thumbnail?: string;
 };
+
+export type PhonebookContact = {
+  id: string;
+  name: string;
+  number: string;
+  category: 'জরুরি পরিষেবা' | 'আইনশৃঙ্খলা বাহিনী' | 'আইনি ও ভোক্তা অধিকার' | 'সরকারি অফিস' | 'স্বাস্থ্য' | 'ইউটিলিটি' | 'পরিবহন';
+};
