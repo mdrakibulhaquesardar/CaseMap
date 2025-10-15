@@ -73,7 +73,7 @@ export default function PhonebookClient() {
     <div className="bg-background text-foreground h-full overflow-y-auto">
       <div className="container mx-auto px-4 py-8">
         <header className="text-center mb-12">
-          <h1 className="text-4xl font-bold font-headline">বাংলাদেশ ফোনবুক 📞</h1>
+          <h1 className="text-4xl font-bold font-headline">বাংলাদেশ ফোনবুক</h1>
           <p className="text-muted-foreground mt-2">জরুরি ও সরকারি পরিষেবার নম্বর সহজেই খুঁজুন।</p>
           <div className="max-w-lg mx-auto mt-6 relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
