@@ -17,12 +17,12 @@ export default function PdfViewer({ document }: { document: LibraryDocument }) {
           <Button asChild variant="outline">
             <a href={document.filePath} download>
               <Download className="mr-2 h-4 w-4" />
-              Download
+              ডাউনলোড
             </a>
           </Button>
           <Button size="icon" variant="ghost" onClick={() => router.back()}>
             <X className="h-5 w-5" />
-            <span className="sr-only">Close</span>
+            <span className="sr-only">বন্ধ করুন</span>
           </Button>
         </div>
       </header>

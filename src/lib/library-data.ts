@@ -22,8 +22,8 @@ export const libraryDocuments: LibraryDocument[] = [
   },
   {
     slug: 'digital-security-act-2018',
-    title: 'Digital Security Act, 2018',
-    author: 'Government of Bangladesh',
+    title: 'ডিজিটাল নিরাপত্তা আইন, ২০১৮',
+    author: 'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
     category: 'Law & Acts',
     published: '2018-10-08',
     filePath: '/library/digital-security-act-2018.pdf',
@@ -31,8 +31,8 @@ export const libraryDocuments: LibraryDocument[] = [
   },
   {
     slug: 'cyber-security-act-2023',
-    title: 'Cyber Security Act, 2023',
-    author: 'Government of Bangladesh',
+    title: 'সাইবার নিরাপত্তা আইন, ২০২৩',
+    author: 'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
     category: 'Law & Acts',
     published: '2023-09-18',
     filePath: '/library/cyber-security-act-2023.pdf',
@@ -41,7 +41,7 @@ export const libraryDocuments: LibraryDocument[] = [
   {
     slug: 'online-safety-guide',
     title: 'আপনার অনলাইন সুরক্ষা নিশ্চিত করার উপায়',
-    author: 'Tech Shohai',
+    author: 'টেক সহাই',
     category: 'Legal Awareness',
     published: '2024-01-15',
     filePath: '/library/online-safety-guide-bn.pdf',
@@ -50,7 +50,7 @@ export const libraryDocuments: LibraryDocument[] = [
   {
     slug: 'land-law-basics',
     title: 'ভূমি আইনের প্রাথমিক ধারণা',
-    author: 'Dr. Ainun Nishat',
+    author: 'ড. আইনুন নিশাত',
     category: 'Books / Publications',
     published: '2023-05-20',
     filePath: '/library/land-law-basics.pdf',
@@ -59,7 +59,7 @@ export const libraryDocuments: LibraryDocument[] = [
   {
     slug: 'consumer-rights-guide',
     title: 'ভোক্তা হিসেবে আপনার অধিকার',
-    author: 'Consumer Association of BD',
+    author: 'কনজ্যুমারস অ্যাসোসিয়েশন অব বিডি',
     category: 'Rights & Guidelines',
     published: '2023-03-15',
     filePath: '/library/consumer-rights-guide.pdf',
@@ -68,7 +68,7 @@ export const libraryDocuments: LibraryDocument[] = [
   {
     slug: 'human-rights-in-bangladesh',
     title: 'মানবাধিকার পরিস্থিতি: বাংলাদেশ',
-    author: 'Ain o Salish Kendra (ASK)',
+    author: 'আইন ও সালিশ কেন্দ্র (আসক)',
     category: 'Books / Publications',
     published: '2024-03-01',
     filePath: '/library/human-rights-bangladesh.pdf',
@@ -76,8 +76,8 @@ export const libraryDocuments: LibraryDocument[] = [
   },
   {
     slug: 'the-penal-code-1860',
-    title: 'The Penal Code, 1860',
-    author: 'British India Government',
+    title: 'দণ্ডবিধি, ১৮৬০',
+    author: 'ব্রিটিশ ভারত সরকার',
     category: 'Law & Acts',
     published: '1860-10-06',
     filePath: '/library/penal-code-1860.pdf',
@@ -85,8 +85,8 @@ export const libraryDocuments: LibraryDocument[] = [
   },
    {
     slug: 'factfulness',
-    title: 'Factfulness',
-    author: 'Hans Rosling',
+    title: 'ফ্যাক্টফুলনেস',
+    author: 'হ্যান্স রোজলিং',
     category: 'Books / Publications',
     published: '2018-04-03',
     filePath: '/library/human-rights-bangladesh.pdf',

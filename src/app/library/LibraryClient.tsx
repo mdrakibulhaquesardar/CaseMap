@@ -20,18 +20,29 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 const ITEMS_PER_PAGE = 10;
-const categories = ['All', 'Constitution', 'Law & Acts', 'Legal Awareness', 'Books / Publications', 'Rights & Guidelines'];
+const categories = ['সব', 'সংবিধান', 'আইন ও বিধান', 'আইনি সচেতনতা', 'বই / প্রকাশনা', 'অধিকার ও নির্দেশিকা'];
+
+const categoryMapping: { [key: string]: string } = {
+  'সব': 'All',
+  'সংবিধান': 'Constitution',
+  'আইন ও বিধান': 'Law & Acts',
+  'আইনি সচেতনতা': 'Legal Awareness',
+  'বই / প্রকাশনা': 'Books / Publications',
+  'অধিকার ও নির্দেশিকা': 'Rights & Guidelines',
+};
+
 
 export default function LibraryClient({ documents }: { documents: LibraryDocument[] }) {
-  const [category, setCategory] = useState('All');
+  const [category, setCategory] = useState('সব');
   const [currentPage, setCurrentPage] = useState(1);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
   const filteredAndSortedDocuments = useMemo(() => {
     let filtered = documents;
-
-    if (category !== 'All') {
-      filtered = filtered.filter(doc => doc.category === category);
+    
+    const englishCategory = categoryMapping[category];
+    if (englishCategory !== 'All') {
+      filtered = filtered.filter(doc => doc.category === englishCategory);
     }
 
     // Default sort by newest
@@ -49,7 +60,7 @@ export default function LibraryClient({ documents }: { documents: LibraryDocumen
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           {categories.map(cat => (
             <Button
               key={cat}
@@ -58,12 +69,12 @@ export default function LibraryClient({ documents }: { documents: LibraryDocumen
               className={cn("rounded-full", category === cat ? "bg-primary text-primary-foreground" : "text-muted-foreground")}
               onClick={() => { setCategory(cat); setCurrentPage(1); }}
             >
-              {cat === 'All' ? 'Popular' : cat}
+              {cat}
             </Button>
           ))}
         </div>
         <Button variant="link" size="sm" onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}>
-          Next ▸
+          পরবর্তী ▸
         </Button>
       </div>
 
@@ -89,12 +100,12 @@ export default function LibraryClient({ documents }: { documents: LibraryDocumen
                            >
                               <Button asChild className="w-full">
                                 <Link href={`/library/${doc.slug}`}>
-                                  <BookOpen className="mr-2 h-4 w-4" /> Read
+                                  <BookOpen className="mr-2 h-4 w-4" /> পড়ুন
                                 </Link>
                               </Button>
                               <Button asChild variant="outline" className="w-full bg-white/20 text-white border-white/50 backdrop-blur-sm">
                                 <a href={doc.filePath} download>
-                                  <Download className="mr-2 h-4 w-4" /> Download
+                                  <Download className="mr-2 h-4 w-4" /> ডাউনলোড
                                 </a>
                               </Button>
                            </motion.div>
@@ -111,8 +122,8 @@ export default function LibraryClient({ documents }: { documents: LibraryDocumen
       ) : (
         <div className="text-center py-20 text-muted-foreground">
             <Search className="w-12 h-12 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold">No Documents Found</h3>
-            <p>Try adjusting your filter criteria.</p>
+            <h3 className="text-xl font-semibold">কোনো নথি পাওয়া যায়নি</h3>
+            <p>আপনার ফিল্টার মানদণ্ড পরিবর্তন করার চেষ্টা করুন।</p>
         </div>
       )}
 
