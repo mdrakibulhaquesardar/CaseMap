@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import ChatbotClient from './ChatbotClient';
 import { 
   SidebarProvider, 
@@ -12,166 +12,226 @@ import {
   SidebarGroup,
 } from '@/components/ui/sidebar';
 import { CardTitle } from '@/components/ui/card';
-import { PanelLeft, MessageSquare, MessageSquarePlus, Trash2 } from 'lucide-react';
+import { PanelLeft, MessageSquare, MessageSquarePlus, Trash2, MoreHorizontal } from 'lucide-react';
 import { lawChat } from '@/ai/flows/law-chatbot';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
+import { isToday, isYesterday, isWithinInterval, subDays, formatDistanceToNow, parseISO } from 'date-fns';
+import { bn } from 'date-fns/locale';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 interface Message {
   role: 'user' | 'model';
   content: string;
+  timestamp?: string;
 }
 
-type ChatSession = Message[];
+type ChatSession = {
+  id: string;
+  messages: Message[];
+  createdAt: string;
+};
 
 const GREETING_MESSAGE: Message = {
     role: 'model',
     content: 'আস-সালামু আলাইকুম! আমি আপনার AI আইনি সহকারী। বাংলাদেশের আইন ও অধিকার সম্পর্কে জানতে প্রশ্ন করুন।',
+    timestamp: new Date().toISOString(),
 };
 
 export default function ChatbotPage() {
-  const [chatHistory, setChatHistory] = useLocalStorage<ChatSession[]>('chatHistory', []);
-  const [activeChatId, setActiveChatId] = useState<number | null>(null);
+  const [chatHistory, setChatHistory] = useLocalStorage<ChatSession[]>('law-chatHistory', []);
+  const [activeChatId, setActiveChatId] = useLocalStorage<string | null>('law-activeChatId', null);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (chatHistory.length === 0) {
-      setActiveChatId(0);
-      setChatHistory([[GREETING_MESSAGE]]);
-    } else if (activeChatId === null) {
-      setActiveChatId(chatHistory.length - 1);
+      const newChatId = Date.now().toString();
+      setActiveChatId(newChatId);
+      setChatHistory([{ id: newChatId, messages: [GREETING_MESSAGE], createdAt: new Date().toISOString() }]);
+    } else if (!activeChatId || !chatHistory.find(c => c.id === activeChatId)) {
+      setActiveChatId(chatHistory[chatHistory.length - 1].id);
     }
   }, []);
 
   const activeMessages = useMemo(() => {
-    if (activeChatId !== null && chatHistory[activeChatId]) {
-      return chatHistory[activeChatId];
-    }
-    return [GREETING_MESSAGE];
+    const activeChat = chatHistory.find(chat => chat.id === activeChatId);
+    return activeChat ? activeChat.messages : [];
   }, [chatHistory, activeChatId]);
 
   const handleSend = async (messageToSend?: string) => {
     const currentMessage = messageToSend || input;
-    if (!currentMessage.trim()) return;
+    if (!currentMessage.trim() || !activeChatId) return;
 
-    const userMessage: Message = { role: 'user', content: currentMessage };
+    const userMessage: Message = { role: 'user', content: currentMessage, timestamp: new Date().toISOString() };
     
-    let currentChatId = activeChatId;
-
-    // If the current chat is just the greeting, start a new one
-    if (activeChatId === null || activeMessages.length === 1 && activeMessages[0].content === GREETING_MESSAGE.content) {
-        currentChatId = chatHistory.length;
-        setChatHistory(prev => [...prev, [userMessage]]);
-        setActiveChatId(currentChatId);
-    } else {
-        setChatHistory(prev => {
-            const newHistory = [...prev];
-            if(currentChatId !== null) {
-                newHistory[currentChatId] = [...newHistory[currentChatId], userMessage];
-            }
-            return newHistory;
-        });
-    }
+    setChatHistory(prev => 
+      prev.map(chat => 
+        chat.id === activeChatId 
+        ? { ...chat, messages: [...chat.messages, userMessage] }
+        : chat
+      )
+    );
 
     setInput('');
     setIsLoading(true);
 
     try {
-      const apiHistory = (currentChatId !== null ? chatHistory[currentChatId] : []).filter(m => m.content !== GREETING_MESSAGE.content);
+      const activeChat = chatHistory.find(chat => chat.id === activeChatId);
+      const apiHistory = activeChat ? activeChat.messages.filter(m => m.content !== GREETING_MESSAGE.content).map(({role, content}) => ({role, content})) : [];
       
       const result = await lawChat({
         history: apiHistory,
         message: currentMessage,
       });
-      const modelMessage: Message = { role: 'model', content: result.response };
+
+      const modelMessage: Message = { role: 'model', content: result.response, timestamp: new Date().toISOString() };
       
-      setChatHistory(prev => {
-        const newHistory = [...prev];
-        if(currentChatId !== null) {
-            newHistory[currentChatId] = [...newHistory[currentChatId], modelMessage];
-        }
-        return newHistory;
-      });
+      setChatHistory(prev => 
+        prev.map(chat => 
+          chat.id === activeChatId
+          ? { ...chat, messages: [...chat.messages, modelMessage] }
+          : chat
+        )
+      );
 
     } catch (error) {
       console.error('Law Chatbot error:', error);
       const errorMessage: Message = {
         role: 'model',
         content: 'দুঃখিত, একটি সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।',
+        timestamp: new Date().toISOString()
       };
-      setChatHistory(prev => {
-        const newHistory = [...prev];
-        if(currentChatId !== null) {
-            newHistory[currentChatId] = [...newHistory[currentChatId], errorMessage];
-        }
-        return newHistory;
-      });
+      setChatHistory(prev => 
+        prev.map(chat => 
+          chat.id === activeChatId
+          ? { ...chat, messages: [...chat.messages, errorMessage] }
+          : chat
+        )
+      );
     } finally {
       setIsLoading(false);
     }
   };
   
   const handleNewChat = () => {
-    const newChatId = chatHistory.length;
-    setChatHistory(prev => [...prev, [GREETING_MESSAGE]]);
+    const newChatId = Date.now().toString();
+    const newChat: ChatSession = {
+        id: newChatId,
+        messages: [GREETING_MESSAGE],
+        createdAt: new Date().toISOString(),
+    };
+    setChatHistory(prev => [...prev, newChat]);
     setActiveChatId(newChatId);
   }
 
-  const handleDeleteChat = (e: React.MouseEvent, index: number) => {
+  const handleDeleteChat = (e: React.MouseEvent, chatId: string) => {
     e.stopPropagation();
     setChatHistory(prev => {
-        const newHistory = prev.filter((_, i) => i !== index);
+        const newHistory = prev.filter(chat => chat.id !== chatId);
         if (newHistory.length === 0) {
-            setActiveChatId(0);
-            return [[GREETING_MESSAGE]];
+            const newChatId = Date.now().toString();
+            setActiveChatId(newChatId);
+            return [{ id: newChatId, messages: [GREETING_MESSAGE], createdAt: new Date().toISOString() }];
         }
-        if (activeChatId === index) {
-            setActiveChatId(newHistory.length - 1);
-        } else if (activeChatId !== null && activeChatId > index) {
-            setActiveChatId(activeChatId - 1);
+        if (activeChatId === chatId) {
+            setActiveChatId(newHistory[newHistory.length - 1].id);
         }
         return newHistory;
     });
   }
 
   const getChatTitle = (chat: ChatSession) => {
-    const userMessage = chat.find(m => m.role === 'user');
+    const userMessage = chat.messages.find(m => m.role === 'user');
     return userMessage ? userMessage.content : 'নতুন চ্যাট';
   }
 
+  const groupedChats = useMemo(() => {
+    const groups: { [key: string]: ChatSession[] } = {
+      today: [],
+      yesterday: [],
+      previous7Days: [],
+      older: [],
+    };
+
+    const now = new Date();
+    
+    chatHistory.slice().reverse().forEach(chat => {
+      const chatDate = parseISO(chat.createdAt);
+      if (isToday(chatDate)) {
+        groups.today.push(chat);
+      } else if (isYesterday(chatDate)) {
+        groups.yesterday.push(chat);
+      } else if (isWithinInterval(chatDate, { start: subDays(now, 7), end: now })) {
+        groups.previous7Days.push(chat);
+      } else {
+        groups.older.push(chat);
+      }
+    });
+    return groups;
+  }, [chatHistory]);
+
+  const groupLabels: { [key: string]: string } = {
+    today: 'আজ',
+    yesterday: 'গতকাল',
+    previous7Days: 'পূর্ববর্তী ৭ দিন',
+    older: 'আরও পুরনো'
+  };
+
   const SidebarContentComponent = () => (
-    <div className="flex flex-col h-full">
-        <SidebarHeader className='flex justify-between items-center'>
-          <CardTitle>চ্যাট হিস্ট্রি</CardTitle>
+    <div className="flex flex-col h-full bg-card text-card-foreground">
+        <SidebarHeader className='flex justify-between items-center p-4 border-b'>
+          <CardTitle className="text-lg">সাম্প্রতিক কথোপকথন</CardTitle>
           <Button variant="ghost" size="icon" onClick={handleNewChat} className="text-foreground">
             <MessageSquarePlus className="w-5 h-5" />
           </Button>
         </SidebarHeader>
         <SidebarGroup className="flex-1 overflow-hidden p-0">
           <ScrollArea className="h-full">
-             <div className="p-2 space-y-1">
-                {chatHistory.map((chat, index) => (
-                    <Button 
-                        key={index} 
-                        variant="ghost" 
-                        onClick={() => setActiveChatId(index)}
-                        className={cn(
-                            "w-full justify-start h-auto py-2 px-3 text-left group",
-                            activeChatId === index && "bg-accent text-accent-foreground"
-                        )}
-                    >
-                        <MessageSquare className="w-4 h-4 mr-2 shrink-0" />
-                        <span className="truncate flex-1">{getChatTitle(chat)}</span>
-                        <Trash2 
-                            className="w-4 h-4 text-muted-foreground shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                            onClick={(e) => handleDeleteChat(e, index)}
-                        />
-                    </Button>
+             <Accordion type="multiple" defaultValue={['today', 'yesterday']} className="w-full p-2">
+                {Object.entries(groupedChats).map(([groupKey, chats]) => (
+                  chats.length > 0 && (
+                    <AccordionItem value={groupKey} key={groupKey} className="border-none">
+                      <AccordionTrigger className="py-2 px-2 text-xs text-muted-foreground font-semibold uppercase hover:no-underline justify-start gap-2">
+                         {groupLabels[groupKey]}
+                      </AccordionTrigger>
+                      <AccordionContent className="pb-0">
+                        <div className="space-y-1">
+                          {chats.map((chat) => (
+                              <Button 
+                                  key={chat.id} 
+                                  variant="ghost" 
+                                  onClick={() => setActiveChatId(chat.id)}
+                                  className={cn(
+                                      "w-full justify-start h-auto py-2 px-3 text-left group",
+                                      activeChatId === chat.id && "bg-accent text-accent-foreground"
+                                  )}
+                              >
+                                  <MessageSquare className="w-4 h-4 mr-2 shrink-0" />
+                                  <span className="truncate flex-1">{getChatTitle(chat)}</span>
+                                  <div className="flex items-center">
+                                    <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100" onClick={(e) => handleDeleteChat(e, chat.id)}>
+                                        <Trash2 className="w-4 h-4 text-muted-foreground"/>
+                                    </Button>
+                                    <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100">
+                                        <MoreHorizontal className="w-4 h-4 text-muted-foreground" />
+                                    </Button>
+                                  </div>
+                              </Button>
+                          ))}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  )
                 ))}
-             </div>
+             </Accordion>
           </ScrollArea>
         </SidebarGroup>
     </div>
@@ -180,22 +240,17 @@ export default function ChatbotPage() {
   return (
     <SidebarProvider>
         <div className="h-screen w-full flex bg-background relative">
-             <Sidebar side="left" className="hidden lg:flex">
-                <SidebarContent className='bg-card'>
+             <Sidebar side="left" collapsible="icon">
+                <SidebarContent>
                   <SidebarContentComponent />
                 </SidebarContent>
             </Sidebar>
 
             <div className="flex-1 flex flex-col h-screen">
                  <div className="absolute top-4 left-4 z-20">
-                    <SidebarTrigger className="lg:hidden text-white">
+                    <SidebarTrigger className="text-white">
                         <PanelLeft />
                     </SidebarTrigger>
-                    <Sidebar side="left" className="lg:hidden">
-                       <SidebarContent className='bg-card'>
-                         <SidebarContentComponent />
-                       </SidebarContent>
-                    </Sidebar>
                 </div>
                 <ChatbotClient 
                     messages={activeMessages}
