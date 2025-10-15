@@ -72,19 +72,20 @@ export default function ChatbotPage() {
 
     const userMessage: Message = { role: 'user', content: currentMessage, timestamp: new Date().toISOString() };
     
-    setChatHistory(prev => 
-      prev.map(chat => 
-        chat.id === activeChatId 
-        ? { ...chat, messages: [...chat.messages, userMessage] }
-        : chat
-      )
-    );
-
     setInput('');
     setIsLoading(true);
 
+    // Update state with user message first
+    const updatedChatHistory = chatHistory.map(chat => 
+      chat.id === activeChatId 
+      ? { ...chat, messages: [...chat.messages, userMessage] }
+      : chat
+    );
+    setChatHistory(updatedChatHistory);
+
     try {
-      const activeChat = chatHistory.find(chat => chat.id === activeChatId);
+      // Find the active chat from the *updated* history
+      const activeChat = updatedChatHistory.find(chat => chat.id === activeChatId);
       const apiHistory = activeChat ? activeChat.messages.filter(m => m.content !== GREETING_MESSAGE.content).map(({role, content}) => ({role, content})) : [];
       
       const result = await lawChat({
@@ -94,6 +95,7 @@ export default function ChatbotPage() {
 
       const modelMessage: Message = { role: 'model', content: result.response, timestamp: new Date().toISOString() };
       
+      // Update state with model's response
       setChatHistory(prev => 
         prev.map(chat => 
           chat.id === activeChatId
