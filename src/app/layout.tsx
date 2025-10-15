@@ -7,6 +7,7 @@ import { Navbar1Demo } from '@/components/blocks/demo/Navbar1';
 import { ThemeProvider } from '@/components/theme-provider';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import RootLayoutContent from './RootLayoutContent';
+import { LoginPromptProvider } from '@/components/ui/login-prompt';
 
 export const metadata: Metadata = {
   title: 'CaseMap Legal Assistant',
@@ -34,9 +35,11 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
           >
-            <RootLayoutContent>
-              {children}
-            </RootLayoutContent>
+            <LoginPromptProvider>
+              <RootLayoutContent>
+                {children}
+              </RootLayoutContent>
+            </LoginPromptProvider>
             <Toaster />
           </ThemeProvider>
         </FirebaseClientProvider>

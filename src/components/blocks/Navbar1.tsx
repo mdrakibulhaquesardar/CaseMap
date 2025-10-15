@@ -31,6 +31,7 @@ interface MenuItem {
   description?: string;
   icon?: JSX.Element;
   items?: MenuItem[];
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 interface AuthLink {
@@ -64,84 +65,8 @@ const Navbar1 = ({
     alt: "logo",
     title: "Shadcnblocks.com",
   },
-  menu = [
-    { title: "Home", url: "#" },
-    {
-      title: "Products",
-      url: "#",
-      items: [
-        {
-          title: "Blog",
-          description: "The latest industry news, updates, and info",
-          icon: <Book className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Company",
-          description: "Our mission is to innovate and empower the world",
-          icon: <Trees className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Careers",
-          description: "Browse job listing and discover our workspace",
-          icon: <Sunset className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Support",
-          description:
-            "Get in touch with our support team or visit our community forums",
-          icon: <Zap className="size-5 shrink-0" />,
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Resources",
-      url: "#",
-      items: [
-        {
-          title: "Help Center",
-          description: "Get all the answers you need right here",
-          icon: <Zap className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Contact Us",
-          description: "We are here to help you with any questions you have",
-          icon: <Sunset className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Status",
-          description: "Check the current status of our services and APIs",
-          icon: <Trees className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Terms of Service",
-          description: "Our terms and conditions for using our services",
-          icon: <Book className="size-5 shrink-0" />,
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Pricing",
-      url: "#",
-    },
-    {
-      title: "Blog",
-      url: "#",
-    },
-  ],
-  mobileExtraLinks = [
-    { name: "Press", url: "#" },
-    { name: "Contact", url: "#" },
-    { name: "Imprint", url: "#" },
-    { name: "Sitemap", url: "#" },
-  ],
+  menu = [],
+  mobileExtraLinks = [],
   auth = {
     login: { text: "Log in", url: "#" },
     signup: { text: "Sign up", url: "#" },
@@ -240,7 +165,7 @@ const renderMenuItem = (item: MenuItem) => {
   if (item.items) {
     return (
       <NavigationMenuItem key={item.title}>
-        <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
+        <NavigationMenuTrigger onClick={item.onClick}>{item.title}</NavigationMenuTrigger>
         <NavigationMenuContent>
           <ul className="w-80 p-3">
             {item.items.map((subItem) => (
@@ -249,6 +174,7 @@ const renderMenuItem = (item: MenuItem) => {
                   <Link
                     className="flex select-none gap-4 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground"
                     href={subItem.url}
+                    onClick={subItem.onClick}
                   >
                     {subItem.icon}
                     <div>
@@ -273,7 +199,7 @@ const renderMenuItem = (item: MenuItem) => {
 
   return (
     <NavigationMenuItem key={item.title}>
-      <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+      <NavigationMenuLink asChild className={navigationMenuTriggerStyle()} onClick={item.onClick}>
         <Link href={item.url}>{item.title}</Link>
       </NavigationMenuLink>
     </NavigationMenuItem>
@@ -284,7 +210,7 @@ const renderMobileMenuItem = (item: MenuItem) => {
   if (item.items) {
     return (
       <AccordionItem key={item.title} value={item.title} className="border-b-0">
-        <AccordionTrigger className="py-0 font-semibold hover:no-underline">
+        <AccordionTrigger className="py-0 font-semibold hover:no-underline" onClick={item.onClick}>
           {item.title}
         </AccordionTrigger>
         <AccordionContent className="mt-2">
@@ -293,6 +219,7 @@ const renderMobileMenuItem = (item: MenuItem) => {
               key={subItem.title}
               className="flex select-none gap-4 rounded-md p-3 leading-none outline-none transition-colors hover:bg-muted hover:text-accent-foreground"
               href={subItem.url}
+              onClick={subItem.onClick}
             >
               {subItem.icon}
               <div>
@@ -311,7 +238,7 @@ const renderMobileMenuItem = (item: MenuItem) => {
   }
 
   return (
-    <Link key={item.title} href={item.url} className="font-semibold">
+    <Link key={item.title} href={item.url} className="font-semibold" onClick={item.onClick}>
       {item.title}
     </Link>
   );
