@@ -1,5 +1,5 @@
 
-import { Book, ChevronDown, Menu, Sunset, Trees, Zap } from "lucide-react";
+import { Book, Menu, Sunset, Trees, Zap } from "lucide-react";
 import Link from "next/link";
 import {
   Accordion,
