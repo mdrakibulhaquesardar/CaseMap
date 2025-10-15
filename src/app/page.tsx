@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search, Scale, BookOpen, Sparkles, ArrowRight, MessageSquare, FileText, Shield, Zap, Brain, Users, BrainCog } from 'lucide-react';
+import { Search, Scale, BookOpen, Sparkles, ArrowRight, MessageSquare, FileText, Shield, Zap, Brain, Users, BrainCog, Info } from 'lucide-react';
 import { TestimonialsSection } from '@/components/blocks/TestimonialsWithMarquee';
 import { PricingWithComparison } from '@/components/blocks/PricingWithComparison';
 import { Features } from '@/components/ui/features';
@@ -471,6 +471,12 @@ function FeaturesDemo() {
 export default function Home() {
     return (
     <>
+      <div className="bg-yellow-100 dark:bg-yellow-900/50 border-b border-yellow-200 dark:border-yellow-800/50 text-yellow-900 dark:text-yellow-200 p-3 text-center text-sm flex items-center justify-center gap-2">
+        <Info className="w-4 h-4" />
+        <p>
+          <strong>বেটা ভার্সন:</strong> এই সিস্টেমটি পরীক্ষামূলক পর্যায়ে রয়েছে। অনুগ্রহ করে প্রতিটি উত্তর যাচাই করে নিন।
+        </p>
+      </div>
       <CaseMapHero />
       <FeaturesSection />
       <FeaturesDemo />
@@ -484,3 +490,5 @@ export default function Home() {
     </>
     );
 }
+
+    
