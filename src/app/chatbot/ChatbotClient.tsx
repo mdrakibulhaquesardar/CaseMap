@@ -1,10 +1,9 @@
 
 'use client';
 
-import { useState, useRef, useEffect, useCallback, useTransition } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Bot, User, Loader2, Sparkles, XIcon, LoaderIcon } from 'lucide-react';
-import { lawChat } from '@/ai/flows/law-chatbot';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { motion } from 'framer-motion';
+import { Send, Bot, User, Loader2 } from 'lucide-react';
 import { useUser } from '@/firebase/auth/use-user';
 import { cn } from "@/lib/utils";
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -298,7 +297,3 @@ export default function ChatbotClient({
     </div>
   );
 }
-
-    
-
-    
