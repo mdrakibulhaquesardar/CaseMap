@@ -471,7 +471,7 @@ function FeaturesDemo() {
 export default function Home() {
     return (
     <>
-      <div className="bg-yellow-100 dark:bg-yellow-900/50 border-b border-yellow-200 dark:border-yellow-800/50 text-yellow-900 dark:text-yellow-200 p-3 text-center text-sm flex items-center justify-center gap-2">
+      <div className="bg-yellow-100 dark:bg-yellow-900/50 border-b border-yellow-200 dark:border-yellow-800/50 text-yellow-800 dark:text-yellow-200 p-2 text-center text-sm flex items-center justify-center gap-2">
         <Info className="w-4 h-4" />
         <p>
           <strong>বেটা ভার্সন:</strong> এই সিস্টেমটি পরীক্ষামূলক পর্যায়ে রয়েছে। অনুগ্রহ করে প্রতিটি উত্তর যাচাই করে নিন।
