@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
@@ -22,6 +23,7 @@ export function Chatbot() {
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useUser();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
@@ -32,7 +34,20 @@ export function Chatbot() {
         },
       ]);
     }
-  }, [isOpen]);
+  }, [isOpen, messages.length]);
+  
+  useEffect(() => {
+    const hasOpenedBefore = sessionStorage.getItem('chatbot-auto-opened');
+    if (!hasOpenedBefore) {
+      const timer = setTimeout(() => {
+        setIsOpen(true);
+        audioRef.current?.play().catch(error => console.error("Audio autoplay failed:", error));
+        sessionStorage.setItem('chatbot-auto-opened', 'true');
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   useEffect(() => {
     if (scrollAreaRef.current) {
@@ -79,6 +94,7 @@ export function Chatbot() {
 
   return (
     <>
+      <audio ref={audioRef} src="/notification.mp3" preload="auto" />
       <div className="fixed bottom-6 right-6 z-50">
         <Button
           onClick={() => setIsOpen(!isOpen)}
