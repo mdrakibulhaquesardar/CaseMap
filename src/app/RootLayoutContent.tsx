@@ -15,12 +15,13 @@ export default function RootLayoutContent({
 }>) {
     const pathname = usePathname();
     const showLayout = !['/login', '/signup'].includes(pathname);
-    const isFullScreenPage = ['/chatbot', '/library/[slug]'].some(p => pathname.includes(p.replace('/[slug]', '')));
+    const isFullScreenPage = ['/chatbot'].some(p => pathname.includes(p));
+    const isLibraryViewerPage = pathname.startsWith('/library/');
 
 
     return (
         <>
-            {showLayout && (
+            {showLayout && !isLibraryViewerPage && (
                 <div className="bg-yellow-100 dark:bg-yellow-900/50 border-b border-yellow-200 dark:border-yellow-800/50 text-yellow-900 dark:text-yellow-200 p-2 text-center text-sm flex items-center justify-center gap-2">
                     <Info className="w-4 h-4" />
                     <p>
@@ -28,9 +29,9 @@ export default function RootLayoutContent({
                     </p>
                 </div>
             )}
-            {showLayout && !pathname.startsWith('/library/') && <Navbar1Demo />}
-            <main className={`flex-grow ${isFullScreenPage ? 'h-screen' : ''}`}>{children}</main>
-            {showLayout && !pathname.startsWith('/library/') && <Footer
+            {showLayout && !isLibraryViewerPage && <Navbar1Demo />}
+            <main className={`flex-grow ${isFullScreenPage || isLibraryViewerPage ? 'h-screen' : ''}`}>{children}</main>
+            {showLayout && !isLibraryViewerPage && <Footer
                 className="mt-20"
                 brand={{
                   name: "CaseMap",
@@ -124,7 +125,7 @@ export default function RootLayoutContent({
                 ]}
                 copyright="CaseMap Inc. © ২০২৪ সর্বসত্ত্ব সংরক্ষিত"
               />}
-            {showLayout && !pathname.startsWith('/library/') && <Chatbot />}
+            {showLayout && !isLibraryViewerPage && <Chatbot />}
             <LoginPrompt />
         </>
     )
