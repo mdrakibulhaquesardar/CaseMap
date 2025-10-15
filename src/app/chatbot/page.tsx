@@ -113,7 +113,7 @@ export default function ChatbotPage() {
               </SidebarContent>
             </Sidebar>
 
-            <div className="flex-1 flex flex-col">
+            <div className="flex-1 flex flex-col h-screen">
                  <div className="absolute top-4 left-4 z-20">
                     <SidebarTrigger className="lg:hidden text-white">
                         <PanelLeft />
@@ -131,5 +131,7 @@ export default function ChatbotPage() {
     </SidebarProvider>
   );
 }
+
+    
 
     

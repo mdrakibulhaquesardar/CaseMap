@@ -7,6 +7,7 @@ import { Send, Bot, User, Loader2, Sparkles, XIcon, LoaderIcon } from 'lucide-re
 import { lawChat } from '@/ai/flows/law-chatbot';
 import { useUser } from '@/firebase/auth/use-user';
 import { cn } from "@/lib/utils";
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface Message {
   role: 'user' | 'model';
@@ -130,12 +131,13 @@ export default function ChatbotClient({
     }, []);
 
   useEffect(() => {
-    if (scrollAreaRef.current) {
-        setTimeout(() => {
-             if(scrollAreaRef.current) {
-                scrollAreaRef.current.scroll({ top: scrollAreaRef.current.scrollHeight, behavior: 'smooth' });
-            }
-        }, 100);
+     if (scrollAreaRef.current) {
+        const viewport = scrollAreaRef.current.querySelector('div[data-radix-scroll-area-viewport]');
+        if (viewport) {
+            setTimeout(() => {
+                viewport.scroll({ top: viewport.scrollHeight, behavior: 'smooth' });
+            }, 100);
+        }
     }
   }, [messages]);
   
@@ -149,7 +151,7 @@ export default function ChatbotClient({
   };
 
   return (
-    <div className="flex flex-col h-full items-center justify-center bg-transparent text-white w-full relative overflow-hidden">
+    <div className="flex flex-col h-full items-center bg-transparent text-white w-full relative overflow-hidden">
         <div className="absolute inset-0 w-full h-full overflow-hidden">
             <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full mix-blend-normal filter blur-[128px] animate-pulse" />
             <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full mix-blend-normal filter blur-[128px] animate-pulse delay-700" />
@@ -157,45 +159,47 @@ export default function ChatbotClient({
         </div>
 
         <div className="flex-1 w-full max-w-4xl mx-auto flex flex-col justify-end">
-            <div ref={scrollAreaRef} className="overflow-y-auto p-4 space-y-6 no-scrollbar">
-                {messages.map((msg, index) => (
-                    <motion.div
-                    key={index}
-                    className={`flex items-start gap-4 ${ msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                    >
-                    {msg.role === 'model' && (
-                        <div className="w-9 h-9 flex-shrink-0 rounded-full bg-primary/20 flex items-center justify-center">
-                            <Bot className="h-5 w-5 text-primary" />
-                        </div>
-                    )}
-                    <div className={`max-w-xl rounded-2xl px-4 py-3 text-sm shadow-sm ${ msg.role === 'user' ? 'bg-primary text-primary-foreground rounded-br-none' : 'bg-card text-card-foreground rounded-bl-none'}`}>
-                        <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
-                    </div>
-                    {msg.role === 'user' && user && (
-                        <div className="w-9 h-9 flex-shrink-0 rounded-full bg-muted flex items-center justify-center">
-                            <User className="h-5 w-5 text-muted-foreground" />
-                        </div>
-                    )}
-                    </motion.div>
-                ))}
-                 {isLoading && (
-                    <motion.div 
-                        className="flex items-start gap-4 justify-start"
+             <ScrollArea className="flex-1 w-full" ref={scrollAreaRef}>
+                 <div className="p-4 space-y-6">
+                    {messages.map((msg, index) => (
+                        <motion.div
+                        key={index}
+                        className={`flex items-start gap-4 ${ msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                    >
-                        <div className="w-9 h-9 flex-shrink-0 rounded-full bg-primary/20 flex items-center justify-center">
-                            <Bot className="h-5 w-5 text-primary" />
+                        transition={{ duration: 0.3 }}
+                        >
+                        {msg.role === 'model' && (
+                            <div className="w-9 h-9 flex-shrink-0 rounded-full bg-primary/20 flex items-center justify-center">
+                                <Bot className="h-5 w-5 text-primary" />
+                            </div>
+                        )}
+                        <div className={`max-w-xl rounded-2xl px-4 py-3 text-sm shadow-sm ${ msg.role === 'user' ? 'bg-primary text-primary-foreground rounded-br-none' : 'bg-card text-card-foreground rounded-bl-none'}`}>
+                            <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
                         </div>
-                        <div className="max-w-xl rounded-2xl px-4 py-3 bg-card text-card-foreground rounded-bl-none shadow-sm flex items-center">
-                            <TypingDots />
-                        </div>
-                    </motion.div>
-                )}
-            </div>
+                        {msg.role === 'user' && user && (
+                            <div className="w-9 h-9 flex-shrink-0 rounded-full bg-muted flex items-center justify-center">
+                                <User className="h-5 w-5 text-muted-foreground" />
+                            </div>
+                        )}
+                        </motion.div>
+                    ))}
+                    {isLoading && (
+                        <motion.div 
+                            className="flex items-start gap-4 justify-start"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                        >
+                            <div className="w-9 h-9 flex-shrink-0 rounded-full bg-primary/20 flex items-center justify-center">
+                                <Bot className="h-5 w-5 text-primary" />
+                            </div>
+                            <div className="max-w-xl rounded-2xl px-4 py-3 bg-card text-card-foreground rounded-bl-none shadow-sm flex items-center">
+                                <TypingDots />
+                            </div>
+                        </motion.div>
+                    )}
+                </div>
+            </ScrollArea>
         </div>
 
         <motion.div 
@@ -294,5 +298,7 @@ export default function ChatbotClient({
     </div>
   );
 }
+
+    
 
     
