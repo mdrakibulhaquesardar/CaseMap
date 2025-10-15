@@ -9,7 +9,7 @@ export const libraryDocuments: LibraryDocument[] = [
     category: 'Constitution',
     published: '2022-12-16',
     filePath: '/library/constitution-en.pdf',
-    thumbnail: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=400',
+    thumbnail: 'https://picsum.photos/seed/const1/400/600',
   },
   {
     slug: 'constitution-of-bangladesh-bn',
@@ -18,7 +18,7 @@ export const libraryDocuments: LibraryDocument[] = [
     category: 'Constitution',
     published: '2022-12-16',
     filePath: '/library/constitution-bn.pdf',
-    thumbnail: 'https://images.unsplash.com/photo-1550399105-c4db5fb85c18?q=80&w=400',
+    thumbnail: 'https://picsum.photos/seed/const2/400/600',
   },
   {
     slug: 'digital-security-act-2018',
@@ -27,7 +27,7 @@ export const libraryDocuments: LibraryDocument[] = [
     category: 'Law & Acts',
     published: '2018-10-08',
     filePath: '/library/digital-security-act-2018.pdf',
-    thumbnail: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=400',
+    thumbnail: 'https://picsum.photos/seed/dsa/400/600',
   },
   {
     slug: 'cyber-security-act-2023',
@@ -36,7 +36,7 @@ export const libraryDocuments: LibraryDocument[] = [
     category: 'Law & Acts',
     published: '2023-09-18',
     filePath: '/library/cyber-security-act-2023.pdf',
-    thumbnail: 'https://images.unsplash.com/photo-1614064548237-02f0d767078c?q=80&w=400',
+    thumbnail: 'https://picsum.photos/seed/csa/400/600',
   },
   {
     slug: 'online-safety-guide',
@@ -45,7 +45,7 @@ export const libraryDocuments: LibraryDocument[] = [
     category: 'Legal Awareness',
     published: '2024-01-15',
     filePath: '/library/online-safety-guide-bn.pdf',
-    thumbnail: 'https://images.unsplash.com/photo-1526374965328-5f61d4dc18c5?q=80&w=400',
+    thumbnail: 'https://picsum.photos/seed/safety/400/600',
   },
   {
     slug: 'land-law-basics',
@@ -54,7 +54,7 @@ export const libraryDocuments: LibraryDocument[] = [
     category: 'Books / Publications',
     published: '2023-05-20',
     filePath: '/library/land-law-basics.pdf',
-    thumbnail: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=400',
+    thumbnail: 'https://picsum.photos/seed/landlaw/400/600',
   },
   {
     slug: 'consumer-rights-guide',
@@ -63,7 +63,7 @@ export const libraryDocuments: LibraryDocument[] = [
     category: 'Rights & Guidelines',
     published: '2023-03-15',
     filePath: '/library/consumer-rights-guide.pdf',
-    thumbnail: 'https://images.unsplash.com/photo-1560520031-3a4dc2e27b87?q=80&w=400',
+    thumbnail: 'https://picsum.photos/seed/consumer/400/600',
   },
   {
     slug: 'human-rights-in-bangladesh',
@@ -72,7 +72,7 @@ export const libraryDocuments: LibraryDocument[] = [
     category: 'Books / Publications',
     published: '2024-03-01',
     filePath: '/library/human-rights-bangladesh.pdf',
-    thumbnail: 'https://images.unsplash.com/photo-1504754524776-8f4f37790774?q=80&w=400',
+    thumbnail: 'https://picsum.photos/seed/humanrights/400/600',
   },
   {
     slug: 'the-penal-code-1860',
@@ -81,7 +81,7 @@ export const libraryDocuments: LibraryDocument[] = [
     category: 'Law & Acts',
     published: '1860-10-06',
     filePath: '/library/penal-code-1860.pdf',
-    thumbnail: 'https://images.unsplash.com/photo-1589998059171-988d887df646?q=80&w=400',
+    thumbnail: 'https://picsum.photos/seed/penalcode/400/600',
   },
    {
     slug: 'factfulness',
@@ -90,6 +90,6 @@ export const libraryDocuments: LibraryDocument[] = [
     category: 'Books / Publications',
     published: '2018-04-03',
     filePath: '/library/human-rights-bangladesh.pdf',
-    thumbnail: 'https://media.istockphoto.com/id/1138654598/vector/book-cover-template.jpg?s=612x612&w=0&k=20&c=xD2-6e23TEgG6bDF61e_vAutor_G0efw6K-n8zC3s0-c=',
+    thumbnail: 'https://picsum.photos/seed/fact/400/600',
   },
 ];
