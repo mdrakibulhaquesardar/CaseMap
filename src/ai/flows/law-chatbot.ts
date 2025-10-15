@@ -22,7 +22,7 @@ export type LawChatInput = z.infer<typeof LawChatInputSchema>;
 const LawChatOutputSchema = z.object({
   response: z.string().describe('The AI-generated legal information in Bengali.'),
 });
-export type LawChatOutput = z-infer<typeof LawChatOutputSchema>;
+export type LawChatOutput = z.infer<typeof LawChatOutputSchema>;
 
 export async function lawChat(input: LawChatInput): Promise<LawChatOutput> {
   return lawChatFlow(input);
