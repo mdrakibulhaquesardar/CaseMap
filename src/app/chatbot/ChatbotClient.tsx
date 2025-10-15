@@ -93,10 +93,21 @@ function TypingDots() {
     );
 }
 
-export default function ChatbotClient() {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+interface ChatbotClientProps {
+    messages: Message[];
+    isLoading: boolean;
+    input: string;
+    setInput: (value: string) => void;
+    handleSend: (messageToSend?: string) => void;
+}
+
+export default function ChatbotClient({
+    messages,
+    isLoading,
+    input,
+    setInput,
+    handleSend
+}: ChatbotClientProps) {
   const { user } = useUser();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
    const { textareaRef, adjustHeight } = useAutoResizeTextarea({
@@ -106,16 +117,6 @@ export default function ChatbotClient() {
     const [inputFocused, setInputFocused] = useState(false);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  useEffect(() => {
-    if (messages.length === 0) {
-      setMessages([
-        {
-          role: 'model',
-          content: 'আস-সালামু আলাইকুম! আমি আপনার AI আইনি সহকারী। বাংলাদেশের আইন ও অধিকার সম্পর্কে জানতে প্রশ্ন করুন।',
-        },
-      ]);
-    }
-  }, [messages.length]);
 
   useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
@@ -142,40 +143,8 @@ export default function ChatbotClient() {
     if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
         if (input.trim()) {
-            handleSend();
+            handleSend(input);
         }
-    }
-  };
-
-  const handleSend = async (messageToSend?: string) => {
-    const currentMessage = messageToSend || input;
-    if (!currentMessage.trim()) return;
-
-    const userMessage: Message = { role: 'user', content: currentMessage };
-    setMessages((prev) => [...prev, userMessage]);
-    setInput('');
-    adjustHeight(true);
-    setIsLoading(true);
-
-    try {
-      // We pass the message history for context, excluding the initial welcome message.
-      const chatHistory = messages.filter(m => m.content !== 'আস-সালামু আলাইকুম! আমি আপনার AI আইনি সহকারী। বাংলাদেশের আইন ও অধিকার সম্পর্কে জানতে প্রশ্ন করুন।');
-      
-      const result = await lawChat({
-        history: chatHistory,
-        message: currentMessage,
-      });
-      const modelMessage: Message = { role: 'model', content: result.response };
-      setMessages((prev) => [...prev, modelMessage]);
-    } catch (error) {
-      console.error('Law Chatbot error:', error);
-      const errorMessage: Message = {
-        role: 'model',
-        content: 'দুঃখিত, একটি সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।',
-      };
-      setMessages((prev) => [...prev, errorMessage]);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -285,7 +254,7 @@ export default function ChatbotClient() {
                 <div className="p-2 sm:p-4 border-t border-border/50 flex items-center justify-end gap-4">
                     <motion.button
                         type="button"
-                        onClick={() => handleSend()}
+                        onClick={() => handleSend(input)}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         disabled={isLoading || !input.trim()}
@@ -325,3 +294,5 @@ export default function ChatbotClient() {
     </div>
   );
 }
+
+    
