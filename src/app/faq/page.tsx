@@ -25,7 +25,7 @@ function FaqPage() {
             <div>
                 <h1 className="text-4xl font-bold font-headline">কমিউনিটি প্রশ্নোত্তর</h1>
                 <p className="mt-2 text-muted-foreground">
-                    আপনার আইনি প্রশ্ন করুন এবং আমাদের AI ও কমিউনিটির কাছ থেকে উত্তর পান।
+                    আপনার আইনি প্রশ্ন করুন এবং আমাদের AI ও কমিউনিটির কাছ থেকে উত্তর পাবেন।
                 </p>
             </div>
             <Button size="lg" asChild>
