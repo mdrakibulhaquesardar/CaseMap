@@ -165,16 +165,15 @@ const renderMenuItem = (item: MenuItem) => {
   if (item.items) {
     return (
       <NavigationMenuItem key={item.title}>
-        <NavigationMenuTrigger onClick={item.onClick}>{item.title}</NavigationMenuTrigger>
+        <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
         <NavigationMenuContent>
           <ul className="w-80 p-3">
             {item.items.map((subItem) => (
-              <li key={subItem.title}>
+              <li key={subItem.title} onClick={subItem.onClick}>
                  <NavigationMenuLink asChild>
                   <Link
                     className="flex select-none gap-4 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground"
                     href={subItem.url}
-                    onClick={subItem.onClick}
                   >
                     {subItem.icon}
                     <div>
@@ -210,7 +209,7 @@ const renderMobileMenuItem = (item: MenuItem) => {
   if (item.items) {
     return (
       <AccordionItem key={item.title} value={item.title} className="border-b-0">
-        <AccordionTrigger className="py-0 font-semibold hover:no-underline" onClick={item.onClick}>
+        <AccordionTrigger className="py-0 font-semibold hover:no-underline">
           {item.title}
         </AccordionTrigger>
         <AccordionContent className="mt-2">

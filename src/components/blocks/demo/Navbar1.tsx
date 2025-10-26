@@ -27,7 +27,6 @@ const menuItems = [
     {
       title: "টুলস",
       url: "#",
-      isProtected: true,
       items: [
         {
           title: "AI আইনি চ্যাট",
@@ -67,7 +66,6 @@ const menuItems = [
      {
       title: "কমিউনিটি",
       url: "#",
-      isProtected: true,
       items: [
         {
           title: "প্রশ্নোত্তর",
@@ -133,19 +131,25 @@ function Navbar1Demo() {
       };
 
   const processedMenu = useMemo(() => {
-    const processItems = (items: any[]) => {
+    const processItems = (items: any[]): any[] => {
       return items.map(item => {
         const newItem = { ...item };
-        if (item.isProtected && !user) {
+        
+        // If the item itself is protected and user is not logged in
+        if (newItem.isProtected && !user) {
           newItem.onClick = (e: React.MouseEvent) => {
             e.preventDefault();
+            e.stopPropagation();
             setShowLoginPrompt(true);
           };
-          newItem.url = '#';
+          newItem.url = '#'; 
         }
-        if (item.items) {
-          newItem.items = processItems(item.items);
+
+        // If the item has sub-items, process them recursively
+        if (newItem.items) {
+          newItem.items = processItems(newItem.items);
         }
+        
         return newItem;
       });
     };
