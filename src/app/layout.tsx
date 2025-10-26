@@ -10,7 +10,7 @@ import RootLayoutContent from './RootLayoutContent';
 import { LoginPromptProvider } from '@/components/ui/login-prompt';
 
 export const metadata: Metadata = {
-  title: 'CaseMap Legal Assistant',
+  title: 'Odhikar Legal Assistant',
   description: 'AI-powered legal awareness and case tracking platform',
 };
 

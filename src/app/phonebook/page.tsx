@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import { Loader2 } from 'lucide-react';
 
 export const metadata = {
-  title: 'ফোনবুক - CaseMap',
+  title: 'ফোনবুক - Odhikar',
   description: 'বাংলাদেশের জরুরি, সরকারি এবং আইনি পরিষেবার ফোন নম্বর খুঁজুন।',
 };
 

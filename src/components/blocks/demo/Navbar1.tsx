@@ -96,7 +96,7 @@ const menuItems = [
        items: [
         {
           title: "আমাদের লক্ষ্য",
-          description: "CaseMap প্ল্যাটফর্মের উদ্দেশ্য সম্পর্কে জানুন।",
+          description: "Odhikar প্ল্যাটফর্মের উদ্দেশ্য সম্পর্কে জানুন।",
           icon: <Info className="size-5 shrink-0" />,
           url: "/about",
         },
@@ -120,8 +120,8 @@ const demoData = {
   logo: {
     url: "/",
     src: "/logo.png",
-    alt: "CaseMap Legal Companion",
-    title: "CaseMap",
+    alt: "Odhikar Legal Companion",
+    title: "Odhikar",
   },
   mobileExtraLinks: [
     { name: "প্রোফাইল", url: "/profile" },
@@ -169,14 +169,20 @@ function Navbar1Demo() {
             }
           };
           newItem.url = '#'; 
+        } else if (newItem.url !=='#' && newItem.isProtected && !user) {
+           newItem.onClick = (e: React.MouseEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setShowLoginPrompt(true);
+            if (originalOnClick) {
+              originalOnClick(e);
+            }
+          };
+          newItem.url = '#';
         }
 
         if (newItem.items) {
           newItem.items = processItems(newItem.items);
-          // Remove onClick from parent dropdown triggers that are not protected themselves.
-          if(!newItem.isProtected) {
-            delete newItem.onClick;
-          }
         }
         
         return newItem;

@@ -1,21 +1,21 @@
-# Product Requirements Document: CaseMap Legal Companion Mobile App
+# Product Requirements Document: Odhikar Legal Companion Mobile App
 
 ## 1. Introduction
 
-**Product Name**: CaseMap Legal Companion Mobile App
+**Product Name**: Odhikar Legal Companion Mobile App
 
-This document outlines the product requirements for the native mobile application for the CaseMap Legal Companion platform. The goal is to provide our users in Bangladesh with enhanced, on-the-go access to our legal tools and resources. This initiative aligns with our strategic roadmap to expand our user base and improve engagement by offering a dedicated mobile experience.
+This document outlines the product requirements for the native mobile application for the Odhikar Legal Companion platform. The goal is to provide our users in Bangladesh with enhanced, on-the-go access to our legal tools and resources. This initiative aligns with our strategic roadmap to expand our user base and improve engagement by offering a dedicated mobile experience.
 
 ## 2. Goals and Objectives
 
-- **Accessibility**: Provide users with seamless access to CaseMap's core features anytime, anywhere from their mobile devices.
+- **Accessibility**: Provide users with seamless access to Odhikar's core features anytime, anywhere from their mobile devices.
 - **Enhanced User Experience**: Leverage native mobile capabilities like push notifications and background data sync to deliver a superior and more engaging user experience.
 - **Increase Engagement**: Drive higher user retention and daily active usage through the convenience of a mobile app.
 - **Market Expansion**: Reach a broader audience of smartphone users in Bangladesh who prefer mobile applications over web-based platforms.
 
 ## 3. Target Audience
 
-- **Existing Users**: Current users of the CaseMap Legal Companion web application.
+- **Existing Users**: Current users of the Odhikar Legal Companion web application.
 - **Legal Professionals and Students**: Lawyers, paralegals, and law students in Bangladesh who need quick access to legal information and case management tools.
 - **General Public**: Citizens of Bangladesh seeking legal information, assistance, or guidance.
 

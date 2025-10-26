@@ -86,19 +86,19 @@ function Badge({ className, variant, ...props }: BadgeProps) {
 }
 
 // Main Hero Component
-interface CaseMapHeroProps {
+interface OdhikarHeroProps {
   badge?: string;
   title?: string;
   subtitle?: string;
   placeholder?: string;
 }
 
-function CaseMapHero({
+function OdhikarHero({
   badge = "AI-চালিত আইনি সহায়তা",
   title = "AI এর সাহায্যে জানুন আপনার আইনি অধিকার",
   subtitle = "আপনার পরিস্থিতি অনুযায়ী AI-এর মাধ্যমে তাৎক্ষণিক আইনি নির্দেশনা পান। প্রশ্ন করুন, জটিল আইনি বিষয় বুঝুন এবং আত্মবিশ্বাসের সাথে আপনার আইনি যাত্রা শুরু করুন।",
   placeholder = "আপনার আইনি প্রশ্নটি লিখুন... (যেমন, একজন ভাড়াটিয়া হিসেবে আমার কী কী অধিকার আছে?)",
-}: CaseMapHeroProps) {
+}: OdhikarHeroProps) {
   const [query, setQuery] = React.useState("");
   const router = useRouter();
 
@@ -407,7 +407,7 @@ const testimonials = [
       handle: "@anis_advocate",
       avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704a",
     },
-    text: "CaseMap আমার মামলা পরিচালনার 방식 পাল্টে দিয়েছে। টাইমলাইন ফিচারটি অসাধারণ এবং আমাকে সবসময় আপ-টু-ডেট রাখে।",
+    text: "Odhikar আমার মামলা পরিচালনার 방식 পাল্টে দিয়েছে। টাইমলাইন ফিচারটি অসাধারণ এবং আমাকে সবসময় আপ-টু-ডেট রাখে।",
     href: "#",
   },
   {
@@ -435,7 +435,7 @@ const features= [
     icon: BrainCog,
     title: "AI আইনি সহকারী",
     description:
-      "CaseMap-এর AI সহকারীরা নির্দিষ্ট ডোমেইনে প্রশিক্ষিত, যা আপনাকে প্রযুক্তি, কোডিং এবং একাডেমিক বিষয়ে গাইড করে।",
+      "Odhikar-এর AI সহকারীরা নির্দিষ্ট ডোমেইনে প্রশিক্ষিত, যা আপনাকে প্রযুক্তি, কোডিং এবং একাডেমিক বিষয়ে গাইড করে।",
     image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=600&auto=format&fit=crop",
   },
   {
@@ -471,13 +471,13 @@ function FeaturesDemo() {
 export default function Home() {
     return (
     <>
-      <CaseMapHero />
+      <OdhikarHero />
       <FeaturesSection />
       <FeaturesDemo />
       <HowItWorksSection />
       <TestimonialsSection
         title="আমাদের ব্যবহারকারীরা যা বলছেন"
-        description="হাজারো নাগরিক ও আইন পেশাজীবীদের সাথে যোগ দিন, যারা CaseMap ব্যবহার করে তাদের আইনি যাত্রাকে সহজ করে তুলছেন।"
+        description="হাজারো নাগরিক ও আইন পেশাজীবীদের সাথে যোগ দিন, যারা Odhikar ব্যবহার করে তাদের আইনি যাত্রাকে সহজ করে তুলছেন।"
         testimonials={testimonials}
       />
       <PricingWithComparison />

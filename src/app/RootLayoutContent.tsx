@@ -33,7 +33,7 @@ export default function RootLayoutContent({
             {showLayout && !isFullScreenPage && <Footer
                 className="mt-20"
                 brand={{
-                  name: "CaseMap",
+                  name: "Odhikar",
                   description: "আপনার AI-চালিত আইনি সঙ্গী, স্বচ্ছতা ও আত্মবিশ্বাসের পথে।",
                 }}
                 socialLinks={[
@@ -122,7 +122,7 @@ export default function RootLayoutContent({
                     ],
                   },
                 ]}
-                copyright="CaseMap Inc. © ২০২৪ সর্বসত্ত্ব সংরক্ষিত"
+                copyright="Odhikar Inc. © ২০২৪ সর্বসত্ত্ব সংরক্ষিত"
               />}
             {showLayout && !isFullScreenPage && <Chatbot />}
             <LoginPrompt />
