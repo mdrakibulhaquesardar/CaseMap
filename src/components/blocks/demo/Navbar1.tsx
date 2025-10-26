@@ -119,7 +119,7 @@ const menuItems = [
 const demoData = {
   logo: {
     url: "/",
-    src: "https://www.shadcnblocks.com/images/block/block-1.svg",
+    src: "/logo.png",
     alt: "CaseMap Legal Companion",
     title: "CaseMap",
   },
@@ -173,7 +173,7 @@ function Navbar1Demo() {
 
         if (newItem.items) {
           newItem.items = processItems(newItem.items);
-          // Remove onClick from parent dropdown triggers
+          // Remove onClick from parent dropdown triggers that are not protected themselves.
           if(!newItem.isProtected) {
             delete newItem.onClick;
           }
