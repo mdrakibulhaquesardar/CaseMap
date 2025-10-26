@@ -16,6 +16,10 @@ interface Message {
   content: string;
 }
 
+const GREETING_MESSAGE_CONTENT = 'আস-সালামু আলাইকুম! আমি আপনার আইনি সহকারী। আমি আপনাকে কীভাবে সাহায্য করতে পারি?';
+const ERROR_MESSAGE_CONTENT = 'দুঃখিত, একটি সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।';
+
+
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -39,7 +43,7 @@ export function Chatbot() {
       setMessages([
         {
           role: 'model',
-          content: 'আস-সালামু আলাইকুম! আমি আপনার আইনি সহকারী। আমি আপনাকে কীভাবে সাহায্য করতে পারি?',
+          content: GREETING_MESSAGE_CONTENT,
         },
       ]);
     }
@@ -84,7 +88,7 @@ export function Chatbot() {
     setIsLoading(true);
 
     try {
-      const chatHistory = newMessages.slice(0, -1).map(({role, content}) => ({role, content}));
+      const chatHistory = newMessages.slice(0, -1).filter(m => m.content !== GREETING_MESSAGE_CONTENT && m.content !== ERROR_MESSAGE_CONTENT).map(({role, content}) => ({role, content}));
 
       const result = await chat({
         history: chatHistory,
@@ -96,7 +100,7 @@ export function Chatbot() {
       console.error('Chatbot error:', error);
       const errorMessage: Message = {
         role: 'model',
-        content: 'দুঃখিত, একটি সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।',
+        content: ERROR_MESSAGE_CONTENT,
       };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {

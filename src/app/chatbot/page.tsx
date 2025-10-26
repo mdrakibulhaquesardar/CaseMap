@@ -54,6 +54,7 @@ const GREETING_MESSAGE: Message = {
     content: 'আস-সালামু আলাইকুম! আমি আপনার AI আইনি সহকারী। বাংলাদেশের আইন ও অধিকার সম্পর্কে জানতে প্রশ্ন করুন।',
     timestamp: new Date().toISOString(),
 };
+const ERROR_MESSAGE_CONTENT = 'দুঃখিত, একটি সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।';
 
 export default function ChatbotPage() {
   const [chatHistory, setChatHistory] = useLocalStorage<ChatSession[]>('law-chatHistory', []);
@@ -100,7 +101,7 @@ export default function ChatbotPage() {
 
     try {
       const activeChat = updatedChatHistoryWithUserMessage.find(chat => chat.id === activeChatId);
-      const apiHistory = activeChat ? activeChat.messages.slice(0, -1).filter(m => m.content !== GREETING_MESSAGE.content).map(({role, content}) => ({role, content})) : [];
+      const apiHistory = activeChat ? activeChat.messages.slice(0, -1).filter(m => m.content !== GREETING_MESSAGE.content && m.content !== ERROR_MESSAGE_CONTENT).map(({role, content}) => ({role, content})) : [];
       
       const result = await lawChat({
         history: apiHistory,
@@ -124,7 +125,7 @@ export default function ChatbotPage() {
       console.error('Law Chatbot error:', error);
       const errorMessage: Message = {
         role: 'model',
-        content: 'দুঃখিত, একটি সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।',
+        content: ERROR_MESSAGE_CONTENT,
         timestamp: new Date().toISOString()
       };
        setChatHistory(prev => 

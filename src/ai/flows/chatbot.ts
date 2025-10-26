@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview A simple chatbot flow that uses Gemini to generate responses.
@@ -37,23 +38,19 @@ const chatFlow = ai.defineFlow(
   async (input) => {
     const { history, message } = input;
     
-    const systemPrompt = `You are a friendly and helpful assistant for a legal aid app in Bangladesh called 'Odhikar'. 
-- Respond ONLY in Bengali. 
-- Keep your answers concise and helpful for general queries.
-- If the user asks a specific legal question, gently guide them to use the specialized 'AI আইনি চ্যাট' feature by saying: "আপনার আইনি প্রশ্নের জন্য, আমাদের বিশেষ 'AI আইনি চ্যাট' ব্যবহার করুন। আমি কি আপনাকে সেখানে নিয়ে যাব?"
-- Do not provide legal advice.`;
+    const systemPrompt = `You are a friendly and helpful general assistant for a legal aid app in Bangladesh called 'Odhikar'. 
+- Your primary language is Bengali. You MUST respond in Bengali.
+- Keep your answers friendly, concise, and helpful for general, non-legal queries.
+- If the user asks a specific legal question or asks for legal advice, you MUST NOT answer it. Instead, you MUST gently guide them to use the specialized 'AI আইনি চ্যাট' (AI Legal Chat) feature by saying EXACTLY this: "আপনার আইনি প্রশ্নের জন্য, আমাদের বিশেষ 'AI আইনি চ্যাট' ফিচারটি ব্যবহার করুন। আমি আপনাকে সেখানে নিয়ে যেতে পারি অথবা আপনি টুলস মেন্যু থেকে যেতে পারেন।"
+- Do not provide any legal opinions or advice under any circumstances. Your purpose is to be a general guide for the app.`;
     
     const { output } = await ai.generate({
       prompt: message,
       history: [
           { role: 'user', content: systemPrompt },
-          { role: 'model', content: "আমি বুঝতে পেরেছি। আমি একজন বন্ধুত্বপূর্ণ সহকারী হিসেবে কাজ করব এবং শুধুমাত্র বাংলায় উত্তর দেব।" },
+          { role: 'model', content: "আমি বুঝতে পেরেছি। আমি 'অধিকার' অ্যাপের জন্য একজন সাধারণ সহকারী হিসেবে কাজ করব এবং শুধুমাত্র বাংলায় উত্তর দেব। আমি কোনো আইনি পরামর্শ দেব না এবং আইনি প্রশ্নের জন্য ব্যবহারকারীদের 'AI আইনি চ্যাট' ফিচারে পাঠাব।" },
           ...history,
       ],
-      config: {
-        // You can adjust safety settings if needed
-        // safetySettings: [{ category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' }]
-      }
     });
 
     return {
