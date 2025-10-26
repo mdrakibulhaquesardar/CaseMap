@@ -103,6 +103,19 @@ body {
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-headline);
   }
+
+  .prose h2 {
+    @apply text-2xl font-bold mb-4 mt-8;
+  }
+  .prose h3 {
+    @apply text-xl font-semibold mb-3 mt-6;
+  }
+  .prose p {
+    @apply leading-relaxed;
+  }
+  .prose a {
+    @apply text-primary hover:underline;
+  }
 }
 
 @layer utilities {
