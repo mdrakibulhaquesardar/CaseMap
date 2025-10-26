@@ -126,7 +126,7 @@ const demoData = {
   mobileExtraLinks: [
     { name: "প্রোফাইল", url: "/profile" },
     { name: "সেটিংস", url: "/profile/settings" },
-    { name: "গোপনীয়তা", url: "#" },
+    { name: "গোপনীয়তা", url: "/privacy" },
     { name: "শর্তাবলী", url: "#" },
   ],
 };
@@ -157,11 +157,16 @@ function Navbar1Demo() {
       return items.map(item => {
         const newItem = { ...item };
         
+        const originalOnClick = newItem.onClick;
+
         if (newItem.isProtected && !user) {
           newItem.onClick = (e: React.MouseEvent) => {
             e.preventDefault();
             e.stopPropagation();
             setShowLoginPrompt(true);
+            if (originalOnClick) {
+              originalOnClick(e);
+            }
           };
           newItem.url = '#'; 
         }
@@ -169,7 +174,9 @@ function Navbar1Demo() {
         if (newItem.items) {
           newItem.items = processItems(newItem.items);
           // Remove onClick from parent dropdown triggers
-          delete newItem.onClick;
+          if(!newItem.isProtected) {
+            delete newItem.onClick;
+          }
         }
         
         return newItem;
