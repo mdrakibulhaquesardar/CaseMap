@@ -57,7 +57,7 @@ const chatFlow = ai.defineFlow(
     });
 
     return {
-      response: output.text ?? "দুঃখিত, আমি এখন উত্তর দিতে পারছি না।",
+      response: output?.text ?? "দুঃখিত, আমি এখন উত্তর দিতে পারছি না।",
     };
   }
 );

@@ -56,7 +56,7 @@ const lawChatFlow = ai.defineFlow(
       }
     });
 
-    const responseText = output.text ?? "দুঃখিত, আমি এখন উত্তর দিতে পারছি না।";
+    const responseText = output?.text ?? "দুঃখিত, আমি এখন উত্তর দিতে পারছি না।";
     
     return {
       response: responseText,
