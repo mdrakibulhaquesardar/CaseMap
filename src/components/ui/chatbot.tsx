@@ -77,15 +77,14 @@ export function Chatbot() {
     if (!input.trim()) return;
 
     const userMessage: Message = { role: 'user', content: input };
-    setMessages(prev => [...prev, userMessage]);
+    const newMessages = [...messages, userMessage];
+    setMessages(newMessages);
     const currentInput = input;
     setInput('');
     setIsLoading(true);
 
     try {
-      const chatHistory = [...messages, userMessage]
-        .slice(0, -1) // Exclude the last message (the one being sent)
-        .map(({role, content}) => ({role, content}));
+      const chatHistory = newMessages.slice(0, -1).map(({role, content}) => ({role, content}));
 
       const result = await chat({
         history: chatHistory,
