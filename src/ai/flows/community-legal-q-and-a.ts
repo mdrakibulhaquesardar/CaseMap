@@ -11,12 +11,12 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const AskLegalQuestionInputSchema = z.object({
-  question: z.string().describe('The legal question asked by the user.'),
+  question: z.string().describe('The legal question asked by the user in Bengali.'),
 });
 export type AskLegalQuestionInput = z.infer<typeof AskLegalQuestionInputSchema>;
 
 const AskLegalQuestionOutputSchema = z.object({
-  answer: z.string().describe('The AI-generated answer to the legal question.'),
+  answer: z.string().describe('The AI-generated answer to the legal question in Bengali.'),
 });
 export type AskLegalQuestionOutput = z.infer<typeof AskLegalQuestionOutputSchema>;
 
@@ -28,9 +28,9 @@ const prompt = ai.definePrompt({
   name: 'askLegalQuestionPrompt',
   input: {schema: AskLegalQuestionInputSchema},
   output: {schema: AskLegalQuestionOutputSchema},
-  prompt: `You are a helpful AI assistant specialized in providing legal information.
+  prompt: `You are a helpful AI assistant specialized in providing legal information related to Bangladesh.
 
-  Please answer the following legal question in a clear and concise manner:
+  Please answer the following legal question in a clear and concise manner in Bengali. Always provide a disclaimer at the end that this is not legal advice and a professional lawyer should be consulted.
 
   Question: {{{question}}}
   `,
@@ -47,5 +47,3 @@ const askLegalQuestionFlow = ai.defineFlow(
     return output!;
   }
 );
-
-    

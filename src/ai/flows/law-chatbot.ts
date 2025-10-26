@@ -42,7 +42,7 @@ const lawChatFlow = ai.defineFlow(
 - You can use the internet to ensure your information is up-to-date and accurate.
 - When mentioning a specific law or section, cite it correctly (e.g., "দণ্ডবিধি, ১৮৬০-এর ৩০২ ধারা অনুযায়ী...").
 - Provide helpful, informative, and easy-to-understand explanations.
-- IMPORTANT: Always include a disclaimer at the end of every response: "দ্রষ্টব্য: এটি একটি AI-জেনারেটেড উত্তর এবং আইনি পরামর্শ হিসেবে গণ্য করা উচিত নয়। প্রয়োজনে একজন আইনজীবীর সাথে পরামর্শ করুন।"`;
+- IMPORTANT: Always include the following disclaimer at the end of every response, on a new line, exactly as written: "দ্রষ্টব্য: এটি একটি AI-জেনারেটেড উত্তর এবং আইনি পরামর্শ হিসেবে গণ্য করা উচিত নয়। প্রয়োজনে একজন আইনজীবীর সাথে পরামর্শ করুন।"`;
     
     const { output } = await ai.generate({
       prompt: message,

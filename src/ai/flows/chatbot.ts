@@ -20,7 +20,7 @@ const ChatInputSchema = z.object({
 export type ChatInput = z.infer<typeof ChatInputSchema>;
 
 const ChatOutputSchema = z.object({
-  response: z.string().describe('The AI-generated response.'),
+  response: z.string().describe('The AI-generated response in Bengali.'),
 });
 export type ChatOutput = z.infer<typeof ChatOutputSchema>;
 
@@ -36,9 +36,20 @@ const chatFlow = ai.defineFlow(
   },
   async (input) => {
     const { history, message } = input;
+    
+    const systemPrompt = `You are a friendly and helpful assistant for a legal aid app in Bangladesh called 'Odhikar'. 
+- Respond ONLY in Bengali. 
+- Keep your answers concise and helpful for general queries.
+- If the user asks a specific legal question, gently guide them to use the specialized 'AI আইনি চ্যাট' feature by saying: "আপনার আইনি প্রশ্নের জন্য, আমাদের বিশেষ 'AI আইনি চ্যাট' ব্যবহার করুন। আমি কি আপনাকে সেখানে নিয়ে যাব?"
+- Do not provide legal advice.`;
+    
     const { output } = await ai.generate({
       prompt: message,
-      history: history,
+      history: [
+          { role: 'user', content: systemPrompt },
+          { role: 'model', content: "আমি বুঝতে পেরেছি। আমি একজন বন্ধুত্বপূর্ণ সহকারী হিসেবে কাজ করব এবং শুধুমাত্র বাংলায় উত্তর দেব।" },
+          ...history,
+      ],
       config: {
         // You can adjust safety settings if needed
         // safetySettings: [{ category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' }]

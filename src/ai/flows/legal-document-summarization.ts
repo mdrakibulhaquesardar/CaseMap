@@ -2,7 +2,7 @@
 'use server';
 
 /**
- * @fileOverview Summarizes legal documents from text or file uploads into simplified English.
+ * @fileOverview Summarizes legal documents from text or file uploads into simplified Bengali.
  *
  * - summarizeLegalDocument - A function that summarizes legal documents.
  * - SummarizeLegalDocumentInput - The input type for the summarizeLegalDocument function.
@@ -19,7 +19,7 @@ const SummarizeLegalDocumentInputSchema = z.object({
 export type SummarizeLegalDocumentInput = z.infer<typeof SummarizeLegalDocumentInputSchema>;
 
 const SummarizeLegalDocumentOutputSchema = z.object({
-  summary: z.string().describe('The simplified English summary of the legal document.'),
+  summary: z.string().describe('The simplified Bengali summary of the legal document.'),
 });
 export type SummarizeLegalDocumentOutput = z.infer<typeof SummarizeLegalDocumentOutputSchema>;
 
@@ -33,7 +33,7 @@ const prompt = ai.definePrompt({
   output: {schema: SummarizeLegalDocumentOutputSchema},
   prompt: `You are an AI assistant specializing in legal document summarization for citizens with limited legal knowledge. 
   
-  Analyze the provided legal document (either from text or an uploaded file) and summarize it in simple, easy-to-understand English.
+  Analyze the provided legal document (either from text or an uploaded file) and summarize it in simple, easy-to-understand Bengali.
 
   {{#if documentText}}
   Document Text:

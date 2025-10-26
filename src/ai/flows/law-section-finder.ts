@@ -4,20 +4,20 @@
  *
  * - findLawSection - A function that finds details of a given law section.
  * - FindLawSectionInput - The input type for the findLawSection function.
- * - FindLawSectionOutput - The return type for the findLawSection function.
+ * - FindLawSectionOutput - The return type for the findLawsection function.
  */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const FindLawSectionInputSchema = z.object({
-  query: z.string().describe('The law section number or name to search for.'),
+  query: z.string().describe('The law section number or name to search for in Bengali.'),
 });
 export type FindLawSectionInput = z.infer<typeof FindLawSectionInputSchema>;
 
 const FindLawSectionOutputSchema = z.object({
-  sectionTitle: z.string().describe('The title of the law section found.'),
-  sectionDetails: z.string().describe('The detailed explanation of the law section in English.'),
+  sectionTitle: z.string().describe('The title of the law section found in Bengali.'),
+  sectionDetails: z.string().describe('The detailed explanation of the law section in simple Bengali.'),
 });
 export type FindLawSectionOutput = z.infer<typeof FindLawSectionOutputSchema>;
 
@@ -29,7 +29,7 @@ const prompt = ai.definePrompt({
   name: 'findLawSectionPrompt',
   input: {schema: FindLawSectionInputSchema},
   output: {schema: FindLawSectionOutputSchema},
-  prompt: `You are an expert on the laws of Bangladesh. The user wants to know about a specific law section. Based on their query, find the relevant law section and provide its title and a detailed explanation in simple, easy-to-understand English.
+  prompt: `You are an expert on the laws of Bangladesh. The user wants to know about a specific law section. Based on their query, find the relevant law section and provide its title and a detailed explanation in simple, easy-to-understand Bengali.
 
 User Query: {{{query}}}
 `,
@@ -46,5 +46,3 @@ const findLawSectionFlow = ai.defineFlow(
     return output!;
   }
 );
-
-    
