@@ -26,20 +26,6 @@ export async function legalToolRecommendation(input: LegalToolRecommendationInpu
   return legalToolRecommendationFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'legalToolRecommendationPrompt',
-  input: {schema: LegalToolRecommendationInputSchema},
-  output: {schema: LegalToolRecommendationOutputSchema},
-  model: 'googleai/gemini-pro',
-  prompt: `You are an AI assistant that recommends the most appropriate legal tool for a given user question, in Bengali. The available tools are "আইনি সহায়তা কেন্দ্র (Legal Aid Finder)", "নথি সারসংক্ষেপ (Document Summarizer)", and "মামলার টাইমলাইন (Timeline Viewer)".
-
-User Question: {{{legalQuestion}}}
-
-Based on the question, provide a tool recommendation in Bengali and explain in Bengali why it is suitable for the user's legal needs.
-
-Tool Recommendation:`, // Ensure the LLM knows to recommend a *tool*.
-});
-
 const legalToolRecommendationFlow = ai.defineFlow(
   {
     name: 'legalToolRecommendationFlow',
@@ -47,7 +33,20 @@ const legalToolRecommendationFlow = ai.defineFlow(
     outputSchema: LegalToolRecommendationOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
+    const {output} = await ai.generate({
+        model: 'googleai/gemini-pro',
+        prompt: `You are an AI assistant that recommends the most appropriate legal tool for a given user question, in Bengali. The available tools are "আইনি সহায়তা কেন্দ্র (Legal Aid Finder)", "নথি সারসংক্ষেপ (Document Summarizer)", and "মামলার টাইমলাইন (Timeline Viewer)".
+
+User Question: ${input.legalQuestion}
+
+Based on the question, provide a tool recommendation in Bengali and explain in Bengali why it is suitable for the user's legal needs.
+
+Tool Recommendation:`,
+        output: {
+            schema: LegalToolRecommendationOutputSchema,
+        },
+    });
+
     if (!output) {
       throw new Error('AI failed to recommend a tool.');
     }
