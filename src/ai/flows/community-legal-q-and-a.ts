@@ -28,6 +28,7 @@ const prompt = ai.definePrompt({
   name: 'askLegalQuestionPrompt',
   input: {schema: AskLegalQuestionInputSchema},
   output: {schema: AskLegalQuestionOutputSchema},
+  model: 'googleai/gemini-pro',
   prompt: `You are a helpful AI assistant specialized in providing legal information related to Bangladesh.
 
   Please answer the following legal question in a clear and concise manner in Bengali. Always provide a disclaimer at the end that this is not legal advice and a professional lawyer should be consulted.
@@ -44,6 +45,9 @@ const askLegalQuestionFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await prompt(input);
-    return output!;
+    if (!output) {
+      throw new Error('AI failed to generate a response for the legal question.');
+    }
+    return output;
   }
 );

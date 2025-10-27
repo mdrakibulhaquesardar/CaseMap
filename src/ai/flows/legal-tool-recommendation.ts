@@ -30,6 +30,7 @@ const prompt = ai.definePrompt({
   name: 'legalToolRecommendationPrompt',
   input: {schema: LegalToolRecommendationInputSchema},
   output: {schema: LegalToolRecommendationOutputSchema},
+  model: 'googleai/gemini-pro',
   prompt: `You are an AI assistant that recommends the most appropriate legal tool for a given user question, in Bengali. The available tools are "আইনি সহায়তা কেন্দ্র (Legal Aid Finder)", "নথি সারসংক্ষেপ (Document Summarizer)", and "মামলার টাইমলাইন (Timeline Viewer)".
 
 User Question: {{{legalQuestion}}}
@@ -47,6 +48,9 @@ const legalToolRecommendationFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await prompt(input);
-    return output!;
+    if (!output) {
+      throw new Error('AI failed to recommend a tool.');
+    }
+    return output;
   }
 );

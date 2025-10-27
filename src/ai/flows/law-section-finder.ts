@@ -29,6 +29,7 @@ const prompt = ai.definePrompt({
   name: 'findLawSectionPrompt',
   input: {schema: FindLawSectionInputSchema},
   output: {schema: FindLawSectionOutputSchema},
+  model: 'googleai/gemini-pro',
   prompt: `You are an expert on the laws of Bangladesh. The user wants to know about a specific law section. Based on their query, find the relevant law section and provide its title and a detailed explanation in simple, easy-to-understand Bengali.
 
 User Query: {{{query}}}
@@ -43,6 +44,9 @@ const findLawSectionFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await prompt(input);
-    return output!;
+    if (!output) {
+      throw new Error('AI failed to find the law section.');
+    }
+    return output;
   }
 );

@@ -31,6 +31,7 @@ const prompt = ai.definePrompt({
   name: 'summarizeLegalDocumentPrompt',
   input: {schema: SummarizeLegalDocumentInputSchema},
   output: {schema: SummarizeLegalDocumentOutputSchema},
+  model: 'googleai/gemini-pro',
   prompt: `You are an AI assistant specializing in legal document summarization for citizens with limited legal knowledge. 
   
   Analyze the provided legal document (either from text or an uploaded file) and summarize it in simple, easy-to-understand Bengali.
@@ -55,7 +56,10 @@ const summarizeLegalDocumentFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await prompt(input);
-    return output!;
+    if (!output) {
+      throw new Error('AI failed to summarize the document.');
+    }
+    return output;
   }
 );
 
