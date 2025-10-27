@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview A flow to find and explain law sections of Bangladesh.
@@ -33,7 +34,7 @@ const findLawSectionFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await ai.generate({
-        model: 'googleai/gemini-pro',
+        model: 'googleai/gemini-2.5-flash',
         prompt: `You are an expert on the laws of Bangladesh. The user wants to know about a specific law section. Based on their query, find the relevant law section and provide its title and a detailed explanation in simple, easy-to-understand Bengali.
 
 User Query: ${input.query}

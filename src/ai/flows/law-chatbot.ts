@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview A chatbot flow specialized in Bangladeshi law and rights.
@@ -45,7 +46,7 @@ const lawChatFlow = ai.defineFlow(
 - IMPORTANT: Always include the following disclaimer at the end of every response, on a new line, exactly as written: "দ্রষ্টব্য: এটি একটি AI-জেনারেটেড উত্তর এবং আইনি পরামর্শ হিসেবে গণ্য করা উচিত নয়। প্রয়োজনে একজন আইনজীবীর সাথে পরামর্শ করুন।"`;
     
     const { output } = await ai.generate({
-      model: 'googleai/gemini-pro',
+      model: 'googleai/gemini-2.5-flash',
       prompt: message,
       history: [
         { role: 'user', content: systemPrompt },
@@ -59,7 +60,7 @@ const lawChatFlow = ai.defineFlow(
 
     const responseText = output?.text;
     if (!responseText) {
-      throw new Error("AI failed to generate a response.");
+        return { response: "দুঃখিত, আমি এখন উত্তর দিতে পারছি না।" };
     }
     
     return {

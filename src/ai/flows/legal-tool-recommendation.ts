@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -34,7 +35,7 @@ const legalToolRecommendationFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await ai.generate({
-        model: 'googleai/gemini-pro',
+        model: 'googleai/gemini-2.5-flash',
         prompt: `You are an AI assistant that recommends the most appropriate legal tool for a given user question, in Bengali. The available tools are "আইনি সহায়তা কেন্দ্র (Legal Aid Finder)", "নথি সারসংক্ষেপ (Document Summarizer)", and "মামলার টাইমলাইন (Timeline Viewer)".
 
 User Question: ${input.legalQuestion}

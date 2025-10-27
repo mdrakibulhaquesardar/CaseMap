@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview Community Legal Q&A flow that allows users to ask legal questions and get AI-based answers.
@@ -32,7 +33,7 @@ const askLegalQuestionFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await ai.generate({
-        model: 'googleai/gemini-pro',
+        model: 'googleai/gemini-2.5-flash',
         prompt: `You are a helpful AI assistant specialized in providing legal information related to Bangladesh.
 
 Please answer the following legal question in a clear and concise manner in Bengali. Always provide a disclaimer at the end that this is not legal advice and a professional lawyer should be consulted.

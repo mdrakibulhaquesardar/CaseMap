@@ -51,7 +51,7 @@ Analyze the provided legal document (either from text or an uploaded file) and s
     }
 
     const {output} = await ai.generate({
-        model: 'googleai/gemini-pro',
+        model: 'googleai/gemini-2.5-flash',
         prompt: prompt,
         output: {
             schema: SummarizeLegalDocumentOutputSchema

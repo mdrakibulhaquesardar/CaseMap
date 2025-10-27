@@ -45,7 +45,7 @@ const chatFlow = ai.defineFlow(
 - Do not provide any legal opinions or advice under any circumstances. Your purpose is to be a general guide for the app.`;
     
     const { output } = await ai.generate({
-      model: 'googleai/gemini-pro',
+      model: 'googleai/gemini-2.5-flash',
       prompt: message,
       history: [
           { role: 'user', content: systemPrompt },
@@ -56,7 +56,7 @@ const chatFlow = ai.defineFlow(
 
     const responseText = output?.text;
     if (!responseText) {
-      throw new Error("AI failed to generate a response.");
+        return { response: "Sorry, I'm unable to respond right now." };
     }
     
     return {
