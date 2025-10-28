@@ -482,16 +482,16 @@ export default function Home() {
               আমাদের প্ল্যাটফর্মের একটি সংক্ষিপ্ত ওভারভিউ দেখুন এবং জানুন কীভাবে আমরা আইনি প্রক্রিয়াকে সহজ করি।
             </p>
           </div>
-          <div className="max-w-4xl mx-auto shadow-2xl rounded-lg overflow-hidden border">
-            <video 
-              className="w-full"
-              src="https://cdn.dribbble.com/userupload/10940618/file/original-4d351d3b070493867634f1998c080d44.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
+          <div className="max-w-4xl mx-auto shadow-2xl rounded-lg overflow-hidden border aspect-video">
+            <iframe 
+              className="w-full h-full"
+              src="https://www.youtube.com/embed/2q57gl87H4U?autoplay=1&mute=1&loop=1&playlist=2q57gl87H4U&controls=0"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
             >
-            </video>
+            </iframe>
           </div>
         </div>
       </section>
