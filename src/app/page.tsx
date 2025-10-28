@@ -476,8 +476,8 @@ export default function Home() {
         <div className="absolute inset-0 overflow-hidden">
           <iframe
             className="w-full h-full"
-            src="https://www.youtube.com/embed/2q57gl87H4U?autoplay=1&mute=1&loop=1&playlist=2q57gl87H4U&controls=0&showinfo=0&autohide=1&modestbranding=1"
-            title="YouTube video player"
+            src="https://player.cloudinary.com/embed/?cloud_name=do7p8mg3q&public_id=Farmer_Finds_Hope_with_Casemap_zfmack&profile=cld-default&player[autoplay]=true&player[loop]=true&player[muted]=true&player[controls]=false&player[showLogo]=false"
+            title="Odhikar Promo Video"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
