@@ -477,7 +477,7 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold font-headline leading-tight bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold font-headline leading-tight">
                 Odhikar কীভাবে আপনার জীবন সহজ করে
               </h2>
               <p className="mt-4 text-lg text-muted-foreground">
