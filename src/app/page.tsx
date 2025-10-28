@@ -486,10 +486,11 @@ export default function Home() {
               position: 'absolute',
               top: '50%',
               left: '50%',
-              width: '100%',
-              height: '100%',
+              width: '177.77vh', // 16/9 aspect ratio
+              minWidth: '100%',
+              height: '100vw', // 16/9 aspect ratio
+              minHeight: '100%',
               transform: 'translate(-50%, -50%)',
-              objectFit: 'cover'
             }}
           ></iframe>
         </div>
