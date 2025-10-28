@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import * as React from 'react';
@@ -475,8 +476,8 @@ export default function Home() {
       <section className="bg-background py-16 sm:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="max-w-md">
-              <h2 className="text-3xl md:text-4xl font-bold font-headline">
+            <div>
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold font-headline leading-tight bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
                 Odhikar কীভাবে আপনার জীবন সহজ করে
               </h2>
               <p className="mt-4 text-lg text-muted-foreground">
