@@ -472,29 +472,22 @@ export default function Home() {
     return (
     <>
       <OdhikarHero />
-      <section className="bg-background py-16 sm:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-headline leading-tight">
-                Odhikar কীভাবে আপনার জীবন সহজ করে
-              </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
-                আমাদের প্ল্যাটফর্মের একটি সংক্ষিপ্ত ওভারভিউ দেখুন এবং জানুন কীভাবে আমরা আইনি প্রক্রিয়াকে সহজ করি।
-              </p>
-            </div>
-            <div className="shadow-2xl rounded-lg overflow-hidden border aspect-video">
-              <iframe 
-                className="w-full h-full"
-                src="https://www.youtube.com/embed/2q57gl87H4U?autoplay=1&mute=1&loop=1&playlist=2q57gl87H4U&controls=0"
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              >
-              </iframe>
-            </div>
-          </div>
+      <section className="relative w-full h-[50vh] my-16 sm:my-24">
+        <div className="absolute inset-0 overflow-hidden">
+          <iframe
+            className="w-full h-full"
+            src="https://www.youtube.com/embed/2q57gl87H4U?autoplay=1&mute=1&loop=1&playlist=2q57gl87H4U&controls=0&showinfo=0&autohide=1"
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ pointerEvents: 'none' }}
+          ></iframe>
+        </div>
+        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white text-center px-4">
+            Odhikar: আপনার বিশ্বস্ত আইনি সঙ্গী
+          </h2>
         </div>
       </section>
       <FeaturesSection />
