@@ -91,13 +91,13 @@ const Navbar1 = ({
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <ThemeToggle />
             <Button asChild variant="ghost" size="sm" onClick={auth.login.onClick}>
               <Link href={auth.login.url}>{auth.login.text}</Link>
             </Button>
             <Button asChild size="sm" onClick={auth.signup.onClick}>
               <Link href={auth.signup.url}>{auth.signup.text}</Link>
             </Button>
+            <ThemeToggle />
           </div>
         </nav>
         <div className="block lg:hidden">
@@ -107,7 +107,6 @@ const Navbar1 = ({
               <span className="text-lg font-semibold">{logo.title}</span>
             </Link>
             <div className="flex items-center gap-2">
-                <ThemeToggle />
                 <Sheet>
                   <SheetTrigger asChild>
                     <Button variant="outline" size="icon">
@@ -158,6 +157,7 @@ const Navbar1 = ({
                     </div>
                   </SheetContent>
                 </Sheet>
+                <ThemeToggle />
             </div>
           </div>
         </div>
