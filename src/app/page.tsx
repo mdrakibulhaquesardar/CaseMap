@@ -472,32 +472,29 @@ export default function Home() {
     return (
     <>
       <OdhikarHero />
-      <section className="relative w-full h-[50vh] my-16 sm:my-24">
-        <div className="absolute inset-0 overflow-hidden">
-          <iframe
-            className="w-full h-full opacity-70"
-            src="https://player.cloudinary.com/embed/?cloud_name=do7p8mg3q&public_id=Farmer_Finds_Hope_with_Casemap_zfmack&profile=cld-default&player[autoplay]=true&player[loop]=true&player[muted]=true&player[controls]=false&player[showLogo]=false"
-            title="Odhikar Promo Video"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            style={{ 
-              pointerEvents: 'none',
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              width: '177.77vh', // 16/9 aspect ratio
-              minWidth: '100%',
-              height: '100vh', // 16/9 aspect ratio
-              minHeight: '100%',
-              transform: 'translate(-50%, -50%)',
-            }}
-          ></iframe>
-        </div>
-        <div className="absolute inset-0 bg-black/80 flex items-center justify-center">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white text-center px-4">
-            Odhikar: আপনার বিশ্বস্ত আইনি সঙ্গী
-          </h2>
+      <section className="bg-background py-16 sm:py-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-headline leading-tight">
+                        Odhikar কীভাবে আপনার জীবন সহজ করে
+                    </h2>
+                    <p className="mt-4 text-lg text-muted-foreground">
+                        আমাদের প্ল্যাটফর্মের একটি সংক্ষিপ্ত ওভারভিউ দেখুন এবং জানুন কীভাবে আমরা আইনি প্রক্রিয়াকে সহজ করি।
+                    </p>
+                </div>
+                <div className="relative aspect-video w-full">
+                    <video
+                        className="w-full h-full object-cover rounded-lg shadow-2xl"
+                        src="https://res.cloudinary.com/do7p8mg3q/video/upload/v1761674294/Generated_File_October_28_2025_-_11_57PM_mrlrqw.mp4"
+                        title="Odhikar Promo Video"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                    />
+                </div>
+            </div>
         </div>
       </section>
       <FeaturesSection />
