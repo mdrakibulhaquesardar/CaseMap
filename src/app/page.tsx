@@ -472,6 +472,29 @@ export default function Home() {
     return (
     <>
       <OdhikarHero />
+      <section className="bg-background py-16 sm:py-24">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold font-headline">
+              Odhikar কীভাবে আপনার জীবন সহজ করে
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+              আমাদের প্ল্যাটফর্মের একটি সংক্ষিপ্ত ওভারভিউ দেখুন এবং জানুন কীভাবে আমরা আইনি প্রক্রিয়াকে সহজ করি।
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto shadow-2xl rounded-lg overflow-hidden border">
+            <video 
+              className="w-full"
+              src="https://cdn.dribbble.com/userupload/10940618/file/original-4d351d3b070493867634f1998c080d44.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+            >
+            </video>
+          </div>
+        </div>
+      </section>
       <FeaturesSection />
       <FeaturesDemo />
       <HowItWorksSection />
@@ -484,3 +507,5 @@ export default function Home() {
     </>
     );
 }
+
+    
