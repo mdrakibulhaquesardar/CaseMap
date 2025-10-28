@@ -476,15 +476,24 @@ export default function Home() {
         <div className="absolute inset-0 overflow-hidden">
           <iframe
             className="w-full h-full"
-            src="https://www.youtube.com/embed/2q57gl87H4U?autoplay=1&mute=1&loop=1&playlist=2q57gl87H4U&controls=0&showinfo=0&autohide=1"
+            src="https://www.youtube.com/embed/2q57gl87H4U?autoplay=1&mute=1&loop=1&playlist=2q57gl87H4U&controls=0&showinfo=0&autohide=1&modestbranding=1"
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            style={{ pointerEvents: 'none' }}
+            style={{ 
+              pointerEvents: 'none',
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              width: '100%',
+              height: '100%',
+              transform: 'translate(-50%, -50%)',
+              objectFit: 'cover'
+            }}
           ></iframe>
         </div>
-        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+        <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white text-center px-4">
             Odhikar: আপনার বিশ্বস্ত আইনি সঙ্গী
           </h2>
@@ -502,3 +511,5 @@ export default function Home() {
     </>
     );
 }
+
+    
