@@ -473,7 +473,7 @@ export default function Home() {
     <>
       <OdhikarHero />
       <section className="bg-background py-16 sm:py-24">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="max-w-md">
               <h2 className="text-3xl md:text-4xl font-bold font-headline">
@@ -509,5 +509,3 @@ export default function Home() {
     </>
     );
 }
-
-    
