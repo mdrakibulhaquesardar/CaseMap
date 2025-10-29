@@ -11,7 +11,7 @@ import { Mail, UserCheck, Edit, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useUser } from "@/firebase/auth/use-user";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getAuth, updateProfile } from "firebase/auth";
+import { getAuth, updateProfile, updatePassword } from "firebase/auth";
 import { useToast } from "@/hooks/use-toast";
 import {
   Dialog,
@@ -29,6 +29,7 @@ export default function ProfilePage() {
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [isUpdating, setIsUpdating] = useState(false);
     const [newName, setNewName] = useState("");
+    const [newPassword, setNewPassword] = useState("");
 
     useEffect(() => {
         if (user) {
@@ -37,7 +38,8 @@ export default function ProfilePage() {
     }, [user]);
 
     const handleProfileUpdate = async () => {
-        if (!user || !newName.trim()) {
+        if (!user) return;
+        if (!newName.trim()) {
             toast({
                 title: "নাম প্রয়োজন",
                 description: "অনুগ্রহ করে একটি নাম লিখুন।",
@@ -48,19 +50,31 @@ export default function ProfilePage() {
 
         setIsUpdating(true);
         try {
-            await updateProfile(user, {
+            const profilePromise = updateProfile(user, {
                 displayName: newName,
             });
+
+            const passwordPromise = newPassword.trim() 
+                ? updatePassword(user, newPassword) 
+                : Promise.resolve();
+
+            await Promise.all([profilePromise, passwordPromise]);
+            
             toast({
                 title: "সফল",
                 description: "আপনার প্রোফাইল সফলভাবে আপডেট করা হয়েছে।",
             });
             setIsEditDialogOpen(false);
-        } catch (error) {
+            setNewPassword(""); // Clear password field
+        } catch (error: any) {
             console.error("প্রোফাইল আপডেট করতে সমস্যা হয়েছে:", error);
+             let description = "প্রোফাইল আপডেট করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।";
+            if (error.code === 'auth/requires-recent-login') {
+                description = "এই কাজটি করার জন্য আপনাকে পুনরায় লগইন করতে হবে।";
+            }
             toast({
                 title: "ত্রুটি",
-                description: "প্রোফাইল আপডেট করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।",
+                description: description,
                 variant: "destructive",
             });
         } finally {
@@ -130,6 +144,19 @@ export default function ProfilePage() {
                                         value={newName}
                                         onChange={(e) => setNewName(e.target.value)}
                                         className="col-span-3"
+                                        />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="password" className="text-right">
+                                        পাসওয়ার্ড
+                                        </Label>
+                                        <Input
+                                        id="password"
+                                        type="password"
+                                        value={newPassword}
+                                        onChange={(e) => setNewPassword(e.target.value)}
+                                        className="col-span-3"
+                                        placeholder="নতুন পাসওয়ার্ড দিন (ঐচ্ছিক)"
                                         />
                                     </div>
                                 </div>
