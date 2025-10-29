@@ -1,20 +1,38 @@
 
 'use client';
 
-import { useFirestore } from '@/firebase/provider';
-import { collection, query, orderBy, limit } from 'firebase/firestore';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Trophy } from 'lucide-react';
-import { UserProfile } from '@/types';
 import { Skeleton } from '@/components/ui/skeleton';
 
+const dummyContributors = [
+    {
+        uid: '1',
+        displayName: 'অ্যাডভোকেট রাকিব',
+        photoURL: 'https://i.pravatar.cc/150?u=rakib',
+        points: 1250,
+        email: ''
+    },
+    {
+        uid: '2',
+        displayName: 'লিগ্যাল ঈগল',
+        photoURL: 'https://i.pravatar.cc/150?u=eagle',
+        points: 980,
+        email: ''
+    },
+    {
+        uid: '3',
+        displayName: 'ন্যায়বিচার seeker',
+        photoURL: 'https://i.pravatar.cc/150?u=seeker',
+        points: 750,
+        email: ''
+    }
+];
+
 export default function TopContributors() {
-    const firestore = useFirestore();
-    const usersRef = collection(firestore, 'users');
-    const q = query(usersRef, orderBy('points', 'desc'), limit(3));
-    const [contributors, loading] = useCollectionData(q);
+    const loading = false; // Set to false as we are using dummy data
+    const contributors = dummyContributors;
 
     return (
         <Card>
@@ -51,7 +69,7 @@ export default function TopContributors() {
                     </>
                 )}
                 {!loading && contributors && contributors.map(contributor => {
-                    const user = contributor as UserProfile;
+                    const user = contributor;
                     return (
                         <div key={user.uid} className="flex items-center gap-3">
                             <Avatar className="h-9 w-9">
