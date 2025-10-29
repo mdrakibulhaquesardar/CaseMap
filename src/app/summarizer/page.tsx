@@ -18,31 +18,26 @@ export default function SummarizerPage() {
             <SummarizerClient />
 
             <div className="mt-16">
-              <div className="text-center mb-12">
+              <div className="prose dark:prose-invert max-w-none mx-auto">
                   <h2 className="text-3xl font-bold font-headline">এটি যেভাবে কাজ করে</h2>
-                  <p className="mt-2 text-muted-foreground max-w-2xl mx-auto">
+                  <p className="mt-2 text-muted-foreground">
                     মাত্র তিনটি সহজ ধাপে আপনার জটিল আইনি নথিকে সহজবোধ্য সারসংক্ষেপে পরিণত করুন।
                   </p>
-              </div>
-              <div className="prose dark:prose-invert max-w-none mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-                  <div>
-                      <h3 className="flex items-center gap-2"><FileUp className="w-6 h-6 text-primary" /> ১. নথি আপলোড</h3>
-                      <p className="text-muted-foreground">
-                          আপনার আইনি নথিটি টেক্সট হিসেবে পেস্ট করুন অথবা পিডিএফ/ছবি ফাইল হিসেবে আপলোড করুন।
-                      </p>
-                  </div>
-                   <div>
-                      <h3 className="flex items-center gap-2"><BrainCircuit className="w-6 h-6 text-primary" /> ২. AI বিশ্লেষণ</h3>
-                      <p className="text-muted-foreground">
-                          আমাদের শক্তিশালী AI মডেল আপনার নথিটি বিশ্লেষণ করে মূল বিষয়বস্তু এবং গুরুত্বপূর্ণ তথ্য শনাক্ত করে।
-                      </p>
-                  </div>
-                   <div>
-                      <h3 className="flex items-center gap-2"><FileText className="w-6 h-6 text-primary" /> ৩. সহজ সারসংক্ষেপ</h3>
-                      <p className="text-muted-foreground">
-                          AI একটি সহজ এবং বোধগম্য বাংলা সারসংক্ষেপ তৈরি করে, যা যে কেউ সহজেই বুঝতে পারে।
-                      </p>
-                  </div>
+                  
+                  <h3 className="mt-6">১. নথি আপলোড</h3>
+                  <p>
+                      আপনার আইনি নথিটি টেক্সট হিসেবে পেস্ট করুন অথবা পিডিএফ/ছবি ফাইল হিসেবে আপলোড করুন।
+                  </p>
+                  
+                  <h3 className="mt-6">২. AI বিশ্লেষণ</h3>
+                  <p>
+                      আমাদের শক্তিশালী AI মডেল আপনার নথিটি বিশ্লেষণ করে মূল বিষয়বস্তু এবং গুরুত্বপূর্ণ তথ্য শনাক্ত করে।
+                  </p>
+
+                  <h3 className="mt-6">৩. সহজ সারসংক্ষেপ</h3>
+                  <p>
+                      AI একটি সহজ এবং বোধগম্য বাংলা সারসংক্ষেপ তৈরি করে, যা যে কেউ সহজেই বুঝতে পারে।
+                  </p>
               </div>
             </div>
         </div>
