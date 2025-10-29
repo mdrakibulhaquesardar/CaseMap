@@ -436,7 +436,7 @@ const features= [
     title: "AI আইনি সহকারী",
     description:
       "Odhikar-এর AI সহকারীরা নির্দিষ্ট ডোমেইনে প্রশিক্ষিত, যা আপনাকে প্রযুক্তি, কোডিং এবং একাডেমিক বিষয়ে গাইড করে।",
-    image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=600&auto=format&fit=crop",
+    image: "https://res.cloudinary.com/do7p8mg3q/image/upload/v1761674950/Generated_Image_October_29_2025_-_12_08AM_nwcoft.png",
   },
   {
     id: 2,
@@ -444,7 +444,7 @@ const features= [
     title: "কমিউনিটি প্রশ্নোত্তর",
     description:
       "বিশেষজ্ঞদের কাছ থেকে তাৎক্ষণিক এবং নির্ভুল সাহায্য পান—সেটা কোডিং হোক বা কঠিন ধারণা বোঝা। তারা তাদের দক্ষতার উপর প্রশিক্ষিত।",
-    image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=600&auto=format&fit=crop",
+    image: "https://res.cloudinary.com/do7p8mg3q/image/upload/v1761674950/Generated_Image_October_29_2025_-_12_05AM_xxp8ds.png",
   },
   {
     id: 3,
@@ -452,7 +452,7 @@ const features= [
     title: "AI নথি বিশ্লেষণ",
     description:
       "জটিল আইনি নথি আপলোড করে মুহূর্তের মধ্যে তার সহজবোধ্য সারসংক্ষেপ এবং ব্যাখ্যা পান।",
-    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=600&auto=format&fit=crop",
+    image: "https://res.cloudinary.com/do7p8mg3q/image/upload/v1761674950/Generated_Image_October_29_2025_-_12_07AM_oeepml.png",
   },
 ];
 

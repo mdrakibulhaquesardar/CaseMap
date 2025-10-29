@@ -177,7 +177,7 @@ const renderMenuItem = (item: MenuItem) => {
               <li key={subItem.title} onClick={subItem.onClick}>
                  <NavigationMenuLink asChild>
                   <Link
-                    className="flex select-none gap-4 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground"
+                    className="flex select-none gap-4 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground"
                     href={subItem.url}
                   >
                     {subItem.icon}
@@ -221,7 +221,7 @@ const renderMobileMenuItem = (item: MenuItem) => {
           {item.items.map((subItem) => (
             <Link
               key={subItem.title}
-              className="flex select-none gap-4 rounded-md p-3 leading-none outline-none transition-colors hover:bg-muted hover:text-accent-foreground"
+              className="flex select-none gap-4 rounded-md p-3 leading-none outline-none transition-colors hover:bg-accent hover:text-accent-foreground"
               href={subItem.url}
               onClick={subItem.onClick}
             >
