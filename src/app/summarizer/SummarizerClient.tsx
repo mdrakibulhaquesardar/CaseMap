@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -95,7 +96,7 @@ export default function SummarizerClient() {
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+    <div className="flex flex-col gap-8 max-w-6xl mx-auto">
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
