@@ -6,7 +6,6 @@ import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWith
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
-import multiavatar from '@multiavatar/multiavatar/esm';
 import { Loader2 } from "lucide-react";
 
 
@@ -28,12 +27,11 @@ export default function SignupForm() {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            const svgString = multiavatar(user.uid);
-            const dataUri = `data:image/svg+xml;base64,${btoa(svgString)}`;
+            const randomAvatar = `https://i.pravatar.cc/150?u=${user.uid}`;
 
             await updateProfile(user, {
                 displayName: fullName,
-                photoURL: dataUri,
+                photoURL: randomAvatar,
             });
             
             router.push("/");
