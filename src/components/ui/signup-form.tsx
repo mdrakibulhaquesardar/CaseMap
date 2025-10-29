@@ -86,7 +86,7 @@ export default function SignupForm() {
     return (
         <div className="flex h-screen w-full items-center justify-center bg-background">
             <div className="w-full hidden md:flex h-full">
-                <img className="h-full w-full object-cover" src="https://picsum.photos/seed/signup/1000/1200" alt="Signup page background" data-ai-hint="library books" />
+                <img className="h-full w-full object-cover" src="https://res.cloudinary.com/do7p8mg3q/image/upload/v1761770097/Gemini_Generated_Image_6bk1ox6bk1ox6bk1_h1guof.png" alt="Signup page background" data-ai-hint="library books" />
             </div>
         
             <div className="w-full flex flex-col items-center justify-center py-8">
@@ -144,3 +144,5 @@ export default function SignupForm() {
         </div>
     );
 };
+
+    
