@@ -137,7 +137,7 @@ export default function SummarizerClient() {
                     <TabsContent value="text" className="mt-4">
                          <Textarea
                             placeholder="আপনার আইনি নথির লেখা এখানে পেস্ট করুন..."
-                            className="min-h-[350px] text-base"
+                            className="min-h-[250px] text-base"
                             value={documentText}
                             onChange={(e) => setDocumentText(e.target.value)}
                             disabled={isLoading}
@@ -150,7 +150,7 @@ export default function SummarizerClient() {
                         </div>
                     </TabsContent>
                     <TabsContent value="upload" className="mt-4">
-                        <div className="min-h-[350px] flex flex-col items-center justify-center border-2 border-dashed border-muted-foreground/30 rounded-lg p-6">
+                        <div className="min-h-[250px] flex flex-col items-center justify-center border-2 border-dashed border-muted-foreground/30 rounded-lg p-6">
                             {file ? (
                                  <div className="text-center">
                                     <FileCheck2 className="w-16 h-16 mx-auto text-green-500 mb-4" />
