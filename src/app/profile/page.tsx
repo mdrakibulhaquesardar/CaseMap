@@ -30,7 +30,6 @@ export default function ProfilePage() {
     const [isUpdating, setIsUpdating] = useState(false);
     const [newName, setNewName] = useState("");
     const [newPassword, setNewPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
 
 
     useEffect(() => {
@@ -45,15 +44,6 @@ export default function ProfilePage() {
             toast({
                 title: "নাম প্রয়োজন",
                 description: "অনুগ্রহ করে একটি নাম লিখুন।",
-                variant: "destructive",
-            });
-            return;
-        }
-
-        if (newPassword.trim() && newPassword !== confirmPassword) {
-            toast({
-                title: "পাসওয়ার্ড মেলেনি",
-                description: "আপনার নতুন পাসওয়ার্ড এবং নিশ্চিতকরণ পাসওয়ার্ড একই নয়।",
                 variant: "destructive",
             });
             return;
@@ -77,7 +67,6 @@ export default function ProfilePage() {
             });
             setIsEditDialogOpen(false);
             setNewPassword("");
-            setConfirmPassword("");
         } catch (error: any) {
             console.error("প্রোফাইল আপডেট করতে সমস্যা হয়েছে:", error);
              let description = "প্রোফাইল আপডেট করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।";
@@ -159,6 +148,18 @@ export default function ProfilePage() {
                                         />
                                     </div>
                                     <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="email" className="text-right">
+                                        ইমেল
+                                        </Label>
+                                        <Input
+                                        id="email"
+                                        type="email"
+                                        value={user?.email || ''}
+                                        className="col-span-3"
+                                        disabled
+                                        />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
                                         <Label htmlFor="password" className="text-right">
                                         পাসওয়ার্ড
                                         </Label>
@@ -169,19 +170,6 @@ export default function ProfilePage() {
                                         onChange={(e) => setNewPassword(e.target.value)}
                                         className="col-span-3"
                                         placeholder="নতুন পাসওয়ার্ড দিন (ঐচ্ছিক)"
-                                        />
-                                    </div>
-                                    <div className="grid grid-cols-4 items-center gap-4">
-                                        <Label htmlFor="confirm-password" className="text-right">
-                                        পাসওয়ার্ড নিশ্চিত
-                                        </Label>
-                                        <Input
-                                        id="confirm-password"
-                                        type="password"
-                                        value={confirmPassword}
-                                        onChange={(e) => setConfirmPassword(e.target.value)}
-                                        className="col-span-3"
-                                        placeholder="নতুন পাসওয়ার্ড নিশ্চিত করুন"
                                         />
                                     </div>
                                 </div>
