@@ -36,9 +36,18 @@ export default function SignupForm() {
             
             router.push("/");
         } catch (error: any) {
+            let description = "একটি অজানা ত্রুটি ঘটেছে।";
+            if (error.code === 'auth/email-already-in-use') {
+                description = "এই ইমেল দিয়ে সম্ভবত আগেই অ্যাকাউন্ট খোলা হয়েছে।";
+            } else if (error.code === 'auth/weak-password') {
+                description = "পাসওয়ার্ডটি অন্তত ৬ অক্ষরের হতে হবে।";
+            } else if (error.code) {
+                description = error.code;
+            }
+            
             toast({
                 title: "সাইন আপ করতে সমস্যা",
-                description: "এই ইমেল দিয়ে সম্ভবত আগেই অ্যাকাউন্ট খোলা হয়েছে।",
+                description: description,
                 variant: "destructive",
             });
         } finally {
