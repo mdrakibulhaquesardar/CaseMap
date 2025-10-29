@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -84,7 +85,7 @@ export default function ProfileClient() {
                   <Info className="w-8 h-8 mx-auto mb-2" />
                   <p>আপনি এখনো কোনো মামলা সংরক্ষণ করেননি।</p>
                   <Button asChild variant="link" className="mt-2">
-                    <Link href="/timeline">একটি মামলা ट्रैक করুন</Link>
+                    <Link href="/timeline">একটি মামলা অনুসরণ করুন</Link>
                   </Button>
                 </div>
               )}
