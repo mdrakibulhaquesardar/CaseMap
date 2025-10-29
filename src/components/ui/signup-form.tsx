@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 import { randomUserNames } from "@/lib/dummy-data";
+import multiavatar from "@multiavatar/multiavatar/esm";
 
 export default function SignupForm() {
     const [email, setEmail] = useState("");
@@ -23,7 +24,8 @@ export default function SignupForm() {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            const randomAvatar = `https://api.multiavatar.com/${user.uid}.svg`;
+            const svgString = multiavatar(user.uid);
+            const randomAvatar = `data:image/svg+xml;base64,${btoa(svgString)}`;
 
             await updateProfile(user, {
                 displayName: fullName,

@@ -3,6 +3,7 @@ import {Auth, getRedirectResult, onIdTokenChanged, User, updateProfile, getAddit
 import {useEffect, useState} from 'react';
 import {useAuth} from '../provider';
 import { randomUserNames } from '@/lib/dummy-data';
+import multiavatar from "@multiavatar/multiavatar/esm";
 
 const useUser = () => {
   const auth = useAuth();
@@ -12,7 +13,8 @@ const useUser = () => {
   useEffect(() => {
     const handleNewUser = async (user: User) => {
         const randomName = randomUserNames[Math.floor(Math.random() * randomUserNames.length)];
-        const randomAvatar = `https://api.multiavatar.com/${user.uid}.svg`;
+        const svgString = multiavatar(user.uid);
+        const randomAvatar = `data:image/svg+xml;base64,${btoa(svgString)}`;
         
         try {
             await updateProfile(user, {
