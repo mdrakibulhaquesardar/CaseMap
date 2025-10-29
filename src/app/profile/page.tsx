@@ -1,16 +1,72 @@
 
 'use client';
 
+import { useState, useEffect } from "react";
 import ProfileClient from "./ProfileClient";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Mail, UserCheck, Edit } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Mail, UserCheck, Edit, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useUser } from "@/firebase/auth/use-user";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getAuth, updateProfile } from "firebase/auth";
+import { useToast } from "@/hooks/use-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function ProfilePage() {
     const { user, isLoading } = useUser();
+    const { toast } = useToast();
+    const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+    const [isUpdating, setIsUpdating] = useState(false);
+    const [newName, setNewName] = useState("");
+
+    useEffect(() => {
+        if (user) {
+            setNewName(user.displayName || "");
+        }
+    }, [user]);
+
+    const handleProfileUpdate = async () => {
+        if (!user || !newName.trim()) {
+            toast({
+                title: "নাম প্রয়োজন",
+                description: "অনুগ্রহ করে একটি নাম লিখুন।",
+                variant: "destructive",
+            });
+            return;
+        }
+
+        setIsUpdating(true);
+        try {
+            await updateProfile(user, {
+                displayName: newName,
+            });
+            toast({
+                title: "সফল",
+                description: "আপনার প্রোফাইল সফলভাবে আপডেট করা হয়েছে।",
+            });
+            setIsEditDialogOpen(false);
+        } catch (error) {
+            console.error("প্রোফাইল আপডেট করতে সমস্যা হয়েছে:", error);
+            toast({
+                title: "ত্রুটি",
+                description: "প্রোফাইল আপডেট করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।",
+                variant: "destructive",
+            });
+        } finally {
+            setIsUpdating(false);
+        }
+    };
 
     const displayName = user?.displayName || "নতুন ব্যবহারকারী";
     const avatarSrc = user?.photoURL || `https://i.pravatar.cc/150?u=${user?.uid || 'default'}`;
@@ -51,9 +107,41 @@ export default function ProfilePage() {
                     <p className="text-muted-foreground mt-1">ঢাকা, বাংলাদেশ</p>
                     
                     <div className="mt-6 flex justify-center gap-4 flex-wrap">
-                        <Button variant="outline">
-                            <Edit className="mr-2 h-4 w-4"/> প্রোফাইল সম্পাদনা
-                        </Button>
+                        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+                            <DialogTrigger asChild>
+                                 <Button variant="outline">
+                                    <Edit className="mr-2 h-4 w-4"/> প্রোফাইল সম্পাদনা
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[425px]">
+                                <DialogHeader>
+                                <DialogTitle>প্রোফাইল সম্পাদনা</DialogTitle>
+                                <DialogDescription>
+                                    আপনার প্রোফাইলের তথ্য এখানে পরিবর্তন করুন। পরিবর্তনের পর সংরক্ষণ করুন।
+                                </DialogDescription>
+                                </DialogHeader>
+                                <div className="grid gap-4 py-4">
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="name" className="text-right">
+                                        নাম
+                                        </Label>
+                                        <Input
+                                        id="name"
+                                        value={newName}
+                                        onChange={(e) => setNewName(e.target.value)}
+                                        className="col-span-3"
+                                        />
+                                    </div>
+                                </div>
+                                <DialogFooter>
+                                <Button onClick={handleProfileUpdate} disabled={isUpdating}>
+                                    {isUpdating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                    সংরক্ষণ করুন
+                                </Button>
+                                </DialogFooter>
+                            </DialogContent>
+                        </Dialog>
+
                         <Button>
                            <Mail className="mr-2"/> বার্তা পাঠান
                         </Button>
