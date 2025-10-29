@@ -23,7 +23,7 @@ export default function SignupForm() {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            const randomAvatar = `https://i.pravatar.cc/150?u=${user.uid}`;
+            const randomAvatar = `https://api.multiavatar.com/${user.uid}.svg`;
 
             await updateProfile(user, {
                 displayName: fullName,

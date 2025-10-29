@@ -1,3 +1,4 @@
+
 import {Auth, getRedirectResult, onIdTokenChanged, User, updateProfile, getAdditionalUserInfo} from 'firebase/auth';
 import {useEffect, useState} from 'react';
 import {useAuth} from '../provider';
@@ -11,7 +12,7 @@ const useUser = () => {
   useEffect(() => {
     const handleNewUser = async (user: User) => {
         const randomName = randomUserNames[Math.floor(Math.random() * randomUserNames.length)];
-        const randomAvatar = `https://i.pravatar.cc/150?u=${user.uid}`;
+        const randomAvatar = `https://api.multiavatar.com/${user.uid}.svg`;
         
         try {
             await updateProfile(user, {
