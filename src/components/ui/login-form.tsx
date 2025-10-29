@@ -54,7 +54,7 @@ export default function LoginForm() {
     return (
         <div className="flex h-screen w-full items-center justify-center bg-background">
             <div className="w-full hidden md:flex h-full">
-                <img className="h-full w-full object-cover" src="https://picsum.photos/seed/login/1000/1200" alt="Login page background" data-ai-hint="courthouse architecture" />
+                <img className="h-full w-full object-cover" src="https://res.cloudinary.com/do7p8mg3q/image/upload/v1761769805/Gemini_Generated_Image_7t9dcd7t9dcd7t9d_vkbusy.png" alt="Login page background" data-ai-hint="courthouse architecture" />
             </div>
         
             <div className="w-full flex flex-col items-center justify-center">
