@@ -33,7 +33,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useUser } from '@/firebase/auth/use-user';
 import { useFirestore } from '@/firebase/provider';
-import { collection, addDoc, serverTimestamp, query, orderBy, doc, setDoc, deleteDoc, getDocs, where, writeBatch, getDoc, arrayUnion, updateDoc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, orderBy, doc, setDoc, deleteDoc, getDocs, where, writeBatch, getDoc, arrayUnion, updateDoc, increment } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Link from 'next/link';
 
@@ -105,6 +105,7 @@ export default function FaqClient() {
           {
             id: Math.random().toString(),
             content: answerResponse.answer,
+            authorUid: 'ai-bot',
             authorName: 'AI বট',
             authorAvatar: '',
             upvotes: 0,
@@ -161,7 +162,7 @@ export default function FaqClient() {
     }
   };
 
-    const handleVote = async (faqId: string, answerId: string, voteType: 'up' | 'down') => {
+    const handleVote = async (faqId: string, answerId: string, authorUid: string, voteType: 'up' | 'down') => {
         if (!user) {
             toast({ title: "ভোট দিতে লগইন করুন।", variant: "destructive" });
             return;
@@ -170,6 +171,7 @@ export default function FaqClient() {
         const voteId = `${faqId}_${answerId}`;
         const userVoteRef = doc(firestore, 'users', user.uid, 'userVotes', voteId);
         const faqRef = doc(firestore, 'faqs', faqId);
+        const answerAuthorRef = authorUid !== 'ai-bot' ? doc(firestore, 'users', authorUid) : null;
 
         try {
             const batch = writeBatch(firestore);
@@ -185,17 +187,34 @@ export default function FaqClient() {
             const answer = faqData.answers[answerIndex];
             let upvotes = answer.upvotes;
             let downvotes = answer.downvotes;
+            let pointChange = 0;
 
             if (currentVote === voteType) { // Undoing vote
-                if (voteType === 'up') upvotes--;
-                else downvotes--;
+                if (voteType === 'up') {
+                  upvotes--;
+                  pointChange = -1;
+                } else {
+                  downvotes--;
+                  pointChange = 1;
+                }
                 batch.delete(userVoteRef);
             } else { // New vote or changing vote
-                if (currentVote === 'up') upvotes--;
-                if (currentVote === 'down') downvotes--;
+                if (currentVote === 'up') {
+                  upvotes--;
+                  pointChange = -1;
+                }
+                if (currentVote === 'down') {
+                  downvotes--;
+                  pointChange = 1;
+                }
                 
-                if (voteType === 'up') upvotes++;
-                else downvotes++;
+                if (voteType === 'up') {
+                  upvotes++;
+                  pointChange += 1;
+                } else {
+                  downvotes++;
+                  pointChange -= 1;
+                }
                 
                 batch.set(userVoteRef, { vote: voteType });
             }
@@ -203,6 +222,10 @@ export default function FaqClient() {
             const newAnswers = [...faqData.answers];
             newAnswers[answerIndex] = { ...answer, upvotes, downvotes };
             batch.update(faqRef, { answers: newAnswers });
+
+            if (answerAuthorRef && pointChange !== 0) {
+              batch.set(answerAuthorRef, { points: increment(pointChange) }, { merge: true });
+            }
 
             await batch.commit();
 
@@ -318,11 +341,11 @@ export default function FaqClient() {
                    return(
                       <div key={answer.id} className="flex items-start gap-3 sm:gap-4">
                         <div className="flex flex-col items-center gap-1 text-muted-foreground">
-                            <Button variant="ghost" size="icon" onClick={() => handleVote(faq.id, answer.id, 'up')} disabled={!user}>
+                            <Button variant="ghost" size="icon" onClick={() => handleVote(faq.id, answer.id, answer.authorUid, 'up')} disabled={!user}>
                                 <ArrowBigUp className={`w-5 h-5 ${userVote === 'up' ? 'text-primary fill-primary' : ''}`}/>
                             </Button>
                             <span className="font-bold text-lg">{answer.upvotes - answer.downvotes}</span>
-                            <Button variant="ghost" size="icon" onClick={() => handleVote(faq.id, answer.id, 'down')} disabled={!user}>
+                            <Button variant="ghost" size="icon" onClick={() => handleVote(faq.id, answer.id, answer.authorUid, 'down')} disabled={!user}>
                                 <ArrowBigDown className={`w-5 h-5 ${userVote === 'down' ? 'text-destructive fill-destructive' : ''}`}/>
                             </Button>
                         </div>

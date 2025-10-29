@@ -4,18 +4,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FileText, MapPin, Trophy, Users, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Suspense } from 'react';
+import TopContributors from './TopContributors';
+
 
 const popularTags = [
   "সম্পত্তি আইন", "ভাড়াটিয়া অধিকার", "সাইবার ক্রাইম", "ডিজিটাল নিরাপত্তা", "শ্রম আইন", "শ্রমিক অধিকার", "পারিবারিক আইন"
 ];
-
-const topContributors = [
-    { name: "অ্যাডভোকেট রাকিব", points: 1250, avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d" },
-    { name: "লিগ্যাল ঈগল", points: 980, avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704e" },
-    { name: "ন্যায়বিচার seeker", points: 750, avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704f" },
-]
 
 function FaqPage() {
   return (
@@ -56,28 +51,7 @@ function FaqPage() {
                         ))}
                     </CardContent>
                 </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-base">
-                    <Trophy className="text-accent" />
-                    সেরা অবদানকারী
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {topContributors.map(contributor => (
-                     <div key={contributor.name} className="flex items-center gap-3">
-                       <Avatar className="h-9 w-9">
-                         <AvatarImage src={contributor.avatar} alt={contributor.name} />
-                         <AvatarFallback>{contributor.name[0]}</AvatarFallback>
-                       </Avatar>
-                       <div>
-                         <p className="font-semibold text-sm">{contributor.name}</p>
-                         <p className="text-xs text-muted-foreground">{contributor.points} পয়েন্ট</p>
-                       </div>
-                     </div>
-                  ))}
-                </CardContent>
-              </Card>
+                <TopContributors />
                <Card>
                 <CardHeader>
                   <CardTitle className="text-base">অন্যান্য টুলস</CardTitle>

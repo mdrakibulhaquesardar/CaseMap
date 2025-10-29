@@ -25,6 +25,7 @@ export type CaseTimeline = {
 export type FaqAnswer = {
   id: string;
   content: string;
+  authorUid: string;
   authorName: string;
   authorAvatar: string;
   upvotes: number;
@@ -77,3 +78,11 @@ export type PhonebookContact = {
   number: string;
   category: 'জরুরি পরিষেবা' | 'আইনশৃঙ্খলা বাহিনী' | 'আইনি ও ভোক্তা অধিকার' | 'সরকারি অফিস' | 'স্বাস্থ্য' | 'ইউটিলিটি' | 'পরিবহন';
 };
+
+export interface UserProfile {
+    uid: string;
+    email: string;
+    displayName: string;
+    photoURL: string;
+    points: number;
+}

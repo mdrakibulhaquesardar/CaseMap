@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 
 export default function SignupForm() {
@@ -23,6 +24,7 @@ export default function SignupForm() {
         e.preventDefault();
         setIsLoading(true);
         const auth = getAuth();
+        const firestore = getFirestore();
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
@@ -33,6 +35,16 @@ export default function SignupForm() {
                 displayName: fullName,
                 photoURL: randomAvatar,
             });
+
+            // Create user profile in Firestore
+            const userRef = doc(firestore, "users", user.uid);
+            await setDoc(userRef, {
+              uid: user.uid,
+              displayName: fullName,
+              email: user.email,
+              photoURL: randomAvatar,
+              points: 0,
+            });
             
             router.push("/");
         } catch (error: any) {
@@ -41,8 +53,8 @@ export default function SignupForm() {
                 description = "এই ইমেল দিয়ে সম্ভবত আগেই অ্যাকাউন্ট খোলা হয়েছে।";
             } else if (error.code === 'auth/weak-password') {
                 description = "পাসওয়ার্ডটি অন্তত ৬ অক্ষরের হতে হবে।";
-            } else if (error.code) {
-                description = error.code;
+            } else if (error.message) {
+                description = error.message;
             }
             
             toast({
