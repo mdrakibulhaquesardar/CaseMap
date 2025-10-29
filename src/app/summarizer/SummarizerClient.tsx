@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -81,6 +80,14 @@ export default function SummarizerClient() {
       setIsLoading(false);
     }
   };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(summary);
+    toast({
+        title: 'কপি করা হয়েছে',
+        description: 'সারসংক্ষেপটি ক্লিপবোর্ডে কপি করা হয়েছে।',
+    })
+  }
 
   const resetFile = () => {
     setFile(null);
@@ -173,10 +180,24 @@ export default function SummarizerClient() {
       </Card>
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-primary">
-            <Bot className="w-6 h-6" />
-            AI-এর তৈরি সহজ সারসংক্ষেপ
-          </CardTitle>
+          <div className="flex justify-between items-center">
+            <CardTitle className="flex items-center gap-2 text-primary">
+                <Bot className="w-6 h-6" />
+                AI-এর তৈরি সহজ সারসংক্ষেপ
+            </CardTitle>
+            {summary && !isLoading && (
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" onClick={copyToClipboard}>
+                  <Clipboard className="w-4 h-4 mr-2" />
+                  কপি
+                </Button>
+                <Button variant="outline" size="sm">
+                  <Languages className="w-4 h-4 mr-2" />
+                  অনুবাদ
+                </Button>
+              </div>
+            )}
+          </div>
            <CardDescription>
             আপনার নথির সহজ সারসংক্ষেপ নিচে দেখানো হবে।
           </CardDescription>
@@ -189,7 +210,7 @@ export default function SummarizerClient() {
               <p className="text-sm text-muted-foreground">এতে কয়েক মুহূর্ত সময় লাগতে পারে।</p>
             </div>
           ) : summary ? (
-            <div className="prose prose-lg max-w-none text-foreground p-4 bg-muted rounded-md min-h-[400px]">
+            <div className="prose prose-lg max-w-none text-foreground p-4 bg-muted rounded-md min-h-[400px] relative">
               <p>{summary}</p>
             </div>
           ) : (
