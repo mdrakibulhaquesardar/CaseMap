@@ -118,17 +118,17 @@ export default function SummarizerClient() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         <main className="lg:col-span-2 space-y-8">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+          <div className="border rounded-lg">
+            <div className="p-6">
+              <h2 className="text-xl font-bold flex items-center gap-2">
                 <FileText className="w-6 h-6 text-primary" />
                 মূল নথি
-              </CardTitle>
-               <CardDescription>
+              </h2>
+               <p className="text-muted-foreground mt-1">
                 আপনার আইনি নথিটি নিচে পেস্ট করুন অথবা একটি ফাইল আপলোড করুন।
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
+              </p>
+            </div>
+            <div className="p-6 pt-0">
                 <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                     <TabsList className="grid w-full grid-cols-2">
                         <TabsTrigger value="text">লেখা পেস্ট করুন</TabsTrigger>
@@ -198,15 +198,15 @@ export default function SummarizerClient() {
                   )}
                 </Button>
               </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
+            </div>
+          </div>
+          <div className="border rounded-lg">
+            <div className="p-6">
               <div className="flex justify-between items-center">
-                <CardTitle className="flex items-center gap-2 text-primary">
+                <h2 className="text-xl font-bold flex items-center gap-2 text-primary">
                     <Bot className="w-6 h-6" />
                     AI-এর তৈরি সহজ সারসংক্ষেপ
-                </CardTitle>
+                </h2>
                 {summary && !isLoading && (
                   <div className="flex gap-2">
                     <Button variant="outline" size="sm" onClick={copyToClipboard}>
@@ -220,11 +220,11 @@ export default function SummarizerClient() {
                   </div>
                 )}
               </div>
-               <CardDescription>
+               <p className="text-muted-foreground mt-1">
                 আপনার নথির সহজ সারসংক্ষেপ নিচে দেখানো হবে।
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
+              </p>
+            </div>
+            <div className="p-6 pt-0">
               {isLoading ? (
                 <div className="flex flex-col items-center justify-center h-full min-h-[400px] p-4 bg-muted rounded-md">
                   <Sparkles className="w-10 h-10 text-primary animate-spin" />
@@ -242,23 +242,23 @@ export default function SummarizerClient() {
                    <p className="max-w-xs">আপনি একটি নথি দিলেই তার সহজ সারসংক্ষেপ এখানে তৈরি হবে।</p>
                 </div>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </main>
         <aside className="lg:col-span-1">
-             <Card className="sticky top-20">
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg">
+             <div className="sticky top-20 border rounded-lg">
+                <div className="p-6 border-b">
+                    <h3 className="font-semibold flex items-center gap-2 text-lg">
                         <History className="w-5 h-5" />
                         ইতিহাস
-                    </CardTitle>
+                    </h3>
                     <div className="flex justify-end">
                         <Button variant="link" size="sm" className="text-xs p-0 h-auto" onClick={() => setHistory([])} disabled={history.length === 0}>
                            সব মুছুন
                         </Button>
                     </div>
-                </CardHeader>
-                <CardContent>
+                </div>
+                <div className="p-6">
                     {history.length > 0 ? (
                         <ScrollArea className="h-96">
                             <div className="space-y-4">
@@ -275,8 +275,8 @@ export default function SummarizerClient() {
                             <p>এখনো কোনো সারসংক্ষেপ নেই।</p>
                         </div>
                     )}
-                </CardContent>
-             </Card>
+                </div>
+             </div>
         </aside>
     </div>
   );

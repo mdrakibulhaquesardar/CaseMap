@@ -55,11 +55,9 @@ export default function KnowledgeLibraryPage() {
                 {/* Optional Bottom List Section */}
             </main>
             <aside className="lg:col-span-1 space-y-8">
-                 <Card className="bg-muted border-none">
-                    <CardHeader>
-                        <CardTitle className="text-base">আলোচিত লেখক</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
+                 <div className="bg-muted border-none rounded-lg p-6">
+                    <h3 className="text-base font-semibold mb-4">আলোচিত লেখক</h3>
+                    <div className="space-y-4">
                         {trendingAuthors.map(author => (
                             <div key={author.name} className="flex items-center justify-between">
                                 <div className="flex items-center gap-3">
@@ -74,13 +72,11 @@ export default function KnowledgeLibraryPage() {
                                 </Button>
                             </div>
                         ))}
-                    </CardContent>
-                 </Card>
-                 <Card className="bg-muted border-none">
-                    <CardHeader>
-                        <CardTitle className="text-base">জনপ্রিয় ব্লগ</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
+                    </div>
+                 </div>
+                 <div className="bg-muted border-none rounded-lg p-6">
+                    <h3 className="text-base font-semibold mb-4">জনপ্রিয় ব্লগ</h3>
+                    <div className="space-y-4">
                         {popularBlogs.map(blog => (
                              <div key={blog.title} className="flex items-start gap-4">
                                 <Image src={blog.image} alt={blog.title} width={60} height={60} className="rounded-md" data-ai-hint="article thumbnail" />
@@ -90,8 +86,8 @@ export default function KnowledgeLibraryPage() {
                                 </div>
                              </div>
                         ))}
-                    </CardContent>
-                 </Card>
+                    </div>
+                 </div>
             </aside>
         </div>
       </div>

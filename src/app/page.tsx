@@ -316,7 +316,7 @@ function FeaturesSection() {
             return (
               <div
                 key={index}
-                className="group relative rounded-2xl border border-border/50 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5"
+                className="group relative rounded-2xl border border-border/50 p-8 transition-all hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5"
               >
                 <div className="mb-4 inline-flex rounded-xl bg-primary/10 p-3 text-primary transition-all group-hover:bg-primary group-hover:text-primary-foreground">
                   <Icon className="h-6 w-6" />

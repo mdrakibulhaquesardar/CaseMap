@@ -67,26 +67,18 @@ export default function HowItWorksPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card>
-                <CardHeader>
-                  <CardTitle>ডেটার উৎস</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-muted-foreground">
-                        আমাদের AI মডেলটি বাংলাদেশের সংবিধান, দণ্ডবিধি, দেওয়ানী কার্যবিধি, এবং অন্যান্য গুরুত্বপূর্ণ আইনের ওপর ভিত্তি করে প্রশিক্ষিত। আমরা প্রতিনিয়ত আমাদের ডেটাবেস আপডেট করি যাতে আপনি সর্বশেষ এবং সবচেয়ে সঠিক তথ্য পান।
-                    </p>
-                </CardContent>
-            </Card>
-             <Card>
-                <CardHeader>
-                  <CardTitle>গুরুত্বপূর্ণ সীমাবদ্ধতা</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-muted-foreground">
-                        অনুগ্রহ করে মনে রাখবেন, আমাদের AI আইনি তথ্য সরবরাহ করে, কিন্তু এটি কোনোভাবেই আইনি পরামর্শের বিকল্প নয়। প্রতিটি পরিস্থিতি ভিন্ন, তাই জটিল আইনি সমস্যার জন্য সর্বদা একজন অভিজ্ঞ আইনজীবীর সাথে পরামর্শ করুন।
-                    </p>
-                </CardContent>
-            </Card>
+            <div className="p-6 border rounded-lg">
+                <h3 className="text-xl font-semibold mb-2">ডেটার উৎস</h3>
+                <p className="text-muted-foreground">
+                    আমাদের AI মডেলটি বাংলাদেশের সংবিধান, দণ্ডবিধি, দেওয়ানী কার্যবিধি, এবং অন্যান্য গুরুত্বপূর্ণ আইনের ওপর ভিত্তি করে প্রশিক্ষিত। আমরা প্রতিনিয়ত আমাদের ডেটাবেস আপডেট করি যাতে আপনি সর্বশেষ এবং সবচেয়ে সঠিক তথ্য পান।
+                </p>
+            </div>
+             <div className="p-6 border rounded-lg">
+                <h3 className="text-xl font-semibold mb-2">গুরুত্বপূর্ণ সীমাবদ্ধতা</h3>
+                <p className="text-muted-foreground">
+                    অনুগ্রহ করে মনে রাখবেন, আমাদের AI আইনি তথ্য সরবরাহ করে, কিন্তু এটি কোনোভাবেই আইনি পরামর্শের বিকল্প নয়। প্রতিটি পরিস্থিতি ভিন্ন, তাই জটিল আইনি সমস্যার জন্য সর্বদা একজন অভিজ্ঞ আইনজীবীর সাথে পরামর্শ করুন।
+                </p>
+            </div>
         </div>
 
       </div>

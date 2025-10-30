@@ -90,7 +90,7 @@ export default function ProfilePage() {
   return (
     <div className="bg-muted/30">
         <div className="container mx-auto px-4 py-12">
-            <div className="bg-card rounded-lg shadow-sm overflow-hidden mb-8">
+            <div className="rounded-lg shadow-sm overflow-hidden mb-8 border">
                 <div className="h-40 relative">
                      <Image 
                         src="https://picsum.photos/1200/300"

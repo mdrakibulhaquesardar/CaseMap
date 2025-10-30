@@ -81,10 +81,9 @@ export default function LibraryClient({ documents }: { documents: LibraryDocumen
       {currentDocuments.length > 0 ? (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {currentDocuments.map(doc => (
-            <Card
+            <div
               key={doc.slug}
-              variant="hover"
-              className="group relative flex flex-col overflow-hidden transition-shadow border-none shadow-none bg-transparent"
+              className="group relative flex flex-col overflow-hidden transition-shadow bg-transparent"
               onMouseEnter={() => setHoveredCard(doc.slug)}
               onMouseLeave={() => setHoveredCard(null)}
             >
@@ -116,7 +115,7 @@ export default function LibraryClient({ documents }: { documents: LibraryDocumen
                 <h3 className="font-semibold text-sm leading-tight truncate text-foreground">{doc.title}</h3>
                 <p className="text-xs text-muted-foreground mt-1">{doc.author}</p>
               </div>
-            </Card>
+            </div>
           ))}
         </div>
       ) : (

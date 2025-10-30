@@ -33,45 +33,33 @@ export default function AboutPage() {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-          <Card className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
-                <Scale className="w-8 h-8 text-primary" />
-              </div>
-              <CardTitle className="mt-4">সকলের জন্য न्याय</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">
-                আমরা প্রত্যেকের জন্য আইনি প্রক্রিয়াকে স্বচ্ছ এবং সহজলভ্য করতে প্রতিশ্রুতিবদ্ধ, তাদের পটভূমি বা শিক্ষাগত যোগ্যতা নির্বিশেষে।
-              </p>
-            </CardContent>
-          </Card>
-          <Card className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
-                <Lightbulb className="w-8 h-8 text-primary" />
-              </div>
-              <CardTitle>AI দিয়ে নতুন দিগন্ত</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">
-                Google Gemini-এর মতো অত্যাধুনিক AI ব্যবহার করে আমরা জটিল আইনি পরিভাষাকে সহজ ও কার্যকরী তথ্যে রূপান্তরিত করি।
-              </p>
-            </CardContent>
-          </Card>
-          <Card className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
-                <Users className="w-8 h-8 text-primary" />
-              </div>
-              <CardTitle>קהילה-ভিত্তিক উদ্যোগ</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">
-                আমাদের প্ল্যাটফর্ম একটি সহায়ক কমিউনিটি তৈরি করে, যেখানে ব্যবহারকারীরা জ্ঞান ভাগ করে নিতে এবং নির্দেশনা চাইতে পারেন।
-              </p>
-            </CardContent>
-          </Card>
+          <div className="hover:shadow-lg transition-shadow p-6 rounded-lg">
+            <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
+              <Scale className="w-8 h-8 text-primary" />
+            </div>
+            <h3 className="mt-4 text-xl font-semibold">সকলের জন্য न्याय</h3>
+            <p className="mt-2 text-muted-foreground">
+              আমরা প্রত্যেকের জন্য আইনি প্রক্রিয়াকে স্বচ্ছ এবং সহজলভ্য করতে প্রতিশ্রুতিবদ্ধ, তাদের পটভূমি বা শিক্ষাগত যোগ্যতা নির্বিশেষে।
+            </p>
+          </div>
+          <div className="hover:shadow-lg transition-shadow p-6 rounded-lg">
+            <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
+              <Lightbulb className="w-8 h-8 text-primary" />
+            </div>
+            <h3 className="mt-4 text-xl font-semibold">AI দিয়ে নতুন দিগন্ত</h3>
+            <p className="mt-2 text-muted-foreground">
+              Google Gemini-এর মতো অত্যাধুনিক AI ব্যবহার করে আমরা জটিল আইনি পরিভাষাকে সহজ ও কার্যকরী তথ্যে রূপান্তরিত করি।
+            </p>
+          </div>
+          <div className="hover:shadow-lg transition-shadow p-6 rounded-lg">
+            <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
+              <Users className="w-8 h-8 text-primary" />
+            </div>
+            <h3 className="mt-4 text-xl font-semibold">קהילה-ভিত্তিক উদ্যোগ</h3>
+            <p className="mt-2 text-muted-foreground">
+              আমাদের প্ল্যাটফর্ম একটি সহায়ক কমিউনিটি তৈরি করে, যেখানে ব্যবহারকারীরা জ্ঞান ভাগ করে নিতে এবং নির্দেশনা চাইতে পারেন।
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -55,14 +55,14 @@ export default function ProfileClient() {
         </TabsList>
 
         <TabsContent value="cases">
-          <Card>
-            <CardHeader>
-              <CardTitle>সংরক্ষিত মামলা</CardTitle>
-              <CardDescription>
+          <div className="border rounded-lg">
+            <div className="p-6">
+              <h3 className="text-2xl font-bold">সংরক্ষিত মামলা</h3>
+              <p className="text-muted-foreground">
                 আপনার সংরক্ষিত মামলার টাইমলাইনগুলো এখানে দেখুন।
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
+              </p>
+            </div>
+            <div className="p-6 pt-0 space-y-4">
               {savedCases.length > 0 ? (
                 savedCases.map((c) => (
                   <div key={c.caseNumber} className="flex items-center justify-between rounded-lg border p-4">
@@ -89,19 +89,19 @@ export default function ProfileClient() {
                   </Button>
                 </div>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </TabsContent>
 
         <TabsContent value="faqs">
-          <Card>
-            <CardHeader>
-              <CardTitle>সংরক্ষিত প্রশ্নোত্তর</CardTitle>
-              <CardDescription>
+          <div className="border rounded-lg">
+            <div className="p-6">
+              <h3 className="text-2xl font-bold">সংরক্ষিত প্রশ্নোত্তর</h3>
+              <p className="text-muted-foreground">
                 আপনার বুকমার্ক করা প্রশ্ন এবং উত্তরগুলো এখানে দেখুন।
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
+              </p>
+            </div>
+            <div className="p-6 pt-0 space-y-4">
               {savedFaqs.length > 0 ? (
                 savedFaqs.map((faq) => (
                    <div key={faq.id} className="rounded-lg border p-4">
@@ -133,8 +133,8 @@ export default function ProfileClient() {
                    </Button>
                  </div>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </TabsContent>
       </Tabs>
     </div>

@@ -234,31 +234,27 @@ export default function FaqDetailClient({ faqId }: { faqId: string }) {
             </DiscussionItem>
         </Discussion>
       
-      <Card className="mt-8">
-        <CardHeader>
-            <h3 className="font-bold text-xl">আপনার উত্তর দিন</h3>
-        </CardHeader>
-        <CardContent>
-             <Textarea
-                value={newAnswer}
-                onChange={(e) => setNewAnswer(e.target.value)}
-                placeholder="আপনার জ্ঞান শেয়ার করে কমিউনিটিকে সাহায্য করুন..."
-                className="min-h-[150px]"
-                disabled={isLoading || !user}
-            />
-            <div className="mt-4 flex justify-end">
-                 <Button onClick={handleAddAnswer} disabled={isLoading || !user}>
-                  {isLoading ? (
-                    <Sparkles className="w-4 h-4 animate-spin mr-2" />
-                  ) : (
-                    <Send className="w-4 h-4 mr-2" />
-                  )}
-                  উত্তর পোস্ট করুন
-                </Button>
-            </div>
-             {!user && <p className="text-xs text-destructive mt-2 text-right">উত্তর পোস্ট করতে লগইন করুন।</p>}
-        </CardContent>
-      </Card>
+      <div className="mt-8 rounded-lg border p-6">
+        <h3 className="font-bold text-xl mb-4">আপনার উত্তর দিন</h3>
+        <Textarea
+          value={newAnswer}
+          onChange={(e) => setNewAnswer(e.target.value)}
+          placeholder="আপনার জ্ঞান শেয়ার করে কমিউনিটিকে সাহায্য করুন..."
+          className="min-h-[150px]"
+          disabled={isLoading || !user}
+        />
+        <div className="mt-4 flex justify-end">
+          <Button onClick={handleAddAnswer} disabled={isLoading || !user}>
+            {isLoading ? (
+              <Sparkles className="w-4 h-4 animate-spin mr-2" />
+            ) : (
+              <Send className="w-4 h-4 mr-2" />
+            )}
+            উত্তর পোস্ট করুন
+          </Button>
+        </div>
+        {!user && <p className="text-xs text-destructive mt-2 text-right">উত্তর পোস্ট করতে লগইন করুন।</p>}
+      </div>
     </div>
   );
 }
