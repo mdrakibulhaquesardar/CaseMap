@@ -6,17 +6,14 @@ import { useSearchParams } from 'next/navigation';
 import {
   Card,
   CardContent,
-  CardHeader,
 } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import type { FaqItem, FaqAnswer } from '@/types';
-import { ThumbsUp, ThumbsDown, User, Bot, Sparkles, Send, Bookmark, Lightbulb, FileText, Gavel, MapPin, MessageSquare, MoreHorizontal, ArrowBigUp, ArrowBigDown } from 'lucide-react';
+import { Sparkles, Send, Bookmark, Lightbulb, FileText, Gavel, MapPin, ArrowBigUp, ArrowBigDown, Bot } from 'lucide-react';
 import { askLegalQuestion } from '@/ai/flows/community-legal-q-and-a';
 import { legalToolRecommendation } from '@/ai/flows/legal-tool-recommendation';
 import { useToast } from '@/hooks/use-toast';
-import { Separator } from '@/components/ui/separator';
 import {
   Pagination,
   PaginationContent,
@@ -25,17 +22,20 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { useUser } from '@/firebase/auth/use-user';
 import { useFirestore } from '@/firebase/provider';
-import { collection, addDoc, serverTimestamp, query, orderBy, doc, setDoc, deleteDoc, getDocs, where, writeBatch, getDoc, arrayUnion, updateDoc, increment } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, orderBy, doc, setDoc, deleteDoc, getDocs, where, writeBatch, getDoc, increment } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Link from 'next/link';
+import {
+  Discussion,
+  DiscussionBody,
+  DiscussionContent,
+  DiscussionExpand,
+  DiscussionItem,
+  DiscussionReplies,
+  DiscussionTitle,
+} from "@/components/ui/discussion"
 
 const ITEMS_PER_PAGE = 5;
 
@@ -150,7 +150,6 @@ export default function FaqClient() {
         toast({ title: "সংরক্ষণ থেকে সরানো হয়েছে", description: "প্রশ্নোত্তরটি আপনার তালিকা থেকে সরানো হয়েছে।" });
     } else {
         const faqToSave = { ...faq };
-        // Firestore doesn't like `undefined` values.
         if (faqToSave.id) {
           await addDoc(collection(firestore, 'users', user.uid, 'savedFaqs'), {
             ...faqToSave,
@@ -278,107 +277,98 @@ export default function FaqClient() {
       </Card>
 
       <div className="space-y-4">
-        {currentFaqs.map((faq) => (
-          <Card key={faq.id} id={faq.id} className="shadow-sm overflow-hidden">
-             <div className="p-4 sm:p-6">
-                <Link href={`/faq/${faq.id}`} className="text-xl font-semibold text-foreground mb-3 hover:text-primary transition-colors">{faq.question}</Link>
-                <div className="flex gap-2 mb-4 flex-wrap">
-                    {faq.tags.map((tag) => (
-                        <Badge key={tag} variant="secondary">
-                        {tag}
-                        </Badge>
-                    ))}
-                </div>
-
-                <div className="flex justify-between items-end">
-                    <div className="flex items-center gap-2">
-                         <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground" onClick={() => toggleSaveFaq(faq)} disabled={!user}>
-                            <Bookmark className={`w-4 h-4 ${savedFaqs.some(item => item.originalId === faq.id) ? 'text-accent fill-accent' : ''}`} />
-                            {savedFaqs.some(item => item.originalId === faq.id) ? 'সংরক্ষিত' : 'সংরক্ষণ করুন'}
-                        </Button>
-                        <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground">
-                            শেয়ার
-                        </Button>
-                    </div>
-
-                    <div className="flex items-center gap-3 bg-muted/50 p-2 rounded-lg">
-                        <Avatar className="h-8 w-8">
+        <Discussion type="multiple" className="w-full">
+            {currentFaqs.map((faq) => (
+                <DiscussionItem value={faq.id} key={faq.id}>
+                    <DiscussionContent className="gap-2">
+                        <Avatar className="h-9 w-9">
                             <AvatarImage src={faq.author.avatar} alt={faq.author.name} />
                             <AvatarFallback>{(faq.author.name || 'A').charAt(0)}</AvatarFallback>
                         </Avatar>
-                        <div>
-                            <p className="font-semibold text-sm">{faq.author.name}</p>
-                            <p className="text-xs text-muted-foreground">
-                                জিজ্ঞাসা করেছেন {getTimestamp(faq.timestamp)}
-                            </p>
+                        <div className="flex flex-col gap-2 w-full">
+                            <div className="flex flex-col gap-1">
+                                <DiscussionTitle className="flex gap-2 items-center">
+                                    <Link href={`/faq/${faq.id}`} className="hover:underline">{faq.author.name}</Link>
+                                    <span className="text-muted-foreground text-xs">•</span>
+                                    <div className="text-muted-foreground text-xs ">{getTimestamp(faq.timestamp)}</div>
+                                </DiscussionTitle>
+                                <DiscussionBody>{faq.question}</DiscussionBody>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <DiscussionExpand />
+                                <div className="flex items-center gap-1">
+                                    <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground h-auto p-1" onClick={() => toggleSaveFaq(faq)} disabled={!user}>
+                                        <Bookmark className={`w-4 h-4 ${savedFaqs.some(item => item.originalId === faq.id) ? 'text-accent fill-accent' : ''}`} />
+                                    </Button>
+                                    <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground h-auto p-1">
+                                        শেয়ার
+                                    </Button>
+                                </div>
+                            </div>
+                            
+                            {faq.recommendation && (
+                                <Card className="mt-2 border-accent bg-accent/10">
+                                <CardContent className="p-3">
+                                    <div className="flex items-start gap-3">
+                                        {getToolIcon(faq.recommendation.toolRecommendation)}
+                                    <div>
+                                        <h4 className="font-bold text-xs">প্রস্তাবিত টুল: {faq.recommendation.toolRecommendation}</h4>
+                                        <p className="text-xs text-muted-foreground mt-1">{faq.recommendation.suitabilityReasoning}</p>
+                                    </div>
+                                    </div>
+                                </CardContent>
+                                </Card>
+                            )}
                         </div>
-                    </div>
-                </div>
+                    </DiscussionContent>
+                    <DiscussionReplies>
+                       {faq.answers.sort((a,b) => (b.upvotes - b.downvotes) - (a.upvotes - a.downvotes)).map(answer => {
+                           const voteId = `${faq.id}_${answer.id}`;
+                           const userVote = userVotes?.[voteId];
+                           return(
+                            <DiscussionItem value={`${faq.id}-${answer.id}`} key={answer.id}>
+                                <DiscussionContent className="gap-2">
+                                    <div className="flex flex-col items-center gap-1 text-muted-foreground pt-2">
+                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleVote(faq.id, answer.id, answer.authorUid, 'up')} disabled={!user}>
+                                            <ArrowBigUp className={`w-4 h-4 ${userVote === 'up' ? 'text-primary fill-primary' : ''}`}/>
+                                        </Button>
+                                        <span className="font-bold text-sm">{answer.upvotes - answer.downvotes}</span>
+                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleVote(faq.id, answer.id, answer.authorUid, 'down')} disabled={!user}>
+                                            <ArrowBigDown className={`w-4 h-4 ${userVote === 'down' ? 'text-destructive fill-destructive' : ''}`}/>
+                                        </Button>
+                                    </div>
 
-                 {faq.recommendation && (
-                    <Card className="mt-4 border-accent bg-accent/10">
-                    <CardContent className="p-4">
-                        <div className="flex items-start gap-4">
-                            {getToolIcon(faq.recommendation.toolRecommendation)}
-                        <div>
-                            <h4 className="font-bold text-sm">প্রস্তাবিত টুল: {faq.recommendation.toolRecommendation}</h4>
-                            <p className="text-xs text-muted-foreground mt-1">{faq.recommendation.suitabilityReasoning}</p>
-                        </div>
-                        </div>
-                    </CardContent>
-                    </Card>
-                )}
-
-             </div>
-
-              <Separator />
-
-              <div className="bg-muted/30 p-4 sm:p-6 space-y-6">
-                <h3 className="font-bold text-lg">{faq.answers.length} টি উত্তর</h3>
-                {faq.answers.map((answer) => {
-                   const voteId = `${faq.id}_${answer.id}`;
-                   const userVote = userVotes?.[voteId];
-                   return(
-                      <div key={answer.id} className="flex items-start gap-3 sm:gap-4">
-                        <div className="flex flex-col items-center gap-1 text-muted-foreground">
-                            <Button variant="ghost" size="icon" onClick={() => handleVote(faq.id, answer.id, answer.authorUid, 'up')} disabled={!user}>
-                                <ArrowBigUp className={`w-5 h-5 ${userVote === 'up' ? 'text-primary fill-primary' : ''}`}/>
-                            </Button>
-                            <span className="font-bold text-lg">{answer.upvotes - answer.downvotes}</span>
-                            <Button variant="ghost" size="icon" onClick={() => handleVote(faq.id, answer.id, answer.authorUid, 'down')} disabled={!user}>
-                                <ArrowBigDown className={`w-5 h-5 ${userVote === 'down' ? 'text-destructive fill-destructive' : ''}`}/>
-                            </Button>
-                        </div>
-                        <div className="flex-1">
-                            <p className="text-foreground">{answer.content}</p>
-                            <div className="flex justify-end mt-4">
-                                <div className="flex items-center gap-3 bg-background p-2 rounded-lg border">
-                                    <div className="bg-muted p-2 rounded-full">
                                     {answer.authorName === 'AI বট' ? (
-                                        <Bot className="w-5 h-5 text-primary" />
+                                        <Avatar className="h-9 w-9">
+                                            <AvatarFallback className="bg-primary/10 text-primary">
+                                                <Bot className="w-5 h-5" />
+                                            </AvatarFallback>
+                                        </Avatar>
                                     ) : (
-                                        <Avatar className="h-6 w-6">
+                                        <Avatar className="h-9 w-9">
                                             <AvatarImage src={answer.authorAvatar} alt={answer.authorName} />
                                             <AvatarFallback>{(answer.authorName || 'অ').charAt(0)}</AvatarFallback>
                                         </Avatar>
                                     )}
-                                    </div>
-                                    <div>
-                                        <p className="font-semibold text-sm">{answer.authorName || 'নামবিহীন'}</p>
-                                        <p className="text-xs text-muted-foreground">
-                                        উত্তর দিয়েছেন {getTimestamp(answer.timestamp)}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                    )
-                })}
-              </div>
 
-          </Card>
-        ))}
+                                    <div className="flex flex-col gap-2 w-full">
+                                        <div className="flex flex-col gap-1">
+                                            <DiscussionTitle className="flex gap-2 items-center">
+                                                <div>{answer.authorName}</div>
+                                                <span className="text-muted-foreground text-xs">•</span>
+                                                <div className="text-muted-foreground text-xs ">{getTimestamp(answer.timestamp)}</div>
+                                            </DiscussionTitle>
+                                            <DiscussionBody>{answer.content}</DiscussionBody>
+                                        </div>
+                                    </div>
+                                </DiscussionContent>
+                            </DiscussionItem>
+                           )
+                       })}
+                    </DiscussionReplies>
+                </DiscussionItem>
+            ))}
+        </Discussion>
       </div>
       <Pagination className="mt-8">
         <PaginationContent>
