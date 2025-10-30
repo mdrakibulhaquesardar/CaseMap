@@ -36,6 +36,7 @@ import {
   DiscussionReplies,
   DiscussionTitle,
 } from "@/components/ui/discussion"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 const ITEMS_PER_PAGE = 5;
 
@@ -236,10 +237,10 @@ export default function FaqClient() {
 
 
   const getToolIcon = (toolName: string) => {
-    if (toolName.toLowerCase().includes('summarizer')) return <FileText className="w-5 h-5 text-accent" />;
-    if (toolName.toLowerCase().includes('timeline')) return <Gavel className="w-5 h-5 text-accent" />;
-    if (toolName.toLowerCase().includes('finder')) return <MapPin className="w-5 h-5 text-accent" />;
-    return <Lightbulb className="w-5 h-5 text-accent" />;
+    if (toolName.toLowerCase().includes('summarizer')) return <FileText className="w-4 h-4" />;
+    if (toolName.toLowerCase().includes('timeline')) return <Gavel className="w-4 h-4" />;
+    if (toolName.toLowerCase().includes('finder')) return <MapPin className="w-4 h-4" />;
+    return <Lightbulb className="w-4 h-4" />;
   }
   
   const getTimestamp = (timestamp: any) => {
@@ -277,98 +278,103 @@ export default function FaqClient() {
       </Card>
 
       <div className="space-y-4">
-        <Discussion type="multiple" className="w-full">
-            {currentFaqs.map((faq) => (
-                <DiscussionItem value={faq.id} key={faq.id}>
-                    <DiscussionContent className="gap-2">
-                        <Avatar className="h-9 w-9">
-                            <AvatarImage src={faq.author.avatar} alt={faq.author.name} />
-                            <AvatarFallback>{(faq.author.name || 'A').charAt(0)}</AvatarFallback>
-                        </Avatar>
-                        <div className="flex flex-col gap-2 w-full">
-                            <div className="flex flex-col gap-1">
-                                <DiscussionTitle className="flex gap-2 items-center">
-                                    <Link href={`/faq/${faq.id}`} className="hover:underline">{faq.author.name}</Link>
-                                    <span className="text-muted-foreground text-xs">•</span>
-                                    <div className="text-muted-foreground text-xs ">{getTimestamp(faq.timestamp)}</div>
-                                </DiscussionTitle>
-                                <DiscussionBody>{faq.question}</DiscussionBody>
-                            </div>
-                            <div className="flex justify-between items-center">
-                                <DiscussionExpand />
-                                <div className="flex items-center gap-1">
-                                    <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground h-auto p-1" onClick={() => toggleSaveFaq(faq)} disabled={!user}>
-                                        <Bookmark className={`w-4 h-4 ${savedFaqs.some(item => item.originalId === faq.id) ? 'text-accent fill-accent' : ''}`} />
-                                    </Button>
-                                    <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground h-auto p-1">
-                                        শেয়ার
-                                    </Button>
+        <TooltipProvider>
+            <Discussion type="multiple" className="w-full">
+                {currentFaqs.map((faq) => (
+                    <DiscussionItem value={faq.id} key={faq.id}>
+                        <DiscussionContent className="gap-2">
+                            <Avatar className="h-9 w-9">
+                                <AvatarImage src={faq.author.avatar} alt={faq.author.name} />
+                                <AvatarFallback>{(faq.author.name || 'A').charAt(0)}</AvatarFallback>
+                            </Avatar>
+                            <div className="flex flex-col gap-2 w-full">
+                                <div className="flex flex-col gap-1">
+                                    <DiscussionTitle className="flex gap-2 items-center">
+                                        <Link href={`/faq/${faq.id}`} className="hover:underline">{faq.author.name}</Link>
+                                        <span className="text-muted-foreground text-xs">•</span>
+                                        <div className="text-muted-foreground text-xs ">{getTimestamp(faq.timestamp)}</div>
+                                        {faq.recommendation && (
+                                            <>
+                                                <span className="text-muted-foreground text-xs">•</span>
+                                                <Tooltip>
+                                                    <TooltipTrigger asChild>
+                                                        <div className="flex items-center gap-1.5 cursor-default text-accent">
+                                                            {getToolIcon(faq.recommendation.toolRecommendation)}
+                                                            <span className="text-xs font-medium">{faq.recommendation.toolRecommendation}</span>
+                                                        </div>
+                                                    </TooltipTrigger>
+                                                    <TooltipContent className="max-w-xs">
+                                                        <p className="text-sm font-bold mb-1">প্রস্তাবিত টুল</p>
+                                                        <p className="text-xs text-muted-foreground">{faq.recommendation.suitabilityReasoning}</p>
+                                                    </TooltipContent>
+                                                </Tooltip>
+                                            </>
+                                        )}
+                                    </DiscussionTitle>
+                                    <DiscussionBody>{faq.question}</DiscussionBody>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <DiscussionExpand />
+                                    <div className="flex items-center gap-1">
+                                        <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground h-auto p-1" onClick={() => toggleSaveFaq(faq)} disabled={!user}>
+                                            <Bookmark className={`w-4 h-4 ${savedFaqs.some(item => item.originalId === faq.id) ? 'text-accent fill-accent' : ''}`} />
+                                        </Button>
+                                        <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground h-auto p-1">
+                                            শেয়ার
+                                        </Button>
+                                    </div>
                                 </div>
                             </div>
-                            
-                            {faq.recommendation && (
-                                <Card className="mt-2 border-accent bg-accent/10">
-                                <CardContent className="p-3">
-                                    <div className="flex items-start gap-3">
-                                        {getToolIcon(faq.recommendation.toolRecommendation)}
-                                    <div>
-                                        <h4 className="font-bold text-xs">প্রস্তাবিত টুল: {faq.recommendation.toolRecommendation}</h4>
-                                        <p className="text-xs text-muted-foreground mt-1">{faq.recommendation.suitabilityReasoning}</p>
-                                    </div>
-                                    </div>
-                                </CardContent>
-                                </Card>
-                            )}
-                        </div>
-                    </DiscussionContent>
-                    <DiscussionReplies>
-                       {faq.answers.sort((a,b) => (b.upvotes - b.downvotes) - (a.upvotes - a.downvotes)).map(answer => {
-                           const voteId = `${faq.id}_${answer.id}`;
-                           const userVote = userVotes?.[voteId];
-                           return(
-                            <DiscussionItem value={`${faq.id}-${answer.id}`} key={answer.id}>
-                                <DiscussionContent className="gap-2">
-                                    <div className="flex flex-col items-center gap-1 text-muted-foreground pt-2">
-                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleVote(faq.id, answer.id, answer.authorUid, 'up')} disabled={!user}>
-                                            <ArrowBigUp className={`w-4 h-4 ${userVote === 'up' ? 'text-primary fill-primary' : ''}`}/>
-                                        </Button>
-                                        <span className="font-bold text-sm">{answer.upvotes - answer.downvotes}</span>
-                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleVote(faq.id, answer.id, answer.authorUid, 'down')} disabled={!user}>
-                                            <ArrowBigDown className={`w-4 h-4 ${userVote === 'down' ? 'text-destructive fill-destructive' : ''}`}/>
-                                        </Button>
-                                    </div>
-
-                                    {answer.authorName === 'AI বট' ? (
-                                        <Avatar className="h-9 w-9">
-                                            <AvatarFallback className="bg-primary/10 text-primary">
-                                                <Bot className="w-5 h-5" />
-                                            </AvatarFallback>
-                                        </Avatar>
-                                    ) : (
-                                        <Avatar className="h-9 w-9">
-                                            <AvatarImage src={answer.authorAvatar} alt={answer.authorName} />
-                                            <AvatarFallback>{(answer.authorName || 'অ').charAt(0)}</AvatarFallback>
-                                        </Avatar>
-                                    )}
-
-                                    <div className="flex flex-col gap-2 w-full">
-                                        <div className="flex flex-col gap-1">
-                                            <DiscussionTitle className="flex gap-2 items-center">
-                                                <div>{answer.authorName}</div>
-                                                <span className="text-muted-foreground text-xs">•</span>
-                                                <div className="text-muted-foreground text-xs ">{getTimestamp(answer.timestamp)}</div>
-                                            </DiscussionTitle>
-                                            <DiscussionBody>{answer.content}</DiscussionBody>
+                        </DiscussionContent>
+                        <DiscussionReplies>
+                        {faq.answers.sort((a,b) => (b.upvotes - b.downvotes) - (a.upvotes - a.downvotes)).map(answer => {
+                            const voteId = `${faq.id}_${answer.id}`;
+                            const userVote = userVotes?.[voteId];
+                            return(
+                                <DiscussionItem value={`${faq.id}-${answer.id}`} key={answer.id}>
+                                    <DiscussionContent className="gap-2">
+                                        <div className="flex flex-col items-center gap-1 text-muted-foreground pt-2">
+                                            <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleVote(faq.id, answer.id, answer.authorUid, 'up')} disabled={!user}>
+                                                <ArrowBigUp className={`w-4 h-4 ${userVote === 'up' ? 'text-primary fill-primary' : ''}`}/>
+                                            </Button>
+                                            <span className="font-bold text-sm">{answer.upvotes - answer.downvotes}</span>
+                                            <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleVote(faq.id, answer.id, answer.authorUid, 'down')} disabled={!user}>
+                                                <ArrowBigDown className={`w-4 h-4 ${userVote === 'down' ? 'text-destructive fill-destructive' : ''}`}/>
+                                            </Button>
                                         </div>
-                                    </div>
-                                </DiscussionContent>
-                            </DiscussionItem>
-                           )
-                       })}
-                    </DiscussionReplies>
-                </DiscussionItem>
-            ))}
-        </Discussion>
+
+                                        {answer.authorName === 'AI বট' ? (
+                                            <Avatar className="h-9 w-9">
+                                                <AvatarFallback className="bg-primary/10 text-primary">
+                                                    <Bot className="w-5 h-5" />
+                                                </AvatarFallback>
+                                            </Avatar>
+                                        ) : (
+                                            <Avatar className="h-9 w-9">
+                                                <AvatarImage src={answer.authorAvatar} alt={answer.authorName} />
+                                                <AvatarFallback>{(answer.authorName || 'অ').charAt(0)}</AvatarFallback>
+                                            </Avatar>
+                                        )}
+
+                                        <div className="flex flex-col gap-2 w-full">
+                                            <div className="flex flex-col gap-1">
+                                                <DiscussionTitle className="flex gap-2 items-center">
+                                                    <div>{answer.authorName}</div>
+                                                    <span className="text-muted-foreground text-xs">•</span>
+                                                    <div className="text-muted-foreground text-xs ">{getTimestamp(answer.timestamp)}</div>
+                                                </DiscussionTitle>
+                                                <DiscussionBody>{answer.content}</DiscussionBody>
+                                            </div>
+                                        </div>
+                                    </DiscussionContent>
+                                </DiscussionItem>
+                            )
+                        })}
+                        </DiscussionReplies>
+                    </DiscussionItem>
+                ))}
+            </Discussion>
+        </TooltipProvider>
       </div>
       <Pagination className="mt-8">
         <PaginationContent>
