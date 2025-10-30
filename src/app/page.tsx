@@ -11,6 +11,7 @@ import { Search, Scale, BookOpen, Sparkles, ArrowRight, MessageSquare, FileText,
 import { TestimonialsSection } from '@/components/blocks/TestimonialsWithMarquee';
 import { PricingWithComparison } from '@/components/blocks/PricingWithComparison';
 import { Features } from '@/components/ui/features';
+import { FaqSectionDemo } from '@/components/blocks/demo/FaqSection';
 
 
 // Glow Component
@@ -436,7 +437,7 @@ const features= [
     title: "AI আইনি সহকারী",
     description:
       "Odhikar-এর AI সহকারীরা নির্দিষ্ট ডোমেইনে প্রশিক্ষিত, যা আপনাকে প্রযুক্তি, কোডিং এবং একাডেমিক বিষয়ে গাইড করে।",
-    image: "https://res.cloudinary.com/do7p8mg3q/image/upload/v1761674950/Generated_Image_October_29_2025_-_12_08AM_nwcoft.png",
+    image: "https://res.cloudinary.com/do7p8mg3q/image/upload/v1761769805/Gemini_Generated_Image_7t9dcd7t9dcd7t9d_vkbusy.png",
   },
   {
     id: 2,
@@ -506,6 +507,7 @@ export default function Home() {
         testimonials={testimonials}
       />
       <PricingWithComparison />
+      <FaqSectionDemo />
     </>
     );
 }
