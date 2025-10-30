@@ -69,7 +69,6 @@ export default function FaqClient() {
     }
   }, [faqsSnapshot]);
 
-
   const savedFaqsRef = user ? query(collection(firestore, 'users', user.uid, 'savedFaqs')) : null;
   const [savedFaqsSnapshot] = useCollection(savedFaqsRef);
   const savedFaqs = savedFaqsSnapshot?.docs.map(doc => ({ ...doc.data(), id: doc.id, faqId: doc.data().id } as FaqItem & {faqId: string})) || [];
@@ -89,10 +88,9 @@ export default function FaqClient() {
   );
 
   useEffect(() => {
-    if (currentFaqs.length > 0) {
-      setDefaultOpenValues(currentFaqs.map(faq => faq.id));
-    }
-  }, [currentFaqs]);
+    setDefaultOpenValues(faqs.map(faq => faq.id));
+  }, [faqs]);
+
 
   const handleAskQuestion = async () => {
     if (!newQuestion.trim() || !user) return;
