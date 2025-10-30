@@ -288,7 +288,7 @@ export default function FaqClient() {
                             <div className="flex flex-col gap-2 w-full">
                                 <div className="flex flex-col gap-1">
                                     <DiscussionTitle className="flex gap-2 items-center">
-                                        <Link href={`/faq/${faq.id}`} className="hover:underline">{faq.author.name}</Link>
+                                        <div>{faq.author.name}</div>
                                         <span className="text-muted-foreground text-xs">•</span>
                                         <div className="text-muted-foreground text-xs ">{getTimestamp(faq.timestamp)}</div>
                                         {faq.recommendation && (
@@ -309,7 +309,9 @@ export default function FaqClient() {
                                             </>
                                         )}
                                     </DiscussionTitle>
-                                    <DiscussionBody>{faq.question}</DiscussionBody>
+                                    <DiscussionBody>
+                                        <Link href={`/faq/${faq.id}`} className="hover:underline">{faq.question}</Link>
+                                    </DiscussionBody>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <DiscussionExpand />
@@ -406,5 +408,7 @@ export default function FaqClient() {
     </div>
   );
 }
+
+    
 
     
