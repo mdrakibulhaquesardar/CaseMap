@@ -251,7 +251,7 @@ export default function FaqClient() {
 
   return (
     <div className="w-full">
-      <div className="mb-8 rounded-lg border p-4 sm:p-6" id="ask">
+      <div className="mb-8 rounded-lg border-b p-4 sm:p-6" id="ask">
         <h3 className="font-semibold text-lg mb-2">আপনার প্রশ্নটি করুন</h3>
         <p className="text-muted-foreground text-sm mb-4">
           কোনো আইনি জিজ্ঞাসা আছে? আমাদের কমিউনিটি এবং AI সহকারীর কাছে জানতে চান।
@@ -262,6 +262,7 @@ export default function FaqClient() {
             onChange={(e) => setNewQuestion(e.target.value)}
             placeholder="উদাহরণ: একজন ভাড়াটিয়া হিসেবে আমার কী কী অধিকার আছে?"
             disabled={isLoading || !user}
+            className="bg-transparent"
           />
           <Button onClick={handleAskQuestion} disabled={isLoading || !user} className="w-full sm:w-auto">
             {isLoading ? (
@@ -277,7 +278,7 @@ export default function FaqClient() {
 
       <div className="space-y-4">
         <TooltipProvider>
-            <Discussion type="multiple" className="w-full">
+            <Discussion type="multiple" className="w-full" defaultValue={currentFaqs.map(faq => faq.id)}>
                 {currentFaqs.map((faq) => (
                     <DiscussionItem value={faq.id} key={faq.id}>
                         <DiscussionContent className="gap-2">
@@ -288,7 +289,7 @@ export default function FaqClient() {
                             <div className="flex flex-col gap-2 w-full">
                                 <div className="flex flex-col gap-1">
                                     <DiscussionTitle className="flex gap-2 items-center">
-                                        <div>{faq.author.name}</div>
+                                        <Link href={`/faq/${faq.id}`} className="hover:underline">{faq.author.name}</Link>
                                         <span className="text-muted-foreground text-xs">•</span>
                                         <div className="text-muted-foreground text-xs ">{getTimestamp(faq.timestamp)}</div>
                                         {faq.recommendation && (
@@ -408,6 +409,8 @@ export default function FaqClient() {
     </div>
   );
 }
+
+    
 
     
 
