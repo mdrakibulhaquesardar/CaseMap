@@ -1,16 +1,31 @@
 
 import FaqClient from './FaqClient';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { FileText, MapPin, Trophy, Users, HelpCircle } from 'lucide-react';
+import { FileText, MapPin, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import TopContributors from './TopContributors';
+import { Skeleton } from '@/components/ui/skeleton';
 
 
 const popularTags = [
   "সম্পত্তি আইন", "ভাড়াটিয়া অধিকার", "সাইবার ক্রাইম", "ডিজিটাল নিরাপত্তা", "শ্রম আইন", "শ্রমিক অধিকার", "পারিবারিক আইন"
 ];
+
+const FaqSkeleton = () => (
+    <div className="space-y-4">
+        {[...Array(3)].map((_, i) => (
+            <div key={i} className="flex items-start space-x-4 p-4">
+                <Skeleton className="h-10 w-10 rounded-full" />
+                <div className="w-full space-y-2">
+                    <Skeleton className="h-4 w-1/4" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-3/4" />
+                </div>
+            </div>
+        ))}
+    </div>
+);
 
 function FaqPage() {
   return (
@@ -32,7 +47,7 @@ function FaqPage() {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <main className="lg:col-span-3">
-            <Suspense fallback={<div className="text-center py-8">লোড হচ্ছে...</div>}>
+            <Suspense fallback={<FaqSkeleton />}>
               <FaqClient />
             </Suspense>
           </main>
