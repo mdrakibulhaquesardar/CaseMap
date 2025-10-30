@@ -35,14 +35,12 @@ export default function TopContributors() {
     const contributors = dummyContributors;
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-base">
-                    <Trophy className="text-accent" />
-                    সেরা অবদানকারী
-                </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
+        <div className="p-4 rounded-lg border">
+            <h3 className="font-semibold mb-4 flex items-center gap-2 text-base">
+                <Trophy className="text-accent" />
+                সেরা অবদানকারী
+            </h3>
+            <div className="space-y-4">
                 {loading && (
                     <>
                         <div className="flex items-center gap-3">
@@ -83,7 +81,7 @@ export default function TopContributors() {
                         </div>
                     )
                 })}
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     )
 }

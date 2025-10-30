@@ -251,31 +251,29 @@ export default function FaqClient() {
 
   return (
     <div className="w-full">
-      <Card className="mb-8 shadow-sm" id="ask">
-        <CardContent className="p-4 sm:p-6">
-          <h3 className="font-semibold text-lg mb-2">আপনার প্রশ্নটি করুন</h3>
-          <p className="text-muted-foreground text-sm mb-4">
-            কোনো আইনি জিজ্ঞাসা আছে? আমাদের কমিউনিটি এবং AI সহকারীর কাছে জানতে চান।
-          </p>
-          <div className="flex flex-col sm:flex-row gap-2">
-            <Input
-              value={newQuestion}
-              onChange={(e) => setNewQuestion(e.target.value)}
-              placeholder="উদাহরণ: একজন ভাড়াটিয়া হিসেবে আমার কী কী অধিকার আছে?"
-              disabled={isLoading || !user}
-            />
-            <Button onClick={handleAskQuestion} disabled={isLoading || !user} className="w-full sm:w-auto">
-              {isLoading ? (
-                <Sparkles className="w-4 h-4 animate-spin mr-2" />
-              ) : (
-                <Send className="w-4 h-4 mr-2" />
-              )}
-              প্রশ্ন পাঠান
-            </Button>
-          </div>
-           {!user && <p className="text-xs text-destructive mt-2">প্রশ্ন করতে অনুগ্রহ করে লগইন করুন।</p>}
-        </CardContent>
-      </Card>
+      <div className="mb-8 rounded-lg border p-4 sm:p-6" id="ask">
+        <h3 className="font-semibold text-lg mb-2">আপনার প্রশ্নটি করুন</h3>
+        <p className="text-muted-foreground text-sm mb-4">
+          কোনো আইনি জিজ্ঞাসা আছে? আমাদের কমিউনিটি এবং AI সহকারীর কাছে জানতে চান।
+        </p>
+        <div className="flex flex-col sm:flex-row gap-2">
+          <Input
+            value={newQuestion}
+            onChange={(e) => setNewQuestion(e.target.value)}
+            placeholder="উদাহরণ: একজন ভাড়াটিয়া হিসেবে আমার কী কী অধিকার আছে?"
+            disabled={isLoading || !user}
+          />
+          <Button onClick={handleAskQuestion} disabled={isLoading || !user} className="w-full sm:w-auto">
+            {isLoading ? (
+              <Sparkles className="w-4 h-4 animate-spin mr-2" />
+            ) : (
+              <Send className="w-4 h-4 mr-2" />
+            )}
+            প্রশ্ন পাঠান
+          </Button>
+        </div>
+         {!user && <p className="text-xs text-destructive mt-2">প্রশ্ন করতে অনুগ্রহ করে লগইন করুন।</p>}
+      </div>
 
       <div className="space-y-4">
         <TooltipProvider>

@@ -39,24 +39,20 @@ function FaqPage() {
 
           <aside className="hidden lg:block lg:col-span-1">
             <div className="sticky top-20 space-y-6">
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="text-base">আলোচিত বিষয়</CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex flex-wrap gap-2">
+                <div className="p-4 rounded-lg border">
+                    <h3 className="text-base font-semibold mb-4">আলোচিত বিষয়</h3>
+                    <div className="flex flex-wrap gap-2">
                         {popularTags.map(tag => (
                             <Button key={tag} variant="outline" size="sm" asChild className="text-xs">
                                 <Link href="#">{tag}</Link>
                             </Button>
                         ))}
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
                 <TopContributors />
-               <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">অন্যান্য টুলস</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-1">
+               <div className="p-4 rounded-lg border">
+                <h3 className="text-base font-semibold mb-4">অন্যান্য টুলস</h3>
+                <div className="space-y-1">
                    <Button variant="ghost" className="w-full justify-start gap-2 text-sm" asChild>
                        <Link href="/summarizer">
                         <FileText className="w-4 h-4 text-primary"/> AI ডকুমেন্ট সারসংক্ষেপ
@@ -67,8 +63,8 @@ function FaqPage() {
                         <MapPin className="w-4 h-4 text-primary"/> আইনি সহায়তা কেন্দ্র
                        </Link>
                    </Button>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </div>
           </aside>
         </div>
