@@ -27,7 +27,7 @@ export function FaqSection({ items, title, description, contactLinkText, contact
 			<Accordion
 				type="single"
 				collapsible
-				className="bg-card dark:bg-card/50 w-full -space-y-px rounded-lg "
+				className="dark:bg-card/50 w-full -space-y-px rounded-lg "
 				defaultValue="item-1"
 			>
 				{items.map((item) => (
