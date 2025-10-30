@@ -17,7 +17,7 @@ export function FaqSection({ items, title, description, contactLinkText, contact
     contactLinkHref: string;
 }) {
 	return (
-		<div className="mx-auto w-full max-w-3xl space-y-7 px-4 py-16">
+		<div className="mx-auto w-full space-y-7 px-4 py-16">
 			<div className="space-y-2 text-center">
 				<h2 className="text-3xl font-bold md:text-4xl">{title}</h2>
 				<p className="text-muted-foreground max-w-2xl mx-auto">
