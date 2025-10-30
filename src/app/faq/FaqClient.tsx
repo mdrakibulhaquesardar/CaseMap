@@ -53,6 +53,7 @@ export default function FaqClient() {
   const [faqsSnapshot] = useCollection(faqsRef);
   
   const [faqs, setFaqs] = useState<FaqItem[]>([]);
+  const [defaultOpenValues, setDefaultOpenValues] = useState<string[]>([]);
   
   useEffect(() => {
     const queryQuestion = searchParams.get('q');
@@ -86,6 +87,12 @@ export default function FaqClient() {
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
+
+  useEffect(() => {
+    if (currentFaqs.length > 0) {
+      setDefaultOpenValues(currentFaqs.map(faq => faq.id));
+    }
+  }, [currentFaqs]);
 
   const handleAskQuestion = async () => {
     if (!newQuestion.trim() || !user) return;
@@ -278,7 +285,7 @@ export default function FaqClient() {
 
       <div className="space-y-4">
         <TooltipProvider>
-            <Discussion type="multiple" className="w-full" defaultValue={currentFaqs.map(faq => faq.id)}>
+            <Discussion type="multiple" className="w-full" value={defaultOpenValues} onValueChange={setDefaultOpenValues}>
                 {currentFaqs.map((faq) => (
                     <DiscussionItem value={faq.id} key={faq.id}>
                         <DiscussionContent className="gap-2">
@@ -409,6 +416,8 @@ export default function FaqClient() {
     </div>
   );
 }
+
+    
 
     
 
