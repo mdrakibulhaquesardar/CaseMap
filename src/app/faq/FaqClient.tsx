@@ -281,7 +281,7 @@ export default function FaqClient() {
 
   return (
     <div className="w-full">
-      <div className="mb-8 rounded-lg border bg-card p-6" id="ask">
+      <div className="mb-8 rounded-lg border p-6" id="ask">
         <h3 className="text-xl font-bold">আপনার প্রশ্নটি করুন</h3>
         <p className="text-muted-foreground mb-4">
           কোনো আইনি জিজ্ঞাসা আছে? আমাদের কমিউনিটি এবং AI সহকারীর কাছে জানতে চান।
