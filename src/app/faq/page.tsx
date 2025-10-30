@@ -31,20 +31,6 @@ function FaqPage() {
   return (
     <div className="bg-muted/30">
       <div className="container mx-auto px-4 py-12">
-        <div className="flex justify-between items-center mb-8">
-            <div>
-                <h1 className="text-4xl font-bold font-headline">কমিউনিটি প্রশ্নোত্তর</h1>
-                <p className="mt-2 text-muted-foreground">
-                    আপনার আইনি প্রশ্ন করুন এবং আমাদের AI ও কমিউনিটির কাছ থেকে উত্তর পান।
-                </p>
-            </div>
-            <Button size="lg" asChild>
-                <Link href="#ask">
-                    <HelpCircle className="w-5 h-5 mr-2" />
-                    প্রশ্ন করুন
-                </Link>
-            </Button>
-        </div>
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <main className="lg:col-span-3">
             <Suspense fallback={<FaqSkeleton />}>
