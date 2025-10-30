@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Bangla', Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), Arial, Helvetica, sans-serif;
 }
 
 @layer base {
   :root {
     --font-body: 'Bangla', 'Inter', sans-serif;
-    --font-headline: 'Bangla', 'Inter', sans-serif;
+    --font-headline: 'SolaimanLipi', 'Inter', sans-serif;
 
     --background: 0 0% 96.1%; /* #f5f5f5 */
     --foreground: 224 71.4% 4.1%;

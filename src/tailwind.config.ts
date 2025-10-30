@@ -14,8 +14,8 @@ export default {
         container: "1280px",
       },
       fontFamily: {
-        body: ['Bangla'],
-        headline: ['Bangla'],
+        body: ['var(--font-body)'],
+        headline: ['var(--font-headline)'],
         code: ['monospace'],
       },
       colors: {
