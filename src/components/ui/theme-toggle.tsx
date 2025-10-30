@@ -33,10 +33,10 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       <div className="flex justify-between items-center w-full">
         <div
           className={cn(
-            "flex justify-center items-center w-6 h-6 rounded-full transition-transform duration-300",
+            "flex justify-center items-center w-6 h-6 rounded-full transition-transform duration-300 transform",
             isDark
-               ? "transform translate-x-0 bg-zinc-800"
-               : "transform translate-x-8 bg-gray-200"
+               ? "translate-x-0 bg-zinc-800"
+               : "translate-x-8 bg-gray-200"
           )}
         >
           {isDark ? (
@@ -53,10 +53,10 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
         </div>
         <div
           className={cn(
-            "flex justify-center items-center w-6 h-6 rounded-full transition-transform duration-300",
+            "flex justify-center items-center w-6 h-6 rounded-full transition-transform duration-300 transform",
             isDark
                ? "bg-transparent"
-               : "transform -translate-x-8"
+               : "-translate-x-8"
           )}
         >
           {isDark ? (
