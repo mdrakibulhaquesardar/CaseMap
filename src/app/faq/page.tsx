@@ -15,7 +15,7 @@ const popularTags = [
 const FaqSkeleton = () => (
     <div className="space-y-4">
         {[...Array(3)].map((_, i) => (
-            <div key={i} className="flex items-start space-x-4 p-4">
+            <div key={i} className="flex items-start space-x-4 p-4 border rounded-lg">
                 <Skeleton className="h-10 w-10 rounded-full" />
                 <div className="w-full space-y-2">
                     <Skeleton className="h-4 w-1/4" />

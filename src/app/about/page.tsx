@@ -33,7 +33,7 @@ export default function AboutPage() {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-          <div className="hover:shadow-lg transition-shadow p-6 rounded-lg">
+          <div className="hover:shadow-lg transition-shadow p-6 rounded-lg border">
             <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
               <Scale className="w-8 h-8 text-primary" />
             </div>
@@ -42,7 +42,7 @@ export default function AboutPage() {
               আমরা প্রত্যেকের জন্য আইনি প্রক্রিয়াকে স্বচ্ছ এবং সহজলভ্য করতে প্রতিশ্রুতিবদ্ধ, তাদের পটভূমি বা শিক্ষাগত যোগ্যতা নির্বিশেষে।
             </p>
           </div>
-          <div className="hover:shadow-lg transition-shadow p-6 rounded-lg">
+          <div className="hover:shadow-lg transition-shadow p-6 rounded-lg border">
             <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
               <Lightbulb className="w-8 h-8 text-primary" />
             </div>
@@ -51,7 +51,7 @@ export default function AboutPage() {
               Google Gemini-এর মতো অত্যাধুনিক AI ব্যবহার করে আমরা জটিল আইনি পরিভাষাকে সহজ ও কার্যকরী তথ্যে রূপান্তরিত করি।
             </p>
           </div>
-          <div className="hover:shadow-lg transition-shadow p-6 rounded-lg">
+          <div className="hover:shadow-lg transition-shadow p-6 rounded-lg border">
             <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
               <Users className="w-8 h-8 text-primary" />
             </div>

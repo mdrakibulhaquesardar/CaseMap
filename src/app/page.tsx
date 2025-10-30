@@ -487,7 +487,7 @@ export default function Home() {
                 </div>
                 <div className="relative aspect-video w-full">
                     <video
-                        className="w-full h-full object-cover rounded-lg shadow-2xl"
+                        className="w-full h-full object-cover rounded-lg shadow-2xl border"
                         src="https://res.cloudinary.com/do7p8mg3q/video/upload/v1761674294/Generated_File_October_28_2025_-_11_57PM_mrlrqw.mp4"
                         title="Odhikar Promo Video"
                         autoPlay
