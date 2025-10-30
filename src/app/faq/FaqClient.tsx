@@ -416,11 +416,3 @@ export default function FaqClient() {
     </div>
   );
 }
-
-    
-
-    
-
-    
-
-    
