@@ -31,11 +31,11 @@ export default function TimelinePage() {
   return (
     <div className="bg-muted/30">
       <div className="container mx-auto px-4 py-12">
-        <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold font-headline">
+        <div className="text-left mb-12">
+            <h1 className="text-3xl md:text-4xl font-bold font-headline">
               মামলার টাইমলাইন
             </h1>
-          <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="mt-2 text-base text-muted-foreground max-w-3xl">
             আপনার মামলার নম্বর দিয়ে অনুসন্ধান করে এর বর্তমান অবস্থা এবং অগ্রগতি একটি টাইমলাইনে দেখুন।
           </p>
         </div>
