@@ -1,6 +1,6 @@
-# Odhikar আইনি সহকারী
+# অধিকারী আইনি সহকারী
 
-Odhikar is an AI-powered legal assistance platform designed specifically for Bangladesh, providing comprehensive legal support in Bengali language. The platform combines artificial intelligence with community-driven legal knowledge to help users navigate complex legal matters.
+অধিকারী is an AI-powered legal assistance platform designed specifically for Bangladesh, providing comprehensive legal support in Bengali language. The platform combines artificial intelligence with community-driven legal knowledge to help users navigate complex legal matters.
 
 ## 🌟 Features
 
@@ -29,7 +29,7 @@ Odhikar is an AI-powered legal assistance platform designed specifically for Ban
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd Odhikar
+cd অধিকারী
 ```
 
 2. Install dependencies:

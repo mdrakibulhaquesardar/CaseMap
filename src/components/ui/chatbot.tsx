@@ -142,7 +142,7 @@ export function Chatbot() {
                   <span className="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-500 ring-2 ring-card" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground">Odhikar সহকারী</h3>
+                  <h3 className="font-semibold text-foreground">অধিকারী সহকারী</h3>
                   <p className="text-xs text-muted-foreground">অনলাইন</p>
                 </div>
               </div>

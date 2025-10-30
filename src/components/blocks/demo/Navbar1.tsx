@@ -96,7 +96,7 @@ const menuItems = [
        items: [
         {
           title: "আমাদের লক্ষ্য",
-          description: "Odhikar প্ল্যাটফর্মের উদ্দেশ্য সম্পর্কে জানুন।",
+          description: "অধিকারী প্ল্যাটফর্মের উদ্দেশ্য সম্পর্কে জানুন।",
           icon: <Info className="size-5 shrink-0" />,
           url: "/about",
         },
@@ -120,8 +120,8 @@ const demoData = {
   logo: {
     url: "/",
     src: "/logo.png",
-    alt: "Odhikar Legal Companion",
-    title: "Odhikar",
+    alt: "অধিকারী Legal Companion",
+    title: "অধিকারী",
   },
   mobileExtraLinks: [
     { name: "প্রোফাইল", url: "/profile" },

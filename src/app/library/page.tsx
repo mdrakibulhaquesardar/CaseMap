@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import Image from 'next/image';
 
 export const metadata = {
-  title: 'আইনি জ্ঞান ভান্ডার - Odhikar',
+  title: 'আইনি জ্ঞান ভান্ডার - অধিকারী',
   description: 'বাংলাদেশের আইন, অধিকার এবং আইনি সংস্থান সম্পর্কে জানুন — সকলের জন্য বিনামূল্যে।',
 };
 

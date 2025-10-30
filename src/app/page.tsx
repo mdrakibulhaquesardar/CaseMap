@@ -316,7 +316,7 @@ function FeaturesSection() {
             return (
               <div
                 key={index}
-                className="group relative rounded-2xl border border-border/50 p-8 transition-all hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5"
+                className="group relative rounded-2xl border p-8 transition-all hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5"
               >
                 <div className="mb-4 inline-flex rounded-xl bg-primary/10 p-3 text-primary transition-all group-hover:bg-primary group-hover:text-primary-foreground">
                   <Icon className="h-6 w-6" />
@@ -409,7 +409,7 @@ const testimonials = [
       handle: "@anis_advocate",
       avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704a",
     },
-    text: "Odhikar আমার মামলা পরিচালনার 방식 পাল্টে দিয়েছে। টাইমলাইন ফিচারটি অসাধারণ এবং আমাকে সবসময় আপ-টু-ডেট রাখে।",
+    text: "অধিকারী আমার মামলা পরিচালনার 방식 পাল্টে দিয়েছে। টাইমলাইন ফিচারটি অসাধারণ এবং আমাকে সবসময় আপ-টু-ডেট রাখে।",
     href: "#",
   },
   {
@@ -437,7 +437,7 @@ const features= [
     icon: BrainCog,
     title: "AI আইনি সহকারী",
     description:
-      "Odhikar-এর AI সহকারীরা নির্দিষ্ট ডোমেইনে প্রশিক্ষিত, যা আপনাকে প্রযুক্তি, কোডিং এবং একাডেমিক বিষয়ে গাইড করে।",
+      "অধিকারী-এর AI সহকারীরা নির্দিষ্ট ডোমেইনে প্রশিক্ষিত, যা আপনাকে প্রযুক্তি, কোডিং এবং একাডেমিক বিষয়ে গাইড করে।",
     image: "https://res.cloudinary.com/do7p8mg3q/image/upload/v1761769805/Gemini_Generated_Image_7t9dcd7t9dcd7t9d_vkbusy.png",
   },
   {
@@ -479,7 +479,7 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-headline leading-tight">
-                        Odhikar কীভাবে আপনার জীবন সহজ করে
+                        অধিকারী কীভাবে আপনার জীবন সহজ করে
                     </h2>
                     <p className="mt-4 text-lg text-muted-foreground">
                         আমাদের প্ল্যাটফর্মের একটি সংক্ষিপ্ত ওভারভিউ দেখুন এবং জানুন কীভাবে আমরা আইনি প্রক্রিয়াকে সহজ করি।
@@ -489,7 +489,7 @@ export default function Home() {
                     <video
                         className="w-full h-full object-cover rounded-lg shadow-2xl border"
                         src="https://res.cloudinary.com/do7p8mg3q/video/upload/v1761674294/Generated_File_October_28_2025_-_11_57PM_mrlrqw.mp4"
-                        title="Odhikar Promo Video"
+                        title="অধিকারী Promo Video"
                         autoPlay
                         loop
                         muted
@@ -504,7 +504,7 @@ export default function Home() {
       <HowItWorksSection />
       <TestimonialsSection
         title="আমাদের ব্যবহারকারীরা যা বলছেন"
-        description="হাজারো নাগরিক ও আইন পেশাজীবীদের সাথে যোগ দিন, যারা Odhikar ব্যবহার করে তাদের আইনি যাত্রাকে সহজ করে তুলছেন।"
+        description="হাজারো নাগরিক ও আইন পেশাজীবীদের সাথে যোগ দিন, যারা অধিকারী ব্যবহার করে তাদের আইনি যাত্রাকে সহজ করে তুলছেন।"
         testimonials={testimonials}
       />
       <PricingWithComparison />

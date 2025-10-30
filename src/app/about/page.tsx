@@ -7,7 +7,7 @@ export default function AboutPage() {
     <div className="bg-background">
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold font-headline text-foreground">Odhikar-এর পরিচয়</h1>
+          <h1 className="text-4xl md:text-5xl font-bold font-headline text-foreground">অধিকারী-এর পরিচয়</h1>
           <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
             দেশের নাগরিকদের আইনি তথ্য ও বিচার ব্যবস্থা সম্পর্কে জানতে এবং প্রয়োজনীয় সরঞ্জাম দিয়ে সহায়তা করাই আমাদের লক্ষ্য।
           </p>
@@ -17,7 +17,7 @@ export default function AboutPage() {
           <div>
             <h2 className="text-3xl font-bold font-headline mb-4 text-primary">আমাদের লক্ষ্য</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Odhikar-এর মূল উদ্দেশ্য হলো বাংলাদেশের সাধারণ মানুষের জন্য আইনি প্রক্রিয়াকে সহজবোধ্য করে তোলা। আমরা বিশ্বাস করি, ন্যায়বিচার পাওয়ার প্রথম ধাপ হলো স্বচ্ছ এবং বোধগম্য তথ্য। প্রযুক্তি ও কৃত্রিম বুদ্ধিমত্তার মাধ্যমে আমরা নাগরিক এবং বিচার ব্যবস্থার মধ্যকার দূরত্ব কমিয়ে আনতে চাই, যাতে আইনি সচেতনতা একটি মৌলিক অধিকারে পরিণত হয়, কোনো বিশেষ সুবিধা নয়।
+              অধিকারী-এর মূল উদ্দেশ্য হলো বাংলাদেশের সাধারণ মানুষের জন্য আইনি প্রক্রিয়াকে সহজবোধ্য করে তোলা। আমরা বিশ্বাস করি, ন্যায়বিচার পাওয়ার প্রথম ধাপ হলো স্বচ্ছ এবং বোধগম্য তথ্য। প্রযুক্তি ও কৃত্রিম বুদ্ধিমত্তার মাধ্যমে আমরা নাগরিক এবং বিচার ব্যবস্থার মধ্যকার দূরত্ব কমিয়ে আনতে চাই, যাতে আইনি সচেতনতা একটি মৌলিক অধিকারে পরিণত হয়, কোনো বিশেষ সুবিধা নয়।
             </p>
           </div>
           <div className="flex justify-center">

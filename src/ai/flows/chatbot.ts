@@ -1,6 +1,6 @@
 'use server';
 /**
- * @fileOverview Chatbot flow for the Odhikar app using Gemini.
+ * @fileOverview Chatbot flow for the অধিকারী app using Gemini.
  * Handles general user queries but redirects legal ones to AI Legal Chat.
  */
 
@@ -48,7 +48,7 @@ const chatFlow = ai.defineFlow(
     const { history, message } = input;
 
     const systemPrompt = `
-You are a friendly and helpful general assistant for a legal aid app in Bangladesh called 'Odhikar'. 
+You are a friendly and helpful general assistant for a legal aid app in Bangladesh called 'অধিকারী'. 
 - Your primary language is English. You MUST respond in English.
 - Keep your answers friendly, concise, and helpful for general, non-legal queries.
 - If the user asks a specific legal question or asks for legal advice, you MUST NOT answer it. 
@@ -85,7 +85,7 @@ You are a friendly and helpful general assistant for a legal aid app in Banglade
         {
           role: 'assistant',
           content:
-            "I understand. I will act as a general assistant for the 'Odhikar' app and respond only in English. I will not provide any legal advice and will direct users to the 'AI Legal Chat' feature for legal questions.",
+            "I understand. I will act as a general assistant for the 'অধিকারী' app and respond only in English. I will not provide any legal advice and will direct users to the 'AI Legal Chat' feature for legal questions.",
         },
         ...filteredHistory,
         { role: 'user', content: message },
