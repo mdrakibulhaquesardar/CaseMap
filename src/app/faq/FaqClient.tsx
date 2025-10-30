@@ -78,13 +78,11 @@ export default function FaqClient() {
   
   const [faqs, setFaqs] = useState<FaqItem[]>([]);
   const [defaultOpenValues, setDefaultOpenValues] = useState<string[]>([]);
-  const [isPostDialogOpen, setIsPostDialogOpen] = useState(false);
   
   useEffect(() => {
     const queryQuestion = searchParams.get('q');
     if (queryQuestion) {
       setNewQuestion(decodeURIComponent(queryQuestion));
-      setIsPostDialogOpen(true);
     }
   }, [searchParams]);
 
@@ -155,7 +153,6 @@ export default function FaqClient() {
       await addDoc(collection(firestore, 'faqs'), newFaqItem);
       
       setNewQuestion('');
-      setIsPostDialogOpen(false);
       setCurrentPage(1);
     } catch (error) {
       console.error('AI উত্তর আনতে সমস্যা হয়েছে:', error);
@@ -284,50 +281,29 @@ export default function FaqClient() {
 
   return (
     <div className="w-full">
-      <div className="mb-8 p-4 sm:p-6 rounded-lg border bg-card" id="ask">
-          <div className="flex items-center gap-3">
-              <Avatar>
-                  <AvatarImage src={user?.photoURL || ''} alt={user?.displayName || ''} />
-                  <AvatarFallback>{(user?.displayName || 'A').charAt(0)}</AvatarFallback>
-              </Avatar>
-              <Button 
-                variant="outline"
-                className="w-full justify-start rounded-full text-muted-foreground bg-muted hover:bg-muted/90 h-10"
-                onClick={() => user ? setIsPostDialogOpen(true) : toast({ title: "প্রশ্ন করতে লগইন করুন।", variant: "destructive" })}
-              >
-                  আপনার আইনি প্রশ্নটি এখানে লিখুন...
-              </Button>
-          </div>
+      <div className="mb-8 rounded-lg border bg-card p-6" id="ask">
+        <h3 className="text-xl font-bold">আপনার প্রশ্নটি করুন</h3>
+        <p className="text-muted-foreground mb-4">
+          কোনো আইনি জিজ্ঞাসা আছে? আমাদের কমিউনিটি এবং AI সহকারীর কাছে জানতে চান।
+        </p>
+        <Textarea
+          value={newQuestion}
+          onChange={(e) => setNewQuestion(e.target.value)}
+          placeholder="উদাহরণ: একজন ভাড়াটিয়া হিসেবে আমার কী কী অধিকার আছে?"
+          disabled={isLoading}
+          className="min-h-[100px]"
+        />
+        <div className="mt-4 flex justify-end">
+          <Button onClick={handleAskQuestion} disabled={isLoading || !user || !newQuestion.trim()}>
+            {isLoading ? (
+              <Sparkles className="w-4 h-4 animate-spin mr-2" />
+            ) : (
+              <Send className="w-4 h-4 mr-2" />
+            )}
+            প্রশ্ন পাঠান
+          </Button>
+        </div>
       </div>
-
-      <Dialog open={isPostDialogOpen} onOpenChange={setIsPostDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle className="text-center">আপনার প্রশ্নটি করুন</DialogTitle>
-            <DialogDescription className="text-center">কোনো আইনি জিজ্ঞাসা আছে? আমাদের কমিউনিটি এবং AI সহকারীর কাছে জানতে চান।</DialogDescription>
-          </DialogHeader>
-          <div className="py-4">
-            <Textarea
-              value={newQuestion}
-              onChange={(e) => setNewQuestion(e.target.value)}
-              placeholder="উদাহরণ: একজন ভাড়াটিয়া হিসেবে আমার কী কী অধিকার আছে?"
-              disabled={isLoading}
-              className="min-h-[150px]"
-            />
-          </div>
-          <DialogFooter>
-            <Button onClick={handleAskQuestion} disabled={isLoading || !user || !newQuestion.trim()} className="w-full">
-              {isLoading ? (
-                <Sparkles className="w-4 h-4 animate-spin mr-2" />
-              ) : (
-                <Send className="w-4 h-4 mr-2" />
-              )}
-              প্রশ্ন পাঠান
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
 
       <div className="space-y-4">
         {loading && <FaqSkeleton />}
@@ -467,3 +443,5 @@ export default function FaqClient() {
     </div>
   );
 }
+
+    
