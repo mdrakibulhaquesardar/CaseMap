@@ -63,9 +63,14 @@ export default function FaqClient() {
     if (faqsSnapshot) {
       const faqsData = faqsSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as FaqItem));
       setFaqs(faqsData);
-      setDefaultOpenValues(faqsData.map(faq => faq.id));
     }
   }, [faqsSnapshot]);
+
+  useEffect(() => {
+    if (faqs.length > 0) {
+      setDefaultOpenValues(faqs.map(faq => faq.id));
+    }
+  }, [faqs]);
 
   const savedFaqsRef = user ? query(collection(firestore, 'users', user.uid, 'savedFaqs')) : null;
   const [savedFaqsSnapshot] = useCollection(savedFaqsRef);
@@ -79,7 +84,7 @@ export default function FaqClient() {
   }, {} as {[key: string]: 'up' | 'down'});
 
 
-  const totalPages = Math.ceil(faqs.length / ITEMS_PER_PAGE);
+  const totalPages = Math.max(1, Math.ceil(faqs.length / ITEMS_PER_PAGE));
   const currentFaqs = faqs.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
@@ -391,35 +396,37 @@ export default function FaqClient() {
             </TooltipProvider>
         )}
       </div>
-      <Pagination className="mt-8">
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious 
-              href="#" 
-              onClick={(e) => {
-                e.preventDefault();
-                setCurrentPage(p => Math.max(1, p - 1));
-              }}
-              className={currentPage === 1 ? "pointer-events-none opacity-50" : undefined}
-            />
-          </PaginationItem>
-           <PaginationItem>
-            <span className="p-2 text-sm">
-                পৃষ্ঠা {currentPage} / {totalPages}
-            </span>
-           </PaginationItem>
-          <PaginationItem>
-            <PaginationNext 
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                setCurrentPage(p => Math.min(totalPages, p + 1));
-              }}
-               className={currentPage === totalPages ? "pointer-events-none opacity-50" : undefined}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+      {!loading && totalPages > 1 && (
+        <Pagination className="mt-8">
+            <PaginationContent>
+            <PaginationItem>
+                <PaginationPrevious 
+                href="#" 
+                onClick={(e) => {
+                    e.preventDefault();
+                    setCurrentPage(p => Math.max(1, p - 1));
+                }}
+                className={currentPage === 1 ? "pointer-events-none opacity-50" : undefined}
+                />
+            </PaginationItem>
+            <PaginationItem>
+                <span className="p-2 text-sm">
+                    পৃষ্ঠা {currentPage} / {totalPages}
+                </span>
+            </PaginationItem>
+            <PaginationItem>
+                <PaginationNext 
+                href="#"
+                onClick={(e) => {
+                    e.preventDefault();
+                    setCurrentPage(p => Math.min(totalPages, p + 1));
+                }}
+                className={currentPage === totalPages ? "pointer-events-none opacity-50" : undefined}
+                />
+            </PaginationItem>
+            </PaginationContent>
+        </Pagination>
+      )}
     </div>
   );
 }
