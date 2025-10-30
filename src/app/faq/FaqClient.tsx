@@ -37,6 +37,22 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 const ITEMS_PER_PAGE = 5;
 
+const FaqSkeleton = () => (
+    <div className="space-y-4">
+        {[...Array(3)].map((_, i) => (
+            <div key={i} className="flex items-start space-x-4 p-4">
+                <Skeleton className="h-10 w-10 rounded-full" />
+                <div className="w-full space-y-2">
+                    <Skeleton className="h-4 w-1/4" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-3/4" />
+                </div>
+            </div>
+        ))}
+    </div>
+);
+
+
 export default function FaqClient() {
   const searchParams = useSearchParams();
   const [newQuestion, setNewQuestion] = useState('');
@@ -254,7 +270,7 @@ export default function FaqClient() {
 
   return (
     <div className="w-full">
-      <div className="mb-8 rounded-lg border-b p-4 sm:p-6" id="ask">
+      <div className="mb-8 p-4 sm:p-6" id="ask">
         <h3 className="font-semibold text-lg mb-2">আপনার প্রশ্নটি করুন</h3>
         <p className="text-muted-foreground text-sm mb-4">
           কোনো আইনি জিজ্ঞাসা আছে? আমাদের কমিউনিটি এবং AI সহকারীর কাছে জানতে চান।
@@ -280,20 +296,7 @@ export default function FaqClient() {
       </div>
 
       <div className="space-y-4">
-        {loading && (
-            <div className="space-y-4">
-                {[...Array(3)].map((_, i) => (
-                    <div key={i} className="flex items-start space-x-4 p-4">
-                        <Skeleton className="h-10 w-10 rounded-full" />
-                        <div className="w-full space-y-2">
-                            <Skeleton className="h-4 w-1/4" />
-                            <Skeleton className="h-4 w-full" />
-                            <Skeleton className="h-4 w-3/4" />
-                        </div>
-                    </div>
-                ))}
-            </div>
-        )}
+        {loading && <FaqSkeleton />}
         {!loading && (
             <TooltipProvider>
                 <Discussion type="multiple" className="w-full" value={defaultOpenValues} onValueChange={setDefaultOpenValues}>
@@ -430,3 +433,4 @@ export default function FaqClient() {
     </div>
   );
 }
+
