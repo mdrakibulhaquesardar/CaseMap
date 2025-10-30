@@ -292,7 +292,7 @@ export default function FaqClient() {
               </Avatar>
               <Button 
                 variant="outline"
-                className="w-full justify-start rounded-full text-muted-foreground bg-muted hover:bg-muted/90"
+                className="w-full justify-start rounded-full text-muted-foreground bg-muted hover:bg-muted/90 h-10"
                 onClick={() => user ? setIsPostDialogOpen(true) : toast({ title: "প্রশ্ন করতে লগইন করুন।", variant: "destructive" })}
               >
                   আপনার আইনি প্রশ্নটি এখানে লিখুন...
@@ -304,6 +304,7 @@ export default function FaqClient() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="text-center">আপনার প্রশ্নটি করুন</DialogTitle>
+            <DialogDescription className="text-center">কোনো আইনি জিজ্ঞাসা আছে? আমাদের কমিউনিটি এবং AI সহকারীর কাছে জানতে চান।</DialogDescription>
           </DialogHeader>
           <div className="py-4">
             <Textarea
@@ -311,7 +312,7 @@ export default function FaqClient() {
               onChange={(e) => setNewQuestion(e.target.value)}
               placeholder="উদাহরণ: একজন ভাড়াটিয়া হিসেবে আমার কী কী অধিকার আছে?"
               disabled={isLoading}
-              className="min-h-[120px]"
+              className="min-h-[150px]"
             />
           </div>
           <DialogFooter>
@@ -466,4 +467,3 @@ export default function FaqClient() {
     </div>
   );
 }
-
