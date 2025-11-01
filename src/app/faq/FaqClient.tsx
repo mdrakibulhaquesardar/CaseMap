@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import type { FaqItem, FaqAnswer } from '@/types';
-import { Sparkles, Send, Bookmark, Lightbulb, FileText, Gavel, MapPin, ArrowBigUp, ArrowBigDown, Bot, Edit } from 'lucide-react';
+import { Sparkles, Send, Bookmark, Lightbulb, FileText, Gavel, MapPin, ArrowBigUp, ArrowBigDown, Bot, Edit, Image as ImageIcon, Video, Paperclip } from 'lucide-react';
 import { askLegalQuestion } from '@/ai/flows/community-legal-q-and-a';
 import { legalToolRecommendation } from '@/ai/flows/legal-tool-recommendation';
 import { useToast } from '@/hooks/use-toast';
@@ -44,6 +44,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Textarea } from '@/components/ui/textarea';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { popularTags } from './page';
 
 
 const ITEMS_PER_PAGE = 5;
@@ -73,6 +81,9 @@ export default function FaqClient() {
   const { user } = useUser();
   const firestore = useFirestore();
 
+  const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
+  const [questionCategory, setQuestionCategory] = useState<string | undefined>(undefined);
+
   const faqsRef = query(collection(firestore, 'faqs'), orderBy('timestamp', 'desc'));
   const [faqsSnapshot, loading] = useCollection(faqsRef);
   
@@ -83,6 +94,7 @@ export default function FaqClient() {
     const queryQuestion = searchParams.get('q');
     if (queryQuestion) {
       setNewQuestion(decodeURIComponent(queryQuestion));
+      setIsQuestionModalOpen(true);
     }
   }, [searchParams]);
 
@@ -122,6 +134,11 @@ export default function FaqClient() {
 
     setIsLoading(true);
     try {
+      const tags = ['নতুন প্রশ্ন', 'AI উত্তর'];
+      if(questionCategory) {
+        tags.push(questionCategory);
+      }
+      
       const [answerResponse, toolResponse] = await Promise.all([
         askLegalQuestion({ question: newQuestion }),
         legalToolRecommendation({ legalQuestion: newQuestion }),
@@ -129,7 +146,7 @@ export default function FaqClient() {
       
       const newFaqItem: Omit<FaqItem, 'id'> = {
         question: newQuestion,
-        tags: ['নতুন প্রশ্ন', 'AI উত্তর'],
+        tags: tags,
         timestamp: serverTimestamp(),
         author: { name: user.displayName || "ব্যবহারকারী", avatar: user.photoURL || `https://i.pravatar.cc/150?u=${user.uid}` },
         answers: [
@@ -153,6 +170,8 @@ export default function FaqClient() {
       await addDoc(collection(firestore, 'faqs'), newFaqItem);
       
       setNewQuestion('');
+      setQuestionCategory(undefined);
+      setIsQuestionModalOpen(false);
       setCurrentPage(1);
     } catch (error) {
       console.error('AI উত্তর আনতে সমস্যা হয়েছে:', error);
@@ -281,30 +300,69 @@ export default function FaqClient() {
 
   return (
     <div className="w-full">
-      <div className="mb-8 rounded-lg border p-6" id="ask">
-        <h3 className="text-xl font-bold">আপনার প্রশ্নটি করুন</h3>
-        <p className="text-muted-foreground mb-4">
-          কোনো আইনি জিজ্ঞাসা আছে? আমাদের কমিউনিটি এবং AI সহকারীর কাছে জানতে চান।
-        </p>
-        <Textarea
-          value={newQuestion}
-          onChange={(e) => setNewQuestion(e.target.value)}
-          placeholder="উদাহরণ: একজন ভাড়াটিয়া হিসেবে আমার কী কী অধিকার আছে?"
-          disabled={isLoading}
-          className="min-h-[100px]"
-        />
-        <div className="mt-4 flex justify-end">
-          <Button onClick={handleAskQuestion} disabled={isLoading || !user || !newQuestion.trim()}>
-            {isLoading ? (
-              <Sparkles className="w-4 h-4 animate-spin mr-2" />
-            ) : (
-              <Send className="w-4 h-4 mr-2" />
-            )}
-            প্রশ্ন পাঠান
-          </Button>
+      <Dialog open={isQuestionModalOpen} onOpenChange={setIsQuestionModalOpen}>
+        <div className="mb-8 p-4 rounded-lg border bg-card" id="ask">
+          <div className="flex items-center gap-4">
+            <Avatar>
+              <AvatarImage src={user?.photoURL || ''} alt={user?.displayName || 'user'} />
+              <AvatarFallback>{user?.displayName?.charAt(0) || 'U'}</AvatarFallback>
+            </Avatar>
+            <DialogTrigger asChild>
+                <div className="flex-1 text-left p-3 rounded-full bg-muted cursor-pointer hover:bg-muted/80 text-muted-foreground">
+                    আপনার আইনি প্রশ্নটি এখানে লিখুন...
+                </div>
+            </DialogTrigger>
+          </div>
         </div>
-      </div>
-
+        <DialogContent>
+            <DialogHeader>
+              <DialogTitle>আপনার প্রশ্নটি তৈরি করুন</DialogTitle>
+            </DialogHeader>
+            <div className="py-4">
+              <Textarea
+                value={newQuestion}
+                onChange={(e) => setNewQuestion(e.target.value)}
+                placeholder="উদাহরণ: একজন ভাড়াটিয়া হিসেবে আমার কী কী অধিকার আছে?"
+                disabled={isLoading}
+                className="min-h-[200px]"
+              />
+              <div className="mt-4">
+                <Select value={questionCategory} onValueChange={setQuestionCategory}>
+                    <SelectTrigger>
+                        <SelectValue placeholder="বিষয় নির্বাচন করুন (ঐচ্ছিক)" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {popularTags.map(tag => (
+                            <SelectItem key={tag} value={tag}>{tag}</SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+              </div>
+              <div className="mt-4 flex items-center gap-2">
+                 <Button variant="outline" size="icon" disabled>
+                    <ImageIcon className="w-4 h-4" />
+                 </Button>
+                 <Button variant="outline" size="icon" disabled>
+                    <Video className="w-4 h-4" />
+                 </Button>
+                 <Button variant="outline" size="icon" disabled>
+                    <Paperclip className="w-4 h-4" />
+                 </Button>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button onClick={handleAskQuestion} disabled={isLoading || !user || !newQuestion.trim()} className="w-full">
+                {isLoading ? (
+                  <Sparkles className="w-4 h-4 animate-spin mr-2" />
+                ) : (
+                  <Send className="w-4 h-4 mr-2" />
+                )}
+                প্রশ্ন পাঠান
+              </Button>
+            </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      
       <div className="space-y-4">
         {loading && <FaqSkeleton />}
         {!loading && (
