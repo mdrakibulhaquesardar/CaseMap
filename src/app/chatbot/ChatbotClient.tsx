@@ -173,7 +173,7 @@ export default function ChatbotClient({
                                 <Bot className="h-5 w-5 text-primary" />
                             </div>
                         )}
-                        <div className={`max-w-xl rounded-2xl px-4 py-3 text-sm shadow-sm ${ msg.role === 'user' ? 'bg-primary text-primary-foreground rounded-br-none' : 'bg-card text-card-foreground rounded-bl-none'}`}>
+                        <div className={`max-w-xl rounded-2xl px-4 py-3 text-sm shadow-sm ${ msg.role === 'user' ? 'bg-primary text-primary-foreground rounded-br-none' : 'bg-muted/80 text-foreground rounded-bl-none'}`}>
                             <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
                         </div>
                         {msg.role === 'user' && user && (
@@ -192,7 +192,7 @@ export default function ChatbotClient({
                             <div className="w-9 h-9 flex-shrink-0 rounded-full bg-primary/20 flex items-center justify-center">
                                 <Bot className="h-5 w-5 text-primary" />
                             </div>
-                            <div className="max-w-xl rounded-2xl px-4 py-3 bg-card text-card-foreground rounded-bl-none shadow-sm flex items-center">
+                            <div className="max-w-xl rounded-2xl px-4 py-3 bg-muted/80 text-foreground rounded-bl-none shadow-sm flex items-center">
                                 <TypingDots />
                             </div>
                         </motion.div>
@@ -213,7 +213,7 @@ export default function ChatbotClient({
                         <motion.button 
                             key={q} 
                             onClick={() => handleSend(q)}
-                            className="px-3 py-1.5 bg-card/80 backdrop-blur-sm text-card-foreground text-xs rounded-full border border-border hover:bg-muted transition-colors"
+                            className="px-3 py-1.5 bg-muted/80 backdrop-blur-sm text-foreground text-xs rounded-full border border-border hover:bg-muted transition-colors"
                             whileHover={{ y: -2 }}
                         >
                             {q}
@@ -222,7 +222,7 @@ export default function ChatbotClient({
                 </div>
             )}
             <motion.div 
-                className="relative backdrop-blur-2xl bg-card/80 rounded-2xl border border-border shadow-2xl"
+                className="relative backdrop-blur-2xl bg-muted/80 rounded-2xl border border-border shadow-2xl"
                 initial={{ scale: 0.98 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.1 }}
@@ -244,7 +244,7 @@ export default function ChatbotClient({
                             "resize-none",
                             "bg-transparent",
                             "border-none",
-                            "text-card-foreground text-sm",
+                            "text-foreground text-sm",
                             "focus:outline-none",
                             "placeholder:text-muted-foreground",
                             "min-h-[60px]"

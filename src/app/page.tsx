@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import * as React from 'react';
@@ -11,6 +12,7 @@ import { Search, Scale, BookOpen, Sparkles, ArrowRight, MessageSquare, FileText,
 import { TestimonialsSection } from '@/components/blocks/TestimonialsWithMarquee';
 import { PricingWithComparison } from '@/components/blocks/PricingWithComparison';
 import { Features } from '@/components/ui/features';
+import { FaqSectionDemo } from '@/components/blocks/demo/FaqSection';
 
 
 // Glow Component
@@ -86,19 +88,19 @@ function Badge({ className, variant, ...props }: BadgeProps) {
 }
 
 // Main Hero Component
-interface CaseMapHeroProps {
+interface OdhikarHeroProps {
   badge?: string;
   title?: string;
   subtitle?: string;
   placeholder?: string;
 }
 
-function CaseMapHero({
+function OdhikarHero({
   badge = "AI-চালিত আইনি সহায়তা",
   title = "AI এর সাহায্যে জানুন আপনার আইনি অধিকার",
   subtitle = "আপনার পরিস্থিতি অনুযায়ী AI-এর মাধ্যমে তাৎক্ষণিক আইনি নির্দেশনা পান। প্রশ্ন করুন, জটিল আইনি বিষয় বুঝুন এবং আত্মবিশ্বাসের সাথে আপনার আইনি যাত্রা শুরু করুন।",
   placeholder = "আপনার আইনি প্রশ্নটি লিখুন... (যেমন, একজন ভাড়াটিয়া হিসেবে আমার কী কী অধিকার আছে?)",
-}: CaseMapHeroProps) {
+}: OdhikarHeroProps) {
   const [query, setQuery] = React.useState("");
   const router = useRouter();
 
@@ -314,7 +316,7 @@ function FeaturesSection() {
             return (
               <div
                 key={index}
-                className="group relative rounded-2xl border border-border/50 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5"
+                className="group relative rounded-2xl border p-8 transition-all hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5"
               >
                 <div className="mb-4 inline-flex rounded-xl bg-primary/10 p-3 text-primary transition-all group-hover:bg-primary group-hover:text-primary-foreground">
                   <Icon className="h-6 w-6" />
@@ -345,7 +347,7 @@ function HowItWorksSection() {
     {
       number: "০২",
       title: "AI বিশ্লেষণ",
-      description: "আমাদের AI আপনার প্রশ্ন বিশ্লেষণ করে এবং विशाल আইনি জ্ঞান ভান্ডার থেকে উত্তর খুঁজে বের করে।"
+      description: "আমাদের AI আপনার প্রশ্ন বিশ্লেষণ করে এবং বিশাল আইনি জ্ঞান ভান্ডার থেকে উত্তর খুঁজে বের করে।"
     },
     {
       number: "০৩",
@@ -407,7 +409,7 @@ const testimonials = [
       handle: "@anis_advocate",
       avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704a",
     },
-    text: "CaseMap আমার মামলা পরিচালনার 방식 পাল্টে দিয়েছে। টাইমলাইন ফিচারটি অসাধারণ এবং আমাকে সবসময় আপ-টু-ডেট রাখে।",
+    text: "অধিকারী আমার মামলা পরিচালনার 방식 পাল্টে দিয়েছে। টাইমলাইন ফিচারটি অসাধারণ এবং আমাকে সবসময় আপ-টু-ডেট রাখে।",
     href: "#",
   },
   {
@@ -435,8 +437,8 @@ const features= [
     icon: BrainCog,
     title: "AI আইনি সহকারী",
     description:
-      "CaseMap-এর AI সহকারীরা নির্দিষ্ট ডোমেইনে প্রশিক্ষিত, যা আপনাকে প্রযুক্তি, কোডিং এবং একাডেমিক বিষয়ে গাইড করে।",
-    image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=600&auto=format&fit=crop",
+      "অধিকারী-এর AI সহকারীরা নির্দিষ্ট ডোমেইনে প্রশিক্ষিত, যা আপনাকে প্রযুক্তি, কোডিং এবং একাডেমিক বিষয়ে গাইড করে।",
+    image: "https://res.cloudinary.com/do7p8mg3q/image/upload/v1761769805/Gemini_Generated_Image_7t9dcd7t9dcd7t9d_vkbusy.png",
   },
   {
     id: 2,
@@ -444,7 +446,7 @@ const features= [
     title: "কমিউনিটি প্রশ্নোত্তর",
     description:
       "বিশেষজ্ঞদের কাছ থেকে তাৎক্ষণিক এবং নির্ভুল সাহায্য পান—সেটা কোডিং হোক বা কঠিন ধারণা বোঝা। তারা তাদের দক্ষতার উপর প্রশিক্ষিত।",
-    image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=600&auto=format&fit=crop",
+    image: "https://res.cloudinary.com/do7p8mg3q/image/upload/v1761674950/Generated_Image_October_29_2025_-_12_05AM_xxp8ds.png",
   },
   {
     id: 3,
@@ -452,7 +454,7 @@ const features= [
     title: "AI নথি বিশ্লেষণ",
     description:
       "জটিল আইনি নথি আপলোড করে মুহূর্তের মধ্যে তার সহজবোধ্য সারসংক্ষেপ এবং ব্যাখ্যা পান।",
-    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=600&auto=format&fit=crop",
+    image: "https://res.cloudinary.com/do7p8mg3q/image/upload/v1761674950/Generated_Image_October_29_2025_-_12_07AM_oeepml.png",
   },
 ];
 
@@ -471,16 +473,42 @@ function FeaturesDemo() {
 export default function Home() {
     return (
     <>
-      <CaseMapHero />
+      <OdhikarHero />
+      <section className="bg-background py-16 sm:py-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-headline leading-tight">
+                        অধিকারী কীভাবে আপনার জীবন সহজ করে
+                    </h2>
+                    <p className="mt-4 text-lg text-muted-foreground">
+                        আমাদের প্ল্যাটফর্মের একটি সংক্ষিপ্ত ওভারভিউ দেখুন এবং জানুন কীভাবে আমরা আইনি প্রক্রিয়াকে সহজ করি।
+                    </p>
+                </div>
+                <div className="relative aspect-video w-full">
+                    <video
+                        className="w-full h-full object-cover rounded-lg shadow-2xl border"
+                        src="https://res.cloudinary.com/do7p8mg3q/video/upload/v1761674294/Generated_File_October_28_2025_-_11_57PM_mrlrqw.mp4"
+                        title="অধিকারী Promo Video"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                    />
+                </div>
+            </div>
+        </div>
+      </section>
       <FeaturesSection />
       <FeaturesDemo />
       <HowItWorksSection />
       <TestimonialsSection
         title="আমাদের ব্যবহারকারীরা যা বলছেন"
-        description="হাজারো নাগরিক ও আইন পেশাজীবীদের সাথে যোগ দিন, যারা CaseMap ব্যবহার করে তাদের আইনি যাত্রাকে সহজ করে তুলছেন।"
+        description="হাজারো নাগরিক ও আইন পেশাজীবীদের সাথে যোগ দিন, যারা অধিকারী ব্যবহার করে তাদের আইনি যাত্রাকে সহজ করে তুলছেন।"
         testimonials={testimonials}
       />
       <PricingWithComparison />
+      <FaqSectionDemo />
     </>
     );
 }

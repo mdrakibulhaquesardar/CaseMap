@@ -2,7 +2,7 @@
 'use server';
 
 /**
- * @fileOverview Summarizes legal documents from text or file uploads into simplified English.
+ * @fileOverview Summarizes legal documents from text or file uploads into simplified Bengali.
  *
  * - summarizeLegalDocument - A function that summarizes legal documents.
  * - SummarizeLegalDocumentInput - The input type for the summarizeLegalDocument function.
@@ -10,6 +10,7 @@
  */
 
 import {ai} from '@/ai/genkit';
+import {Part} from 'genkit/ai';
 import {z} from 'genkit';
 
 const SummarizeLegalDocumentInputSchema = z.object({
@@ -19,33 +20,13 @@ const SummarizeLegalDocumentInputSchema = z.object({
 export type SummarizeLegalDocumentInput = z.infer<typeof SummarizeLegalDocumentInputSchema>;
 
 const SummarizeLegalDocumentOutputSchema = z.object({
-  summary: z.string().describe('The simplified English summary of the legal document.'),
+  summary: z.string().describe('The simplified Bengali summary of the legal document.'),
 });
 export type SummarizeLegalDocumentOutput = z.infer<typeof SummarizeLegalDocumentOutputSchema>;
 
 export async function summarizeLegalDocument(input: SummarizeLegalDocumentInput): Promise<SummarizeLegalDocumentOutput> {
   return summarizeLegalDocumentFlow(input);
 }
-
-const prompt = ai.definePrompt({
-  name: 'summarizeLegalDocumentPrompt',
-  input: {schema: SummarizeLegalDocumentInputSchema},
-  output: {schema: SummarizeLegalDocumentOutputSchema},
-  prompt: `You are an AI assistant specializing in legal document summarization for citizens with limited legal knowledge. 
-  
-  Analyze the provided legal document (either from text or an uploaded file) and summarize it in simple, easy-to-understand English.
-
-  {{#if documentText}}
-  Document Text:
-  {{{documentText}}}
-  {{/if}}
-
-  {{#if fileDataUri}}
-  Document File:
-  {{media url=fileDataUri}}
-  {{/if}}
-  `,
-});
 
 const summarizeLegalDocumentFlow = ai.defineFlow(
   {
@@ -54,9 +35,32 @@ const summarizeLegalDocumentFlow = ai.defineFlow(
     outputSchema: SummarizeLegalDocumentOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
-    return output!;
+    const { documentText, fileDataUri } = input;
+    const prompt: (string | Part)[] = [
+        `You are an AI assistant specializing in legal document summarization for citizens with limited legal knowledge. 
+  
+Analyze the provided legal document (either from text or an uploaded file) and summarize it in simple, easy-to-understand Bengali.
+`
+    ];
+
+    if (documentText) {
+        prompt.push(`Document Text:\n${documentText}`);
+    }
+    if (fileDataUri) {
+        prompt.push({media: {url: fileDataUri}});
+    }
+
+    const {output} = await ai.generate({
+        model: 'googleai/gemini-2.5-flash',
+        prompt: prompt,
+        output: {
+            schema: SummarizeLegalDocumentOutputSchema
+        }
+    });
+    
+    if (!output) {
+      throw new Error('AI failed to summarize the document.');
+    }
+    return output;
   }
 );
-
-    

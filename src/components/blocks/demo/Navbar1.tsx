@@ -16,6 +16,8 @@ import {
   Bot,
   Library,
   Phone,
+  Scale,
+  BrainCircuit,
 } from "lucide-react";
 import { useLoginPrompt } from "@/components/ui/login-prompt";
 
@@ -27,7 +29,6 @@ const menuItems = [
     {
       title: "টুলস",
       url: "#",
-      isProtected: true,
       items: [
         {
           title: "AI আইনি চ্যাট",
@@ -67,7 +68,6 @@ const menuItems = [
      {
       title: "কমিউনিটি",
       url: "#",
-      isProtected: true,
       items: [
         {
           title: "প্রশ্নোত্তর",
@@ -92,21 +92,41 @@ const menuItems = [
     },
     {
       title: "আমাদের সম্পর্কে",
-      url: "/about",
+      url: "#",
+       items: [
+        {
+          title: "আমাদের লক্ষ্য",
+          description: "অধিকারী প্ল্যাটফর্মের উদ্দেশ্য সম্পর্কে জানুন।",
+          icon: <Info className="size-5 shrink-0" />,
+          url: "/about",
+        },
+        {
+          title: "গোপনীয়তা নীতি",
+          description: "আমাদের ডেটা ব্যবহারের নীতি সম্পর্কে জানুন।",
+          icon: <Scale className="size-5 shrink-0" />,
+          url: "/privacy",
+        },
+        {
+          title: "AI যেভাবে কাজ করে",
+          description: "আমাদের AI মডেল কীভাবে উত্তর দেয় তা বুঝুন।",
+          icon: <BrainCircuit className="size-5 shrink-0" />,
+          url: "/how-it-works",
+        },
+      ],
     },
 ];
 
 const demoData = {
   logo: {
     url: "/",
-    src: "https://www.shadcnblocks.com/images/block/block-1.svg",
-    alt: "CaseMap Legal Companion",
-    title: "CaseMap",
+    src: "/logo.png",
+    alt: "অধিকারী Legal Companion",
+    title: "অধিকারী",
   },
   mobileExtraLinks: [
     { name: "প্রোফাইল", url: "/profile" },
     { name: "সেটিংস", url: "/profile/settings" },
-    { name: "গোপনীয়তা", url: "#" },
+    { name: "গোপনীয়তা", url: "/privacy" },
     { name: "শর্তাবলী", url: "#" },
   ],
 };
@@ -133,19 +153,38 @@ function Navbar1Demo() {
       };
 
   const processedMenu = useMemo(() => {
-    const processItems = (items: any[]) => {
+    const processItems = (items: any[]): any[] => {
       return items.map(item => {
         const newItem = { ...item };
-        if (item.isProtected && !user) {
+        
+        const originalOnClick = newItem.onClick;
+
+        if (newItem.isProtected && !user) {
           newItem.onClick = (e: React.MouseEvent) => {
             e.preventDefault();
+            e.stopPropagation();
             setShowLoginPrompt(true);
+            if (originalOnClick) {
+              originalOnClick(e);
+            }
+          };
+          newItem.url = '#'; 
+        } else if (newItem.url !=='#' && newItem.isProtected && !user) {
+           newItem.onClick = (e: React.MouseEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setShowLoginPrompt(true);
+            if (originalOnClick) {
+              originalOnClick(e);
+            }
           };
           newItem.url = '#';
         }
-        if (item.items) {
-          newItem.items = processItems(item.items);
+
+        if (newItem.items) {
+          newItem.items = processItems(newItem.items);
         }
+        
         return newItem;
       });
     };

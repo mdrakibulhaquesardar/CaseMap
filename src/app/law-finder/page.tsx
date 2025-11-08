@@ -80,23 +80,19 @@ export default function LawFinderPage() {
 
           <aside className="lg:col-span-1">
             <div className="sticky top-20 space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+              <div className="p-6 border rounded-lg">
+                <h3 className="font-semibold mb-2 flex items-center gap-2">
                     <Lightbulb className="text-accent" />
                     দ্রুত পরামর্শ
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground space-y-2">
+                </h3>
+                <div className="text-sm text-muted-foreground space-y-2">
                     <p>সেরা ফলাফলের জন্য নির্দিষ্ট হন। যেমন, "দণ্ডবিধির ৩০২ ধারা"।</p>
                     <p>আপনি বিষয় দিয়েও খুঁজতে পারেন, যেমন "চুরির শাস্তি"।</p>
-                </CardContent>
-              </Card>
-               <Card>
-                <CardHeader>
-                  <CardTitle>অন্যান্য টুলস</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-2">
+                </div>
+              </div>
+               <div className="p-6 border rounded-lg">
+                <h3 className="text-base font-semibold mb-4">অন্যান্য টুলস</h3>
+                <div className="space-y-2">
                    <Button variant="ghost" className="w-full justify-start gap-2" asChild>
                        <Link href="/summarizer">
                         <FileText className="w-4 h-4 text-primary"/> AI নথি সারসংক্ষেপ
@@ -107,8 +103,8 @@ export default function LawFinderPage() {
                         <MessagesSquare className="w-4 h-4 text-primary"/> কমিউনিটি প্রশ্নোত্তর
                        </Link>
                    </Button>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </div>
           </aside>
         </div>

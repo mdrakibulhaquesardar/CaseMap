@@ -16,6 +16,10 @@ interface Message {
   content: string;
 }
 
+const GREETING_MESSAGE_CONTENT = 'আস-সালামু আলাইকুম! আমি আপনার আইনি সহকারী। আমি আপনাকে কীভাবে সাহায্য করতে পারি?';
+const ERROR_MESSAGE_CONTENT = 'দুঃখিত, একটি সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।';
+
+
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -39,7 +43,7 @@ export function Chatbot() {
       setMessages([
         {
           role: 'model',
-          content: 'আস-সালামু আলাইকুম! আমি আপনার আইনি সহকারী। আমি আপনাকে কীভাবে সাহায্য করতে পারি?',
+          content: GREETING_MESSAGE_CONTENT,
         },
       ]);
     }
@@ -77,16 +81,18 @@ export function Chatbot() {
     if (!input.trim()) return;
 
     const userMessage: Message = { role: 'user', content: input };
-    const currentMessages = [...messages, userMessage];
-    setMessages(currentMessages);
+    const newMessages = [...messages, userMessage];
+    setMessages(newMessages);
+    const currentInput = input;
     setInput('');
     setIsLoading(true);
 
     try {
-      const chatHistory = currentMessages.map(({role, content}) => ({role, content}));
+      const chatHistory = newMessages.slice(0, -1).filter(m => m.content !== GREETING_MESSAGE_CONTENT && m.content !== ERROR_MESSAGE_CONTENT).map(({role, content}) => ({role, content}));
+
       const result = await chat({
         history: chatHistory,
-        message: input,
+        message: currentInput,
       });
       const modelMessage: Message = { role: 'model', content: result.response };
       setMessages((prev) => [...prev, modelMessage]);
@@ -94,7 +100,7 @@ export function Chatbot() {
       console.error('Chatbot error:', error);
       const errorMessage: Message = {
         role: 'model',
-        content: 'দুঃখিত, একটি সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।',
+        content: ERROR_MESSAGE_CONTENT,
       };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
@@ -136,7 +142,7 @@ export function Chatbot() {
                   <span className="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-500 ring-2 ring-card" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground">CaseMap সহকারী</h3>
+                  <h3 className="font-semibold text-foreground">অধিকারী সহকারী</h3>
                   <p className="text-xs text-muted-foreground">অনলাইন</p>
                 </div>
               </div>

@@ -3,20 +3,13 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-} from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import type { FaqItem, FaqAnswer } from '@/types';
-import { ThumbsUp, ThumbsDown, User, Bot, Sparkles, Send, Bookmark, Lightbulb, FileText, Gavel, MapPin, MessageSquare, MoreHorizontal, ArrowBigUp, ArrowBigDown } from 'lucide-react';
+import { Sparkles, Send, Bookmark, Lightbulb, FileText, Gavel, MapPin, ArrowBigUp, ArrowBigDown, Bot, Edit, Image as ImageIcon, Video, Paperclip } from 'lucide-react';
 import { askLegalQuestion } from '@/ai/flows/community-legal-q-and-a';
 import { legalToolRecommendation } from '@/ai/flows/legal-tool-recommendation';
 import { useToast } from '@/hooks/use-toast';
-import { Separator } from '@/components/ui/separator';
 import {
   Pagination,
   PaginationContent,
@@ -25,19 +18,59 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { useUser } from '@/firebase/auth/use-user';
 import { useFirestore } from '@/firebase/provider';
-import { collection, addDoc, serverTimestamp, query, orderBy, doc, setDoc, deleteDoc, getDocs, where, writeBatch, getDoc, arrayUnion, updateDoc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, orderBy, doc, setDoc, deleteDoc, getDocs, where, writeBatch, getDoc, increment } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Link from 'next/link';
+import {
+  Discussion,
+  DiscussionBody,
+  DiscussionContent,
+  DiscussionExpand,
+  DiscussionItem,
+  DiscussionReplies,
+  DiscussionTitle,
+} from "@/components/ui/discussion"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Skeleton } from '@/components/ui/skeleton';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Textarea } from '@/components/ui/textarea';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { popularTags } from './page';
+
 
 const ITEMS_PER_PAGE = 5;
+
+const FaqSkeleton = () => (
+    <div className="space-y-4">
+        {[...Array(3)].map((_, i) => (
+            <div key={i} className="flex items-start space-x-4 p-4">
+                <Skeleton className="h-10 w-10 rounded-full" />
+                <div className="w-full space-y-2">
+                    <Skeleton className="h-4 w-1/4" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-3/4" />
+                </div>
+            </div>
+        ))}
+    </div>
+);
+
 
 export default function FaqClient() {
   const searchParams = useSearchParams();
@@ -48,15 +81,20 @@ export default function FaqClient() {
   const { user } = useUser();
   const firestore = useFirestore();
 
+  const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
+  const [questionCategory, setQuestionCategory] = useState<string | undefined>(undefined);
+
   const faqsRef = query(collection(firestore, 'faqs'), orderBy('timestamp', 'desc'));
-  const [faqsSnapshot] = useCollection(faqsRef);
+  const [faqsSnapshot, loading] = useCollection(faqsRef);
   
   const [faqs, setFaqs] = useState<FaqItem[]>([]);
+  const [defaultOpenValues, setDefaultOpenValues] = useState<string[]>([]);
   
   useEffect(() => {
     const queryQuestion = searchParams.get('q');
     if (queryQuestion) {
       setNewQuestion(decodeURIComponent(queryQuestion));
+      setIsQuestionModalOpen(true);
     }
   }, [searchParams]);
 
@@ -67,6 +105,11 @@ export default function FaqClient() {
     }
   }, [faqsSnapshot]);
 
+  useEffect(() => {
+    if (faqs.length > 0) {
+      setDefaultOpenValues(faqs.map(faq => faq.id));
+    }
+  }, [faqs]);
 
   const savedFaqsRef = user ? query(collection(firestore, 'users', user.uid, 'savedFaqs')) : null;
   const [savedFaqsSnapshot] = useCollection(savedFaqsRef);
@@ -80,7 +123,7 @@ export default function FaqClient() {
   }, {} as {[key: string]: 'up' | 'down'});
 
 
-  const totalPages = Math.ceil(faqs.length / ITEMS_PER_PAGE);
+  const totalPages = Math.max(1, Math.ceil(faqs.length / ITEMS_PER_PAGE));
   const currentFaqs = faqs.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
@@ -91,6 +134,11 @@ export default function FaqClient() {
 
     setIsLoading(true);
     try {
+      const tags = ['নতুন প্রশ্ন', 'AI উত্তর'];
+      if(questionCategory) {
+        tags.push(questionCategory);
+      }
+      
       const [answerResponse, toolResponse] = await Promise.all([
         askLegalQuestion({ question: newQuestion }),
         legalToolRecommendation({ legalQuestion: newQuestion }),
@@ -98,13 +146,14 @@ export default function FaqClient() {
       
       const newFaqItem: Omit<FaqItem, 'id'> = {
         question: newQuestion,
-        tags: ['নতুন প্রশ্ন', 'AI উত্তর'],
+        tags: tags,
         timestamp: serverTimestamp(),
         author: { name: user.displayName || "ব্যবহারকারী", avatar: user.photoURL || `https://i.pravatar.cc/150?u=${user.uid}` },
         answers: [
           {
             id: Math.random().toString(),
             content: answerResponse.answer,
+            authorUid: 'ai-bot',
             authorName: 'AI বট',
             authorAvatar: '',
             upvotes: 0,
@@ -121,6 +170,8 @@ export default function FaqClient() {
       await addDoc(collection(firestore, 'faqs'), newFaqItem);
       
       setNewQuestion('');
+      setQuestionCategory(undefined);
+      setIsQuestionModalOpen(false);
       setCurrentPage(1);
     } catch (error) {
       console.error('AI উত্তর আনতে সমস্যা হয়েছে:', error);
@@ -149,7 +200,6 @@ export default function FaqClient() {
         toast({ title: "সংরক্ষণ থেকে সরানো হয়েছে", description: "প্রশ্নোত্তরটি আপনার তালিকা থেকে সরানো হয়েছে।" });
     } else {
         const faqToSave = { ...faq };
-        // Firestore doesn't like `undefined` values.
         if (faqToSave.id) {
           await addDoc(collection(firestore, 'users', user.uid, 'savedFaqs'), {
             ...faqToSave,
@@ -161,7 +211,7 @@ export default function FaqClient() {
     }
   };
 
-    const handleVote = async (faqId: string, answerId: string, voteType: 'up' | 'down') => {
+    const handleVote = async (faqId: string, answerId: string, authorUid: string, voteType: 'up' | 'down') => {
         if (!user) {
             toast({ title: "ভোট দিতে লগইন করুন।", variant: "destructive" });
             return;
@@ -170,6 +220,7 @@ export default function FaqClient() {
         const voteId = `${faqId}_${answerId}`;
         const userVoteRef = doc(firestore, 'users', user.uid, 'userVotes', voteId);
         const faqRef = doc(firestore, 'faqs', faqId);
+        const answerAuthorRef = authorUid !== 'ai-bot' ? doc(firestore, 'users', authorUid) : null;
 
         try {
             const batch = writeBatch(firestore);
@@ -185,17 +236,34 @@ export default function FaqClient() {
             const answer = faqData.answers[answerIndex];
             let upvotes = answer.upvotes;
             let downvotes = answer.downvotes;
+            let pointChange = 0;
 
             if (currentVote === voteType) { // Undoing vote
-                if (voteType === 'up') upvotes--;
-                else downvotes--;
+                if (voteType === 'up') {
+                  upvotes--;
+                  pointChange = -1;
+                } else {
+                  downvotes--;
+                  pointChange = 1;
+                }
                 batch.delete(userVoteRef);
             } else { // New vote or changing vote
-                if (currentVote === 'up') upvotes--;
-                if (currentVote === 'down') downvotes--;
+                if (currentVote === 'up') {
+                  upvotes--;
+                  pointChange = -1;
+                }
+                if (currentVote === 'down') {
+                  downvotes--;
+                  pointChange = 1;
+                }
                 
-                if (voteType === 'up') upvotes++;
-                else downvotes++;
+                if (voteType === 'up') {
+                  upvotes++;
+                  pointChange += 1;
+                } else {
+                  downvotes++;
+                  pointChange -= 1;
+                }
                 
                 batch.set(userVoteRef, { vote: voteType });
             }
@@ -203,6 +271,10 @@ export default function FaqClient() {
             const newAnswers = [...faqData.answers];
             newAnswers[answerIndex] = { ...answer, upvotes, downvotes };
             batch.update(faqRef, { answers: newAnswers });
+
+            if (answerAuthorRef && pointChange !== 0) {
+              batch.set(answerAuthorRef, { points: increment(pointChange) }, { merge: true });
+            }
 
             await batch.commit();
 
@@ -214,10 +286,10 @@ export default function FaqClient() {
 
 
   const getToolIcon = (toolName: string) => {
-    if (toolName.toLowerCase().includes('summarizer')) return <FileText className="w-5 h-5 text-accent" />;
-    if (toolName.toLowerCase().includes('timeline')) return <Gavel className="w-5 h-5 text-accent" />;
-    if (toolName.toLowerCase().includes('finder')) return <MapPin className="w-5 h-5 text-accent" />;
-    return <Lightbulb className="w-5 h-5 text-accent" />;
+    if (toolName.toLowerCase().includes('summarizer')) return <FileText className="w-4 h-4" />;
+    if (toolName.toLowerCase().includes('timeline')) return <Gavel className="w-4 h-4" />;
+    if (toolName.toLowerCase().includes('finder')) return <MapPin className="w-4 h-4" />;
+    return <Lightbulb className="w-4 h-4" />;
   }
   
   const getTimestamp = (timestamp: any) => {
@@ -228,164 +300,206 @@ export default function FaqClient() {
 
   return (
     <div className="w-full">
-      <Card className="mb-8 shadow-sm" id="ask">
-        <CardContent className="p-4 sm:p-6">
-          <h3 className="font-semibold text-lg mb-2">আপনার প্রশ্নটি করুন</h3>
-          <p className="text-muted-foreground text-sm mb-4">
-            কোনো আইনি জিজ্ঞাসা আছে? আমাদের কমিউনিটি এবং AI সহকারীর কাছে জানতে চান।
-          </p>
-          <div className="flex flex-col sm:flex-row gap-2">
-            <Input
-              value={newQuestion}
-              onChange={(e) => setNewQuestion(e.target.value)}
-              placeholder="উদাহরণ: একজন ভাড়াটিয়া হিসেবে আমার কী কী অধিকার আছে?"
-              disabled={isLoading || !user}
-            />
-            <Button onClick={handleAskQuestion} disabled={isLoading || !user} className="w-full sm:w-auto">
-              {isLoading ? (
-                <Sparkles className="w-4 h-4 animate-spin mr-2" />
-              ) : (
-                <Send className="w-4 h-4 mr-2" />
-              )}
-              প্রশ্ন পাঠান
-            </Button>
+      <Dialog open={isQuestionModalOpen} onOpenChange={setIsQuestionModalOpen}>
+        <div className="mb-8 p-4 rounded-lg border bg-card" id="ask">
+          <div className="flex items-center gap-4">
+            <Avatar>
+              <AvatarImage src={user?.photoURL || ''} alt={user?.displayName || 'user'} />
+              <AvatarFallback>{user?.displayName?.charAt(0) || 'U'}</AvatarFallback>
+            </Avatar>
+            <DialogTrigger asChild>
+                <div className="flex-1 text-left p-3 rounded-full bg-muted cursor-pointer hover:bg-muted/80 text-muted-foreground">
+                    আপনার আইনি প্রশ্নটি এখানে লিখুন...
+                </div>
+            </DialogTrigger>
           </div>
-           {!user && <p className="text-xs text-destructive mt-2">প্রশ্ন করতে অনুগ্রহ করে লগইন করুন।</p>}
-        </CardContent>
-      </Card>
-
-      <div className="space-y-4">
-        {currentFaqs.map((faq) => (
-          <Card key={faq.id} id={faq.id} className="shadow-sm overflow-hidden">
-             <div className="p-4 sm:p-6">
-                <Link href={`/faq/${faq.id}`} className="text-xl font-semibold text-foreground mb-3 hover:text-primary transition-colors">{faq.question}</Link>
-                <div className="flex gap-2 mb-4 flex-wrap">
-                    {faq.tags.map((tag) => (
-                        <Badge key={tag} variant="secondary">
-                        {tag}
-                        </Badge>
-                    ))}
-                </div>
-
-                <div className="flex justify-between items-end">
-                    <div className="flex items-center gap-2">
-                         <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground" onClick={() => toggleSaveFaq(faq)} disabled={!user}>
-                            <Bookmark className={`w-4 h-4 ${savedFaqs.some(item => item.originalId === faq.id) ? 'text-accent fill-accent' : ''}`} />
-                            {savedFaqs.some(item => item.originalId === faq.id) ? 'সংরক্ষিত' : 'সংরক্ষণ করুন'}
-                        </Button>
-                        <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground">
-                            শেয়ার
-                        </Button>
-                    </div>
-
-                    <div className="flex items-center gap-3 bg-muted/50 p-2 rounded-lg">
-                        <Avatar className="h-8 w-8">
-                            <AvatarImage src={faq.author.avatar} alt={faq.author.name} />
-                            <AvatarFallback>{(faq.author.name || 'A').charAt(0)}</AvatarFallback>
-                        </Avatar>
-                        <div>
-                            <p className="font-semibold text-sm">{faq.author.name}</p>
-                            <p className="text-xs text-muted-foreground">
-                                জিজ্ঞাসা করেছেন {getTimestamp(faq.timestamp)}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                 {faq.recommendation && (
-                    <Card className="mt-4 border-accent bg-accent/10">
-                    <CardContent className="p-4">
-                        <div className="flex items-start gap-4">
-                            {getToolIcon(faq.recommendation.toolRecommendation)}
-                        <div>
-                            <h4 className="font-bold text-sm">প্রস্তাবিত টুল: {faq.recommendation.toolRecommendation}</h4>
-                            <p className="text-xs text-muted-foreground mt-1">{faq.recommendation.suitabilityReasoning}</p>
-                        </div>
-                        </div>
-                    </CardContent>
-                    </Card>
+        </div>
+        <DialogContent>
+            <DialogHeader>
+              <DialogTitle>আপনার প্রশ্নটি তৈরি করুন</DialogTitle>
+            </DialogHeader>
+            <div className="py-4">
+              <Textarea
+                value={newQuestion}
+                onChange={(e) => setNewQuestion(e.target.value)}
+                placeholder="উদাহরণ: একজন ভাড়াটিয়া হিসেবে আমার কী কী অধিকার আছে?"
+                disabled={isLoading}
+                className="min-h-[200px]"
+              />
+              <div className="mt-4">
+                <Select value={questionCategory} onValueChange={setQuestionCategory}>
+                    <SelectTrigger>
+                        <SelectValue placeholder="বিষয় নির্বাচন করুন (ঐচ্ছিক)" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {popularTags.map(tag => (
+                            <SelectItem key={tag} value={tag}>{tag}</SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+              </div>
+              <div className="mt-4 flex items-center gap-2">
+                 <Button variant="outline" size="icon" disabled>
+                    <ImageIcon className="w-4 h-4" />
+                 </Button>
+                 <Button variant="outline" size="icon" disabled>
+                    <Video className="w-4 h-4" />
+                 </Button>
+                 <Button variant="outline" size="icon" disabled>
+                    <Paperclip className="w-4 h-4" />
+                 </Button>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button onClick={handleAskQuestion} disabled={isLoading || !user || !newQuestion.trim()} className="w-full">
+                {isLoading ? (
+                  <Sparkles className="w-4 h-4 animate-spin mr-2" />
+                ) : (
+                  <Send className="w-4 h-4 mr-2" />
                 )}
-
-             </div>
-
-              <Separator />
-
-              <div className="bg-muted/30 p-4 sm:p-6 space-y-6">
-                <h3 className="font-bold text-lg">{faq.answers.length} টি উত্তর</h3>
-                {faq.answers.map((answer) => {
-                   const voteId = `${faq.id}_${answer.id}`;
-                   const userVote = userVotes?.[voteId];
-                   return(
-                      <div key={answer.id} className="flex items-start gap-3 sm:gap-4">
-                        <div className="flex flex-col items-center gap-1 text-muted-foreground">
-                            <Button variant="ghost" size="icon" onClick={() => handleVote(faq.id, answer.id, 'up')} disabled={!user}>
-                                <ArrowBigUp className={`w-5 h-5 ${userVote === 'up' ? 'text-primary fill-primary' : ''}`}/>
-                            </Button>
-                            <span className="font-bold text-lg">{answer.upvotes - answer.downvotes}</span>
-                            <Button variant="ghost" size="icon" onClick={() => handleVote(faq.id, answer.id, 'down')} disabled={!user}>
-                                <ArrowBigDown className={`w-5 h-5 ${userVote === 'down' ? 'text-destructive fill-destructive' : ''}`}/>
-                            </Button>
-                        </div>
-                        <div className="flex-1">
-                            <p className="text-foreground">{answer.content}</p>
-                            <div className="flex justify-end mt-4">
-                                <div className="flex items-center gap-3 bg-background p-2 rounded-lg border">
-                                    <div className="bg-muted p-2 rounded-full">
-                                    {answer.authorName === 'AI বট' ? (
-                                        <Bot className="w-5 h-5 text-primary" />
-                                    ) : (
-                                        <Avatar className="h-6 w-6">
-                                            <AvatarImage src={answer.authorAvatar} alt={answer.authorName} />
-                                            <AvatarFallback>{(answer.authorName || 'অ').charAt(0)}</AvatarFallback>
-                                        </Avatar>
-                                    )}
+                প্রশ্ন পাঠান
+              </Button>
+            </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      
+      <div className="space-y-4">
+        {loading && <FaqSkeleton />}
+        {!loading && (
+            <TooltipProvider>
+                <Discussion type="multiple" className="w-full" value={defaultOpenValues} onValueChange={setDefaultOpenValues}>
+                    {currentFaqs.map((faq) => (
+                        <DiscussionItem value={faq.id} key={faq.id}>
+                            <DiscussionContent className="gap-2">
+                                <Avatar className="h-9 w-9">
+                                    <AvatarImage src={faq.author.avatar} alt={faq.author.name} />
+                                    <AvatarFallback>{(faq.author.name || 'A').charAt(0)}</AvatarFallback>
+                                </Avatar>
+                                <div className="flex flex-col gap-2 w-full">
+                                    <div className="flex flex-col gap-1">
+                                        <DiscussionTitle className="flex gap-2 items-center">
+                                            <Link href={`/faq/${faq.id}`} className="hover:underline">{faq.author.name}</Link>
+                                            <span className="text-muted-foreground text-xs">•</span>
+                                            <div className="text-muted-foreground text-xs ">{getTimestamp(faq.timestamp)}</div>
+                                            {faq.recommendation && (
+                                                <>
+                                                    <span className="text-muted-foreground text-xs">•</span>
+                                                    <Tooltip>
+                                                        <TooltipTrigger asChild>
+                                                            <div className="flex items-center gap-1.5 cursor-default text-accent">
+                                                                {getToolIcon(faq.recommendation.toolRecommendation)}
+                                                                <span className="text-xs font-medium">{faq.recommendation.toolRecommendation}</span>
+                                                            </div>
+                                                        </TooltipTrigger>
+                                                        <TooltipContent className="max-w-xs">
+                                                            <p className="text-sm font-bold mb-1">প্রস্তাবিত টুল</p>
+                                                            <p className="text-xs text-muted-foreground">{faq.recommendation.suitabilityReasoning}</p>
+                                                        </TooltipContent>
+                                                    </Tooltip>
+                                                </>
+                                            )}
+                                        </DiscussionTitle>
+                                        <DiscussionBody>
+                                            <Link href={`/faq/${faq.id}`} className="hover:underline">{faq.question}</Link>
+                                        </DiscussionBody>
                                     </div>
-                                    <div>
-                                        <p className="font-semibold text-sm">{answer.authorName || 'নামবিহীন'}</p>
-                                        <p className="text-xs text-muted-foreground">
-                                        উত্তর দিয়েছেন {getTimestamp(answer.timestamp)}
-                                        </p>
+                                    <div className="flex justify-between items-center">
+                                        <DiscussionExpand />
+                                        <div className="flex items-center gap-1">
+                                            <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground h-auto p-1" onClick={() => toggleSaveFaq(faq)} disabled={!user}>
+                                                <Bookmark className={`w-4 h-4 ${savedFaqs.some(item => item.originalId === faq.id) ? 'text-accent fill-accent' : ''}`} />
+                                            </Button>
+                                            <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground h-auto p-1">
+                                                শেয়ার
+                                            </Button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                      </div>
-                    )
-                })}
-              </div>
+                            </DiscussionContent>
+                            <DiscussionReplies>
+                            {faq.answers.sort((a,b) => (b.upvotes - b.downvotes) - (a.upvotes - a.downvotes)).map(answer => {
+                                const voteId = `${faq.id}_${answer.id}`;
+                                const userVote = userVotes?.[voteId];
+                                return(
+                                    <DiscussionItem value={`${faq.id}-${answer.id}`} key={answer.id}>
+                                        <DiscussionContent className="gap-2">
+                                            <div className="flex flex-col items-center gap-1 text-muted-foreground pt-2">
+                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleVote(faq.id, answer.id, answer.authorUid, 'up')} disabled={!user}>
+                                                    <ArrowBigUp className={`w-4 h-4 ${userVote === 'up' ? 'text-primary fill-primary' : ''}`}/>
+                                                </Button>
+                                                <span className="font-bold text-sm">{answer.upvotes - answer.downvotes}</span>
+                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleVote(faq.id, answer.id, answer.authorUid, 'down')} disabled={!user}>
+                                                    <ArrowBigDown className={`w-4 h-4 ${userVote === 'down' ? 'text-destructive fill-destructive' : ''}`}/>
+                                                </Button>
+                                            </div>
 
-          </Card>
-        ))}
+                                            {answer.authorName === 'AI বট' ? (
+                                                <Avatar className="h-9 w-9">
+                                                    <AvatarFallback className="bg-primary/10 text-primary">
+                                                        <Bot className="w-5 h-5" />
+                                                    </AvatarFallback>
+                                                </Avatar>
+                                            ) : (
+                                                <Avatar className="h-9 w-9">
+                                                    <AvatarImage src={answer.authorAvatar} alt={answer.authorName} />
+                                                    <AvatarFallback>{(answer.authorName || 'অ').charAt(0)}</AvatarFallback>
+                                                </Avatar>
+                                            )}
+
+                                            <div className="flex flex-col gap-2 w-full">
+                                                <div className="flex flex-col gap-1">
+                                                    <DiscussionTitle className="flex gap-2 items-center">
+                                                        <div>{answer.authorName}</div>
+                                                        <span className="text-muted-foreground text-xs">•</span>
+                                                        <div className="text-muted-foreground text-xs ">{getTimestamp(answer.timestamp)}</div>
+                                                    </DiscussionTitle>
+                                                    <DiscussionBody>{answer.content}</DiscussionBody>
+                                                </div>
+                                            </div>
+                                        </DiscussionContent>
+                                    </DiscussionItem>
+                                )
+                            })}
+                            </DiscussionReplies>
+                        </DiscussionItem>
+                    ))}
+                </Discussion>
+            </TooltipProvider>
+        )}
       </div>
-      <Pagination className="mt-8">
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious 
-              href="#" 
-              onClick={(e) => {
-                e.preventDefault();
-                setCurrentPage(p => Math.max(1, p - 1));
-              }}
-              className={currentPage === 1 ? "pointer-events-none opacity-50" : undefined}
-            />
-          </PaginationItem>
-           <PaginationItem>
-            <span className="p-2 text-sm">
-                পৃষ্ঠা {currentPage} / {totalPages}
-            </span>
-           </PaginationItem>
-          <PaginationItem>
-            <PaginationNext 
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                setCurrentPage(p => Math.min(totalPages, p + 1));
-              }}
-               className={currentPage === totalPages ? "pointer-events-none opacity-50" : undefined}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+      {!loading && totalPages > 1 && (
+        <Pagination className="mt-8">
+            <PaginationContent>
+            <PaginationItem>
+                <PaginationPrevious 
+                href="#" 
+                onClick={(e) => {
+                    e.preventDefault();
+                    setCurrentPage(p => Math.max(1, p - 1));
+                }}
+                className={currentPage === 1 ? "pointer-events-none opacity-50" : undefined}
+                />
+            </PaginationItem>
+            <PaginationItem>
+                <span className="p-2 text-sm">
+                    পৃষ্ঠা {currentPage} / {totalPages}
+                </span>
+            </PaginationItem>
+            <PaginationItem>
+                <PaginationNext 
+                href="#"
+                onClick={(e) => {
+                    e.preventDefault();
+                    setCurrentPage(p => Math.min(totalPages, p + 1));
+                }}
+                className={currentPage === totalPages ? "pointer-events-none opacity-50" : undefined}
+                />
+            </PaginationItem>
+            </PaginationContent>
+        </Pagination>
+      )}
     </div>
   );
 }
+
+    

@@ -26,7 +26,7 @@ export default function LegalAidDetailClient({ centerId }: { centerId: string })
             </Link>
         </Button>
 
-      <Card className="overflow-hidden shadow-lg">
+      <div className="overflow-hidden shadow-lg border rounded-lg">
         <div className="relative h-64 w-full">
             <Image 
                 src={center.image}
@@ -41,7 +41,7 @@ export default function LegalAidDetailClient({ centerId }: { centerId: string })
                 <h1 className="text-3xl font-bold text-white shadow-text">{center.name}</h1>
             </div>
         </div>
-        <CardContent className="p-6 grid md:grid-cols-3 gap-8">
+        <div className="p-6 grid md:grid-cols-3 gap-8">
             <div className="md:col-span-2 space-y-6">
                 <div>
                     <h2 className="text-xl font-semibold mb-3">কেন্দ্র সম্পর্কে</h2>
@@ -66,11 +66,9 @@ export default function LegalAidDetailClient({ centerId }: { centerId: string })
 
             </div>
             <div className="space-y-6">
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="text-lg">যোগাযোগের তথ্য</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4 text-sm">
+                <div className="border rounded-lg p-4">
+                    <h3 className="text-lg font-semibold mb-4">যোগাযোগের তথ্য</h3>
+                    <div className="space-y-4 text-sm">
                         <div className="flex items-start gap-3">
                             <MapPin className="w-4 h-4 mt-1 shrink-0 text-primary" />
                             <p className="text-muted-foreground">{center.address}</p>
@@ -79,21 +77,17 @@ export default function LegalAidDetailClient({ centerId }: { centerId: string })
                             <Phone className="w-4 h-4 mt-1 shrink-0 text-primary" />
                             <p className="text-muted-foreground">{center.contact}</p>
                         </div>
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="text-lg">অবস্থান</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                         <div className="aspect-video bg-muted rounded-md flex items-center justify-center">
-                            <p className="text-sm text-muted-foreground">মানচিত্রের স্থানধারক</p>
-                         </div>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
+                <div className="border rounded-lg p-4">
+                    <h3 className="text-lg font-semibold mb-4">অবস্থান</h3>
+                    <div className="aspect-video bg-muted rounded-md flex items-center justify-center">
+                        <p className="text-sm text-muted-foreground">মানচিত্রের স্থানধারক</p>
+                    </div>
+                </div>
             </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }

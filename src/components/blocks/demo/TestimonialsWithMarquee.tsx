@@ -7,7 +7,7 @@ const testimonials = [
       handle: "@anis_advocate",
       avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704a",
     },
-    text: "CaseMap has been a game-changer for tracking my cases. The timeline view is incredibly intuitive and keeps me updated.",
+    text: "Odhikar has been a game-changer for tracking my cases. The timeline view is incredibly intuitive and keeps me updated.",
     href: "#",
   },
   {
@@ -33,7 +33,7 @@ export function TestimonialsSectionDemo() {
   return (
     <TestimonialsSection
       title="What our users are saying"
-      description="Join thousands of citizens and legal professionals who are simplifying their legal journey with CaseMap."
+      description="Join thousands of citizens and legal professionals who are simplifying their legal journey with Odhikar."
       testimonials={testimonials}
     />
   )

@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 body {
-  font-family: 'SolaimanLipi', Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), Arial, Helvetica, sans-serif;
 }
 
 @layer base {
   :root {
-    --font-body: 'SolaimanLipi', 'Inter', sans-serif;
+    --font-body: 'Bangla', 'Inter', sans-serif;
     --font-headline: 'SolaimanLipi', 'Inter', sans-serif;
 
     --background: 0 0% 96.1%; /* #f5f5f5 */
@@ -97,11 +97,24 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-300;
     font-family: var(--font-body);
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-headline);
+  }
+
+  .prose h2 {
+    @apply text-2xl font-bold mb-4 mt-8;
+  }
+  .prose h3 {
+    @apply text-xl font-semibold mb-3 mt-6;
+  }
+  .prose p {
+    @apply leading-relaxed;
+  }
+  .prose a {
+    @apply text-primary hover:underline;
   }
 }
 

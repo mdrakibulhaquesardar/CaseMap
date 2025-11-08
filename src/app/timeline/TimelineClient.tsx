@@ -86,8 +86,7 @@ export default function TimelineClient() {
 
   return (
     <div className="w-full">
-      <Card className="mb-8">
-        <CardContent className="p-4 sm:p-6">
+      <div className="mb-8 p-4 sm:p-6 border rounded-lg">
            <h3 className="font-semibold text-lg mb-2">মামলা খুঁজুন</h3>
           <div className="flex flex-col sm:flex-row gap-2">
             <div className="relative flex-grow">
@@ -105,25 +104,24 @@ export default function TimelineClient() {
               মামলা খুঁজুন
             </Button>
           </div>
-        </CardContent>
-      </Card>
+      </div>
 
       {foundCase ? (
         <div className='space-y-6'>
-          <Card>
-            <CardHeader>
+          <div className="border rounded-lg">
+            <div className="p-6">
               <div className="flex justify-between items-start">
                 <div>
-                  <CardTitle className="text-2xl font-bold">{foundCase.title}</CardTitle>
-                  <CardDescription>মামলা নম্বর: {foundCase.caseNumber}</CardDescription>
+                  <h2 className="text-2xl font-bold">{foundCase.title}</h2>
+                  <p className="text-muted-foreground">মামলা নম্বর: {foundCase.caseNumber}</p>
                 </div>
                 <Button variant="outline" size="sm" onClick={toggleSaveCase} disabled={!user}>
                   <Bookmark className={`w-4 h-4 mr-2 ${isCaseSaved ? 'text-accent fill-accent' : ''}`} />
                   {isCaseSaved ? 'সংরক্ষিত' : 'সংরক্ষণ করুন'}
                 </Button>
               </div>
-            </CardHeader>
-            <CardContent>
+            </div>
+            <div className="p-6 pt-0">
                 <div className='mb-6'>
                     <div className='flex justify-between items-center mb-2'>
                         <span className='text-sm font-medium text-muted-foreground'>মামলার অগ্রগতি</span>
@@ -161,29 +159,29 @@ export default function TimelineClient() {
                         </div>
                     </div>
                 </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>মামলার গতিপথ</CardTitle>
-              <CardDescription>মামলার কার্যক্রমের একটি ধাপে ধাপে अवलोकन।</CardDescription>
-            </CardHeader>
-            <CardContent className="p-6">
+            </div>
+          </div>
+          <div className="border rounded-lg">
+            <div className="p-6">
+              <h3 className="text-xl font-bold">মামলার গতিপথ</h3>
+              <p className="text-muted-foreground">মামলার কার্যক্রমের একটি ধাপে ধাপে अवलोकन।</p>
+            </div>
+            <div className="p-6 pt-0">
               <CaseTimelineDisplay timeline={foundCase.timeline} />
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       ) : (
-        <Card className="text-center py-20 flex flex-col items-center justify-center min-h-[400px]">
-          <CardContent>
+        <div className="text-center py-20 flex flex-col items-center justify-center min-h-[400px] border rounded-lg">
+          
             <FolderOpen className="w-16 h-16 mx-auto text-muted-foreground/50 mb-4" />
             <h3 className="text-xl font-semibold">আপনার মামলা ট্র্যাক করুন</h3>
             <p className="text-muted-foreground mt-2 max-w-sm mx-auto">
               মামলার টাইমলাইন দেখতে উপরে একটি মামলার নম্বর লিখুন, অথবা সাইডবার থেকে একটি সংরক্ষিত মামলা বেছে নিন।
             </p>
              <p className="text-xs text-muted-foreground mt-4">ডেমোর জন্য, মামলার নম্বর <kbd className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">12345</kbd> বা <kbd className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">67890</kbd> চেষ্টা করুন।</p>
-          </CardContent>
-        </Card>
+          
+        </div>
       )}
     </div>
   );

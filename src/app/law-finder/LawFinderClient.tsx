@@ -34,8 +34,7 @@ export default function LawFinderClient({
 }: LawFinderClientProps) {
   return (
     <div className="space-y-8">
-      <Card>
-        <CardContent className="p-4 sm:p-6">
+      <div className="border rounded-lg p-4 sm:p-6">
           <h3 className="font-semibold text-lg mb-2">আইনের ধারা খুঁজুন</h3>
           <p className="text-muted-foreground text-sm mb-4">
             একটি ধারার নম্বর (যেমন, "দণ্ডবিধি ১৮৬০-এর ৩০২ ধারা") বা বিষয় (যেমন, "চুরির শাস্তি") লিখুন।
@@ -67,20 +66,19 @@ export default function LawFinderClient({
                   ))}
               </div>
           </div>
-        </CardContent>
-      </Card>
+      </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+      <div className="border rounded-lg">
+        <div className="p-6">
+          <h2 className="text-xl font-bold flex items-center gap-2">
             <Bot className="w-6 h-6 text-primary" />
             AI ব্যাখ্যা
-          </CardTitle>
-          <CardDescription>
+          </h2>
+          <p className="text-muted-foreground text-sm mt-1">
             আপনার খোঁজা আইনের ধারার ব্যাখ্যা নিচে দেখানো হবে।
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+          </p>
+        </div>
+        <div className="p-6 pt-0">
           {isLoading ? (
             <div className="flex flex-col items-center justify-center h-full min-h-[250px] p-4 bg-muted rounded-md">
               <Sparkles className="w-10 h-10 text-primary animate-spin" />
@@ -92,11 +90,11 @@ export default function LawFinderClient({
                 <h3 className="font-bold text-xl mb-4">{result.sectionTitle}</h3>
                 <p className="text-base leading-relaxed">{result.sectionDetails}</p>
               </div>
-              <Card className="bg-background">
-                <CardHeader>
-                  <CardTitle className='text-lg'>সম্পর্কিত বিষয় ও পরবর্তী ধাপ</CardTitle>
-                </CardHeader>
-                <CardContent className='grid grid-cols-1 md:grid-cols-3 gap-4 text-center'>
+              <div className="border rounded-lg">
+                <div className="p-6">
+                  <h3 className='text-lg font-semibold'>সম্পর্কিত বিষয় ও পরবর্তী ধাপ</h3>
+                </div>
+                <div className='p-6 pt-0 grid grid-cols-1 md:grid-cols-3 gap-4 text-center'>
                     <div className='p-4 bg-muted/50 rounded-lg'>
                         <FileCheck2 className='mx-auto h-8 w-8 text-primary mb-2'/>
                         <h4 className='font-semibold'>প্রাসঙ্গিক ধারা</h4>
@@ -115,8 +113,8 @@ export default function LawFinderClient({
                           <Link href={`/faq?q=${encodeURIComponent(query)}`}>এখানে ক্লিক করুন</Link>
                         </Button>
                     </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center text-center h-full min-h-[250px] text-muted-foreground p-4 bg-muted/50 rounded-md">
@@ -125,8 +123,8 @@ export default function LawFinderClient({
               <p className="max-w-xs">কোনো আইনের ধারার বিবরণ দেখতে উপরে সার্চ করুন।</p>
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }

@@ -31,11 +31,11 @@ export default function TimelinePage() {
   return (
     <div className="bg-muted/30">
       <div className="container mx-auto px-4 py-12">
-        <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold font-headline">
+        <div className="text-left mb-12">
+            <h1 className="text-3xl md:text-4xl font-bold font-headline">
               মামলার টাইমলাইন
             </h1>
-          <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="mt-2 text-base text-muted-foreground max-w-3xl">
             আপনার মামলার নম্বর দিয়ে অনুসন্ধান করে এর বর্তমান অবস্থা এবং অগ্রগতি একটি টাইমলাইনে দেখুন।
           </p>
         </div>
@@ -43,27 +43,25 @@ export default function TimelinePage() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <main className="lg:col-span-3">
               <Suspense fallback={
-                <Card className="text-center py-20 flex flex-col items-center justify-center min-h-[400px]">
-                  <CardContent>
+                <div className="text-center py-20 flex flex-col items-center justify-center min-h-[400px] border rounded-lg">
                     <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto mb-4" />
                     <h3 className="text-xl font-semibold">লোড হচ্ছে...</h3>
                     <p className="text-muted-foreground mt-2">মামলার টাইমলাইন লোড হচ্ছে</p>
-                  </CardContent>
-                </Card>
+                </div>
               }>
                 <TimelineClient />
               </Suspense>
             </main>
              <aside className="lg:col-span-1">
               <div className="sticky top-20 space-y-6">
-                  <Card>
-                      <CardHeader>
-                          <CardTitle className="flex items-center gap-2 text-lg">
+                  <div className="border rounded-lg">
+                      <div className="p-6 border-b">
+                          <h3 className="font-semibold flex items-center gap-2 text-lg">
                           <Gavel className="text-primary" />
                           সংরক্ষিত মামলা
-                          </CardTitle>
-                      </CardHeader>
-                      <CardContent>
+                          </h3>
+                      </div>
+                      <div className="p-6">
                           {loading ? (
                             <div className="flex items-center justify-center py-6">
                               <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
@@ -94,24 +92,20 @@ export default function TimelinePage() {
                               <p>আপনি এখনো কোনো মামলা সংরক্ষণ করেননি।</p>
                           </div>
                           )}
-                      </CardContent>
-                  </Card>
-                <Card>
-                  <CardHeader>
-                    <CardTitle>আরও সাহায্য প্রয়োজন?</CardTitle>
-                    <CardDescription>
-                      আপনার আইনি যাত্রায় সাহায্য করার জন্য আমাদের অন্যান্য টুলসগুলো দেখুন।
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
+                      </div>
+                  </div>
+                <div className="border rounded-lg p-6">
+                  <h3 className="text-xl font-bold mb-2">আরও সাহায্য প্রয়োজন?</h3>
+                  <p className="text-muted-foreground mb-4">
+                    আপনার আইনি যাত্রায় সাহায্য করার জন্য আমাদের অন্যান্য টুলসগুলো দেখুন।
+                  </p>
                     <Button className="w-full justify-start" asChild variant="outline">
                       <Link href="/faq">
                         <MessageSquare className="w-4 h-4 mr-2"/>
                         কমিউনিটিতে প্রশ্ন করুন
                       </Link>
                     </Button>
-                  </CardContent>
-                </Card>
+                </div>
               </div>
             </aside>
         </div>
