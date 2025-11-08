@@ -374,14 +374,14 @@ function HowItWorksSection() {
 
         {/* Steps */}
         <div className="relative mt-16 grid gap-8 lg:grid-cols-3">
-            <div className="absolute left-0 top-8 hidden h-px w-full -translate-x-1/2 bg-transparent lg:block">
+            <div className="absolute left-1/2 top-8 hidden h-px w-full -translate-x-1/2 bg-transparent lg:block">
                 <div className="mx-auto w-2/3 border-b-2 border-dashed border-border"></div>
             </div>
           {steps.map((step, index) => (
             <div key={index} className="relative">
-              <div className="relative">
+              <div className="relative text-center">
                 <div className="mb-6 flex items-center justify-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary to-blue-700 text-2xl font-bold text-white shadow-lg shadow-primary/20 z-10">
+                  <div className="z-10 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-2xl font-bold text-white shadow-lg shadow-primary/20">
                     {step.number}
                   </div>
                 </div>
@@ -472,14 +472,14 @@ export default function Home() {
     return (
     <>
       <OdhikarHero />
-      <section className="bg-background py-16 sm:py-24">
+      <section className="bg-primary/5 py-16 sm:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div>
+                <div className="text-center lg:text-left">
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-headline leading-tight">
                         বুঝে নিন আপনার সঠিক অধিকার
                     </h2>
-                    <p className="mt-4 text-lg text-muted-foreground">
+                    <p className="mt-4 text-lg text-muted-foreground max-w-lg mx-auto lg:mx-0">
                         আমাদের প্ল্যাটফর্মের একটি সংক্ষিপ্ত ওভারভিউ দেখুন এবং জানুন কীভাবে আমরা আইনি প্রক্রিয়াকে সহজ করি।
                     </p>
                 </div>
