@@ -510,7 +510,7 @@ export default function Home() {
     <>
       <OdhikarHero />
       {/* About Section with Video */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-background to-primary/5 py-20 sm:py-28">
+      <section className="relative overflow-hidden bg-background py-20 sm:py-28">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,hsl(var(--primary)/.05),transparent_50%)]" />
         <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -520,7 +520,7 @@ export default function Home() {
                         আমাদের সম্পর্কে
                     </Badge>
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-headline leading-tight">
-                        বাংলাদেশের আইন বুঝুন, আপনার অধিকার জানুন
+                        বুঝে নিন আপনার সঠিক অধিকার
                     </h2>
                     <p className="text-lg text-muted-foreground max-w-lg mx-auto lg:mx-0 leading-relaxed">
                         আইন বুঝতে কষ্ট হচ্ছে? চিন্তা নেই! বাংলাদেশের সংবিধান থেকে শুরু করে দেওয়ানি, ফৌজদারি, শ্রম, পারিবারিক আইন—সবকিছুই এখন আপনার হাতের মুঠোয়। জটিল আইনি ভাষাকে সহজ বাংলায় রূপান্তর করে আমরা আপনার অধিকার জানার পথ সহজ করেছি। এখন আর আইনজীবীর কাছে ছুটতে হবে না সবসময়!
