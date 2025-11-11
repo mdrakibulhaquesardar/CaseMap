@@ -10,6 +10,7 @@ const useUser = () => {
   const firestore = useFirestore();
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isVerified, setIsVerified] = useState(false);
 
   useEffect(() => {
     const handleNewUser = async (user: User) => {
@@ -36,6 +37,7 @@ const useUser = () => {
             if (auth.currentUser) {
                 await auth.currentUser.reload();
                 setUser(auth.currentUser);
+                setIsVerified(auth.currentUser.emailVerified);
             }
         } catch (error) {
             console.error("Error updating profile for new user:", error);
@@ -44,6 +46,7 @@ const useUser = () => {
       
     const unsubscribe = onIdTokenChanged(auth, (user) => {
       setUser(user);
+      setIsVerified(user?.emailVerified || false);
       setIsLoading(false);
     });
 
@@ -57,6 +60,7 @@ const useUser = () => {
               handleNewUser(user);
           } else {
               setUser(user);
+              setIsVerified(user?.emailVerified || false);
           }
         }
       }).catch((error) => {
@@ -69,7 +73,7 @@ const useUser = () => {
     return () => unsubscribe();
   }, [auth, firestore]);
 
-  return {user, isLoading};
+  return {user, isLoading, isVerified};
 };
 
 export {useUser};

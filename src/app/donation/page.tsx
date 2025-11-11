@@ -53,7 +53,7 @@ export default function DonationPage() {
                     <div className="flex items-center gap-4 mb-4">
                         <Heart className="w-10 h-10 text-primary" />
                         <div>
-                            <h1 className="text-3xl md:text-4xl font-bold font-headline text-foreground">আমাদের সমর্থন করুন</h1>
+                            <h1 className="text-2xl md:text-2xl font-bold font-headline text-foreground">আমাদের সমর্থন করুন</h1>
                             <p className="mt-1 text-muted-foreground max-w-2xl">
                                 আপনার ছোট্ট অনুদানও হাজারো মানুষের কাছে আইনি তথ্য পৌঁছে দিতে পারে।
                             </p>
@@ -135,11 +135,11 @@ export default function DonationPage() {
                                         <h3 className="text-lg font-semibold mb-4">পেমেন্ট পদ্ধতি</h3>
                                         <div className="p-4 border rounded-lg bg-muted/50">
                                             <div className="flex items-center justify-center gap-4 flex-wrap">
-                                                <Image src="https://static.vecteezy.com/system/resources/previews/068/842/080/non_2x/bkash-logo-horizontal-mobile-banking-app-icon-emblem-transparent-background-free-png.png" alt="bKash" width={70} height={35} data-ai-hint="bkash logo" />
-                                                <Image src="https://play-lh.googleusercontent.com/Iks014Ul-02H435y0dG-3c_I5sSP_G8X2nE9V20i_SS0lH22EaTjV6y6e6M77onq3w" alt="Nagad" width={40} height={40} data-ai-hint="nagad logo" />
-                                                <Image src="https://media.licdn.com/dms/image/D560BAQHo-X_j03I8Dw/company-logo_200_200/0/1693892323386/dutchbanglabanklimited_logo?e=2147483647&v=beta&t=f9hS_S2-3KzJ5eQw3zD-jGg2g5d-j-g_p3j-z-g-k_s" alt="Rocket" width={40} height={40} data-ai-hint="rocket logo" />
-                                                <Image src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" width={50} height={30} data-ai-hint="visa logo" />
-                                                <Image src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" width={50} height={30} data-ai-hint="mastercard logo" />
+                                                <Image src="https://www.logoshape.com/wp-content/uploads/2025/02/Bkash_vector_logo.png" alt="bKash" width={50} height={50} data-ai-hint="bkash logo" />
+                                                <Image src="https://download.logo.wine/logo/Nagad/Nagad-Logo.wine.png" alt="Nagad" width={40} height={40} data-ai-hint="nagad logo" />
+                                               
+                                                <Image src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" width={30} height={30} data-ai-hint="visa logo" />
+                                                <Image src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" width={30} height={30} data-ai-hint="mastercard logo" />
                                             </div>
                                         </div>
                                     </div>

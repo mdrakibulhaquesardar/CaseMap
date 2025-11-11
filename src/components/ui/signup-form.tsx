@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect, updateProfile } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect, updateProfile, sendEmailVerification } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
@@ -46,7 +46,14 @@ export default function SignupForm() {
               points: 0,
             });
             
-            router.push("/");
+            await sendEmailVerification(user);
+
+            toast({
+                title: "নিবন্ধন সফল হয়েছে",
+                description: "আপনার ইমেল ঠিকানায় একটি ভেরিফিকেশন লিঙ্ক পাঠানো হয়েছে। অনুগ্রহ করে আপনার ইমেল ভেরিফাই করুন।",
+            });
+
+            router.push("/login");
         } catch (error: any) {
             let description = "একটি অজানা ত্রুটি ঘটেছে।";
             if (error.code === 'auth/email-already-in-use') {

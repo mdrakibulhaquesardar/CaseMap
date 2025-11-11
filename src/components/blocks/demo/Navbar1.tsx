@@ -138,7 +138,7 @@ const demoData = {
 };
 
 function Navbar1Demo() {
-  const { user, isLoading } = useUser();
+  const { user, isVerified } = useUser();
   const router = useRouter();
   const { setShowLoginPrompt } = useLoginPrompt();
 
@@ -164,8 +164,10 @@ function Navbar1Demo() {
         const newItem = { ...item };
         
         const originalOnClick = newItem.onClick;
+        const isProtectedAndNotVerified = newItem.isProtected && user && !isVerified;
+        const isProtectedAndNotLoggedIn = newItem.isProtected && !user;
 
-        if (newItem.isProtected && !user) {
+        if (isProtectedAndNotLoggedIn || isProtectedAndNotVerified) {
           newItem.onClick = (e: React.MouseEvent) => {
             e.preventDefault();
             e.stopPropagation();
@@ -175,16 +177,6 @@ function Navbar1Demo() {
             }
           };
           newItem.url = '#'; 
-        } else if (newItem.url !=='#' && newItem.isProtected && !user) {
-           newItem.onClick = (e: React.MouseEvent) => {
-            e.preventDefault();
-            e.stopPropagation();
-            setShowLoginPrompt(true);
-            if (originalOnClick) {
-              originalOnClick(e);
-            }
-          };
-          newItem.url = '#';
         }
 
         if (newItem.items) {
@@ -195,7 +187,7 @@ function Navbar1Demo() {
       });
     };
     return processItems(menuItems);
-  }, [user, setShowLoginPrompt]);
+  }, [user, isVerified, setShowLoginPrompt]);
 
   return <Navbar1 {...demoData} menu={processedMenu} auth={authLinks} />;
 }
