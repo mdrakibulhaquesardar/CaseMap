@@ -88,7 +88,7 @@ export default function DonationPage() {
                                                         htmlFor={`amount-${val}`}
                                                         className={`flex items-center justify-center p-4 border rounded-lg cursor-pointer transition-all ${!isCustom && amount === String(val) ? 'border-primary ring-2 ring-primary bg-primary/5' : 'hover:border-primary/50'}`}
                                                     >
-                                                        <span className="text-xl font-bold">{val}</span>
+                                                        <span className="text-xl font-semibold">{val}</span>
                                                     </Label>
                                                 </div>
                                             ))}
