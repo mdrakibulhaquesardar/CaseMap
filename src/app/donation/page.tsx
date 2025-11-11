@@ -48,12 +48,16 @@ export default function DonationPage() {
     return (
         <div className="bg-muted/30 min-h-screen">
             <div className="container mx-auto px-4 py-16">
-                <div className="text-center mb-12">
-                    <Heart className="w-16 h-16 mx-auto text-primary mb-4" />
-                    <h1 className="text-4xl md:text-5xl font-bold font-headline text-foreground">আমাদের সমর্থন করুন</h1>
-                    <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-                        আপনার ছোট্ট অনুদানও হাজারো মানুষের কাছে আইনি তথ্য পৌঁছে দিতে পারে। আপনার সমর্থনে আমরা আমাদের প্ল্যাটফর্মকে আরও উন্নত করতে পারব।
-                    </p>
+                <div className="mb-12">
+                    <div className="flex items-center gap-4 mb-4">
+                        <Heart className="w-10 h-10 text-primary" />
+                        <div>
+                            <h1 className="text-3xl md:text-4xl font-bold font-headline text-foreground">আমাদের সমর্থন করুন</h1>
+                            <p className="mt-1 text-muted-foreground max-w-2xl">
+                                আপনার ছোট্ট অনুদানও হাজারো মানুষের কাছে আইনি তথ্য পৌঁছে দিতে পারে।
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 
                 <div className="grid lg:grid-cols-5 gap-8">
@@ -235,5 +239,3 @@ export default function DonationPage() {
         </div>
     );
 }
-
-    
