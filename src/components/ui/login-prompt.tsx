@@ -81,8 +81,8 @@ export default function LoginPrompt() {
     <Dialog open={showLoginPrompt} onOpenChange={setShowLoginPrompt}>
       <DialogContent className="bg-[#111111] border-[#333333] text-white max-w-sm">
         <DialogHeader className="items-center text-center">
-          <div className="w-12 h-12 rounded-full border border-[#333333] flex items-center justify-center mb-4">
-             {isLoggedInButNotVerified ? <MailCheck className="w-6 h-6 text-white" /> : <Scale className="w-6 h-6 text-white" />}
+          <div className="w-16 h-16 rounded-full border border-[#333333] flex items-center justify-center mb-4">
+             {isLoggedInButNotVerified ? <MailCheck className="w-8 h-8 text-white" /> : <Scale className="w-8 h-8 text-white" />}
           </div>
           <DialogTitle className="text-xl">
             {isLoggedInButNotVerified ? 'আপনার ইমেল ভেরিফাই করুন' : 'সাইন ইন করুন'}
