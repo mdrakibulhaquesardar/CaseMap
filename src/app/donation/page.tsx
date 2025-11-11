@@ -103,7 +103,7 @@ export default function DonationPage() {
                                      <h3 className="text-lg font-semibold mb-4">পেমেন্ট পদ্ধতি</h3>
                                      <div className="p-4 border rounded-lg bg-muted/50">
                                          <div className="flex items-center justify-center gap-4 flex-wrap">
-                                            <Image src="https://cdn.iconscout.com/icon/free/png-256/free-bKash-3-722702.png" alt="bKash" width={60} height={60} data-ai-hint="bkash logo" />
+                                            <Image src="https://static.vecteezy.com/system/resources/previews/068/842/080/non_2x/bkash-logo-horizontal-mobile-banking-app-icon-emblem-transparent-background-free-png.png" alt="bKash" width={80} height={40} data-ai-hint="bkash logo" />
                                             <Image src="https://play-lh.googleusercontent.com/Iks014Ul-02H435y0dG-3c_I5sSP_G8X2nE9V20i_SS0lH22EaTjV6y6e6M77onq3w" alt="Nagad" width={60} height={60} data-ai-hint="nagad logo" />
                                             <Image src="https://media.licdn.com/dms/image/D560BAQHo-X_j03I8Dw/company-logo_200_200/0/1693892323386/dutchbanglabanklimited_logo?e=2147483647&v=beta&t=f9hS_S2-3KzJ5eQw3zD-jGg2g5d-j-g_p3j-z-g-k_s" alt="Rocket" width={60} height={60} data-ai-hint="rocket logo" />
                                             <Image src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" width={60} height={40} data-ai-hint="visa logo" />
