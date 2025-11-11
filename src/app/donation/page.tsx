@@ -21,6 +21,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useToast } from '@/hooks/use-toast';
+import confetti from 'canvas-confetti';
 
 const donationAmounts = [100, 500, 1000, 2000];
 
@@ -53,6 +54,7 @@ export default function DonationPage() {
     const [customAmount, setCustomAmount] = useState('');
     const [isCustom, setIsCustom] = useState(false);
     const [transactionId, setTransactionId] = useState('');
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
     const { toast } = useToast();
     
     const finalAmount = isCustom ? customAmount : amount;
@@ -64,6 +66,21 @@ export default function DonationPage() {
             title: `${label} কপি করা হয়েছে`,
             description: `${text} আপনার ক্লিপবোর্ডে কপি করা হয়েছে।`
         })
+    }
+
+    const handleDonationSubmit = () => {
+        // Trigger confetti
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+
+        // Show toast
+        toast({ title: "ধন্যবাদ!", description: "আপনার ট্রানজেকশন আইডি জমা দেওয়া হয়েছে।" });
+
+        // Close dialog
+        setIsDialogOpen(false);
     }
 
     return (
@@ -165,7 +182,7 @@ export default function DonationPage() {
                                     </div>
 
                                     <div>
-                                        <Dialog>
+                                        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                                             <DialogTrigger asChild>
                                                 <Button size="lg" className="w-full text-lg h-12">
                                                     <CreditCard className="mr-2 h-5 w-5" />
@@ -218,7 +235,7 @@ export default function DonationPage() {
                                                      </div>
                                                 </div>
                                                 <DialogFooter>
-                                                    <Button onClick={() => toast({ title: "ধন্যবাদ!", description: "আপনার ট্রানজেকশন আইডি জমা দেওয়া হয়েছে।" })}>জমা দিন</Button>
+                                                    <Button onClick={handleDonationSubmit}>জমা দিন</Button>
                                                 </DialogFooter>
                                             </DialogContent>
                                         </Dialog>
