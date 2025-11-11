@@ -164,10 +164,10 @@ export default function DonationPage() {
                             <CardContent>
                                 <div className="mb-4">
                                     <div className="flex justify-between items-end mb-1">
-                                        <span className="text-2xl font-bold text-primary">৳১০,২৫৬</span>
+                                        <span className="text-2xl font-bold text-primary">৳{Number(8050).toLocaleString('bn-BD')}</span>
                                         <span className="text-sm text-muted-foreground">/ ৳{totalCost.toLocaleString('bn-BD')}</span>
                                     </div>
-                                    <Progress value={(10256 / totalCost) * 100} className="h-2" />
+                                    <Progress value={(8050 / totalCost) * 100} className="h-2" />
                                     <p className="text-xs text-muted-foreground mt-1">আমাদের মাসিক লক্ষ্য পূরণে সাহায্য করুন।</p>
                                 </div>
                                 <h4 className="font-semibold text-sm mb-2">মাসিক খরচ (আনুমানিক)</h4>
