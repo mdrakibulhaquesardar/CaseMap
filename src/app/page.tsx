@@ -641,7 +641,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="bg-card border rounded-2xl p-8 shadow-lg">
+            <div className="bg-card border rounded-2xl p-8">
               {/* Progress Section */}
               <div className="mb-8">
                 <div className="flex justify-between items-center mb-2">
@@ -762,4 +762,3 @@ export default function Home() {
     </>
     );
 }
-
