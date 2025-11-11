@@ -15,11 +15,11 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 const donationAmounts = [100, 500, 1000, 2000];
 
 const monthlyCosts = [
-    { name: 'AI এবং API খরচ', cost: 12000, color: 'bg-blue-500' },
-    { name: 'সার্ভার ও হোস্টিং', cost: 8000, color: 'bg-green-500' },
-    { name: 'উন্নয়ন ও রক্ষণাবেক্ষণ', cost: 15000, color: 'bg-yellow-500' },
-    { name: 'গবেষণা ও উন্নয়ন (R&D)', cost: 10000, color: 'bg-purple-500' },
-    { name: 'অন্যান্য', cost: 5000, color: 'bg-orange-500' },
+    { name: 'AI এবং API খরচ', cost: 3000, color: 'bg-blue-500' },
+    { name: 'সার্ভার ও হোস্টিং', cost: 2000, color: 'bg-green-500' },
+    { name: 'উন্নয়ন ও রক্ষণাবেক্ষণ', cost: 2500, color: 'bg-yellow-500' },
+    { name: 'গবেষণা ও উন্নয়ন (R&D)', cost: 1000, color: 'bg-purple-500' },
+    { name: 'অন্যান্য', cost: 500, color: 'bg-orange-500' },
 ]
 const totalCost = monthlyCosts.reduce((acc, item) => acc + item.cost, 0);
 
@@ -44,6 +44,7 @@ export default function DonationPage() {
     const [isCustom, setIsCustom] = useState(false);
     
     const finalAmount = isCustom ? customAmount : amount;
+    const collectedAmount = 4600;
 
     return (
         <div className="bg-muted/30 min-h-screen">
@@ -164,10 +165,10 @@ export default function DonationPage() {
                             <CardContent>
                                 <div className="mb-4">
                                     <div className="flex justify-between items-end mb-1">
-                                        <span className="text-2xl font-bold text-primary">৳{Number(8050).toLocaleString('bn-BD')}</span>
+                                        <span className="text-2xl font-bold text-primary">৳{Number(collectedAmount).toLocaleString('bn-BD')}</span>
                                         <span className="text-sm text-muted-foreground">/ ৳{totalCost.toLocaleString('bn-BD')}</span>
                                     </div>
-                                    <Progress value={(8050 / totalCost) * 100} className="h-2" />
+                                    <Progress value={(collectedAmount / totalCost) * 100} className="h-2" />
                                     <p className="text-xs text-muted-foreground mt-1">আমাদের মাসিক লক্ষ্য পূরণে সাহায্য করুন।</p>
                                 </div>
                                 <h4 className="font-semibold text-sm mb-2">মাসিক খরচ (আনুমানিক)</h4>
