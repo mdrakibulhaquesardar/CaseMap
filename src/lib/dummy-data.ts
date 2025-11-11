@@ -1,3 +1,4 @@
+
 import type { CaseTimeline, FaqItem, LegalAidCenter } from "@/types";
 
 export const caseTimelineData: { [key: string]: CaseTimeline } = {
@@ -45,7 +46,7 @@ export const legalAidCenters: LegalAidCenter[] = [
     lng: 90.4125,
     address: "বাড়ি ১২৩, রোড ৪, গুলশান, ঢাকা",
     contact: "০১২৩৪৫৬৭৮৯",
-    image: "https://picsum.photos/400/250?random=1",
+    image: "https://images.unsplash.com/photo-1629438756859-34a46dca018e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNXx8YmFuZ2xhZGVzaCUyMGRoYWthfGVufDB8fHx8MTc2Mjg4NDA3MXww&ixlib=rb-4.1.0&q=80&w=1080",
     services: ["মানবাধিকার", "পারিবারিক আইন", "ফৌজদারি আইন"],
     division: "ঢাকা",
   },
