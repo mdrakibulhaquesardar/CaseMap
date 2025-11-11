@@ -41,8 +41,30 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
-      
-      
+      {
+        protocol: 'https',
+        hostname: 'cdn.iconscout.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'play-lh.googleusercontent.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'media.licdn.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };
