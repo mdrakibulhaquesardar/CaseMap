@@ -631,7 +631,7 @@ export default function Home() {
             <div className="text-center mb-12">
               <Badge variant="outline" className="mb-4 border-accent/20 bg-accent/5 text-accent">
                 <Heart className="mr-2 h-3 w-3" />
-                আমাদের সমর্থন করুন
+                আমাদের লক্ষ্য
               </Badge>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-headline mb-4">
                 আমাদের সাথে যোগ দিন, আইনি সচেতনতা ছড়িয়ে দিন
@@ -646,24 +646,27 @@ export default function Home() {
               <div className="mb-8">
                 <div className="flex justify-between items-center mb-2">
                   <div>
-                    <h3 className="text-xl font-bold font-headline">লক্ষ্যমাত্রা: ১ বছরের তহবিল</h3>
+                    <h3 className="text-xl font-bold font-headline">১ বছরের জন্য প্রয়োজনীয় তহবিল</h3>
                   </div>
                   <div className="text-right">
-                    <div className="text-2xl font-bold text-primary">৳১,০০,০০০</div>
+                    <div className="text-2xl font-bold text-primary">৳ ১,০০,০০০</div>
+                    <div className="text-xs text-muted-foreground">লক্ষ্যমাত্রা</div>
                   </div>
                 </div>
                 
                 {/* Progress Bar */}
                 <div className="relative w-full h-3 bg-muted rounded-full overflow-hidden mb-2">
                   <div 
-                    className="absolute top-0 left-0 h-full bg-primary rounded-full transition-all duration-1000 ease-out"
+                    className="absolute top-0 left-0 h-full bg-primary rounded-full transition-all duration-1000 ease-out flex items-center justify-end text-white text-xs pr-2"
                     style={{ width: `${(10256 / 100000) * 100}%` }}
-                  />
+                  >
+                    
+                  </div>
                 </div>
 
                 <div className="flex justify-between items-center text-sm text-muted-foreground">
-                    <span>সংগৃহীত: <span className="font-bold text-foreground">৳১০,২৫৬ (১০%)</span></span>
-                    <span>বাকি: <span className="font-bold text-foreground">৳৮৯,৭৪৪</span></span>
+                    <span><span className="font-bold text-primary">{(10256 / 100000) * 100}%</span> সংগৃহীত: <span className="font-bold text-foreground">৳ ১০,২৫৬</span></span>
+                    <span>বাকি: <span className="font-bold text-foreground">৳ ৮৯,৭৪৪</span></span>
                 </div>
               </div>
 
@@ -677,7 +680,7 @@ export default function Home() {
                     <h4 className="font-semibold text-sm">কেন অনুদান?</h4>
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    আপনার অনুদান আমাদের AI উন্নত করতে এবং আরও বেশি মানুষের কাছে পৌঁছাতে সাহায্য করবে।
+                    আপনার অনুদান আমাদের AI উন্নত করতে, নতুন ফিচার যোগ করতে এবং আরও বেশি মানুষের কাছে পৌঁছাতে সাহায্য করবে।
                   </p>
                 </div>
 
@@ -689,7 +692,7 @@ export default function Home() {
                     <h4 className="font-semibold text-sm">কোথায় যাবে?</h4>
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    সার্ভার, AI API, এবং রক্ষণাবেক্ষণ—সবকিছু স্বচ্ছভাবে পরিচালিত হবে।
+                    সার্ভার খরচ, AI API খরচ, উন্নয়ন এবং রক্ষণাবেক্ষণ—সবকিছুই স্বচ্ছভাবে দেখানো হবে।
                   </p>
                 </div>
 
@@ -701,7 +704,7 @@ export default function Home() {
                     <h4 className="font-semibold text-sm">স্বচ্ছতা</h4>
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    আমরা প্রতিমাসে আমাদের আয়-ব্যয়ের রিপোর্ট প্রকাশ করব—আপনার বিশ্বাসই আমাদের শক্তি!
+                    আমরা প্রতিমাসে আমাদের আয়-ব্যয়ের রিপোর্ট প্রকাশ করব—আপনার বিশ্বাস আমাদের কাছে গুরুত্বপূর্ণ!
                   </p>
                 </div>
               </div>
@@ -716,7 +719,7 @@ export default function Home() {
                   </Link>
                 </Button>
                 <p className="text-sm text-muted-foreground mt-4">
-                  যেকোনো পরিমাণ অনুদানই আমাদের জন্য মূল্যবান!
+                  যেকোনো পরিমাণ অনুদানই আমাদের জন্য মূল্যবান—আপনার সহায়তা আমাদের এগিয়ে যেতে সাহায্য করবে!
                 </p>
               </div>
             </div>
