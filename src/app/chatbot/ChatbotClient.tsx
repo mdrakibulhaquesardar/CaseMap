@@ -238,7 +238,7 @@ export default function ChatbotClient({
                         onKeyDown={handleKeyDown}
                         onFocus={() => setInputFocused(true)}
                         onBlur={() => setInputFocused(false)}
-                        placeholder="বাংলাদেশের আইন সম্পর্কে এখানে জিজ্ঞাসা করুন..."
+                        placeholder="বাংলাদেশের আইন সম্পর্কে এখানে জিজ্ঞাসা করুন... (যেমন: একজন ভাড়াটিয়া হিসেবে আমার কী অধিকার আছে?)"
                         className={cn(
                             "w-full px-2 py-3",
                             "resize-none",

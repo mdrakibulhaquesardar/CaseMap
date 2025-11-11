@@ -37,7 +37,7 @@ export default function SummarizerClient() {
     if (selectedFile) {
         if (selectedFile.size > 4 * 1024 * 1024) { // 4MB size limit
             toast({
-                title: 'ফাইলের আকার অনেক বড়',
+                title: 'ওহো! ফাইলের আকার অনেক বড়',
                 description: 'অনুগ্রহ করে ৪ মেগাবাইটের চেয়ে ছোট ফাইল আপলোড করুন।',
                 variant: 'destructive',
             });
@@ -56,7 +56,7 @@ export default function SummarizerClient() {
     const isTextMode = activeTab === 'text';
     if (isTextMode && !documentText.trim()) {
       toast({
-        title: 'ইনপুট প্রয়োজন',
+        title: 'ওহো! কিছু লেখা দরকার',
         description: 'অনুগ্রহ করে সারসংক্ষেপ করার জন্য কিছু আইনি লেখা দিন।',
         variant: 'destructive',
       });
@@ -64,7 +64,7 @@ export default function SummarizerClient() {
     }
     if (!isTextMode && !fileDataUri) {
        toast({
-        title: 'ফাইল প্রয়োজন',
+        title: 'ওহো! ফাইল দরকার',
         description: 'অনুগ্রহ করে সারসংক্ষেপ করার জন্য একটি ফাইল আপলোড করুন।',
         variant: 'destructive',
       });
@@ -93,8 +93,8 @@ export default function SummarizerClient() {
     } catch (error) {
       console.error('নথি সারসংক্ষেপ করতে সমস্যা হয়েছে:', error);
       toast({
-        title: 'ত্রুটি',
-        description: 'নথিটি সারসংক্ষেপ করা যায়নি। আবার চেষ্টা করুন।',
+        title: 'ওহো! সমস্যা হয়েছে',
+        description: 'নথিটি সারসংক্ষেপ করা যায়নি। একটু পরে আবার চেষ্টা করুন, আমরা এখানে আছি!',
         variant: 'destructive',
       });
     } finally {
@@ -105,8 +105,8 @@ export default function SummarizerClient() {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(summary);
     toast({
-        title: 'কপি করা হয়েছে',
-        description: 'সারসংক্ষেপটি ক্লিপবোর্ডে কপি করা হয়েছে।',
+        title: 'হুররে! কপি করা হয়েছে',
+        description: 'সারসংক্ষেপটি ক্লিপবোর্ডে কপি করা হয়েছে, এখন ব্যবহার করতে পারেন!',
     })
   }
 
@@ -122,10 +122,10 @@ export default function SummarizerClient() {
             <div className="p-6">
               <h2 className="text-xl font-bold flex items-center gap-2">
                 <FileText className="w-6 h-6 text-primary" />
-                মূল নথি
+                আপনার আইনি নথি
               </h2>
                <p className="text-muted-foreground mt-1">
-                আপনার আইনি নথিটি নিচে পেস্ট করুন অথবা একটি ফাইল আপলোড করুন।
+                আপনার আইনি নথিটি নিচে পেস্ট করুন অথবা একটি ফাইল আপলোড করুন—আমরা সহজ ভাষায় বুঝিয়ে দেব!
               </p>
             </div>
             <div className="p-6 pt-0">
@@ -136,7 +136,7 @@ export default function SummarizerClient() {
                     </TabsList>
                     <TabsContent value="text" className="mt-4">
                          <Textarea
-                            placeholder="আপনার আইনি নথির লেখা এখানে পেস্ট করুন..."
+                            placeholder="আপনার আইনি নথির লেখা এখানে পেস্ট করুন... (যেমন: চুক্তি, আদেশ, দলিল ইত্যাদি)"
                             className="min-h-[250px] text-base"
                             value={documentText}
                             onChange={(e) => setDocumentText(e.target.value)}
@@ -145,7 +145,7 @@ export default function SummarizerClient() {
                         <div className="mt-4">
                             <Button variant="outline" size="sm" onClick={() => setDocumentText(sampleText)} disabled={isLoading}>
                                 <Clipboard className="w-4 h-4 mr-2" />
-                                নমুনা ব্যবহার করুন
+                                নমুনা দেখুন
                             </Button>
                         </div>
                     </TabsContent>
@@ -165,7 +165,7 @@ export default function SummarizerClient() {
                                 <>
                                     <UploadCloud className="w-12 h-12 text-muted-foreground mb-4" />
                                     <h3 className="font-semibold">এখানে ফাইল আপলোড করুন</h3>
-                                    <p className="text-sm text-muted-foreground">একটি ফাইল টেনে আনুন বা ক্লিক করে বেছে নিন</p>
+                                    <p className="text-sm text-muted-foreground">একটি ফাইল টেনে আনুন বা ক্লিক করে বেছে নিন—খুবই সহজ!</p>
                                     <Input 
                                         id="file-upload" 
                                         type="file" 
@@ -174,7 +174,7 @@ export default function SummarizerClient() {
                                         onChange={handleFileChange}
                                     />
                                     <Button asChild variant="outline" className="mt-4">
-                                        <label htmlFor="file-upload">ফাইল ব্রাউজ করুন</label>
+                                        <label htmlFor="file-upload">ফাইল বেছে নিন</label>
                                     </Button>
                                     <p className="text-xs text-muted-foreground mt-2">PDF, JPG, PNG (সর্বোচ্চ ৪ মেগাবাইট)</p>
                                 </>
@@ -211,17 +211,17 @@ export default function SummarizerClient() {
                   <div className="flex gap-2">
                     <Button variant="outline" size="sm" onClick={copyToClipboard}>
                       <Clipboard className="w-4 h-4 mr-2" />
-                      কপি
+                      কপি করুন
                     </Button>
                     <Button variant="outline" size="sm">
                       <Languages className="w-4 h-4 mr-2" />
-                      অনুবাদ
+                      অনুবাদ করুন
                     </Button>
                   </div>
                 )}
               </div>
                <p className="text-muted-foreground mt-1">
-                আপনার নথির সহজ সারসংক্ষেপ নিচে দেখানো হবে।
+                আপনার নথির সহজ সারসংক্ষেপ নিচে দেখানো হবে—এখন বুঝতে হবে না কঠিন আইনি ভাষা!
               </p>
             </div>
             <div className="p-6 pt-0">
@@ -229,7 +229,7 @@ export default function SummarizerClient() {
                 <div className="flex flex-col items-center justify-center h-full min-h-[400px] p-4 bg-muted rounded-md">
                   <Sparkles className="w-10 h-10 text-primary animate-spin" />
                   <p className="mt-4 text-muted-foreground">AI আপনার নথি বিশ্লেষণ করছে...</p>
-                  <p className="text-sm text-muted-foreground">এতে কয়েক মুহূর্ত সময় লাগতে পারে।</p>
+                  <p className="text-sm text-muted-foreground">এতে কয়েক মুহূর্ত সময় লাগতে পারে, একটু অপেক্ষা করুন!</p>
                 </div>
               ) : summary ? (
                 <div className="prose prose-lg max-w-none text-foreground p-4 bg-muted rounded-md min-h-[400px] relative">
@@ -238,8 +238,8 @@ export default function SummarizerClient() {
               ) : (
                 <div className="flex flex-col items-center justify-center text-center h-full min-h-[400px] text-muted-foreground p-4 bg-muted/50 rounded-md">
                    <Languages className="w-12 h-12 mb-4" />
-                   <h3 className="font-semibold text-lg">নথির জন্য অপেক্ষা করা হচ্ছে</h3>
-                   <p className="max-w-xs">আপনি একটি নথি দিলেই তার সহজ সারসংক্ষেপ এখানে তৈরি হবে।</p>
+                   <h3 className="font-semibold text-lg">নথির জন্য অপেক্ষা করছি</h3>
+                   <p className="max-w-xs">আপনি একটি নথি দিলেই তার সহজ সারসংক্ষেপ এখানে তৈরি হবে—খুবই সহজ!</p>
                 </div>
               )}
             </div>
@@ -272,7 +272,7 @@ export default function SummarizerClient() {
                         </ScrollArea>
                     ) : (
                         <div className="text-center py-10 text-muted-foreground">
-                            <p>এখনো কোনো সারসংক্ষেপ নেই।</p>
+                            <p>এখনো কোনো সারসংক্ষেপ নেই—প্রথমটি তৈরি করুন!</p>
                         </div>
                     )}
                 </div>

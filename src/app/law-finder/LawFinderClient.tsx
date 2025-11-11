@@ -37,13 +37,13 @@ export default function LawFinderClient({
       <div className="border rounded-lg p-4 sm:p-6">
           <h3 className="font-semibold text-lg mb-2">আইনের ধারা খুঁজুন</h3>
           <p className="text-muted-foreground text-sm mb-4">
-            একটি ধারার নম্বর (যেমন, "দণ্ডবিধি ১৮৬০-এর ৩০২ ধারা") বা বিষয় (যেমন, "চুরির শাস্তি") লিখুন।
+            একটি ধারার নম্বর (যেমন, "দণ্ডবিধি ১৮৬০-এর ৩০২ ধারা") বা বিষয় (যেমন, "চুরির শাস্তি") লিখুন—খুবই সহজ!
           </p>
           <div className="flex flex-col sm:flex-row gap-2">
             <Input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="যেমন, দণ্ডবিধি ৩০২"
+              placeholder="যেমন, দণ্ডবিধি ৩০২ (যেমনটা আপনি জানেন, তেমনই লিখুন!)"
               disabled={isLoading}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             />
@@ -53,7 +53,7 @@ export default function LawFinderClient({
               ) : (
                 <Search className="w-4 h-4 mr-2" />
               )}
-              অনুসন্ধান
+              খুঁজুন
             </Button>
           </div>
            <div className="mt-4">
@@ -72,17 +72,17 @@ export default function LawFinderClient({
         <div className="p-6">
           <h2 className="text-xl font-bold flex items-center gap-2">
             <Bot className="w-6 h-6 text-primary" />
-            AI ব্যাখ্যা
+            AI-এর সহজ ব্যাখ্যা
           </h2>
           <p className="text-muted-foreground text-sm mt-1">
-            আপনার খোঁজা আইনের ধারার ব্যাখ্যা নিচে দেখানো হবে।
+            আপনার খোঁজা আইনের ধারার সহজ ব্যাখ্যা নিচে দেখানো হবে—এখন বুঝতে হবে না কঠিন আইনি ভাষা!
           </p>
         </div>
         <div className="p-6 pt-0">
           {isLoading ? (
             <div className="flex flex-col items-center justify-center h-full min-h-[250px] p-4 bg-muted rounded-md">
               <Sparkles className="w-10 h-10 text-primary animate-spin" />
-              <p className="mt-4 text-muted-foreground">AI আপনার জন্য আইনের বই ঘাঁটছে...</p>
+              <p className="mt-4 text-muted-foreground">AI আপনার জন্য আইনের বই ঘাঁটছে... একটু অপেক্ষা করুন!</p>
             </div>
           ) : result ? (
             <div className="space-y-6">
@@ -98,17 +98,17 @@ export default function LawFinderClient({
                     <div className='p-4 bg-muted/50 rounded-lg'>
                         <FileCheck2 className='mx-auto h-8 w-8 text-primary mb-2'/>
                         <h4 className='font-semibold'>প্রাসঙ্গিক ধারা</h4>
-                        <p className='text-sm text-muted-foreground'>এই আইনের অন্যান্য গুরুত্বপূর্ণ ধারাগুলো সম্পর্কে জানুন।</p>
+                        <p className='text-sm text-muted-foreground'>এই আইনের অন্যান্য গুরুত্বপূর্ণ ধারাগুলো সম্পর্কে জানুন—আরও শিখুন!</p>
                     </div>
                      <div className='p-4 bg-muted/50 rounded-lg'>
                         <Scale className='mx-auto h-8 w-8 text-primary mb-2'/>
-                        <h4 className='font-semibold'>উদাহরণ</h4>
-                        <p className='text-sm text-muted-foreground'>বাস্তব উদাহরণ দেখুন যা এই আইনটিকে বুঝতে সাহায্য করবে।</p>
+                        <h4 className='font-semibold'>বাস্তব উদাহরণ</h4>
+                        <p className='text-sm text-muted-foreground'>বাস্তব উদাহরণ দেখুন যা এই আইনটিকে বুঝতে সাহায্য করবে—খুবই সহজ!</p>
                     </div>
                      <div className='p-4 bg-muted/50 rounded-lg'>
                         <MessageSquare className='mx-auto h-8 w-8 text-primary mb-2'/>
-                        <h4 className='font-semibold'>প্রশ্ন করুন</h4>
-                        <p className='text-sm text-muted-foreground'>এই আইন সম্পর্কে আরও প্রশ্ন থাকলে কমিউনিটিতে জিজ্ঞাসা করুন।</p>
+                        <h4 className='font-semibold'>আরও প্রশ্ন?</h4>
+                        <p className='text-sm text-muted-foreground'>এই আইন সম্পর্কে আরও প্রশ্ন থাকলে কমিউনিটিতে জিজ্ঞাসা করুন—আমরা এখানে আছি!</p>
                         <Button asChild variant="link" size="sm" className='mt-1'>
                           <Link href={`/faq?q=${encodeURIComponent(query)}`}>এখানে ক্লিক করুন</Link>
                         </Button>
@@ -120,7 +120,7 @@ export default function LawFinderClient({
             <div className="flex flex-col items-center justify-center text-center h-full min-h-[250px] text-muted-foreground p-4 bg-muted/50 rounded-md">
               <BookOpen className="w-12 h-12 mb-4" />
               <h3 className="font-semibold text-lg">অনুসন্ধানের জন্য প্রস্তুত</h3>
-              <p className="max-w-xs">কোনো আইনের ধারার বিবরণ দেখতে উপরে সার্চ করুন।</p>
+              <p className="max-w-xs">কোনো আইনের ধারার বিবরণ দেখতে উপরে সার্চ করুন—খুবই সহজ!</p>
             </div>
           )}
         </div>

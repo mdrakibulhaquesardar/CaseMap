@@ -154,7 +154,7 @@ export default function FaqClient() {
             id: Math.random().toString(),
             content: answerResponse.answer,
             authorUid: 'ai-bot',
-            authorName: 'AI বট',
+            authorName: 'AI সহকারী',
             authorAvatar: '',
             upvotes: 0,
             downvotes: 0,
@@ -176,8 +176,8 @@ export default function FaqClient() {
     } catch (error) {
       console.error('AI উত্তর আনতে সমস্যা হয়েছে:', error);
       toast({
-        title: 'ত্রুটি',
-        description: 'উত্তর পাওয়া যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।',
+        title: 'ওহো! সমস্যা হয়েছে',
+        description: 'উত্তর পাওয়া যায়নি। একটু পরে আবার চেষ্টা করুন, আমরা এখানে আছি আপনার সাহায্যের জন্য!',
         variant: 'destructive',
       });
     } finally {
@@ -316,20 +316,20 @@ export default function FaqClient() {
         </div>
         <DialogContent>
             <DialogHeader>
-              <DialogTitle>আপনার প্রশ্নটি তৈরি করুন</DialogTitle>
+              <DialogTitle>আপনার প্রশ্নটি লিখুন</DialogTitle>
             </DialogHeader>
             <div className="py-4">
               <Textarea
                 value={newQuestion}
                 onChange={(e) => setNewQuestion(e.target.value)}
-                placeholder="উদাহরণ: একজন ভাড়াটিয়া হিসেবে আমার কী কী অধিকার আছে?"
+                placeholder="উদাহরণ: একজন ভাড়াটিয়া হিসেবে আমার কী কী অধিকার আছে? (যেমনটা আপনি কথা বলেন, তেমনই লিখুন!)"
                 disabled={isLoading}
                 className="min-h-[200px]"
               />
               <div className="mt-4">
                 <Select value={questionCategory} onValueChange={setQuestionCategory}>
                     <SelectTrigger>
-                        <SelectValue placeholder="বিষয় নির্বাচন করুন (ঐচ্ছিক)" />
+                        <SelectValue placeholder="বিষয় নির্বাচন করুন (ঐচ্ছিক—আপনার সুবিধার জন্য)" />
                     </SelectTrigger>
                     <SelectContent>
                         {popularTags.map(tag => (
@@ -433,7 +433,7 @@ export default function FaqClient() {
                                                 </Button>
                                             </div>
 
-                                            {answer.authorName === 'AI বট' ? (
+                                            {answer.authorName === 'AI সহকারী' ? (
                                                 <Avatar className="h-9 w-9">
                                                     <AvatarFallback className="bg-primary/10 text-primary">
                                                         <Bot className="w-5 h-5" />

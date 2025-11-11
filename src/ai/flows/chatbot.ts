@@ -1,7 +1,7 @@
 'use server';
 /**
  * @fileOverview Chatbot flow for the অধিকারী app using Gemini.
- * Handles general user queries but redirects legal ones to AI Legal Chat.
+ * Handles general user queries and provides support in Bengali.
  */
 
 import { ai } from '@/ai/genkit';
@@ -13,7 +13,7 @@ const ChatInputSchema = z.object({
     .array(
       z.object({
         role: z.enum(['user', 'model']),
-        content: z.any(), // allow any type, we’ll normalize below
+        content: z.any(), // allow any type, we'll normalize below
       })
     )
     .describe('Chat history array.'),
@@ -47,20 +47,17 @@ const chatFlow = ai.defineFlow(
   async (input) => {
     const { history, message } = input;
 
-    const systemPrompt = `
-You are a friendly and helpful general assistant for a legal aid app in Bangladesh called 'অধিকারী'. 
-- Your primary language is English. You MUST respond in English.
-- Keep your answers friendly, concise, and helpful for general, non-legal queries.
-- If the user asks a specific legal question or asks for legal advice, you MUST NOT answer it. 
-  Instead, you MUST gently guide them to use the specialized 'AI আইনি চ্যাট' (AI Legal Chat) feature by saying EXACTLY this: 
-  "For your legal question, please use our specialized 'AI Legal Chat' feature. I can take you there, or you can find it in the Tools menu."
-- Do not provide any legal opinions or advice under any circumstances. 
-  Your purpose is to be a general guide for the app.
-    `.trim();
+    const systemPrompt = `আপনি 'অধিকারী' নামক একটি আইনি সহায়তা অ্যাপের জন্য একটি বন্ধুত্বপূর্ণ এবং সহায়ক AI সহকারী।
+- আপনি শুধুমাত্র বাংলা ভাষায় উত্তর দেবেন।
+- আপনার উত্তর বন্ধুত্বপূর্ণ, সংক্ষিপ্ত এবং সহায়ক হতে হবে।
+- সাধারণ প্রশ্নের উত্তর দিন, যেমন অ্যাপের ব্যবহার, ফিচার সম্পর্কে জানা, ইত্যাদি।
+- যদি ব্যবহারকারী আইনি প্রশ্ন করে বা আইনি পরামর্শ চায়, তাহলে তাদের 'AI আইনি চ্যাট' ফিচার ব্যবহার করার জন্য নির্দেশ দিন।
+- আইনি পরামর্শ বা মতামত প্রদান করবেন না।
+- আপনার উদ্দেশ্য হল অ্যাপ সম্পর্কে সাধারণ গাইড করা এবং ব্যবহারকারীদের সাহায্য করা।`;
 
     // ✅ Normalize history (avoid .find() / invalid type errors)
     const normalizedHistory = (history || []).map((m) => ({
-      role: m.role,
+      role: m.role === 'user' ? 'user' : 'model',
       content:
         typeof m.content === 'string'
           ? m.content
@@ -74,30 +71,59 @@ You are a friendly and helpful general assistant for a legal aid app in Banglade
         m.content !== ERROR_MESSAGE_CONTENT
     );
 
-    // ✅ Generate AI response
-    const { output } = await ai.generate({
-      model: 'googleai/gemini-2.5-flash',
-      messages: [
-        {
-          role: 'system',
-          content: systemPrompt,
-        },
-        {
-          role: 'assistant',
-          content:
-            "I understand. I will act as a general assistant for the 'অধিকারী' app and respond only in English. I will not provide any legal advice and will direct users to the 'AI Legal Chat' feature for legal questions.",
-        },
-        ...filteredHistory,
-        { role: 'user', content: message },
-      ],
-    });
+    try {
+      // Check if API key is configured
+      if (!process.env.GOOGLE_GENAI_API_KEY) {
+        console.error('GOOGLE_GENAI_API_KEY is not set in environment variables');
+        return { response: 'দুঃখিত, API কনফিগারেশন সমস্যা আছে। অনুগ্রহ করে সিস্টেম অ্যাডমিনিস্টেটরের সাথে যোগাযোগ করুন।' };
+      }
 
-    const responseText = output?.text?.trim();
+      // ✅ Generate AI response using Gemini API (same format as law-chatbot)
+      const { output } = await ai.generate({
+        model: 'googleai/gemini-2.5-flash',
+        prompt: message,
+        history: [
+          { role: 'user', content: systemPrompt },
+          { role: 'model', content: 'আমি বুঝতে পেরেছি। আমি এখন থেকে বাংলায় উত্তর দেব এবং ব্যবহারকারীদের সাহায্য করব।' },
+          ...filteredHistory.map(m => ({
+            role: m.role === 'user' ? 'user' : 'model',
+            content: m.content
+          })),
+        ],
+        config: {
+          temperature: 0.7,
+          topK: 40,
+          topP: 0.95,
+        }
+      });
 
-    if (!responseText) {
-      return { response: "Sorry, I'm unable to respond right now." };
+      const responseText = output?.text?.trim();
+
+      if (!responseText) {
+        console.error('Empty response from Gemini API');
+        return { response: ERROR_MESSAGE_CONTENT };
+      }
+
+      return { response: responseText };
+    } catch (error) {
+      console.error('Chatbot API error:', error);
+      // Log more details for debugging
+      if (error instanceof Error) {
+        console.error('Error message:', error.message);
+        console.error('Error stack:', error.stack);
+        // Check for specific error types
+        if (error.message.includes('API key') || error.message.includes('authentication') || error.message.includes('401') || error.message.includes('403')) {
+          return { response: 'API key সমস্যা আছে। অনুগ্রহ করে dev server restart করুন এবং .env.local file check করুন।' };
+        }
+        if (error.message.includes('429') || error.message.includes('quota') || error.message.includes('rate limit')) {
+          return { response: 'API quota limit exceeded. Please try again later.' };
+        }
+        // Return more detailed error for debugging (only in development)
+        if (process.env.NODE_ENV === 'development') {
+          return { response: `Error: ${error.message.substring(0, 100)}` };
+        }
+      }
+      return { response: ERROR_MESSAGE_CONTENT };
     }
-
-    return { response: responseText };
   }
 );

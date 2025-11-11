@@ -46,8 +46,8 @@ export default function TimelineClient() {
     } else {
       setFoundCase(null);
       toast({
-        title: 'মামলা পাওয়া যায়নি',
-        description: 'অনুগ্রহ করে মামলার নম্বরটি মিলিয়ে আবার চেষ্টা করুন। ডেমোর জন্য 12345 বা 67890 ব্যবহার করুন।',
+        title: 'ওহো! মামলা পাওয়া যায়নি',
+        description: 'অনুগ্রহ করে মামলার নম্বরটি মিলিয়ে আবার চেষ্টা করুন। ডেমোর জন্য 12345 বা 67890 ব্যবহার করুন—খুবই সহজ!',
         variant: 'destructive',
       });
     }
@@ -87,12 +87,12 @@ export default function TimelineClient() {
   return (
     <div className="w-full">
       <div className="mb-8 p-4 sm:p-6 border rounded-lg">
-           <h3 className="font-semibold text-lg mb-2">মামলা খুঁজুন</h3>
+           <h3 className="font-semibold text-lg mb-2">আপনার মামলা খুঁজুন</h3>
           <div className="flex flex-col sm:flex-row gap-2">
             <div className="relative flex-grow">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
-                placeholder="আপনার মামলার নম্বর দিন (যেমন, 12345)"
+                placeholder="আপনার মামলার নম্বর দিন (যেমন, 12345)—খুবই সহজ!"
                 className="pl-10"
                 value={caseNumber}
                 onChange={(e) => setCaseNumber(e.target.value)}
@@ -101,7 +101,7 @@ export default function TimelineClient() {
             </div>
             <Button onClick={onSearchClick} className="w-full sm:w-auto">
               <Search className="w-4 h-4 mr-2" />
-              মামলা খুঁজুন
+              খুঁজুন
             </Button>
           </div>
       </div>
@@ -164,7 +164,7 @@ export default function TimelineClient() {
           <div className="border rounded-lg">
             <div className="p-6">
               <h3 className="text-xl font-bold">মামলার গতিপথ</h3>
-              <p className="text-muted-foreground">মামলার কার্যক্রমের একটি ধাপে ধাপে अवलोकन।</p>
+              <p className="text-muted-foreground">মামলার কার্যক্রমের একটি ধাপে ধাপে অগ্রগতি—সবকিছু এক নজরে!</p>
             </div>
             <div className="p-6 pt-0">
               <CaseTimelineDisplay timeline={foundCase.timeline} />
@@ -177,7 +177,7 @@ export default function TimelineClient() {
             <FolderOpen className="w-16 h-16 mx-auto text-muted-foreground/50 mb-4" />
             <h3 className="text-xl font-semibold">আপনার মামলা ট্র্যাক করুন</h3>
             <p className="text-muted-foreground mt-2 max-w-sm mx-auto">
-              মামলার টাইমলাইন দেখতে উপরে একটি মামলার নম্বর লিখুন, অথবা সাইডবার থেকে একটি সংরক্ষিত মামলা বেছে নিন।
+              মামলার টাইমলাইন দেখতে উপরে একটি মামলার নম্বর লিখুন, অথবা সাইডবার থেকে একটি সংরক্ষিত মামলা বেছে নিন—খুবই সহজ!
             </p>
              <p className="text-xs text-muted-foreground mt-4">ডেমোর জন্য, মামলার নম্বর <kbd className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">12345</kbd> বা <kbd className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">67890</kbd> চেষ্টা করুন।</p>
           

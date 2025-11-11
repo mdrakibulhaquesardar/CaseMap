@@ -51,10 +51,10 @@ type ChatSession = {
 
 const GREETING_MESSAGE: Message = {
     role: 'model',
-    content: 'আস-সালামু আলাইকুম! আমি আপনার AI আইনি সহকারী। বাংলাদেশের আইন ও অধিকার সম্পর্কে জানতে প্রশ্ন করুন।',
+    content: 'আস-সালামু আলাইকুম! আমি আপনার AI আইনি সহকারী। বাংলাদেশের আইন ও আপনার অধিকার সম্পর্কে জানতে প্রশ্ন করুন—আমি এখানে আছি আপনার সাহায্যের জন্য!',
     timestamp: new Date().toISOString(),
 };
-const ERROR_MESSAGE_CONTENT = 'দুঃখিত, একটি সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।';
+const ERROR_MESSAGE_CONTENT = 'ওহো! কিছু একটা সমস্যা হয়েছে। চিন্তা করবেন না, একটু পরে আবার চেষ্টা করুন।';
 
 export default function ChatbotPage() {
   const [chatHistory, setChatHistory] = useLocalStorage<ChatSession[]>('law-chatHistory', []);

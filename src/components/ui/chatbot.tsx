@@ -78,24 +78,41 @@ export function Chatbot() {
   }, [messages]);
 
   const handleSend = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || isLoading) return;
 
-    const userMessage: Message = { role: 'user', content: input };
+    const userMessage: Message = { role: 'user', content: input.trim() };
     const newMessages = [...messages, userMessage];
     setMessages(newMessages);
-    const currentInput = input;
+    const currentInput = input.trim();
     setInput('');
     setIsLoading(true);
 
     try {
-      const chatHistory = newMessages.slice(0, -1).filter(m => m.content !== GREETING_MESSAGE_CONTENT && m.content !== ERROR_MESSAGE_CONTENT).map(({role, content}) => ({role, content}));
+      const chatHistory = newMessages
+        .slice(0, -1)
+        .filter(m => 
+          m.content !== GREETING_MESSAGE_CONTENT && 
+          m.content !== ERROR_MESSAGE_CONTENT
+        )
+        .map(({role, content}) => ({
+          role: role === 'user' ? 'user' : 'model',
+          content: typeof content === 'string' ? content : String(content)
+        }));
 
       const result = await chat({
         history: chatHistory,
         message: currentInput,
       });
-      const modelMessage: Message = { role: 'model', content: result.response };
-      setMessages((prev) => [...prev, modelMessage]);
+      
+      if (result && result.response) {
+        const modelMessage: Message = { 
+          role: 'model', 
+          content: result.response 
+        };
+        setMessages((prev) => [...prev, modelMessage]);
+      } else {
+        throw new Error('Empty response from API');
+      }
     } catch (error) {
       console.error('Chatbot error:', error);
       const errorMessage: Message = {

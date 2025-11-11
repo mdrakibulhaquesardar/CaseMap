@@ -55,12 +55,12 @@ export default function LegalAidClient() {
             <h2 className="text-xl font-bold mb-4">আপনার অনুসন্ধান ফিল্টার করুন</h2>
             <div className="space-y-6">
                 <div className="space-y-2">
-                    <Label htmlFor='search-term'>নাম দিয়ে অনুসন্ধান করুন</Label>
+                    <Label htmlFor='search-term'>নাম দিয়ে খুঁজুন</Label>
                     <div className="relative">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                         <Input
                             id="search-term"
-                            placeholder="যেমন, ব্লাস্ট"
+                            placeholder="যেমন, ব্লাস্ট (খুবই সহজ!)"
                             className="pl-10"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
@@ -105,7 +105,7 @@ export default function LegalAidClient() {
       
       <main className="lg:col-span-3">
          <div className="mb-4">
-            <p className="text-muted-foreground">{filteredCenters.length} টি ফলাফল পাওয়া গেছে</p>
+            <p className="text-muted-foreground">{filteredCenters.length} টি ফলাফল পাওয়া গেছে—আপনার জন্য সঠিক কেন্দ্রটি খুঁজে নিন!</p>
         </div>
         <div className="space-y-6">
           {filteredCenters.map((center) => (
@@ -142,7 +142,7 @@ export default function LegalAidClient() {
                 </div>
                 <div className="pt-4 mt-auto">
                     <Button asChild className='w-full md:w-auto'>
-                      <Link href={`/legal-aid/${center.name.toLowerCase().replace(/\s+/g, '-')}`}>বিস্তারিত দেখুন</Link>
+                      <Link href={`/legal-aid/${center.name.toLowerCase().replace(/\s+/g, '-')}`}>বিস্তারিত জানুন</Link>
                     </Button>
                 </div>
               </div>
@@ -151,8 +151,8 @@ export default function LegalAidClient() {
            {filteredCenters.length === 0 && (
             <div className="border rounded-lg text-center py-20 text-muted-foreground">
                 <Search className="w-12 h-12 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold">কোনো ফলাফল পাওয়া যায়নি</h3>
-                <p>আপনার অনুসন্ধান বা ফিল্টার সামঞ্জস্য করার চেষ্টা করুন।</p>
+                <h3 className="text-xl font-semibold">ওহো! কোনো ফলাফল পাওয়া যায়নি</h3>
+                <p>আপনার অনুসন্ধান বা ফিল্টার সামঞ্জস্য করার চেষ্টা করুন—আমরা এখানে আছি আপনার সাহায্যের জন্য!</p>
             </div>
            )}
         </div>

@@ -32,34 +32,34 @@ const menuItems = [
       items: [
         {
           title: "AI আইনি চ্যাট",
-          description: "AI এর সাথে কথা বলে আইনি তথ্য জানুন।",
+          description: "AI এর সাথে কথা বলে আইনি তথ্য জানুন—খুবই সহজ!",
           icon: <Bot className="size-5 shrink-0" />,
           url: "/chatbot",
           isProtected: true,
         },
         {
           title: "মামলার টাইমলাইন",
-          description: "আপনার মামলার অগ্রগতি ট্র্যাক করুন।",
+          description: "আপনার মামলার অগ্রগতি ট্র্যাক করুন—সবকিছু এক নজরে!",
           icon: <Gavel className="size-5 shrink-0" />,
           url: "/timeline",
           isProtected: true,
         },
         {
           title: "নথি সারসংক্ষেপ",
-          description: "জটিল আইনি নথি সহজে বুঝুন।",
+          description: "জটিল আইনি নথি সহজে বুঝুন—এখন আর বুঝতে হবে না কঠিন ভাষা!",
           icon: <FileText className="size-5 shrink-0" />,
           url: "/summarizer",
           isProtected: true,
         },
         {
           title: "আইনি সহায়তা",
-          description: "কাছাকাছি আইনি সহায়তা কেন্দ্র খুঁজুন।",
+          description: "কাছাকাছি আইনি সহায়তা কেন্দ্র খুঁজুন—আপনার জন্য সঠিক কেন্দ্র!",
           icon: <Users className="size-5 shrink-0" />,
           url: "/legal-aid",
         },
         {
           title: "আইন অনুসন্ধান",
-          description: "বাংলাদেশের আইন ও ধারা সম্পর্কে জানুন।",
+          description: "বাংলাদেশের আইন ও ধারা সম্পর্কে জানুন—সবকিছু সহজ ভাষায়!",
           icon: <BookOpen className="size-5 shrink-0" />,
           url: "/law-finder",
         },
@@ -71,20 +71,20 @@ const menuItems = [
       items: [
         {
           title: "প্রশ্নোত্তর",
-          description: "আপনার আইনি প্রশ্ন জিজ্ঞাসা করুন।",
+          description: "আপনার আইনি প্রশ্ন জিজ্ঞাসা করুন—AI এবং কমিউনিটি থেকে উত্তর পান!",
           icon: <MessageSquare className="size-5 shrink-0" />,
           url: "/faq",
           isProtected: true,
         },
         {
           title: "নলেজ লাইব্রেরি",
-          description: "আইনি নথি, বই ও রিসোর্স ব্রাউজ করুন।",
+          description: "আইনি নথি, বই ও রিসোর্স ব্রাউজ করুন—সবকিছু আপনার হাতের মুঠোয়!",
           icon: <Library className="size-5 shrink-0" />,
           url: "/library",
         },
         {
             title: "ফোনবুক",
-            description: "জরুরি ও সরকারি পরিষেবার নম্বর খুঁজুন।",
+            description: "জরুরি ও সরকারি পরিষেবার নম্বর খুঁজুন—খুবই সহজ!",
             icon: <Phone className="size-5 shrink-0" />,
             url: "/phonebook",
         },
@@ -96,19 +96,19 @@ const menuItems = [
        items: [
         {
           title: "আমাদের লক্ষ্য",
-          description: "অধিকারী প্ল্যাটফর্মের উদ্দেশ্য সম্পর্কে জানুন।",
+          description: "অধিকারী প্ল্যাটফর্মের উদ্দেশ্য সম্পর্কে জানুন—আমরা এখানে আছি আপনার সাহায্যের জন্য!",
           icon: <Info className="size-5 shrink-0" />,
           url: "/about",
         },
         {
           title: "গোপনীয়তা নীতি",
-          description: "আমাদের ডেটা ব্যবহারের নীতি সম্পর্কে জানুন।",
+          description: "আমাদের ডেটা ব্যবহারের নীতি সম্পর্কে জানুন—আপনার গোপনীয়তা আমাদের কাছে গুরুত্বপূর্ণ!",
           icon: <Scale className="size-5 shrink-0" />,
           url: "/privacy",
         },
         {
           title: "AI যেভাবে কাজ করে",
-          description: "আমাদের AI মডেল কীভাবে উত্তর দেয় তা বুঝুন।",
+          description: "আমাদের AI মডেল কীভাবে উত্তর দেয় তা বুঝুন—খুবই মজার!",
           icon: <BrainCircuit className="size-5 shrink-0" />,
           url: "/how-it-works",
         },
