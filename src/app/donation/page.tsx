@@ -5,12 +5,22 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Heart, CreditCard, User, Mail, DollarSign, BarChart, Info, Sparkles, CheckCircle } from 'lucide-react';
+import { Heart, CreditCard, User, Mail, DollarSign, BarChart, Info, Sparkles, CheckCircle, Banknote, Copy } from 'lucide-react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import Image from 'next/image';
 import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useToast } from '@/hooks/use-toast';
 
 const donationAmounts = [100, 500, 1000, 2000];
 
@@ -42,9 +52,19 @@ export default function DonationPage() {
     const [amount, setAmount] = useState('500');
     const [customAmount, setCustomAmount] = useState('');
     const [isCustom, setIsCustom] = useState(false);
+    const [transactionId, setTransactionId] = useState('');
+    const { toast } = useToast();
     
     const finalAmount = isCustom ? customAmount : amount;
     const collectedAmount = 4600;
+
+    const copyToClipboard = (text: string, label: string) => {
+        navigator.clipboard.writeText(text);
+        toast({
+            title: `${label} কপি করা হয়েছে`,
+            description: `${text} আপনার ক্লিপবোর্ডে কপি করা হয়েছে।`
+        })
+    }
 
     return (
         <div className="bg-muted/30 min-h-screen">
@@ -88,7 +108,7 @@ export default function DonationPage() {
                                                         htmlFor={`amount-${val}`}
                                                         className={`flex items-center justify-center p-4 border rounded-lg cursor-pointer transition-all ${!isCustom && amount === String(val) ? 'border-primary ring-2 ring-primary bg-primary/5' : 'hover:border-primary/50'}`}
                                                     >
-                                                        <span className="text-xl font-semibold">{val}</span>
+                                                        <span className="text-xl">{val}</span>
                                                     </Label>
                                                 </div>
                                             ))}
@@ -99,7 +119,7 @@ export default function DonationPage() {
                                                     className={`flex items-center justify-center p-4 border rounded-lg cursor-pointer transition-all ${isCustom ? 'border-primary ring-2 ring-primary bg-primary/5' : 'hover:border-primary/50'}`}
                                                     onClick={() => setIsCustom(true)}
                                                 >
-                                                    <span className="text-lg font-semibold">অন্যান্য</span>
+                                                    <span className="text-lg">অন্যান্য</span>
                                                 </Label>
                                             </div>
                                         </RadioGroup>
@@ -135,20 +155,73 @@ export default function DonationPage() {
                                         <h3 className="text-lg font-semibold mb-4">পেমেন্ট পদ্ধতি</h3>
                                         <div className="p-4 border rounded-lg bg-muted/50">
                                             <div className="flex items-center justify-center gap-4 flex-wrap">
-                                                <Image src="https://www.logoshape.com/wp-content/uploads/2025/02/Bkash_vector_logo.png" alt="bKash" width={50} height={50} data-ai-hint="bkash logo" />
+                                                <Image src="https://static.vecteezy.com/system/resources/previews/068/842/080/non_2x/bkash-logo-horizontal-mobile-banking-app-icon-emblem-transparent-background-free-png.png" alt="bKash" width={70} height={70} data-ai-hint="bkash logo" />
                                                 <Image src="https://download.logo.wine/logo/Nagad/Nagad-Logo.wine.png" alt="Nagad" width={40} height={40} data-ai-hint="nagad logo" />
                                                
-                                                <Image src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" width={30} height={30} data-ai-hint="visa logo" />
-                                                <Image src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" width={30} height={30} data-ai-hint="mastercard logo" />
+                                                <Image src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" width={50} height={50} data-ai-hint="visa logo" />
+                                                <Image src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" width={50} height={50} data-ai-hint="mastercard logo" />
                                             </div>
                                         </div>
                                     </div>
 
                                     <div>
-                                        <Button size="lg" className="w-full text-lg h-12">
-                                            <CreditCard className="mr-2 h-5 w-5" />
-                                            ৳{finalAmount || 0} অনুদান করুন
-                                        </Button>
+                                        <Dialog>
+                                            <DialogTrigger asChild>
+                                                <Button size="lg" className="w-full text-lg h-12">
+                                                    <CreditCard className="mr-2 h-5 w-5" />
+                                                    ৳{finalAmount || 0} অনুদান করুন
+                                                </Button>
+                                            </DialogTrigger>
+                                            <DialogContent>
+                                                <DialogHeader>
+                                                    <DialogTitle className="flex items-center gap-2">
+                                                        <Banknote /> অনুদান প্রক্রিয়া
+                                                    </DialogTitle>
+                                                    <DialogDescription>
+                                                        অনুগ্রহ করে নিচের যেকোনো একটি পদ্ধতিতে আপনার অনুদান সম্পন্ন করুন এবং ট্রানজেকশন আইডি জমা দিন।
+                                                    </DialogDescription>
+                                                </DialogHeader>
+                                                <div className="space-y-4 py-4">
+                                                    <div>
+                                                        <h4 className="font-semibold mb-2">ব্যাংক অ্যাকাউন্ট</h4>
+                                                        <div className="p-3 bg-muted rounded-md border text-sm">
+                                                            <p><strong>ব্যাংকের নাম:</strong> ABC ব্যাংক লিমিটেড</p>
+                                                            <div className="flex justify-between items-center">
+                                                                <p><strong>অ্যাকাউন্ট নম্বর:</strong> 1234567890123</p>
+                                                                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => copyToClipboard('1234567890123', 'অ্যাকাউন্ট নম্বর')}>
+                                                                    <Copy className="h-4 w-4" />
+                                                                </Button>
+                                                            </div>
+                                                            <p><strong>ব্রাঞ্চ:</strong> গুলশান, ঢাকা</p>
+                                                        </div>
+                                                    </div>
+                                                     <div>
+                                                        <h4 className="font-semibold mb-2">মোবাইল ব্যাংকিং (বিকাশ)</h4>
+                                                        <div className="p-3 bg-muted rounded-md border text-sm">
+                                                            <div className="flex justify-between items-center">
+                                                                <p><strong>বিকাশ নম্বর:</strong> 01700123456</p>
+                                                                 <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => copyToClipboard('01700123456', 'বিকাশ নম্বর')}>
+                                                                    <Copy className="h-4 w-4" />
+                                                                </Button>
+                                                            </div>
+                                                            <p className="text-xs text-muted-foreground">অনুগ্রহ করে "সেন্ড মানি" অপশন ব্যবহার করুন।</p>
+                                                        </div>
+                                                    </div>
+                                                     <div>
+                                                        <Label htmlFor="trxId">ট্রানজেকশন আইডি</Label>
+                                                        <Input 
+                                                            id="trxId"
+                                                            placeholder="অনুগ্রহ করে আপনার ট্রানজেকশন আইডি লিখুন"
+                                                            value={transactionId}
+                                                            onChange={(e) => setTransactionId(e.target.value)}
+                                                        />
+                                                     </div>
+                                                </div>
+                                                <DialogFooter>
+                                                    <Button onClick={() => toast({ title: "ধন্যবাদ!", description: "আপনার ট্রানজেকশন আইডি জমা দেওয়া হয়েছে।" })}>জমা দিন</Button>
+                                                </DialogFooter>
+                                            </DialogContent>
+                                        </Dialog>
                                     </div>
                                 </div>
                             </CardContent>
