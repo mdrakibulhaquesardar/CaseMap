@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { Navbar1 } from "@/components/blocks/Navbar1";
@@ -18,6 +19,7 @@ import {
   Phone,
   Scale,
   BrainCircuit,
+  Heart,
 } from "lucide-react";
 import { useLoginPrompt } from "@/components/ui/login-prompt";
 
@@ -89,6 +91,10 @@ const menuItems = [
             url: "/phonebook",
         },
       ],
+    },
+     {
+      title: "অনুদান",
+      url: "/donation",
     },
     {
       title: "আমাদের সম্পর্কে",

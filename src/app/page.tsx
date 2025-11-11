@@ -12,6 +12,7 @@ import { Search, Scale, BookOpen, Sparkles, ArrowRight, MessageSquare, FileText,
 import { TestimonialsSection } from '@/components/blocks/TestimonialsWithMarquee';
 import { Features } from '@/components/ui/features';
 import { FaqSectionDemo } from '@/components/blocks/demo/FaqSection';
+import Link from 'next/link';
 
 
 // Glow Component
@@ -628,114 +629,96 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-4xl">
             <div className="text-center mb-12">
-              <Badge variant="outline" className="mb-4 border-primary/20 bg-primary/5 text-primary">
+              <Badge variant="outline" className="mb-4 border-accent/20 bg-accent/5 text-accent">
                 <Heart className="mr-2 h-3 w-3" />
-                আমাদের স্বচ্ছতা
+                আমাদের সমর্থন করুন
               </Badge>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-headline mb-4">
                 আমাদের সাথে যোগ দিন, আইনি সচেতনতা ছড়িয়ে দিন
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                অধিকারী একটি সম্পূর্ণ বিনামূল্যে প্ল্যাটফর্ম, কিন্তু আমাদের চলতে সাহায্য করুন! আপনার ছোট্ট অনুদানও হাজারো মানুষের কাছে আইনি তথ্য পৌঁছে দিতে সাহায্য করবে।
+                অধিকারী একটি সম্পূর্ণ বিনামূল্যে প্ল্যাটফর্ম। আপনার ছোট্ট অনুদানও হাজারো মানুষের কাছে আইনি তথ্য পৌঁছে দিতে সাহায্য করবে।
               </p>
             </div>
 
-            <div className="bg-card border rounded-lg p-8">
+            <div className="bg-card border rounded-2xl p-8 shadow-lg">
               {/* Progress Section */}
               <div className="mb-8">
-                <div className="flex justify-between items-center mb-4">
+                <div className="flex justify-between items-center mb-2">
                   <div>
-                    <h3 className="text-2xl font-bold font-headline mb-2">আমাদের লক্ষ্য</h3>
-                    <p className="text-muted-foreground">১ বছরের জন্য প্রয়োজনীয় তহবিল</p>
+                    <h3 className="text-xl font-bold font-headline">লক্ষ্যমাত্রা: ১ বছরের তহবিল</h3>
                   </div>
                   <div className="text-right">
-                    <div className="text-3xl font-bold text-primary">৳ ১,০০,০০০</div>
-                    <p className="text-sm text-muted-foreground">লক্ষ্যমাত্রা</p>
+                    <div className="text-2xl font-bold text-primary">৳১,০০,০০০</div>
                   </div>
                 </div>
                 
                 {/* Progress Bar */}
-                <div className="relative w-full h-6 bg-muted rounded-full overflow-hidden mb-4">
+                <div className="relative w-full h-3 bg-muted rounded-full overflow-hidden mb-2">
                   <div 
-                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary to-primary/80 rounded-full transition-all duration-1000 ease-out flex items-center justify-end pr-2"
+                    className="absolute top-0 left-0 h-full bg-primary rounded-full transition-all duration-1000 ease-out"
                     style={{ width: `${(10256 / 100000) * 100}%` }}
-                  >
-                    <span className="text-xs font-semibold text-primary-foreground">
-                      {((10256 / 100000) * 100).toFixed(1)}%
-                    </span>
-                  </div>
+                  />
                 </div>
 
-                <div className="flex justify-between items-center text-sm">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-primary"></div>
-                    <span className="text-muted-foreground">সংগৃহীত: <span className="font-bold text-foreground">৳ ১০,২৫৬</span></span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Target className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-muted-foreground">বাকি: <span className="font-bold text-foreground">৳ ৮৯,৭৪৪</span></span>
-                  </div>
+                <div className="flex justify-between items-center text-sm text-muted-foreground">
+                    <span>সংগৃহীত: <span className="font-bold text-foreground">৳১০,২৫৬ (১০%)</span></span>
+                    <span>বাকি: <span className="font-bold text-foreground">৳৮৯,৭৪৪</span></span>
                 </div>
               </div>
 
               {/* Donation Info Cards */}
-              <div className="grid md:grid-cols-3 gap-6 mb-8">
-                <div className="p-6 bg-muted/30 rounded-lg border border-border/50">
-                  <div className="flex items-center gap-3 mb-3">
+              <div className="grid md:grid-cols-3 gap-4 mb-8">
+                <div className="p-4 bg-muted/30 rounded-lg">
+                  <div className="flex items-center gap-3 mb-2">
                     <div className="p-2 bg-primary/10 rounded-lg">
-                      <Heart className="w-5 h-5 text-primary" />
+                      <Heart className="w-4 h-4 text-primary" />
                     </div>
-                    <h4 className="font-semibold">কেন অনুদান?</h4>
+                    <h4 className="font-semibold text-sm">কেন অনুদান?</h4>
                   </div>
-                  <p className="text-sm text-muted-foreground">
-                    আপনার অনুদান আমাদের AI উন্নত করতে, নতুন ফিচার যোগ করতে এবং আরও বেশি মানুষের কাছে পৌঁছাতে সাহায্য করবে।
+                  <p className="text-xs text-muted-foreground">
+                    আপনার অনুদান আমাদের AI উন্নত করতে এবং আরও বেশি মানুষের কাছে পৌঁছাতে সাহায্য করবে।
                   </p>
                 </div>
 
-                <div className="p-6 bg-muted/30 rounded-lg border border-border/50">
-                  <div className="flex items-center gap-3 mb-3">
+                <div className="p-4 bg-muted/30 rounded-lg">
+                  <div className="flex items-center gap-3 mb-2">
                     <div className="p-2 bg-primary/10 rounded-lg">
-                      <Target className="w-5 h-5 text-primary" />
+                      <Target className="w-4 h-4 text-primary" />
                     </div>
-                    <h4 className="font-semibold">কোথায় যাবে?</h4>
+                    <h4 className="font-semibold text-sm">কোথায় যাবে?</h4>
                   </div>
-                  <p className="text-sm text-muted-foreground">
-                    সার্ভার খরচ, AI API খরচ, উন্নয়ন এবং রক্ষণাবেক্ষণ—সবকিছুই স্বচ্ছভাবে দেখানো হবে।
+                  <p className="text-xs text-muted-foreground">
+                    সার্ভার, AI API, এবং রক্ষণাবেক্ষণ—সবকিছু স্বচ্ছভাবে পরিচালিত হবে।
                   </p>
                 </div>
 
-                <div className="p-6 bg-muted/30 rounded-lg border border-border/50">
-                  <div className="flex items-center gap-3 mb-3">
+                <div className="p-4 bg-muted/30 rounded-lg">
+                  <div className="flex items-center gap-3 mb-2">
                     <div className="p-2 bg-primary/10 rounded-lg">
-                      <TrendingUp className="w-5 h-5 text-primary" />
+                      <TrendingUp className="w-4 h-4 text-primary" />
                     </div>
-                    <h4 className="font-semibold">স্বচ্ছতা</h4>
+                    <h4 className="font-semibold text-sm">স্বচ্ছতা</h4>
                   </div>
-                  <p className="text-sm text-muted-foreground">
-                    আমরা প্রতিমাসে আমাদের আয়-ব্যয়ের রিপোর্ট প্রকাশ করব—আপনার বিশ্বাস আমাদের কাছে গুরুত্বপূর্ণ!
+                  <p className="text-xs text-muted-foreground">
+                    আমরা প্রতিমাসে আমাদের আয়-ব্যয়ের রিপোর্ট প্রকাশ করব—আপনার বিশ্বাসই আমাদের শক্তি!
                   </p>
                 </div>
               </div>
 
               {/* Donation Button */}
               <div className="text-center">
-                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8 py-6">
-                  <Heart className="mr-2 h-5 w-5" />
-                  এখনই অনুদান করুন
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8 py-6 rounded-full shadow-lg shadow-primary/20" asChild>
+                  <Link href="/donation">
+                    <Heart className="mr-2 h-5 w-5" />
+                    এখনই অনুদান করুন
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
                 </Button>
                 <p className="text-sm text-muted-foreground mt-4">
-                  যেকোনো পরিমাণ অনুদানই আমাদের জন্য মূল্যবান—আপনার সহায়তা আমাদের এগিয়ে যেতে সাহায্য করবে!
+                  যেকোনো পরিমাণ অনুদানই আমাদের জন্য মূল্যবান!
                 </p>
               </div>
-            </div>
-
-            {/* Transparency Note */}
-            <div className="mt-8 text-center">
-              <p className="text-sm text-muted-foreground">
-                💡 <strong>স্বচ্ছতার প্রতিশ্রুতি:</strong> আমরা প্রতিমাসে আমাদের আয়-ব্যয়ের সম্পূর্ণ বিবরণ প্রকাশ করব। 
-                আপনার অনুদান কোথায় যাচ্ছে, তা আপনি দেখতে পারবেন—আমরা এখানে আছি আপনার বিশ্বাসের জন্য!
-              </p>
             </div>
           </div>
         </div>
@@ -776,3 +759,4 @@ export default function Home() {
     </>
     );
 }
+
