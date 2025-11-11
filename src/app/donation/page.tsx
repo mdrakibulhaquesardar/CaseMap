@@ -18,6 +18,7 @@ const monthlyCosts = [
     { name: 'AI এবং API খরচ', cost: 12000, color: 'bg-blue-500' },
     { name: 'সার্ভার ও হোস্টিং', cost: 8000, color: 'bg-green-500' },
     { name: 'উন্নয়ন ও রক্ষণাবেক্ষণ', cost: 15000, color: 'bg-yellow-500' },
+    { name: 'গবেষণা ও উন্নয়ন (R&D)', cost: 10000, color: 'bg-purple-500' },
     { name: 'অন্যান্য', cost: 5000, color: 'bg-orange-500' },
 ]
 const totalCost = monthlyCosts.reduce((acc, item) => acc + item.cost, 0);
@@ -160,9 +161,9 @@ export default function DonationPage() {
                                 <div className="mb-4">
                                     <div className="flex justify-between items-end mb-1">
                                         <span className="text-2xl font-bold text-primary">৳১০,২৫৬</span>
-                                        <span className="text-sm text-muted-foreground">/ ৳৪০,০০০</span>
+                                        <span className="text-sm text-muted-foreground">/ ৳{totalCost.toLocaleString('bn-BD')}</span>
                                     </div>
-                                    <Progress value={(10256 / 40000) * 100} className="h-2" />
+                                    <Progress value={(10256 / totalCost) * 100} className="h-2" />
                                     <p className="text-xs text-muted-foreground mt-1">আমাদের মাসিক লক্ষ্য পূরণে সাহায্য করুন।</p>
                                 </div>
                                 <h4 className="font-semibold text-sm mb-2">মাসিক খরচ (আনুমানিক)</h4>
@@ -234,3 +235,5 @@ export default function DonationPage() {
         </div>
     );
 }
+
+    
