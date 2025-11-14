@@ -8,7 +8,7 @@ export const libraryDocuments: LibraryDocument[] = [
     author: 'Government of Bangladesh',
     category: 'Constitution',
     published: '2022-12-16',
-    filePath: '/library/constitution-en.pdf',
+    filePath: '/books/constitution-en.pdf',
     thumbnail: 'https://picsum.photos/seed/const1/400/600',
   },
   {
@@ -17,7 +17,7 @@ export const libraryDocuments: LibraryDocument[] = [
     author: 'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
     category: 'Constitution',
     published: '2022-12-16',
-    filePath: '/library/constitution-bn.pdf',
+    filePath: '/books/constitution-bn.pdf',
     thumbnail: 'https://picsum.photos/seed/const2/400/600',
   },
   {
@@ -26,7 +26,7 @@ export const libraryDocuments: LibraryDocument[] = [
     author: 'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
     category: 'Law & Acts',
     published: '2018-10-08',
-    filePath: '/library/digital-security-act-2018.pdf',
+    filePath: '/books/digital-security-act-2018.pdf',
     thumbnail: 'https://picsum.photos/seed/dsa/400/600',
   },
   {
@@ -35,7 +35,7 @@ export const libraryDocuments: LibraryDocument[] = [
     author: 'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
     category: 'Law & Acts',
     published: '2023-09-18',
-    filePath: '/library/cyber-security-act-2023.pdf',
+    filePath: '/books/cyber-security-act-2023.pdf',
     thumbnail: 'https://picsum.photos/seed/csa/400/600',
   },
   {
@@ -44,7 +44,7 @@ export const libraryDocuments: LibraryDocument[] = [
     author: 'টেক সহাই',
     category: 'Legal Awareness',
     published: '2024-01-15',
-    filePath: '/library/online-safety-guide-bn.pdf',
+    filePath: '/books/online-safety-guide-bn.pdf',
     thumbnail: 'https://picsum.photos/seed/safety/400/600',
   },
   {
@@ -53,7 +53,7 @@ export const libraryDocuments: LibraryDocument[] = [
     author: 'ড. আইনুন নিশাত',
     category: 'Books / Publications',
     published: '2023-05-20',
-    filePath: '/library/land-law-basics.pdf',
+    filePath: '/books/land-law-basics.pdf',
     thumbnail: 'https://picsum.photos/seed/landlaw/400/600',
   },
   {
@@ -62,7 +62,7 @@ export const libraryDocuments: LibraryDocument[] = [
     author: 'কনজ্যুমারস অ্যাসোসিয়েশন অব বিডি',
     category: 'Rights & Guidelines',
     published: '2023-03-15',
-    filePath: '/library/consumer-rights-guide.pdf',
+    filePath: '/books/consumer-rights-guide.pdf',
     thumbnail: 'https://picsum.photos/seed/consumer/400/600',
   },
   {
@@ -71,7 +71,7 @@ export const libraryDocuments: LibraryDocument[] = [
     author: 'আইন ও সালিশ কেন্দ্র (আসক)',
     category: 'Books / Publications',
     published: '2024-03-01',
-    filePath: '/library/human-rights-bangladesh.pdf',
+    filePath: '/books/human-rights-bangladesh.pdf',
     thumbnail: 'https://picsum.photos/seed/humanrights/400/600',
   },
   {
@@ -80,7 +80,7 @@ export const libraryDocuments: LibraryDocument[] = [
     author: 'ব্রিটিশ ভারত সরকার',
     category: 'Law & Acts',
     published: '1860-10-06',
-    filePath: '/library/penal-code-1860.pdf',
+    filePath: '/books/penal-code-1860.pdf',
     thumbnail: 'https://picsum.photos/seed/penalcode/400/600',
   },
    {
@@ -89,7 +89,7 @@ export const libraryDocuments: LibraryDocument[] = [
     author: 'হ্যান্স রোজলিং',
     category: 'Books / Publications',
     published: '2018-04-03',
-    filePath: '/library/human-rights-bangladesh.pdf',
+    filePath: '/books/human-rights-bangladesh.pdf',
     thumbnail: 'https://picsum.photos/seed/fact/400/600',
   },
   {
@@ -98,7 +98,7 @@ export const libraryDocuments: LibraryDocument[] = [
     author: 'অ্যাডভোকেট সুমাইয়া চৌধুরী',
     category: 'Rights & Guidelines',
     published: '2023-11-10',
-    filePath: '/library/family-law-guide.pdf',
+    filePath: '/books/family-law-guide.pdf',
     thumbnail: 'https://picsum.photos/seed/familylaw/400/600',
   },
   {
@@ -107,7 +107,7 @@ export const libraryDocuments: LibraryDocument[] = [
     author: 'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
     category: 'Law & Acts',
     published: '2009-04-06',
-    filePath: '/library/right-to-information-act-2009.pdf',
+    filePath: '/books/right-to-information-act-2009.pdf',
     thumbnail: 'https://picsum.photos/seed/rti/400/600',
   },
   {
@@ -116,7 +116,7 @@ export const libraryDocuments: LibraryDocument[] = [
     author: 'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
     category: 'Law & Acts',
     published: '2017-02-27',
-    filePath: '/library/child-marriage-act-2017.pdf',
+    filePath: '/books/child-marriage-act-2017.pdf',
     thumbnail: 'https://picsum.photos/seed/childmarriage/400/600',
   },
   {
@@ -125,7 +125,7 @@ export const libraryDocuments: LibraryDocument[] = [
     author: 'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
     category: 'Law & Acts',
     published: '2000-01-14',
-    filePath: '/library/women-children-act-2000.pdf',
+    filePath: '/books/women-children-act-2000.pdf',
     thumbnail: 'https://picsum.photos/seed/womenchild/400/600',
   },
   {
@@ -134,7 +134,7 @@ export const libraryDocuments: LibraryDocument[] = [
     author: 'বাংলাদেশ শ্রম ইনস্টিটিউট',
     category: 'Legal Awareness',
     published: '2022-05-01',
-    filePath: '/library/labour-law-guide.pdf',
+    filePath: '/books/labour-law-guide.pdf',
     thumbnail: 'https://picsum.photos/seed/labourlaw/400/600',
   },
 ];
