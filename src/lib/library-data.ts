@@ -3,13 +3,13 @@ import { LibraryDocument } from '@/types';
 
 export const libraryDocuments: LibraryDocument[] = [
   {
-    slug: 'constitution-of-bangladesh-en',
-    title: 'The Constitution of the People’s Republic of Bangladesh',
-    author: 'Government of Bangladesh',
-    category: 'Constitution',
+    slug: 'Bichar_Bivager_Swadhinotar_Itihas',
+    title: 'Bichar Bivager Swadhinotar Itihas',
+    author: 'Mohammad Ali Monsur',
+    category: 'Books / Publications',
     published: '2022-12-16',
     filePath: '/books/Bichar Bivager Sadhinotar Itihat By Mohammad Ali Monsur   (BDeBooks.Com).pdf',
-    thumbnail: 'https://picsum.photos/seed/const1/400/600',
+    thumbnail: '/books/thumbnails/Bichar Bivager Sadhinotar Itihat.png',
   },
   {
     slug: 'constitution-of-bangladesh-bn',
@@ -30,13 +30,13 @@ export const libraryDocuments: LibraryDocument[] = [
     thumbnail: 'https://picsum.photos/seed/dsa/400/600',
   },
   {
-    slug: 'cyber-security-act-2023',
-    title: 'সাইবার নিরাপত্তা আইন, ২০২৩',
+    slug: 'Mobile-Court-Act-2009',
+    title: 'Mobile Court Act 2009',
     author: 'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
     category: 'Law & Acts',
     published: '2023-09-18',
-    filePath: '/books/cyber-security-act-2023.pdf',
-    thumbnail: 'https://picsum.photos/seed/csa/400/600',
+    filePath: '/books/Mobile Court Ain   (BDeBooks.Com).pdf',
+    thumbnail: '/books/thumbnails/Mobile Court Ain .png',
   },
   {
     slug: 'online-safety-guide',

@@ -112,7 +112,7 @@ export default function RootLayoutContent({
                       {
                         name: "গোপনীয়তা নীতি",
                         iconName: "Scale",
-                        href: "#",
+                        href: "/privacy",
                       },
                       {
                         name: "ব্যবহারের শর্তাবলী",
