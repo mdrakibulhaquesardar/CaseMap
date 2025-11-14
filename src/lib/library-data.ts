@@ -72,7 +72,7 @@ export const libraryDocuments: LibraryDocument[] = [
     category: 'Books / Publications',
     published: '2024-03-01',
     filePath: '/books/human-rights-bangladesh.pdf',
-    thumbnail: 'https://picsum.photos/seed/humanrights/400/600',
+    thumbnail: 'https://res.cloudinary.com/do7p8mg3q/image/upload/v1763152810/Manobadikar-Dibosh_nbx9w9.jpg',
   },
   {
     slug: 'the-penal-code-1860',
